@@ -1,0 +1,53 @@
+\documentclass[12pt]{report}
+
+\usepackage{Dedman-Thesis-Latex-Template/sty/DL_thesis}  % Global Style for particular SMU College, e.g. DL_thesis.sty
+
+\input{Dedman-Thesis-Latex-Template/latex/packages.tex}
+% \input{latex/user_packages.tex} % Uncomment to load additional user required packages
+\input{Dedman-Thesis-Latex-Template/latex/preamble.tex}
+
+\input{Dedman-Thesis-Latex-Template/latex/custom_commands.tex}
+% \input{latex/user_commands.tex} % Uncomment to use your own personal commands
+\input{src/user_config.tex}
+\input{latex/metadata.tex}
+
+\makeglossaries
+\input{src/glossary.tex}
+
+% \thesisdraft % uncomment if want draft printing
+
+\begin{document}
+
+\input{Dedman-Thesis-Latex-Template/latex/front_pages.tex}
+
+\begin{thesis}
+
+ \input{src/preface.tex}
+
+ \input{src/introduction.tex}
+
+ \input{src/printer_calibration.tex}
+
+ \StartAppendix%
+
+ \input{src/appendix_A.tex}
+
+ % Glossary
+ % Check with specific department on the style to use
+ \clearpage
+ \singlespacing%
+ \setglossarystyle{list}
+ \printglossary[title=GLOSSARY,toctitle=GLOSSARY]
+ \doublespacing%
+
+ % Bibliography goes below
+ % Check with specific department on the appropriate
+ % bibliography style to use
+
+ \nocite{*}
+ \bibliographystyle{bib/JHEP}
+ \raggedright
+ \bibliography{bib/example}
+
+\end{thesis}
+\end{document}
