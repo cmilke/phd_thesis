@@ -21,7 +21,6 @@
 \section{Interaction Region}
     I might split this up slightly... For now I want to discuss:
         the beampipe focusing magnets,
-        the beampipe?,
 
     ~1000 particles every 25 ns w/in |eta| < 2.5.
 
@@ -71,9 +70,27 @@
 
 % TODO: Let's try filling out the detectors one by one, starting at the end and working my way inward
 % That will hopefully make it more clear to me what makes the inner/outer detectors special
-\section{Muon Chamber} 
-    The thing at the end that checks for muons...
-    
+\section{Muon Spectrometer} 
+    The Muon Spectrometer has the purpose of providing track position and momentum measurements for particles (mosty muons) exiting the ATLAS detector.The Muon barrels start at a radii of 5 m from the beam axis, extending out to 10 m. The endcaps start at a $|z|$ of roughly 7.4 m, and proceed to an extent of 21.5 m. The immense size of the muon system poses a challenge, as it must provide tracking across the entire volume. It's distance from the interaction point ameliorates this issue though, as it permits the Muon detectors to operate at much lower spatial resultions than the inner detectors, while still retaining similar anngular resolution.
+
+    \subsection{Toroid magnets}
+        Three large air-core toroids meant to deflect muons.
+        Barrel provides 1.5-5.5 Tm (Tesla-meters???) of bending power in $0<|\eta|<1.4$,
+        and endcaps provide 1-7.5 Tm in $1.6<|\eta|<2.7$.
+        The power is lower in the region where the fields overlap ($1.4<|\eta|<1.6$)
+
+    \subsection{Precision Track Chambers}
+        The Precision Track Chambers are designed to provide high resolution measurements of track position and momentum for particles escaping the ATLAS detector. Split across two technologies, the Monitored Drift Tube Chambers (MDT's) and Cathode-Strip Chambers (CSC's).
+        The MDT's are drift chambers filled with Ar/CO2 gas using a tungsten-rhenium wire for charge collection. These are used in both the barrel and endcap regions, covering the range $|\eta| < 2.7$. The MDT consists of three endcap and three barrel layers, with a notable exception in the endcap region $2 < |\eta| < 2.7$. Within this $\eta$ range, for the first layer, the muon track density exceeds the resolution capabilities of the MDT's. As such, the first layer of the endcap in this range is replaced with CSC's. The CSC's are muliwire chambers using orthogonal cathode plane strips. These chambers can read both coordinates of a track simultaneosly, preventing the ghosting issues that the MDT would suffer in this higher-flux region.
+
+    \subsection{Trigger Chambers}
+        Meant to provide rapid information on muon track multiplicity and energy range.
+        Also provides additional track information for higher level triggers.
+        Provides acceptance in range $|\eta| < 2.4$.
+        The barrel and end-cap use two different technologies in order to address the different issues present in their respective regions.
+        The barrel uses Resistive Plate Chambers (RPC's), which have higher temporal resolution. The endcap consists of Thin Gap Chambers (TGC's), designed to withstand higher radiation levels while still delivering high enough time resolution to tag beam-crossings.
+
+
 
 
 \section{Readout Electronics}
