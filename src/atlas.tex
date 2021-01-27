@@ -1,14 +1,75 @@
 % The general structure I've seen everybody else using is to essentially describe ATLAS one subdetector at a time, I think from the innermost tracker to the outermost calorimeter
 % Also need to discuss the trigger system
 
-\chapter{ATLAS}
-    ATLAS is like a giant camera...
-
+\chapter{ATLAS} %TODO
+    Production of new physics and particles is no good without the ability to observe this physics. Herein lies the purpose of ATLAS. 
     One of the two general purpose detectors on the LHC
 
-    Appendix on Helical Coordinates and Helix Parameters?
 
-    Discussion of radiation hardness?
+    Particles of interest are extremely short-lived, and so cannot be detected directly.
+    Instead, we must detect the decay products of these particles, and reconstruct the original particle of interest after the fact, based on precise measurment of the kinematic properties of the particles it decays into.
+    Core purpose is to record, as precisely as possible, the physical properties of the particles leaving the IR. Specifically, the energy, momentum, electric charge, and overall path the particle takes.
+
+
+
+    Overall geometry is defined by the basic kinematics of interactions in the IR:
+        no initial tranverse moment means particles are ejected at any radial angle with equal probability;
+        the intial high momentum parallel to the beampipe is often retained, leading to very "forward" particles;
+        These two factors lead to two-part design:
+            a series of radially symmetric cylindrical shells, concentric about the beampipes, called "barrels" meant to detect particles moving primarily in the transverse direction;
+            a series of flat, circular plates, stacked one behind the next along the beampipes, called "endcaps" meant to detect the more forward particles.
+    I need to discuss Helical Coordinates and Helix Parameters right here. %TODO
+
+
+
+    It consists of many parts, each with deticated roles.
+    %TODO insert overall picture of ATLAS here for reference
+    The tracking detectors are designed to determine a particle's charge and momentum, by tracking the particle's path under the influence of a strong magnetic field.
+    The calorimeters are intended to measure the energy of particles, as well as provide additional information on the path the particle takes.
+    And then there are the muon spectrometers, specially built to track outgoing muons.
+
+    The method by which these detectors work presents a logistical challenge as to their placement.
+    Specifically, the calorimeters measure particle energy through a purely destructive process.
+    Current technology to measure the energy of fast-moving particles is done through a process that stops a particle in its path, and often forces it to decay into a vast number of lower-energy particles, through a process known as "showering".
+    Once this energy measurement is complete, the measured particle has been either absorbed or completely destroyed, making further measurement of its properties impossible.
+    As such, measurement of a particle's momentum and charge must be done prior to the energy measurment. This requirement determines the location of the different sub-detectors.
+    The tracking detectors are placed the closest to the interaction region. The tracking detecor barrels are closest in $r$,
+    and the tracking endcaps closest in $z$.
+
+
+
+
+
+
+        
+    %TODO things I don't really know...
+    Why is the muon chamber last? Why does it get its own special chamber? does it detect other things?
+    Is their a preference in detector placement? 
+    angular resolution gets better as you move further out; does this factor into anything? is this why further out things can be designed using lower resolution tech?
+    is there any reason to prefer things closer to the IR - YES: this allows detection of short lived particles like b-quarks and taus \cite{CERN-LHCC-97-016}
+    Why is the only way to measure energy destructive? is there a way to measure energy non-destructively? What does the muon chamber do? does it destroy things? does it not measure energy? If so, how?
+    Can we measure neutral particles in trackers? how? Do we measure particle mass with trackers (via mass/charge ratio), or just charge? Do we just get mass from energy momentum calculation?
+
+
+
+
+
+
+
+
+
+
+
+    ATLAS is like a giant camera...
+
+
+
+    Discussion of radiation hardness.
+    Things in the endcap suffer from more radiation exposure than things in the barrel
+        (you should be able to show this from the basic kinematics of the particle beams. most energy is deposited in parallel to the beams, not orthogonal to them)
+    things closer to the IR suffer more than things further away (literally just the inverse-square law)
+
+    Talk about how angular resolution improves as you move further away, allowing for crappier tech further out (find a source for this claim)
 
     Then I'll give an overview of the rest of this:
         Enter ATLAS beampipe,
@@ -17,8 +78,19 @@
         Then propogation through the detector elements listed below
 
 
+% TODO: for each detector section, answer these questions:
+    % purpose
+    % what kinds of particles will they detect,
+    % what kind of detector tech are they,
+    % what happens as particles pass through them, (THIS and the next point are by far the longest pieces of info
+    % how do we convert that response into something useful
+    % if there are multiple kinds of similar detector (e.g. pixel vs strip), how do these differ and (ideally) why are both in use?
+    % why is the detector where it is
+    % have a table describing position of layers, size of components, resolution achieved and what we actually see based on this
 
-\section{Interaction Region}
+
+
+\section{Interaction Region} %TODO
     I might split this up slightly... For now I want to discuss:
         the beampipe focusing magnets,
 
@@ -26,22 +98,57 @@
 
 
 
-\section{Inner Detector}
+\section{Inner Detector} %TODO
     Inner Detector:
         Uses 2T Magnetic field from Solenoid Magnet to bend tracks (for identifying mass and charge)
         5.3 m long x 2.5 m diameter
         trackers cover region of |eta| < 2.5
 
 
-    \subsection{Pixel Detector}
-        Pixel Detector:
+    \subsection{Pixel Detector and Semiconductor Tracker}
+        % purpose
+        Purpose is to provide high resolution position and momentum information about particles as they leave the IP,
+        while having minimal effect on the particle trajectory and energy.
+
+        %what kinds of particles will they detect,
+        They detect any kind of ionizing radiation, which is either photons or any particle with electric charge.
+
+        % what kind of detector tech are they,
+        Both the pixel detector and semiconductor tracker are semiconductor diode-based detectors.
+
+        % how does this tech work? what happens as particles pass through them, and how do we convert that response into something useful
+        Semiconductor diode detectors function by exploiting the properties of semiconductor p-n junctions.
+        These particular detectors are made using silicon.
+        Silicon has four valence electrons, so a pure silicon crystal lattice will have its valence band perfectly filled, leading to a very stable structure.
+        A pure semiconductor crystal lattice (in this case, silicon) can have impurities intentionally introduced to it through the process of doping.
+        Doping the lattice with an element possesing only three valence electrons (e.g. Boron) will result in a number of gaps in the valence band (called "holes").
+        In such a situation, known as p-type doping, the lattice will accept additional electrons to fill these holes, which will lead to an excess of negatively charged ions.
+        Conversly, an element with five valence electrons can be introduced for doping, leading to an excess of electrons in the valence band.
+        Known as n-type doping, such an excess results in a lattice with a propensity for shedding these excess valence electrons, which in turn leads and an excess of positive ions.
+        A p-n junction can be produced by taking a single silicon wafer and n-type doping one half, while p-type doping the other.
+        The junction where the two dopings meet will then see a transfer of excess valence electrons moving from the n-type side to fill the holes of the p-type side, as illustrated in figure %TODO include an illustration of this.
+        As the excess "donor" electrons migrate to fill the "acceptor" holes, the area around the junction has its valence band perfectly filled, creating an area called the "depletion zone".
+        Though the depletion zone has a filled valence band, it has done so at the cost of ionization; an excess of electrons now populates the p-type side, with an equal number of positive ions remaining on the n-type side.
+        The depletion zone grows larger until the migration of holes and electrons is balanced by the electric potential created through this ionization.
+        When equilibrium is achieved, the lattice is left with an electric potential which monotonically decreases from the n-type to the p-type side, and which spans the full width of the depletion zone. %TODO illustration of this too?
+        If a voltage is the applide across the semiconductor, the width and potential difference of the depletion region can be altered.
+        If the voltage is applied with the positive end of the difference at the p-type side, then the semiconductor is said to be "forward biased", and the depletion region will become smaller (and with a high enough voltage can be eliminated entirely). \cite{wiley_radiation_detection}
+        If the positive end of the voltage difference is applied to the n-type side though, the semiconductor becomes "reverse biased", and the depletion region and potential difference across the junction will grow larger.
+        In this reverse-biased state, the electric potential of the p-n junction becomes very effective at rapidly sweeping excess ions from the depletion region off to the edges of the semiconductor wafer, and it is this mechanism which the ATLAS semiconductor detectors exploit in order to detect particles.
+
+        When ionizing radiation passes through an element of the Pixel Detector or SCT, it will momentarily separate electrons from their nuclei in the silicon lattice.
+        Normally, such separated ions would just recombine in a matter of moments.
+        Because of the electric potential in the depletion region though, these ions are further seperated, and swiftly arrive at opposite ends of the semiconductor wafer, moving at speeds of about something m/s.%TODO look this speed up in the TDR
+        The very leads responsible for biasing the semiconductor are then responsible for collecting these seperated ions, which will cause a sudden jump in the circuit's current.
+        The current through these semiconductor detectors is closely monitored, and these spikes are used to identify which semiconductors saw the passage of ionizing radiation.
 
 
-    \subsection{Semiconductor Tracker (SCT)}
-        How does this differ from the pixel detector? (pretty sure it's litterally meant to do the same thing, but it's bigger/further from IR so everything is made from cheaper parts)
+        % if there are multiple kinds of similar detector (e.g. pixel vs strip), how do these differ and (ideally) why are both in use?
+        % why is the detector where it is
+        % have a table describing position of layers, size of components, resolution achieved and what we actually see based on this
 
 
-    \subsection{Transition Radiation Tracker (TRT)}
+    \subsection{Transition Radiation Tracker (TRT)} %TODO
         I might need to read more on this... it seems to do a lot and I'm unfamiliar with this kind of detector.
         It's soooort of like a another (cheaper) tracker,
         but it's also used to distinguish some types of particles based on their "transition radiation",
@@ -49,7 +156,7 @@
 
 
 
-\section{Calorimetry}
+\section{Calorimetry} %TODO
     LAr Electromagnetic Calorimeters,
     LAr Hadronic Calorimeters,
     Tile Calorimeters,
@@ -70,7 +177,7 @@
 
 % TODO: Let's try filling out the detectors one by one, starting at the end and working my way inward
 % That will hopefully make it more clear to me what makes the inner/outer detectors special
-\section{Muon Spectrometer} 
+\section{Muon Spectrometer}  %TODO
     The Muon Spectrometer has the purpose of providing track position and momentum measurements for particles (mosty muons) exiting the ATLAS detector.The Muon barrels start at a radii of 5 m from the beam axis, extending out to 10 m. The endcaps start at a $|z|$ of roughly 7.4 m, and proceed to an extent of 21.5 m. The immense size of the muon system poses a challenge, as it must provide tracking across the entire volume. It's distance from the interaction point ameliorates this issue though, as it permits the Muon detectors to operate at much lower spatial resultions than the inner detectors, while still retaining similar anngular resolution.
 
     \subsection{Toroid magnets}
@@ -93,8 +200,8 @@
 
 
 
-\section{Readout Electronics}
+\section{Readout Electronics} %TODO
     Not sure if this needs its own section or should be combined with the next...
 
-\section{Trigger System}
+\section{Trigger System} %TODO
     You've worked on this damned thing you better be able to talk about it
