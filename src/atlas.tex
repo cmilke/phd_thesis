@@ -140,7 +140,7 @@
         Normally, such separated ions would just recombine in a matter of moments.
         Because of the electric potential in the depletion region though, these ions are further seperated, and swiftly arrive at opposite ends of the semiconductor wafer, moving at speeds of about something m/s.%TODO look this speed up in the TDR
         The very leads responsible for biasing the semiconductor are then responsible for collecting these seperated ions, which will cause a sudden jump in the circuit's current.
-        The current through these semiconductor detectors is closely monitored, and these spikes are used to identify which semiconductors saw the passage of ionizing radiation.
+        The current through these semiconductor detectors is closely monitored, and these spikes are used to identify the passage of a particle through the semiconductors.
 
 
         % if there are multiple kinds of similar detector (e.g. pixel vs strip), how do these differ and (ideally) why are both in use?
@@ -149,11 +149,36 @@
 
 
     \subsection{Transition Radiation Tracker (TRT)} %TODO
-        I might need to read more on this... it seems to do a lot and I'm unfamiliar with this kind of detector.
-        It's soooort of like a another (cheaper) tracker,
-        but it's also used to distinguish some types of particles based on their "transition radiation",
-        i.e. how they emit photon radiation as the material the pass through changes.
+        % purpose
+            To provide continuous tracking and aid in the identification of electrons via transition radiation \cite{ID_DTR}.
+        % what kinds of particles will they detect,
+            Any ionizing radiation
+        % what kind of detector tech are they,
+            Polyimide drift tube straws using tungsten anode wires, filled with Xe and CO2, interleaved with polypropylene fibres as the transition radiation material \cite{ATLAS_TDR}.
 
+            The TRT consists of a large number of proportional drift tubes, often referred to as ``straws".
+            Proportional drift tubes function in a similar way to semiconductor diode detectors, but using a gas instead of a doped semiconductor.
+            The primary component of a drift tube is a cylinder filled with a gas mixture.
+            In the TRT, these cylinders are 4 mm in diameter, filled with a mixture of 70\% Xenon, 27\%CO\textsuperscript{2}, and 3\% O\textsuperscript{2}.
+            Ions are produced in this mixture when ionizing radiation passes through it.
+            As in the semiconductor diode detectors, these ions are collected by applying an electric field through the ionization medium in order to sweep ions away into external circutry for readout.
+            In a drift tube this is accomplished by maintaining an electric potential between the tube wall and a conductive wire running through the cylinder axis \cite{drift_chambers}.  %NOTE: do I need to mention avalanche multiplication?
+            The wall of the tube acts as the positively charged anode to collect electrons produced by the ionization, while the axial wire is kept at high electrical potential to act as the cathode.
+            In the TRT, the cathode wall is made of aluminium and the 30 $\mu$m diameter anode wire of gold-plated tungsten. \cite{trt_design}
+
+            For the TRT barrel, there are 52,544 straws 144 cm in length, while the endcaps each contain 122,880 straws 37 cm in length.
+            These straws are arranged parallel to the beampipe in the barrel, and orthogonal to the beampipe in the endcap. %TODO: maybe use ATLAS_TDR fig 4.2 and 4.3 as illustrations
+            This arrangment is to maximize the number of straws traversed by an outgoing particle, typically 35-40 straws for $0 < |\eta| < 2$.
+            Though each individual hit has a relatively low spatial resolution compared to the semiconductor detectors, the large number of hits compensates for this with a reduced statistical uncertainty.
+
+            In addition to providing additional tracking information, the TRT provides a secondary purpose of aiding in the identification of electrons by means of detecting transition radiation. 
+            Transition radiation is a phenomenon in which radiation is emitted when a charged particle crosses a boundary between two materials \cite{transition_radiation}.
+            The TRT uses polypropylene as its transition radiation material, which is interleaved between the layers of straws.
+            In the barrel, there are 73 layers of straws interwoven with polypropylene fibres, and in the endcaps there are 160 layers of straws with polypropylene foil between them.
+            The large number of layers provide ample and repeated oppurtunity for charged particles crossing the TRT to encounter transition layers and emit identifying radiation.
+
+        % why is the detector where it is
+        % have a table describing position of layers, size of components, resolution achieved and what we actually see based on this
 
 
 \section{Calorimetry} %TODO
@@ -175,8 +200,6 @@
         It's made of tiles I guess
 
 
-% TODO: Let's try filling out the detectors one by one, starting at the end and working my way inward
-% That will hopefully make it more clear to me what makes the inner/outer detectors special
 \section{Muon Spectrometer}  %TODO
     The Muon Spectrometer has the purpose of providing track position and momentum measurements for particles (mosty muons) exiting the ATLAS detector.The Muon barrels start at a radii of 5 m from the beam axis, extending out to 10 m. The endcaps start at a $|z|$ of roughly 7.4 m, and proceed to an extent of 21.5 m. The immense size of the muon system poses a challenge, as it must provide tracking across the entire volume. It's distance from the interaction point ameliorates this issue though, as it permits the Muon detectors to operate at much lower spatial resultions than the inner detectors, while still retaining similar anngular resolution.
 
