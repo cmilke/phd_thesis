@@ -27,46 +27,47 @@
 % Ch2: Standard Model Discussion (maybe try to do a bottom up discussion based on what I searched for?)
 %\input{src/theory.tex} TODO
 
-% Ch3: LHC 
-\input{src/lhc.tex}
+% Ch3: LHC  %TODO
+%\input{src/lhc.tex}
 
-% Ch4: ATLAS
+% Ch4: ATLAS %TODO
 \input{src/atlas.tex}
+
+% Ch4.5: ATLAS Trigger system (it'll be a short chapter, but I think it will have enough info to need it's own chapter) %TODO
+%\input{src/trigger.tex}
   
-% Ch5: How simulation and monte-carlo works (maybe a discussion of ATLAS software (Athena, ROOT, etc) too)? 
+% Ch5: How simulation and monte-carlo works (maybe a discussion of ATLAS software (Athena, ROOT, etc) too)?  %TODO
 
-% Ch6: Search (what am I looking for, how did I go about it, etc)
+% Ch6: Search (what am I looking for, how did I go about it, etc) %TODO
 
-% Ch7: Results (findings, uncertainties, statistics...)
+% Ch7: Results (findings, uncertainties, statistics...) %TODO
 
-% Ch8: Conclusion and Future Studies
-
-% appendix and probably part of future studies:
+% Ch8: Conclusion and Future Studies %TODO
 %       work on ALTIROC
 
+% appendix? (Steve said that last committee was not fond of too much stuff in appendix, pushed to just incorporate most of it into main body. Expect to do the same)
 
 %\input{src/printer_calibration.tex} TODO: you should remember to use this eventually (thanks Matthew!)
 
- \StartAppendix%
+\StartAppendix
+    \input{src/appendix_A.tex}
 
- \input{src/appendix_A.tex}
+% Glossary
+% Check with specific department on the style to use
+\clearpage
+\singlespacing%
+\setglossarystyle{list}
+\printglossary[title=GLOSSARY,toctitle=GLOSSARY]
+\doublespacing%
 
- % Glossary
- % Check with specific department on the style to use
- \clearpage
- \singlespacing%
- \setglossarystyle{list}
- \printglossary[title=GLOSSARY,toctitle=GLOSSARY]
- \doublespacing%
+% Bibliography goes below
+% Check with specific department on the appropriate
+% bibliography style to use
 
- % Bibliography goes below
- % Check with specific department on the appropriate
- % bibliography style to use
-
- %\nocite{*}
- \bibliographystyle{bib/JHEP}
- \raggedright
- \bibliography{bib/theory,bib/experiment}
+%\nocite{*}
+\bibliographystyle{bib/JHEP}
+\raggedright
+\bibliography{bib/theory,bib/experiment}
 
 \end{thesis}
 \end{document}

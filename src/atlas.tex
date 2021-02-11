@@ -1,109 +1,89 @@
-% The general structure I've seen everybody else using is to essentially describe ATLAS one subdetector at a time, I think from the innermost tracker to the outermost calorimeter
-% Also need to discuss the trigger system
-
-\chapter{ATLAS} %TODO
-    Production of new physics and particles is no good without the ability to observe this physics. Herein lies the purpose of ATLAS. 
-    One of the two general purpose detectors on the LHC
-
-
-    Particles of interest are extremely short-lived, and so cannot be detected directly.
-    Instead, we must detect the decay products of these particles, and reconstruct the original particle of interest after the fact, based on precise measurment of the kinematic properties of the particles it decays into.
-    Core purpose is to record, as precisely as possible, the physical properties of the particles leaving the IR. Specifically, the energy, momentum, electric charge, and overall path the particle takes.
+% Structure
+%    intro
+%    purpose
+%    (maybe) helix coords (appendix?)
+%    general barrel/endcap cylindrical structure
+%    walkthrough of the systems, from inner to outer, discussing why they are there and their basic purpose
+%    Then split off into sections for the individual subsystems
 
 
+    %Discussion of radiation hardness?
+    %Things in the endcap suffer from more radiation exposure than things in the barrel
+    %    (you should be able to show this from the basic kinematics of the particle beams. most energy is deposited in parallel to the beams, not orthogonal to them)
+    %things closer to the IR suffer more than things further away (literally just the inverse-square law)
 
-    Overall geometry is defined by the basic kinematics of interactions in the IR:
-        no initial tranverse moment means particles are ejected at any radial angle with equal probability;
-        the intial high momentum parallel to the beampipe is often retained, leading to very "forward" particles;
-        These two factors lead to two-part design:
-            a series of radially symmetric cylindrical shells, concentric about the beampipes, called "barrels" meant to detect particles moving primarily in the transverse direction;
-            a series of flat, circular plates, stacked one behind the next along the beampipes, called "endcaps" meant to detect the more forward particles.
-    I need to discuss Helical Coordinates and Helix Parameters right here. %TODO
-
-
-
-    It consists of many parts, each with deticated roles.
-    %TODO insert overall picture of ATLAS here for reference
-    The tracking detectors are designed to determine a particle's charge and momentum, by tracking the particle's path under the influence of a strong magnetic field.
-    The calorimeters are intended to measure the energy of particles, as well as provide additional information on the path the particle takes.
-    And then there are the muon spectrometers, specially built to track outgoing muons.
-
-    The method by which these detectors work presents a logistical challenge as to their placement.
-    Specifically, the calorimeters measure particle energy through a purely destructive process.
-    Current technology to measure the energy of fast-moving particles is done through a process that stops a particle in its path, and often forces it to decay into a vast number of lower-energy particles, through a process known as "showering".
-    Once this energy measurement is complete, the measured particle has been either absorbed or completely destroyed, making further measurement of its properties impossible.
-    As such, measurement of a particle's momentum and charge must be done prior to the energy measurment. This requirement determines the location of the different sub-detectors.
-    The tracking detectors are placed the closest to the interaction region. The tracking detecor barrels are closest in $r$,
-    and the tracking endcaps closest in $z$.
-
-
-
-
-
+    %The method by which these detectors work presents a logistical challenge as to their placement.
+    %Specifically, the calorimeters measure particle energy through a purely destructive process.
+    %Current technology to measure the energy of fast-moving particles is done through a process that stops a particle in its path, and often forces it to decay into a vast number of lower-energy particles, through a process known as "showering".
+    %Once this energy measurement is complete, the measured particle has been either absorbed or completely destroyed, making further measurement of its properties impossible.
+    %As such, measurement of a particle's momentum and charge must be done prior to the energy measurment. This requirement determines the location of the different sub-detectors.
+    %The tracking detectors are placed the closest to the interaction region. The tracking detecor barrels are closest in $r$,
+    %and the tracking endcaps closest in $z$.
 
         
     %TODO things I don't really know...
-    Why is the muon chamber last? Why does it get its own special chamber? does it detect other things?
-    Is their a preference in detector placement? 
-    angular resolution gets better as you move further out; does this factor into anything? is this why further out things can be designed using lower resolution tech?
-    is there any reason to prefer things closer to the IR - YES: this allows detection of short lived particles like b-quarks and taus \cite{CERN-LHCC-97-016}
-    Why is the only way to measure energy destructive? is there a way to measure energy non-destructively? What does the muon chamber do? does it destroy things? does it not measure energy? If so, how?
-    Can we measure neutral particles in trackers? how? Do we measure particle mass with trackers (via mass/charge ratio), or just charge? Do we just get mass from energy momentum calculation?
+    %Why is the muon chamber last? Why does it get its own special chamber? does it detect other things?
+    %    Because punch through all the other detectors without stopping, due to [look up the reason in that energy source]. Thus, it goes last so that muons can be id'd after everything else HAS been stopped.
+    %Is their a preference in detector placement? angular resolution gets better as you move further out; does this factor into anything? is this why further out things can be designed using lower resolution tech?
+    %is there any reason to prefer things closer to the IR
+    %    yes, this allows detection of short lived particles like b-quarks and taus \cite{CERN-LHCC-97-016}
+    %Why is the only way to measure energy destructive? is there a way to measure energy non-destructively? What does the muon chamber do? does it destroy things? does it not measure energy? If so, how?
+    %Can we measure neutral particles in trackers? how
+    %    we can, but only photons because they interact through EM. Things like neutrons and pi0 go through it largely undetected until the hcals
+    %Do we measure particle mass with trackers (via mass/charge ratio), or just charge? Do we just get mass from energy momentum calculation?
 
 
+\chapter{ATLAS}
+    % Intro
+    Production of new physics and particles is of little use without the ability to observe said physics.
+    Herein lies the purpose of ATLAS.
+    One of the two general purpose detectors at the LHC, construction of the ATLAS detector was completed on October 4, 2008.
+    ATLAS is among the largest particle detectors ever built, measuring 46m long with a 25m diameter, and weighing in at 7,000 tonnes \cite{atlas_website}.
+
+    % Purpose
+    Core purpose is to accurately record the physical properties of the particle interactions which take place in the interaction region of the detector.
+    Most of the particles of interest are extremely short-lived, and so their properties cannot be measured directly.
+    Instead, we must detect the decay products of these particles, and reconstruct the original particles of interest after the fact.
+    Accurate reconstruction of these original particles is critically dependant on measuring, as precisely as possible, the physical properties of the decay products.
+    More specifically, ATLAS is designed to record the paths and decay showers of the particles which pass through the detector, in order to determine their mass, energy, momentum, and electric charge.
+
+    % General barrel/endcap cylindrical structure
+    In order to measure all the required properties, ATLAS is divided into many different subsystems.
+    Each of these subsystems has a very different design and objective, but they are all constructed with roughly the same overall cylindrical geomtry.
+    The reason for this design is simple kinematics.
+    The LHC particle beams cross with no initial transverse momentum, which means particles are ejected without preference in the radial angle $\phi$.
+    Furthermore, the extremely high longitudinal momentum of the beams results in many particles continuing along a highly "forward" (parallel to the beampipe) trajectory.
+    These two properties lead naturally to a radially symmetric detector which is elongated in the forward direction; a cylinder centered on the beam axis.
+    To accomodate this geometry, the various sub-detectors of ATLAS are generally split into two distinct parts, called "barrels" and "endcaps".
+    The barrels are a series of radially symmetric cylindrical shells, concentric about the beampipes, meant to detect particles moving primarily in the transverse direction.
+    Conversely, the endcaps are a series of flat, circular plates, stacked one behind the next along the beampipes, intended to detect more forward particles.
+
+    % Walkthrough of the systems, from inner to outer, discussing why they are there and their basic purpose
+    The various detector subsystems can be broken up into three primary groups, based on the subsystems' purpose.
+    Moving out from the interaction region, the subsystems can be classified as belonging to the Inner Detector, the Calorimeters, or the Muon Spectrometer.
+    The first of these, located as close in $r$ and $z$ as possible, is the Inner Detector system.
+    The Inner Detector is desigined to provide momentum measurement, vertexing, and electron identification.
+    It must be located so close to the interaction region in order to permit detection of short lived particles like b-quarks and taus \cite{CERN-LHCC-97-016}.
+    Following immediately behind (endcap) and around (barrel) the Inner Detector is the collection of sensors comprising the Calorimetry system.
+    These sensors are purpose-built to measure the energy of incoming particles and additionally provide supplementary tracking information for particle trajectories
+    Their location between the IR and Muon System is based on their tertiary purpose, which is to shield the Muon system from escaping hadrons.
+    Finally, at the outer edge of ATLAS, is the Muon Spectrometer, which has been built to measure the momentum of muons leaving the detector volume.
+    %TODO insert overall picture of ATLAS here for reference
+    
 
 
-
-
-
-
-
-
-
-    ATLAS is like a giant camera...
-
-
-
-    Discussion of radiation hardness.
-    Things in the endcap suffer from more radiation exposure than things in the barrel
-        (you should be able to show this from the basic kinematics of the particle beams. most energy is deposited in parallel to the beams, not orthogonal to them)
-    things closer to the IR suffer more than things further away (literally just the inverse-square law)
-
-    Talk about how angular resolution improves as you move further away, allowing for crappier tech further out (find a source for this claim)
-
-    Then I'll give an overview of the rest of this:
-        Enter ATLAS beampipe,
-        focussed by Toroid Magnets,
-        Collision in Interaction Region,
-        Then propogation through the detector elements listed below
-
-
-% TODO: for each detector section, answer these questions:
-    % purpose
-    % what kinds of particles will they detect,
-    % what kind of detector tech are they,
-    % what happens as particles pass through them, (THIS and the next point are by far the longest pieces of info
-    % how do we convert that response into something useful
-    % if there are multiple kinds of similar detector (e.g. pixel vs strip), how do these differ and (ideally) why are both in use?
-    % why is the detector where it is
-    % have a table describing position of layers, size of components, resolution achieved and what we actually see based on this
-
-
-
-\section{Interaction Region} %TODO
-    I might split this up slightly... For now I want to discuss:
-        the beampipe focusing magnets,
-
-    ~1000 particles every 25 ns w/in |eta| < 2.5.
-
+% Then split off into sections for the individual subsystems
 
 
 \section{Inner Detector} %TODO
-    Inner Detector:
-        Uses 2T Magnetic field from Solenoid Magnet to bend tracks (for identifying mass and charge)
-        5.3 m long x 2.5 m diameter
-        trackers cover region of |eta| < 2.5
-
+    % Purpose of subsystem
+    % What mechanism is used to achieve this purpose
+    % What are the individual detectors and how do they contribute to this goal
+    
+    The Inner Detector system is intended to provide measurement of particles' momentum, provide vertex information, and help in identifying electrons.
+    The way it achieves these goals is primarily through a series of very high resolution tracking sensors, which are used to trace out the paths that particles traverse as they leave the IR. 
+    Momentum and charge measurement is facilitated by using a solenoid magnet to encompass the entire Inner Detector with a 1T magnetic field.
+    The entire ID system measures 5.3 m in length and 2.5 m in diameter, and is able to provide accurate tracking within $|\eta| < 2.5$ \cite{id_tdr}.
 
     \subsection{Pixel Detector and Semiconductor Tracker}
         % purpose
@@ -154,7 +134,7 @@
         % what kinds of particles will they detect,
             Any ionizing radiation
         % what kind of detector tech are they,
-            Polyimide drift tube straws using tungsten anode wires, filled with Xe and CO2, interleaved with polypropylene fibres as the transition radiation material \cite{ATLAS_TDR}.
+            Polyimide drift tube straws using tungsten anode wires, filled with Xe and CO2, interleaved with polypropylene fibres as the transition radiation material \cite{atlas_tdr}.
 
             The TRT consists of a large number of proportional drift tubes, often referred to as ``straws".
             Proportional drift tubes function in a similar way to semiconductor diode detectors, but using a gas instead of a doped semiconductor.
@@ -167,7 +147,7 @@
             In the TRT, the cathode wall is made of aluminium and the 30 $\mu$m diameter anode wire of gold-plated tungsten. \cite{trt_design}
 
             For the TRT barrel, there are 52,544 straws 144 cm in length, while the endcaps each contain 122,880 straws 37 cm in length.
-            These straws are arranged parallel to the beampipe in the barrel, and orthogonal to the beampipe in the endcap. %TODO: maybe use ATLAS_TDR fig 4.2 and 4.3 as illustrations
+            These straws are arranged parallel to the beampipe in the barrel, and orthogonal to the beampipe in the endcap. %TODO: maybe use atlas_tdr fig 4.2 and 4.3 as illustrations
             This arrangment is to maximize the number of straws traversed by an outgoing particle, typically 35-40 straws for $0 < |\eta| < 2$.
             Though each individual hit has a relatively low spatial resolution compared to the semiconductor detectors, the large number of hits compensates for this with a reduced statistical uncertainty.
 
@@ -181,23 +161,40 @@
         % have a table describing position of layers, size of components, resolution achieved and what we actually see based on this
 
 
-\section{Calorimetry} %TODO
-    LAr Electromagnetic Calorimeters,
-    LAr Hadronic Calorimeters,
-    Tile Calorimeters,
+\section{Calorimetry} %TODO also include table 1.3 of atlas_tdr
+    You need to discuss how a sampling calorimeter works here.
+    you should also explain why a cal is important. Either here or above in the intro; not sure which I want yet
+
+    ecal and hcal differ by the far larger amount of material needed to stop hadronically interacting matter.
+    Neutrons for instance can only be stopped by nuclear interactions, requiring significant amounts of high-Z material to be contained. \cite{energy_measurement}
+    Photons and electrons meanwhile can be readily stopped in a much smaller amount of material oweing to the electromagnetic interaction.
+    atlas_tdr figure 5.2 beautifully illustrates just how much more dense/thick the hcals are than the ecals
 
 
-    \subsection{LAr Electromagnetic Calorimeter}
-        Higher resolution
-        For electrons and photons
+
+    \subsection{Electromagnetic Calorimeters}
+        LAr Cal with accordian geometry
+        Ecal uses lead for inactive, Lar for active.
+        Collects charge via capacitive coupling to electrodes placed outside the active medium.
+        Also uses a "presampler", due to an excess of material in front of the ecal. Presampler needed to account for energy lost in this material
 
 
-    \subsection{LAr Hadronic Calorimeter}
-        It makes hadrons sad
+    \subsection{Hadronic Calorimeter}
+        Tile Cal for barrel, Lar for Endcap.
+        Tile cal uses steel plates as absorber and scintillating tiles as active material.
+        Tile cal used because this region (r>2.2 m) has lower radiation levels, so cheaper materials can be used \cite{Lar_cal_tdr}.
+        Now I need to explain what a scintillator does...
+        Lar uses copper for inactive, Lar for active.
+
+        Needs to be able to fully contain hadrons, so they do not penetrate into the muon system and contaminate measurements there.
 
 
-    \subsection{Tile Calorimeter}
-        It's made of tiles I guess
+    \subsection{Forward Calorimeter}
+        Divided into three parts: 1 ECal, and 2 HCals
+        All LAr-based, but ECal uses copper while Hcals use Tungsten
+        ?? something requires it be pushed back and compressed, necessitating such high-Z materials
+        Intended to extend calorimetry coverage as far as $|\eta| < 4.9$.
+
 
 
 \section{Muon Spectrometer}  %TODO
@@ -224,7 +221,4 @@
 
 
 \section{Readout Electronics} %TODO
-    Not sure if this needs its own section or should be combined with the next...
-
-\section{Trigger System} %TODO
-    You've worked on this damned thing you better be able to talk about it
+    Not sure if this needs its own section or should be combined with something else...
