@@ -77,18 +77,25 @@
 
 \section{Inner Detector} %TODO
     % Purpose of subsystem
+    % Basic specs
     % What mechanism is used to achieve this purpose
     % What are the individual detectors and how do they contribute to this goal
     
     The Inner Detector system is intended to provide measurement of particles' momentum, provide vertex information, and help in identifying electrons.
     The way it achieves these goals is primarily through a series of very high resolution tracking sensors, which are used to trace out the paths that particles traverse as they leave the IR. 
-    Momentum and charge measurement is facilitated by using a solenoid magnet to encompass the entire Inner Detector with a 1T magnetic field.
-    The entire ID system measures 5.3 m in length and 2.5 m in diameter, and is able to provide accurate tracking within $|\eta| < 2.5$ \cite{id_tdr}.
+    Momentum and charge measurement is facilitated by using a solenoid magnet to encompass the entire Inner Detector with a 2T axial magnetic field.
+    This field bends the high-momentum charged particles into a helical trajectory, allowing their momentum, mass, and charge to be determined from the shape of the particle's path.
+    The entire ID system, consisting of three independent detectors, measures 5.3 m in length and 2.5 m in diameter, and is able to provide accurate tracking within $|\eta| < 2.5$ \cite{id_tdr}.
+    From the innermost to outermost, the sub-detectors are the Pixel Detector, the Semiconductor Tracker (SCT), and the Transition Radiation Tracker (TRT).
+    The Pixel Detector and SCT together are responsible for high resolution tracking of particle trajectories.
+    Further from the IR, the TRT provides more particle tracking capability, as well the ability to help distinguish electrons. 
+
 
     \subsection{Pixel Detector and Semiconductor Tracker}
         % purpose
         Purpose is to provide high resolution position and momentum information about particles as they leave the IP,
-        while having minimal effect on the particle trajectory and energy.
+        They ensure that any particle exiting the IR crosses at least seven detector layers (3 pixel, 4 strip), while having minimal effect on the particle trajectory and energy.
+
 
         %what kinds of particles will they detect,
         They detect any kind of ionizing radiation, which is either photons or any particle with electric charge.
