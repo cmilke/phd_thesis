@@ -224,44 +224,61 @@
     It is constructed very close to the beampipe, and serves to extend the calorimetric measurement coverage out to an $|\eta|$ of 4.9.
 
     \subsection{Electromagnetic Calorimeters}
-        Purpose is to detect electrons and photons at high resolution.
-        Both barrel and encaps use lead as their inactive material, and Liquid Argon as the active material.
-        The liquid argon calorimeters, used in the ECal and elsewhere, detects ionization from incident particles via capacitive coupling to electrodes placed outside the active medium.
-        Liquid argon as the active medium in particular is used because of its intrinsic radiation hardness and linear ionization response to radiation \cite{Lar_cal_tdr}.
-        Uses a unique "accordian" design in the layout of the material layers, in order to provide complete coverage in $\phi$.
-        Also uses a "Presampler", due to an excess of material in front of the ecal.
-        Presampler needed to account for energy lost in this material
-
+        Light electromagnetically interacting particles, namely electrons/positrons and photons, are much more easily stopped than heavy or neutral particles.
+        As these kinds of particles are the first to be stopped, the calorimeter responsible for measuring their energy, the Electromagnetic Calorimeter (ECal) is the closest to the IR.
+        Furthermore, the lesser amount of material required for this detector permits higher resolution in it's construction
+        ($\eta$ resolution of 0.025 for ECal vs 0.1 for HCal; see table \ref{tab:cal_specs}).
+        The closer proximity however comes at the disadvantage of higher radiation flux.
+        For this reason, along with it linear ionization response, the active material used in both the ECal Barrel and Endcaps is liquid argon (LAr). \cite{Lar_cal_tdr}.
+        Due to its density, lead is then used as the inactive material.
+        These liquid argon calorimeters, used in the ECal and elsewhere, detects ionization from incident particles via capacitive coupling to electrodes placed outside the active LAr medium.
+        Not only is the ECal of higher resolution in $\eta$, but it uses a unique ``accordian" design in the layout of the material layers, in order to provide complete coverage in $\phi$.
+        Finally, the main layers of the ECal are augmented by a ``Presampler" placed in front of the ECal.
+        An excess of support structure material exists in front of the ECal which absorbs a non-negligeable amount of energy from traversing particles.
+        The Presampler then acts to measure some the particles' energy before passing through this support material, so that this loss can be accounted for.
 
     \subsection{Hadronic Calorimeter}
-        Serves to detect hadrons, and to prevent "punch-through" into the Muon System.
-        The Hadronic Endcap Calorimeter (HEC) uses Liquid Argon for the active material, like the ECals, but uses copper plates for the inactive material.
-        The HCal Barrel, referred to as the Tile Calorimeter, uses steel plates as the inactive material, and scintillating tiles as the active material.
-        The scintillating tiles used here operate on different electrical principles than the LAr detectors used across the other calorimeters.
-        The key to scintillating materials is that they respond to ionizaing radiation by fluorescing.
+        With lighter electromagnetic radiation already measured by the ECal, the Hadronic Calorimeter (HCal) has the task of measuring the energy of the particles (mostly hadrons) that remain.
+        As mentioned earlier, the more massive, often neutral, nature of these particles require significantly more material to properly contain.
+        As the Muon Spectrometer is dependant on observation of \textit{only} muons, the HCal's containment of hadrons is crucial not only to its own energy measurments, but also for the measurements the Muon system will make.
+        The endcap portion of the HCal, known as the Hadronic Endcap Calorimeter (HEC), uses liquid argon for the active material, like the ECal, but uses copper plates for the inactive material.
+        Distinct from the LAr-based calorimeters, the HCal Barrel and Extended Barrel must cover a provide coverage to a very large area, making the LAr technology prohibitively costly.
+        Reffered to as the Tile Calorimeters, the HCal barrel system instead used scintillating tiles as its active material, with steel plates as the inactive material.
+        These tiles are less radiation resistant than the LAr sensors, but this is compensated by the Tile Calorimeter's larger distance from the IR.
+        The scintillating tiles used in the Tile Calorimeter operate on different ionization detection principles than the other sensor technologies discussed so far.
+        The key to scintillating materials is that they respond to ionizaing radiation not by ion release, but by fluorescing.
         That is, when ionizing radiation crosses through the scintillation material, the material momentarily enters an excited state.
         The excited material promptly returns to its base energy state, and releases the excess energy in the form of photons, called "scintillation light".
         Ideally, this flourescent response is related to the energy of the incident radiation through as linear a response as possible \cite{wiley_radiation_detection}.
         In the Tile Calorimeter, the scintillating material used is polystyrene, and the energy itself is measured by transferring the light to optical fibres located at the edge of the tile modules.
         These optical fibres direct the light to photomultiplier tubes (PMTs), which in turn convert the light to electrical signals to be read out \cite{tcal_tdr}.
 
-
     \subsection{Forward Calorimeter}
-        Purpose is to extend calorimetry coverage as far as $|\eta| < 4.9$.
-        Divided into three parts: 1 ECal, and 2 HCals
-        All parts use LAr for active medium, but ECal uses copper while Hcals use Tungsten for inactive medium
-        Exposed to extremely high radiation flux, necessitating materials that are both very dense and very radiation-resistant \cite{Lar_cal_tdr}.
+        The Forward Calorimeter (FCal) is the final sub-system of the ATLAS Calorimetry system, and acts to extend calorimetry coverage to the very forward detector region, out to $|\eta| < 4.9$.
+        It is a single cylindrical block, but is divided into three sections, one behind the other.
+        The innermost of these sections acts as an extension to the ECal, and the other two serve as forward HCal detectors.
+        Due to their proximity to the IR and beamline, all three use LAr for their active material, again for its radiation hardness.
+        The main difference between the sections is that the electromagnetic section uses copper for its inactive material, while the hadronic components use tungsten \cite{Lar_cal_tdr}.
 
     \input{tables/atlas/cal_specs.tex}
 
 
-
 \section{Muon Spectrometer} \label{sec:muon}
-    The Muon Spectrometer has the purpose of providing track position and momentum measurements for muons exiting the ATLAS detector.
-    The Muon barrels start at a radii of 5 m from the beam axis, extending out to 10 m.
+    Far from the interaction region, beyond all other sub-systems, lies the Muon Spectrometer.
+    Muons interact electromagnetically and carry charge, as electrons, but their much higher mass vastly supresses their differential energy deposition \cite{wiley_radiation_detection}.
+    As well, they do not interact through the strong force, and so are completely unnafected by nuclear interactions.
+    For these reasons, muons pass almost unphased through the entire ATLAS Calorimetry system.
+    Moreover, their large mass and high momentum means they are barely deflected by the Inner Detector's solenoid magnet, leaving the details of their momentum unknown.
+    It falls to the Muon Spectrometer then to provide this critical information of muon momentum, which all the other sensors are unable to deliver.
+
+    The Muon Spectrometer system is immense.
+    The Muon barrels start at a radii of 5 m from the beam axis and extend all the way out to 10 m.
     The endcaps start at a $|z|$ of roughly 7.4 m, and proceed to an extent of 21.5 m.
-    The immense size of the muon system poses a challenge, as it must provide tracking across its entire volume.
+    Such size poses a challenge, as the Muon system must provide tracking across its entire volume.
     %Its distance from the interaction point ameliorates this issue though, as it permits the Muon detectors to operate at much lower spatial resultions than the inner detectors, while still retaining similar anngular resolution.
+    To achieve this goal, the Muon system is split into two primary sections, the Precision Track Chambers and the Trigger Chambers.
+    The Precision Track Chambers are primarily responsible for providing tracking of muons leaving the ATLAS detector volume in order to determine their momentum.
+    Past the Precision Track Chamber are the Trigger Chambers, which are primarily designed for providing rapid information of muon track multiplicity and energy range, used in large part by the trigger system.
 
     \begin{figure}
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{atlas/muon_xsec}
@@ -269,30 +286,30 @@
         \label{fig:muon_xsec}
     \end{figure}
 
-    \subsection{Toroid magnets}
-        Three large air-core toroids meant to deflect muons.
-        Barrel provides 1.5-5.5 Tm (Tesla-meters???) of bending power in $0<|\eta|<1.4$,
-        and endcaps provide 1-7.5 Tm in $1.6<|\eta|<2.7$.
-        The power is lower in the region where the fields overlap ($1.4<|\eta|<1.6$)
-
     \subsection{Precision Track Chambers}
-        The Precision Track Chambers are designed to provide high resolution measurements of track position and momentum for particles escaping the ATLAS detector. Split across two technologies, the Monitored Drift Tube Chambers (MDT's) and Cathode-Strip Chambers (CSC's).
-        The MDT's are drift tube chambers (like the earlier TRT, but larger) filled with Ar/CO2 gas using a tungsten-rhenium wire for charge collection. These are used in both the barrel and endcap regions, covering the range $|\eta| < 2.7$.
+        The Precision Track Chambers are designed to provide high resolution measurements of track position and momentum for muons escaping the ATLAS detector. 
+        As was done earlier in the Inner Detector system, this is achieved by applying a powerful magnetic field to the detector region in order to bend the muon tracks.
+        Where the Inner Detector used a relatively small solenoid magnet for this purpose, the Muon system uses a much larger set of three air-core toroid magnets.
+        These toroids are able to provide 1.5-5.5 Tm (Tesla-meters???) of bending power in the barrel region $0<|\eta|<1.4$, and 1-7.5 Tm in the endcap regions of $1.6<|\eta|<2.7$.
+        Noteably, the bending power is lower in the region where the fields overlap ($1.4<|\eta|<1.6$) \cite{atlas_tdr}.
+
+        The Precision Track Chambers consist of two distinct detector technologies, the Monitored Drift Tube Chambers (MDT's) and Cathode-Strip Chambers (CSC's).
+        Most of the Track Chambers' volume is made up of the MDTs, which are drift tube chambers (like the earlier TRT, but larger) filled with Ar/CO2 gas using a tungsten-rhenium wire for charge collection.
+        These are used in both the barrel and endcap regions, covering the range $|\eta| < 2.7$.
         The MDT consists of three endcap and three barrel layers, with a notable exception in the endcap region $2 < |\eta| < 2.7$.
         Within this $\eta$ range, for the first layer, the muon track density exceeds the resolution capabilities of the MDT's.
-        As such, the first layer of the endcap in this range is replaced with CSC's.
+        This very specific $\eta$ range of this one particular endcap layer is where the CSC is used for tracking instead.
         The CSC's are multiwire drift chambers, meaning that the (gold-plated tungsten) anode wires do not each have their own individual drift tube.
         Instead, each of the many drift chambers containes many anodes and many cathode strips, made of copper.
         These chambers can read both coordinates of a track simultaneosly, preventing the ambiguities that can occur if more than one track is present in the same chamber \cite{atlas_tdr}.
 
     \subsection{Trigger Chambers}
-        Meant to provide rapid information on muon track multiplicity and energy range.
-        Also provides additional track information for higher level triggers.
-        Provides acceptance in range $|\eta| < 2.4$.
-        The barrel and end-cap use two different technologies in order to address the different issues present in their respective regions.
-        The barrel uses Resistive Plate Chambers (RPC's), which have higher temporal resolution.
+        The last set of sensors in the ATLAS detector, the Trigger Chambers of the Muon system act to augment the information obtained from the Precision Track Chambers, as well as provide additional rapide information for the trigger system.
+        Similar to the Track Chambers, it provides coverage in the range $|\eta| < 2.4$.
+        The barrel and end-cap use two different technologies, Resistive Plate Chambers (TGC's) in the barrel, and Thin Gap Chambers (TGC's) in the endcaps.
+        Both technologies are designed with extremely fast signal response times (15-25 ns) so that their measurments can be used to tag individual-beam crossings.
+        %ok but why different techs?
         RPC's follow the same principle of operation as drift tube chambers, but the anode and cathodes are both conductive plates that maintain an electric potential in the gaseous mixture between them.
-        The endcap consists of Thin Gap Chambers (TGC's), which are multi-wire drift tube chambers with very small gaps between the anode wires and the cathode strips; indeed, the anode-cathode gaps are 1.4 mm are smaller than the anode-anode gaps of 1.8 mm.
-        The TGC serves to both tag beam-crossings and also deliver additional information on traversing particles' azimuthal coordinate, to complement the measurments of the MDT.
+        The TGC's are multi-wire drift tube chambers with very small gaps between the anode wires and the cathode strips; indeed, the anode-cathode gaps are 1.4 mm are smaller than the anode-anode gaps of 1.8 mm.
 
     \input{tables/atlas/muon_specs.tex}
