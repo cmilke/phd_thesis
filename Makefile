@@ -2,7 +2,7 @@
 FILENAME = cmilke_thesis
 
 date = $(shell date +%Y-%m-%d)
-output_file = draft_$(date).pdf
+output_file = drafts/draft_$(date).pdf
 
 figure_src = $(wildcard figures/*.tex figures/*/*.tex)
 figure_list = $(figure_src:.tex=.pdf)
@@ -54,7 +54,7 @@ clean_figures:
 	rm -f $(figure_list)
 
 clean_drafts:
-	rm -f draft_*.pdf
+	rm -f drafts/draft_*.pdf
 
 realclean: clean clean_figures
 	rm -f *.ps *.pdf
