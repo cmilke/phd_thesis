@@ -90,35 +90,91 @@
     Older accelerators operated in a fixed-target arrangment, in which a single beam of particles was accelerated into a stationary wall of material.
     The energy of such collisions was [FIXME: insert formula for Ecom]
     Newer accelerators, including the LHC, use two independant particle beams which are collided with each.
-    Due to the properties of Lorentz Boost transformations, these dual-beam colliders achieve much higher com energies of [FIXME: insert other formula here] \cite{modern_and_future_colliders}
+    Due to the properties of Lorentz Boost transformations, these dual-beam colliders achieve much higher CoM energies of [FIXME: insert other formula here] \cite{modern_and_future_colliders}
     Construction of the LHC took place between 1995 and 2007, over 40 meters underground beneath the French/Swiss border, near Geneva Switzerland. 
 
 
+    Fundamentally, a particle collider is built to perform two functions: accelerate particles to high energy, and then to collide them.
+    The acceration of particles is handeled by the particle injection system and the main accelerator ring.
+    The subsequent collision of those particles is then handled at ``Interaction Points", in which the accelerated particles are intentionally diverted into each other's path.
 
 
 \section{Accelerator Ring} TODO
-    % How do we make particles go fast? Injection system + magnets on main ring, also discussion of centripital force/mag-field/radius energy limitations  TODO
-    % Why protons? Protons are less susceceptible to synchrotron radiation. Also protons consist of strongly-interacting particles. TODO
+    % How do we make particles go fast? Injection system + magnets on main ring
+    % Discussion of centripital force/mag-field/radius energy limitations
+    % Why protons? Protons are less susceceptible to synchrotron radiation. Also protons consist of strongly-interacting particles.
     % Why are protons less susceceptible to synchrotron radiation? TODO
-    % Why does strong interaction matter? (does it?) TODO
+    % Why does strong interaction matter? (does it? do I even want to bother mentioning that now? maybe save it for reconstruction/analysis?) TODO
     % Also note that protons have the downside of PDFs TODO
-    Gotta go fast! (Beam injection and main ring specs).
-    I'm noticing there isn't much discussion on the actual beam injection, so for now I actually think I might just combine it with the main ring section.
+    Particle accelerators come in a multitude of designs, from linear accelerators to synchrotrons to circular accelerators.
+    The LHC falls into the latter category, as a two-ring circular hadron accelerator.
+    A circular accelerator operates by push/pulling charged ions through a series of Radio Frequency (RF) cavities, which generate electric fields oscillating at high-frequencies.
+    These RF cavities are arranged along a circular ring, allowing ions to be accelerated repeatedly through the same electric fields.
+    Directing charged ions in a circular path comes at the cost of radiative energy loss and a critical dependence on size and magnetic field strength.
+    The issue of energy loss arises from the fact that charged particles lose energy while accelerating, in the form of synchrotron radiation.
+    The LHC is able to mitigate this issue primarily through its use of protons as the colliding medium.
+    %FIXME: why does mass affect syncrotron radiation? what is the formula for it?
+    Due to their high mass, the energy losses protons incur from syncroton radiation are fairly minimal and easily overcome (7 keV at the 7 TeV operating point of the LHC \cite{lhc_machine}). % table 4.1
+    The more challenging aspect of a circular collider is that keeping a charged particle moving along a curved path requires constant deflection from a magnetic field.
+    This requirement places a hard upper bound on the energy any collider can achieve.
+    A simplistic calculation for the magnetic field needed for a relativistic particle moving with some energy $E$ relates the Lorentz force to centripital acceleration, as such [FIXME: insert not crap equation for this].
+    This shows that the maximum energy a circular accelerator can achieve is fundamentally limited by the product of the magnetic field strength $B$ and the radius of the accelerator $r$.
+    Using leading-edge superconduncting electromagnets, the LHC can achieve a field strength of around 8 Tesla.
+    Even with magnets of this strength however, the earlier formula puts an absolute lower bound on accelerator's radius at [XXX] km.
+    Of course, practical considerations (e.g.\ the magnetic field cannot realistically be present throughout the entire accelerator tunnel) shift that radius even higher, to the actual radius of 26.7 km.
+
+    Particles cannot be simply dropped directly into the main accelerator ring and accelerated from a standstill.
+    Instead, they must be injected into the main ring already at relativistic speeds.
+    From a standstill, hyrdogen ions are accelerated to 50 MeV by Linac2, in groups of billions of protons called ``bunches" \cite{lhc_run2}.
+    From Linac2, the roughly 2800 bunches are subsequently boosted to 1.4 GeV, 25 GeV, and then 450 GeV by the Proton Synchroton Booster(PSB), Proton Synchrotron (PS), and Super Proton Synchroton (SPS) respectively.
+    After the SPS, they are injected into the main LHC ring where they are acclerated to their final energy of 6.5 TeV \cite{lhc_machine}.
+    Once the bunches have reached their operating energy and stable particle collisions are underway, the detector systems are turned on and data-taking begins \cite{data_quality}.
+    
 
 
-
+% How do you smash particles together? Interaction region
+% How often can it make a higgs? or a dihiggs? This can be found by multiplying the cross-section of the desired interaction by luminosity
+% What is luminosity? A combination of many things:
+% tightness of beam at IR,
+% center of mass energy machine is running at,
+% how many interactions per second (interaction rate and bunch crossing),
+% how long the machine is running;
+% All of the above have changed over time, per Run 1,2,3
+% beam-spot, bunch spacing, bunch size, and runtime per run at ir1 TODO
 \section{Interaction Region} TODO
-    % How do you smash particles together? Interaction region TODO
-    % How often can it make a higgs? or a dihiggs? This can be found by multiplying the cross-section of the desired interaction by luminosity TODO
-    % What is luminosity? A combination of many things: TODO
-    % tightness of beam at IR, TODO
-    % center of mass energy machine is running at, TODO
-    % how many interactions per second (interaction rate and bunch crossing), TODO
-    % how long the machine is running; TODO
-    % All of the above have changed over time, per Run 1,2,3 TODO
-    Particles go smash
-    - the beampipe focusing magnets,
-    - beam crossing point: how do bunches cross each other and interact
-    - luminosity: what is it, what determines it 
-    - bunch crossing
-    - interaction rate: ~1000 particles every 25 ns w/in |eta| < 2.5.
+    How often exotic events are produced is important.
+    The frequency with which some kind of particle interaction occurs at the LHC is a probabilistic event, determined by a number of factors.
+    As an analology, imagine somebody repeatedly throwing a ball at a window on the wall of a barn.
+    For a given throw, there is some probability that the ball will hit the window, calculated as the ratio of the area of the window to the total area the thrower could possibly hit.
+    Provided that the person throws the ball with some given frequency, there is then a probability of the ball hitting the window per unit time.
+    Over some period of time, this would yield some expected total number of succesful hits.
+
+    Hitting the window with a ball is analogous to particles in a particle accelerator interacting to produce some specific physics process.
+    The area of the window corresponds to the physics process's \textit{cross-section}, which is literally measured using a unit of area called a ``barn" (1 b = $10^{-28}$m\textsuperscript{2}, pun very much intended).
+    Meanwhile, the other components comprising the probability of a hit per unit time, the total throwable area and the frequency of throws, are all collected together into a single quantity called \textit{luminosity} (measured in units of $b^{-1}t^{-1}$. 
+    %Likewise, the total area that the ball could hit per unit time corresponds in particle physics to a quantity called \textit{luminosity}. 
+    The probability of a physics process occuring per unit time is thus obtained by multiplying luminosity with the process's cross-section.
+    As discussed earlier, the cross-section of an event scales with the center-of-mass energy of the interaction, hence the drive for ever more powerful colliders.
+    The luminosity meanwhile can be improved by increasing the particle interaction rate through a number of methods.
+    Continuing the analogy of the ball and barn, an obvious improvement would be to improve the thrower's aim.
+    At the LHC, this corresponds to tightening the particle beam width by increasing the power of the quadruple focusing magnets.
+    One could also throw balls a faster rate.
+    More balls per second means more chances of a hit per second.
+    The same can be done at the LHC by decreasing the bunch-spacing, the time between bunch-crossings.
+    Along the same lines, the thrower could throw more balls at the window at a time, equivalent in the accelerator situation to increasing the number of bunches in circulation around the ring.
+    Finally, the overall number of collisions can be steadily increased by extending the time that machine is running, analogous to having the thrower keep throwing balls for a longer time.
+    All of these specifications -- beam-spot, bunch-spacing, bunch size, and runtime -- are planned to be varied over the lifetime of the LHC in different operating configurations.
+
+    \input{tables/lhc/dataset_luminosity.tex}
+
+    So far, there have been two complete "Runs" of the LHC, with the data from those runs further subdivided by year and operational configuration.
+    The data used in this paper comes from Run 2 data using proton-proton collisions at a CoM energy of 13 TeV.
+    For most of Run 2, the bunch spacing was 25 ns between bunches, though early periods (not used in this analysis [XXX WHY?]) operated at a lower 50 ns bunch spacing.
+    The beam spot in the main ring is XXX $\mu$m, but varies at the different interaction regions in which the beams collide.
+    The relevant interaction region for this discussion is Interaction Region 1 (IR1), the location of the ATLAS detector.
+    Here, the particle beam width is focused to XXX$\mu$m using several powerful quadrupole magnets.
+    Total runtime, as far as data is concerned, is not measured as simply the time the machine has been running, but rather the time spent collecting data.
+    Data-taking takes place between the time ``stable beams" are declared by the LHC, until enough protons have been depleted from the ring that it needs to undergo another fill process.
+    This timeframe is known as a \textit{fill}, and is itself further subdivided into smaller ~60 second time frames called \textit{luminosity blocks}, periods of data taking in which luminosity is relatively stable \cite{data_quality}.
+    These various parameters taken together over the four year period of Run 2 produce the total integrated luminosity of data available for observation (see table \ref{tab:dataset_luminosity}).
+    The actual process of observing and recording this data however, is a massive undertaking all its own, and is carried out by ATLAS.
