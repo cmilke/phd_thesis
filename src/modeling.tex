@@ -4,4 +4,100 @@
 \section{I'll figure this out later I just wanna jot this down for myself first}
     Here's my more formal attempt at writing down what I do in the 2/3D interpolation
 
-    Overall goal is to measure cross-section of an interaction: $\Xsec \matel$
+    Overall goal is to measure cross-section of an interaction: ``$\Xsec$".
+
+    Cross-section cannot be measured directly. Instead, we must measure the total number of events ``$T$". 
+
+    The total number of events can be related to the cross-section via the integrated luminosity $L$, by the simple relation $T = \Xsec \times L$.
+
+    This calculation assumes that we can measure all particles across all phase space (emitted at all angles). In practice though, this is not the case.
+    Many events are very forward and are never detected by the detector elements.
+    Furthermore, due to the need to subtract out background events, many kinematic cuts must be placed on events, further reducing the phase space actually available.
+    It is useful then to instead look at the number of events with particles existing in a particular region of phase $\mathscr{E} (q) \equiv \xsec (q) \times L$, where ``$\xsec$" is the differential cross-section.
+
+    The total cross-section is related to the differential cross-section by the relation \\
+    $\xsec (q) = d \Xsec / d \Omega$, which can be rearanged for cross-section by integrating over the solid angle $\Omega$: \\
+    $\Xsec = \int \xsec  (q) d \Omega$.
+
+    Relating this back to the event counts, we have\\
+    $\frac{1}{L} T = \int \frac{1}{L} \mathscr{E} (q) d\Omega $ \\
+    $T = \int \mathscr{E} (q) d\Omega $.
+
+    In order to bring this in line with the fact that we cannot simulate an infinite number of events, let's decompose the integral into an infinite sum:\\
+    $T = \lim\limits_{N\to\infty} \sum\limits_{n=0}^{N} \mathscr{E}(q_n) \Delta q $.
+
+    This total is equivalent to the theoretical value only if the number of events is infinite (and thus able to represent all of phase space).
+    With a finite number of events, the theoretical total is reduced to an approximation $\tau$, where\\
+    $\tau = \sum\limits_{n=0}^{N} \mathscr{E}(q_n) \Delta q $.
+
+    The relative space any one event takes in phase space is accounted for in monte-carlo by giving events weights, so this can be rewritten as\\
+    $\tau = \sum\limits_{n=0}^{N} w(q_n) = \sum\limits_{n=0}^{N} w_n $. 
+
+    Final analysis of events does not count all events, but rather looks at the distribution of event counts as a function of some specific element of phase space.
+    In this analysis, that element is the di-Higgs invariant mass $M_{HH}$, and so the event count per bin in $M_{HH}$ can be written as\\
+    $\tau_m = \sum\limits_{n=0}^{N} w_{nm} $. 
+
+    The effects of performing reconstruction and selection can be represented by a multiplicative factor ``$z_n$" corresponding to the probability an event with phase-space parameters $q_n$ will survive selection.
+    What remains is the reconstructed number of events\\
+    $\psi_m = \sum\limits_{n=0}^{N} z_n * w_{nm} $.
+
+
+\section{Sample Interpolation}
+    Simulating, reconstructing, and performing selection on stuff is hard.
+    We need to check all points in $\kappa$ space though.
+    To address this we can exploit the underlying field-theory mechanics to reverse-engineer a general equation for the number of events expected for any value of the $\kappa$ couplings.
+    First, the influence of the couplings can be related to the cross-section through the interaction amplitude ``$\amp$", where
+    $\amp(q,\kvv,\kl,\kv) =  \kv \kl \matel_s(q) + \kv^2 \matel_t(q) + \kvv \matel_X(q) $
+
+    The differential cross-section is just the absolute square of the amplitude,\\
+    $\xsec(q,\kvv,\kl,\kv) = |\amp(q,\kvv,\kl,\kv)|^2 = 
+     \kv^2 \kl^2 \matel_s^2(q) + \kv^4 \matel_t^2(q) + \kvv^2 \matel_X^2(q) 
+    + \kv^3 \kl (\matel_s^*(q) \matel_t(q) + \matel_t^*(q) \matel_s(q)) 
+    + \kv \kl \kvv (\matel_s^*(q) \matel_X(q) + \matel_X^*(q) \matel_s(q) ) 
+    + \kv^2 \kvv (\matel_t^*(q) \matel_X(q) + \matel_X^*(q) \matel_t(q) )$
+
+    And the abundance of matrix element cross terms can be absorbed into simple coefficients $a_i(q)$\\
+    $\xsec(q,\kvv,\kl,\kv) = \kv^2 \kl^2 a_1(q) + \kv^4 a_2(q) + \kvv^2 a_3(q) + \kv^3 \kl a_4(q) + \kv \kl \kvv a_5(q) + \kv^2 \kvv a_6(q) $
+
+
+    This can be further simplified by using just $\kappa$ as shorthand for all the couplings,
+    so  $\xsec(q,\kvv,\kl,\kv) \to  \xsec(q,\kappa) $, and by collecting the various couplings into a vector\\
+    $ \vec{f}(\kappa) = \begin{pmatrix} \kv^2 \kl^2 \\ \kv^4 \\ \kvv^2 \\ \kv^3 \kl \\ \kv \kl \kvv \\ \kv^2 \kvv \end{pmatrix} $
+
+    So we now have\\
+    $\xsec(q,\kappa) = f_1(\kappa) a_1(q) + f_2(\kappa) a_2(q) + f_3(\kappa) a_3(q) + f_4(\kappa) a_4(q) + f_5(\kappa) a_5(q) + f_6(\kappa) a_6(q) $
+
+    Which can be written as:  
+    $\xsec(q,\kappa) = \vec{a}(q) \bullet \vec{f}(\kappa) $.
+
+    or, adopting Einstein notation, as
+    $\xsec(q,\kappa) = a_i(q) f_i(\kappa) $.
+
+    From here we can write this in terms of observabed events binned in $M_{HH}$ in the same way as before:
+    $T_m(\kappa) = a_{mi} f_i(\kappa) $.
+
+    To get the number of expected events for any values of the couplings, we only need to find the reconstructed forms of $a_{mi}$.
+    By running simulations for 6 different, linearly independent variations of $T$, we can obtain the six equations needed to solve for six variables:\\
+    $T_m(\kappa_j) = a_{mi} f_i(\kappa_j) $, for j = 1-6. \\
+    $T_m(\kappa_j) \to  T_{mj} $, $f_i(\kappa_j) \to F_{ij}) $, \\
+    $T_{mj} = a_{mi} F_{ij}$
+
+    Solving for $a$ is just a matter of inverting the matrix $F_{ij}$ \\
+    $T_{mj} \times F_{ij}^{-1}= a_{mi} F_{ij} \times F_{ij}^{-1}$ \\
+    $a_{mi} = T_{mj} F_{ij}^{-1}$ \\
+    $a_{mi} = T_{mj} G_{ji}$, with $G_{ji} \equiv F_{ij}^{-1}$ \\
+
+    The expected number of events for an arbitrary value of the couplings can then be written as\\
+    $T'_m(\kappa) = a_{mi} f_i(\kappa) $, with the primed ``$T'$" now denoting a linearly inerpolated event count\\
+    $T'_m(\kappa) = T_{mj} G_{ji} f_i(\kappa) $.
+
+    %Since an observed event count is a collection of many individual events, this can be re-written in terms of individual event weights:\\
+    %$T_m(\kappa) = G_{ji} f_i(\kappa) T_{mj}$,\\
+    %$T_m(\kappa) = G_{ji} f_i(\kappa) z_{mj} \sum\limits_{n=0}^{N} w_{nmj} $. FIXME I'm not so sure about this way of describing reco-level events
+
+
+
+
+
+
+
