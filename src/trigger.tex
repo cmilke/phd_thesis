@@ -1,2 +1,66 @@
 \chapter{Trigger System} %TODO
-    You've worked on this damned thing you better be able to talk about it
+\section{Introduction}
+You've worked on this damned thing you better be able to talk about it
+%What
+ATLAS trigger system
+
+%Why
+To reduce overall ATLAS data output during runtime by removing low-interest events.
+
+%How
+Triggering is achieved by running events through two sequential trigger systems.
+First is the hardware-based Level 1 Trigger (L1).
+Then is the software-based High Level Trigger (HLT).
+
+%When
+The trigger system process all ATLAS events immediately after occurance, reducing the 40 MHz bunch crossing rate to an output rate of 1 kHz.
+
+%Where
+To reduce latency from data transfer times, all the trigger systems are located very close to the ATLAS detector system.
+
+
+
+\section{Level 1 Trigger}
+
+%What
+Hardware level trigger
+
+%Why
+Reduce event rate acceptance to acceptable levels for more sophisticated (but slower) software level trigger
+
+%How
+uhhh? What algorithms does this use?
+
+%When
+Input rate of 40 MHz (every 25 ns, the LHC bunch crossing rate), output rate of 100 kHz (utilizes detector buffer memory to keep up). \ref{trigger_run2}
+
+%Where
+As close to ATLAS as possible in order to reduce latency, specifically in [XXX].
+
+
+%\section{Level 2 Trigger} Software level trigger on L1-based ROIs. Merged with HLT in Run 2
+
+\section{High Level Trigger}
+
+%What
+Software trigger on full event reconstruction.
+
+%Why
+To further reduce event levels to levels permitting full offline analysis.
+
+%How
+List of HLT triggers...
+Also probably worth discussing the idea of ROI-based algorithms.
+
+%When
+Output rate of 1 kHz.
+
+%Where
+Also very close to ATLAS, in [XXX]
+
+
+
+\section{HLT Retuning Framework}
+Finally something that I did!
+Except it didn't end up mattering...
+Do I need to mention specifically my work on the FTK? NOPE. Just talk about the retuning at a more general level.
