@@ -1,6 +1,5 @@
 \chapter{Trigger System} %TODO
 \section{Introduction}
-You've worked on this damned thing you better be able to talk about it
 %What
 ATLAS trigger system
 
@@ -11,6 +10,7 @@ To reduce overall ATLAS data output during runtime by removing low-interest even
 Triggering is achieved by running events through two sequential trigger systems.
 First is the hardware-based Level 1 Trigger (L1).
 Then is the software-based High Level Trigger (HLT).
+A bunch crossing passes the trigger stage if at least one of a plethora of ``trigger conditions" is satisfied, where these conditions range from detecting some combination of particles to missing Et thresholds.
 
 %When
 The trigger system process all ATLAS events immediately after occurance, reducing the 40 MHz bunch crossing rate to an output rate of 1 kHz.
@@ -29,10 +29,38 @@ Hardware level trigger
 Reduce event rate acceptance to acceptable levels for more sophisticated (but slower) software level trigger
 
 %How
-uhhh? What algorithms does this use?
+Uses only information from calorimeters and Muon Trigger Chamber
+
+
+Calorimeter Algorithms: \cite{L1_calo_run1}
+    Based on Calorimeter information.
+    Reduces granularity of cals by clustering sensors together into ``towers".
+    A ``Region of Interest" (RoI) is created as a group of clusters which collectively satisfy various conditions (varying between the trigger in question).
+
+    Cluster Processor Module (CPM)
+        Based on Barrel Cals
+        For electron/photon and tau/hadron identification.
+        Both groups require clusters with ET isolation (i.e.\ a region which passes the Et threshold surrounded by cluster which do not pass the threshold).
+        Electrons and photons are triggered by clusters which are limited to the ECal and do not penetrate into the HCal.
+        Taus and hadrons are identified by the fact that they do penetrate into the HCal.
+
+    Jet/Energy Module (JEM)
+        Uses Barrel and Endcap, and does not distinguish between ECal and HCal
+        Counts multiplicity of hits in each region and begins Et sums for the MET calculation.
+        
+    Common Merger Module (CMM) -> replaced by Cluster Merger Modules (CMX) in Run 2
+        Uses all Cals including FCal.
+        Carries out final jet multiplicity counting and Et/missing Et sums
+
+L1 Muon Trigger
+    Uses the Muon Trigger Chamber %\ref{sec:muon-trigger_chamber} FIXME uncomment 
+    to trigger based on particle pt and multiplicity
+
+
+
 
 %When
-Input rate of 40 MHz (every 25 ns, the LHC bunch crossing rate), output rate of 100 kHz (utilizes detector buffer memory to keep up). \ref{trigger_run2}
+Input rate of 40 MHz (every 25 ns, the LHC bunch crossing rate), output rate of 100 kHz (utilizes detector buffer memory to keep up). \cite{trigger_run2}
 
 %Where
 As close to ATLAS as possible in order to reduce latency, specifically in [XXX].
