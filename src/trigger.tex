@@ -5,18 +5,25 @@ ATLAS trigger system
 
 %Why
 To reduce overall ATLAS data output during runtime by removing low-interest events.
-
-%How
-Triggering is achieved by running events through two sequential trigger systems.
-First is the hardware-based Level 1 Trigger (L1).
-Then is the software-based High Level Trigger (HLT).
-A bunch crossing passes the trigger stage if at least one of a plethora of ``trigger conditions" is satisfied, where these conditions range from detecting some combination of particles to missing Et thresholds.
+Refered to as ``online" analysis, as selection of data is occuring live, while the machine is running.
+The data which survives this selection is read out to disk and distributed to individual research teams for more sophisticated ``offline" analysis.
 
 %When
 The trigger system process all ATLAS events immediately after occurance, reducing the 40 MHz bunch crossing rate to an output rate of 1 kHz.
 
 %Where
 To reduce latency from data transfer times, all the trigger systems are located very close to the ATLAS detector system.
+
+%How
+Triggering is achieved by running bunch crossing ``events" through two sequential trigger systems.
+First is the hardware-based Level 1 Trigger (L1).
+Then is the software-based High Level Trigger (HLT).
+Both of these triggers involve a plethora of different measurements on various aspects of the events, such as total transverse energy, transverse momentum, jet multiplicity, and opening angles between jets.
+A ``trigger chain" is a combination of several different such conditions set to various thresholds.
+A bunch crossing satisfies a trigger chain if it is able to pass all conditions in the chain simultaneously.
+There are a huge number of different trigger chains, all comprising the ``trigger menu".
+An event is ultimately accepted and read out to disk for further analysis offline if it passes any one of the trigger chains, and each accepted event is tagged with which trigger chains it passed.
+The chains included in the trigger menu were decided upon before the beginning of the Run 2 data taking period, based on input from various analysis teams.
 
 
 
@@ -28,6 +35,13 @@ Hardware level trigger
 %Why
 Reduce event rate acceptance to acceptable levels for more sophisticated (but slower) software level trigger
 
+%When
+Input rate of 40 MHz (every 25 ns, the LHC bunch crossing rate), output rate of 100 kHz (utilizes detector buffer memory to keep up). \cite{trigger_run2}
+
+%Where
+As close to ATLAS as possible in order to reduce latency, specifically in the USA15 underground chamber \cite{trigger_tdr}.
+
+
 %How
 Uses only information from calorimeters and Muon Trigger Chamber
 
@@ -35,7 +49,7 @@ Uses only information from calorimeters and Muon Trigger Chamber
 Calorimeter Algorithms: \cite{L1_calo_run1}
     Based on Calorimeter information.
     Reduces granularity of cals by clustering sensors together into ``towers".
-    A ``Region of Interest" (RoI) is created as a group of clusters which collectively satisfy various conditions (varying between the trigger in question).
+    A ``Region of Interest" (RoI) is created as a group of towers which collectively satisfy various conditions (varying between the trigger in question).
 
     Cluster Processor Module (CPM)
         Based on Barrel Cals
@@ -57,34 +71,28 @@ L1 Muon Trigger
     to trigger based on particle pt and multiplicity
 
 
-
-
-%When
-Input rate of 40 MHz (every 25 ns, the LHC bunch crossing rate), output rate of 100 kHz (utilizes detector buffer memory to keep up). \cite{trigger_run2}
-
-%Where
-As close to ATLAS as possible in order to reduce latency, specifically in [XXX].
-
-
 %\section{Level 2 Trigger} Software level trigger on L1-based ROIs. Merged with HLT in Run 2
 
 \section{High Level Trigger}
 
 %What
-Software trigger on full event reconstruction.
+Software trigger using data from all detector elements (including the Inner Detector).
 
 %Why
 To further reduce event levels to levels permitting full offline analysis.
 
-%How
-List of HLT triggers...
-Also probably worth discussing the idea of ROI-based algorithms.
-
 %When
-Output rate of 1 kHz.
+Input rate of 100 kHz (output of L1), output rate of ~1 kHz.
 
 %Where
-Also very close to ATLAS, in [XXX]
+Also very close to ATLAS, at the surface, in building SCX1. %see trigger_tdr figure 2
+
+%How
+The HLT performs rapid online reconstruction of event data [FIXME forward reference reconstruction here] into various physics ``signatures", with each signature corresponding to specific particles or physics processes.
+The main signatures used in ATLAS are: minimum bias signatures, electron/photons (Egamma), muons, jets, taus, missing transverse energy (MET), b-jets (as in jets from bottom quarks), and B-physics (as in B-hadrons).
+    
+
+
 
 
 
