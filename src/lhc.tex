@@ -1,48 +1,40 @@
 \chapter{The LHC}\label{chapter:lhc}
 
 \section{Introduction}
-    % Theoretically, the dihiggs production is a thing that should exist, and which we would like to observe. 
-    % The higgs does not exist in an observable state naturally, so it must be artificially created.
-    % For this we need the LHC.
     The high mass and short life-time of the Higgs Boson ensures that it cannot be readily found in nature.
     In order to study the Higgs Boson then, it must first be artificially created through extremely high-energy physical interactions.
-    The Large Hadron Collider (LHC), among the largest and most complex machines ever constructed, was designed for exactly this purpose.
-    Built by the European Organization for Nuclear Research (CERN, from the French \textit{Conseil Européen pour la Recherche Nucléaire}) with the goal of studying high-energy physics,
-    the LHC is able to probe interaction energies well beyond that of any previous particle physics experiments.
+    To achieve this goal, the European Organization for Nuclear Research
+        (CERN, from the French \textit{Conseil Européen pour la Recherche Nucléaire})
+        set out to build one of the largest and most complex machines in history.
+    Construction of this immense device took place over the span of 12 years, from 1995 to 2007.
+    The completed project lies in a cavern 40 meters underground, which stradles the French/Swiss border near Geneva, Switzerland.
+    This is the Large Hadron Collider, the most powerful particle acclerator ever built.
 
-    % What's the LHC? A very large proton-proton particle collider.
-    % What's a particle collider? A machine which accelerates charged particles to very high velocities/energies using electro-magnetic fields.
-    % Why are we smashing particles together? Because (as should have been shown in the last section?) the cross section of a particle interaction increases proportional to the particles' energies
-    % Brief discussion of fixed vs dual-beam collider and CoM energy calulation
-    The LHC is a proton-proton particle accelerator; indeed, it is the largest particle acclerator ever built, at a radius of 26.7 km.
     A particle accelerator is a machine which uses electromagnetic fields to accelerate charged particles to extremely high energies, with the goal of colliding these particle together.
-    %TODO try to back this up with specific details eg a formula from QFT showing how the probability of an interaction depends on energy
-    The reason for doing this is that the cross section of a particle interaction scales with the center-of-mass energy of the incoming particles.
-    Older accelerators operated in a fixed-target arrangment, in which a single beam of particles was accelerated into a stationary wall of material.
-    The energy of such collisions is $\approx \sqrt{2 E \times m c^2}$ for a high energy ($E$) particle colliding with a stationary particle of mass $m$.
-    Newer accelerators, including the LHC, use two independant particle beams which are collided with each.
-    Due to the properties of Lorentz Boost transformations, these dual-beam colliders achieve much higher CoM energies of $\approx 2 \sqrt{E_1 E_2}$ \cite{modern_and_future_colliders}.
-    Construction of the LHC took place between 1995 and 2007, over 40 meters underground beneath the French/Swiss border, near Geneva Switzerland. 
-
-
+    The Large Hadron Collider (LHC) is a circular proton-proton particle accelerator, with a radius of 26.7 km and a center of mass (CoM) collision energy of 13 TeV.
+    The high CoM energy of the LHC is crucial to its goal, as the cross section of a particle interaction scales with the center of mass energy of the incoming particles.
+    At 13 TeV then, the LHC is able to probe physics at energies well beyond that of any previous particle physics experiments.
     Fundamentally, a particle collider is built to perform two functions: accelerate particles to high energy, and then to collide them.
-    The acceration of particles is handeled by the particle injection system and the main accelerator ring.
+    Acceration of particles is handled by the particle injection system and the main accelerator ring.
     The subsequent collision of those particles is then handled at ``Interaction Points", in which the accelerated particles are intentionally diverted into each other's path.
+    Understanding how the LHC carries out these functions is critical to understanding the physics interactions it produces.
 
 
 \section{Accelerator Ring}
-    % How do we make particles go fast? Injection system + magnets on main ring
-    % Discussion of centripital force/mag-field/radius energy limitations
-    % Why protons? Protons are less susceceptible to synchrotron radiation. Also protons consist of strongly-interacting particles.
-    Particle accelerators come in a multitude of designs, from linear accelerators to synchrotrons to circular accelerators.
-    The LHC falls into the latter category, as a two-ring circular hadron accelerator.
-    A circular accelerator operates by push/pulling charged ions through a series of Radio Frequency (RF) cavities, which generate electric fields oscillating at high-frequencies.
-    These RF cavities are arranged along a circular ring, allowing ions to be accelerated repeatedly through the same electric fields.
+    The most basic purpose of a particle acclerator is to accelerate particles.
+    Particle acceleration is performed using electromagnetic fields to push and pull the charged particles along the path of the accelerator.
+    Accelerators come in variety of designs, from linear accelerators to synchrotons to circular accelerators and more.
+    The LHC falls into the lattermost category as a circular collider.
+    Circular accelerators operate by moving charged ions through a series of Radio Frequency (RF) cavities, arranged along the accelerator ring, which generate electric fields oscillating at high-frequencies.
+    Their primary advantage is that they are able to acelerate ions repeatedly through the same electric fields, allowing for much higher energies within a smaller volume.
+    But as with anything, they also have their drawbacks.
+
     Directing charged ions in a circular path comes at the cost of radiative energy loss and a critical dependence on size and magnetic field strength.
     The issue of energy loss arises from the fact that charged particles lose energy while accelerating, in the form of synchrotron radiation.
     The power loss of synchrotron radiation $P_\gamma$ scales proportional to a particle's energy $E$, mass $m$, and bending radius $\rho$ as $P_\gamma \propto \frac{E^4}{m^4 \rho^2}$ \cite{2007_Book_ParticleAcceleratorPhysics}.
     The LHC is able to mitigate this issue primarily through its use of protons as the colliding medium.
-    Due to their high mass, the energy losses protons incur from syncroton radiation are quintically suppressed and thus easily overcome (7 keV losses at the 7 TeV operating point of the LHC \cite{lhc_machine}). % table 4.1
+    Due to their high mass, the energy losses protons incur from syncroton radiation are quintically suppressed and thus easily overcome (7 keV losses at the 6.5 TeV operating point of the LHC \cite{lhc_machine}). % table 4.1
+
     The more challenging aspect of a circular collider is that keeping a charged particle moving along a curved path requires constant deflection from a magnetic field.
     This requirement places a hard upper bound on the energy any collider can achieve.
     Relating the Lorentz force to the formula for centripital acceleration, one can find the magnetic field $B$ needed to bend a relativistic particle moving at energy $E$ around a curve of radius $\rho$ as $B=\frac{E/c}{q \rho}$.
@@ -50,27 +42,32 @@
     Using leading-edge superconduncting electromagnets, the LHC can achieve a field strength of around 8 Tesla.
     Even with magnets of this strength however, the earlier formula puts an absolute lower bound on accelerator's radius at 2.7 km.
     Of course, practical considerations (e.g.\ the magnetic field cannot realistically be present throughout the entire accelerator tunnel) shift that radius even higher, to the actual radius of 26.7 km.
+    Before the power of the LHC main can be used however, a jump start is needed to get particles moving in the first place.
 
     Particles cannot be simply dropped directly into the main accelerator ring and accelerated from a standstill.
     Instead, they must be injected into the main ring already at relativistic speeds.
+    The LHC Injection System consists of a series of smaller particle acclerators that take initially stationary hydrogen atoms and drive them to energies usuable by the main ring.
     From a standstill, hyrdogen ions are accelerated to 50 MeV by Linac2, in groups of billions of protons called ``bunches" \cite{lhc_run2}.
     From Linac2, the roughly 2800 bunches are subsequently boosted to 1.4 GeV, 25 GeV, and then 450 GeV by the Proton Synchroton Booster(PSB), Proton Synchrotron (PS), and Super Proton Synchroton (SPS) respectively.
     After the SPS, they are injected into the main LHC ring where they are acclerated to their final energy of 6.5 TeV \cite{lhc_machine}.
-    Once the bunches have reached their operating energy and stable particle collisions are underway, the detector systems are turned on and data-taking begins \cite{data_quality}.
-    
+    Critically, this entire process is run not for one beam of particles, but for two.
+
+    The earliest accelerator experiments operated in what is known as a fixed-target arrangment, in which a single beam of particles is accelerated into a stationary wall of material.
+    Such collisions have interaction energies that go as $\approx \sqrt{2 E \times m c^2}$ for a high energy ($E$) particle colliding with a stationary particle of mass $m$.
+    The LHC, like many modern accelerators, instead use two independant particle beams which are collided with each other.
+    Due to the properties of Lorentz Boost transformations, these dual-beam colliders achieve much higher CoM energies of $\approx 2 \sqrt{E_1 E_2}$ \cite{modern_and_future_colliders}.
+    With the LHC's proton beams accelerated to 6.5 TeV each, it is able to collide them together for a record-setting 13 TeV center-of-mass interaction energy.
 
 
-% How do you smash particles together? Interaction region
-% How often can it make a higgs? or a dihiggs? This can be found by multiplying the cross-section of the desired interaction by luminosity
-% What is luminosity? A combination of many things:
-% tightness of beam at IR,
-% center of mass energy machine is running at,
-% how many interactions per second (interaction rate and bunch crossing),
-% how long the machine is running;
-% All of the above have changed over time, per Run 1,2,3
-% beam-spot, bunch spacing, bunch size, and runtime per run at ir1 TODO
 \section{Interaction Region}
-    How often exotic events are produced is important.
+    The LHC accelerates particles to truly phenomenal energies, but it does so only for the purpose of bringing them to a very abrupt and cataclysmic stop.
+    These particle collisions are only able to take place at a few specific points along the main ring where the particle beams are diverted into each other.
+    The technical details of how particles are redirected into these Interaction Points is non-trivial, but is also not of critical importance to the subject of this paper.
+    What matters for this paper is not the ``how" of collision, but rather the question of ``how often".
+
+    How often exotic events are produced is critically important to testing hypothesis in physics.
+    Indeed, the rate an event is observed to occur at the LHC is the entire basis for the dismissal or validation of particle physics hypothesis, as will be discussed in more detail in later chapters,
+    Discussing how this rate is determined, and the role the LHC plays in it, is therefore of upmost importantance.
     The frequency with which some kind of particle interaction occurs at the LHC is a probabilistic event, determined by a number of factors.
     As an analology, imagine somebody repeatedly throwing a ball at a window on the wall of a barn.
     For a given throw, there is some probability that the ball will hit the window, calculated as the ratio of the area of the window to the total area the thrower could possibly hit.
