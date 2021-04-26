@@ -1,42 +1,37 @@
 \chapter{Trigger System} %TODO
 \section{Introduction}
-%What
-ATLAS trigger system
+    The amount of data output by the ATLAS detector is immense and overwhelming.
+    Processing every single bunch crossing would require completely unphysical bandwidth levels, and would take centuries to process.
+    To counteract this overabundance of data, ATLAS relies on its triggering system to drastically reduce its throughput.
+    Known simply as the ATLAS trigger system, this critical piece of infrastructure constitutes the last step of data taking, and the first step of physics analysis.
 
-%Why
-To reduce overall ATLAS data output during runtime by removing low-interest events.
-Refered to as ``online" analysis, as selection of data is occuring live, while the machine is running.
-The data which survives this selection is read out to disk and distributed to individual research teams for more sophisticated ``offline" analysis.
-
-%When
-The trigger system process all ATLAS events immediately after occurance, reducing the 40 MHz bunch crossing rate to an output rate of 1 kHz.
-
-%Where
-To reduce latency from data transfer times, all the trigger systems are located very close to the ATLAS detector system.
-
-%How
-Triggering is achieved by running bunch crossing ``events" through two sequential trigger systems.
-First is the hardware-based Level 1 Trigger (L1).
-Then is the software-based High Level Trigger (HLT).
-Both of these triggers involve a plethora of different measurements on various aspects of the events, such as total transverse energy, transverse momentum, jet multiplicity, and opening angles between jets.
-A ``trigger chain" is a combination of several different such conditions set to various thresholds.
-A bunch crossing satisfies a trigger chain if it is able to pass all conditions in the chain simultaneously.
-There are a huge number of different trigger chains, all comprising the ``trigger menu".
-An event is ultimately accepted and read out to disk for further analysis offline if it passes any one of the trigger chains, and each accepted event is tagged with which trigger chains it passed.
-The chains included in the trigger menu were decided upon before the beginning of the Run 2 data taking period, based on input from various analysis teams.
-
+    The trigger system is a series of hardware and software level algorithms designed to quickly identify bunch crossing ``events" which may be interest to physics analysis, while discarding the rest.
+    Refered to as ``online" analysis, these algorithms perform event selection ``live" in parallel to the machine running and taking data.
+    The trigger system processes all ATLAS events immediately after readout, ultimately reducing the 40 MHz bunch crossing rate to a data output rate of 1 kHz.
+    The data which survives this rapid selection is read out to disk and distributed to individual research teams for more sophisticated ``offline" analysis later.
+    
+    Triggering is achieved by running events through two sequential trigger systems.
+    All events first go through the hardware-based Level 1 Trigger (L1) before being being run through the more sophisticated (but slower) software-based High Level Trigger (HLT).
+    Both of these triggers involve a plethora of different measurements on various aspects of the events, such as total transverse energy, transverse momentum, jet multiplicity, and opening angles between jets.
+    Moreover, there is more than one possible way that an event can pass the trigger process.
+    Each of the various kinematic properties the triggers determine have multiple threshold values that can determine a ``pass" (e.g. a jet $p_T$ trigger can have thresholds at 30, 45, or 55 GeV, among others).
+    A ``trigger chain" is a combination of several different such kinematic conditions, each with their own thresholds.
+    An bunch crossing is ultimately accepted and read out to disk for further analysis offline if it is able to pass all the conditions of a trigger chain.
+    As stated earlier, there are several ways an event can pass the triggers, in the sense that there are a huge number of different trigger chains, each permitting a different combinations of permissable kinematics.
+    An event is read out if it passes any one of the trigger chains, and is labelled in data with all the trigger chains it passes.
+    All of the running trigger chains comprise the ``trigger menu".
+    The chains included in the trigger menu were decided upon before the beginning of the Run 2 data taking period, based on input from various analysis teams.
 
 
 \section{Level 1 Trigger}
+    One bunch-crossing every 25 ns is a blistering pace to operate at.
+    The pace is so fast, that software-based applications are unable to keep up.
+    Instead, the first layer of the trigger is the L1 system, which runs entirely through hardware-level gate logic.
+    The goal of this system is to reduce the event rate from the raw 40 MHz bunch-crossing rate, down to a more manaegable rate of 100 kHz \cite{trigger_run2}.
+    
+    
 
-%What
-Hardware level trigger
-
-%Why
-Reduce event rate acceptance to acceptable levels for more sophisticated (but slower) software level trigger
-
-%When
-Input rate of 40 MHz (every 25 ns, the LHC bunch crossing rate), output rate of 100 kHz (utilizes detector buffer memory to keep up). \cite{trigger_run2}
+Input rate of 40 MHz (every 25 ns, the LHC bunch crossing rate), output rate of 100 kHz (utilizes detector buffer memory to keep up).
 
 %Where
 As close to ATLAS as possible in order to reduce latency, specifically in the USA15 underground chamber \cite{trigger_tdr}.
