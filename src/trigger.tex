@@ -1,4 +1,5 @@
-\chapter{Trigger System} %TODO
+\chapter{Trigger System}
+
 \section{Introduction}
     The amount of data output by the ATLAS detector is immense and overwhelming.
     Processing every single bunch crossing would require completely unphysical bandwidth levels, and would take centuries to process.
@@ -25,78 +26,45 @@
 
 \section{Level 1 Trigger}
     One bunch-crossing every 25 ns is a blistering pace to operate at.
-    The pace is so fast, that software-based applications are unable to keep up.
-    Instead, the first layer of the trigger is the L1 system, which runs entirely through hardware-level gate logic.
+    The first layer of the trigger system, L1, thus runs entirely through hardware-level gate logic.
     The goal of this system is to reduce the event rate from the raw 40 MHz bunch-crossing rate, down to a more manaegable rate of 100 kHz \cite{trigger_run2}.
-    
-    
+    To reduce latency as much as possible, all the electronics comprising L1 are located as close as possible to ATLAS itself, specifically in the USA15 underground chamber \cite{trigger_tdr}.
+    As yet another consequence of the high frequency L1 must operate at, it exclusively uses information from the ATLAS calorimeters and Muon Trigger Chamber for its decisions.
+    %(utilizes detector buffer memory to keep up).
 
-Input rate of 40 MHz (every 25 ns, the LHC bunch crossing rate), output rate of 100 kHz (utilizes detector buffer memory to keep up).
+    The Muon Trigger aspect of L1 is based entirely around the trigger-dedicated Muon Trigger Chamber, which described in section. %\ref{sec:muon-trigger_chamber} FIXME uncomment 
+    Its purpose is to make trigger decisions primarily based on muon $p_T$ and track multiplicity in the Trigger Chamber  \cite{trigger_run1}.
+    In the calorimeter-based trigger, the selection algorithm involves the construction of key trigger objects that are crucial to understanding the events used in ATLAS analysis.
 
-%Where
-As close to ATLAS as possible in order to reduce latency, specifically in the USA15 underground chamber \cite{trigger_tdr}.
+    The full granularity of the ATLAS calorimeters is too complex to analyze in the \textasciitilde 25 ns L1 has to process each bunch-crossing.
+    Instead, the various sensors of the calorimeters are clustered together into ``trigger towers", each with a resolution of 0.1x0.1 in $\Delta \eta x \Delta \phi$.
+    A ``Region of Interest" (RoI) is created as a group of towers which collectively satisfy the condition of a specific type of trigger.
+    The way RoIs are formed and used varies between the different L1 calorimeter trigger modules: the CPM, JEM, and CMX.
 
+    The Cluster Processor Module (CPM) exclusively uses the Barrel Calorimeters to function, and is primarily meant for rapid identification of electrons/photons and taus/hadrons.
+    In either situation, the CPM's first step is to check all possible 4x4 ``windows" of trigger towers, identifying windows containing an isolated ``Region of Interest" (RoI).
+    Here, an RoI is defined as a 2x2 cluster of towers with an $E_T$ sum that is a relative maximum compared to surrounding towers.
+    This 2x2 RoI is the center of the 4x4 window (see figure [TODO INSERT FIGURE 13 OF L1_calo_run1]).
+    Windows are considered as passing the CPM trigger if the RoI satisfies an isolation requirement, meaning that the 12 towers surrounding that core fall \textit{below} a predifined $E_T$ ``isolation threshold" value.
+    Electrons and photons are then seperated from taus and hadrons by the fact that the latter group penetrates into the HCal barrel, while the former group stays highly contained to the ECal.
 
-%How
-Uses only information from calorimeters and Muon Trigger Chamber
+    Expanding out, the Jet/Energy Processing Module (JEM, or sometimes JEP) makes use of the calorimeter barrels and endcaps, as well as the FCAL, though it does not distinguish between the ECal and HCal.
+    The JEM further reduces the granularity under consideration, with a basic unit of data collection being 2x2 collections of trigger towers called ``jet elements", resulting in minimum resolution of 0.2x0.2 in $\Delta \eta x \Delta \phi$.
+    Like the CPM, the JEM runs its trigger conditions on windows of multiple jet elements that must be based around a 2x2 RoI core (which is a local $E_T$ maximum).
+    Unlike the CPM, these windows can vary in size.
+    Primarily, the JEM is intended to perform hit multiplicity counting as well as assist the Extended Cluster Merger Modules (CMX) in carrying out the final jet multiplicity and $E_T$ sums \cite{L1_calo_run1}\cite{trigger_run2}.
 
-
-Calorimeter Algorithms: \cite{L1_calo_run1}
-    Based on Calorimeter information.
-
-    Reduces granularity of cals by clustering sensors together into ``trigger towers" each with a resolution of 0.1x0.1 in $\Delta \eta x \Delta \phi$.
-
-    A ``Region of Interest" (RoI) is created as a group of towers which collectively satisfy various conditions (varying between the trigger in question).
-
-    % TODO condense these three down... or maybe don't? I'll just write it all out and let steve tell me to trim it later
-    Cluster Processor Module (CPM)
-        Based on Barrel Cals
-        For electron/photon and tau/hadron identification.
-        Electrons and photons are triggered by clusters which are limited to the ECal and do not penetrate into the HCal.
-        Taus and hadrons are identified by the fact that they do penetrate into the HCal.
-        Both groups work by checking all possible 4x4 windows of trigger towers, and identifying windows containing an isolated ``Region of Interest" (RoI).
-        An RoI is defined as a 2x2 cluster of towers with an Et sum that is a relative maximum compared to surrounding towers.
-        This 2x2 RoI is the center of the 4x4 window (see figure [TODO INSERT FIGURE 13 OF L1_calo_run1]).
-        Windows are considered as passing the CPM trigger if the RoI satisfies an isolation requirement, meaning that the 12 towers surrounding that core fall \textit{below} a predifined Et ``isolation threshold" value.
-
-    Jet/Energy Module (JEM)
-        Uses Barrel and Endcap, and does not distinguish between ECal and HCal
-        Basic units of data collection are 2x2 collections of trigger towers called ``jet elements", resulting in minimum resolution of 0.2x0.2 in $\Delta \eta x \Delta \phi$.
-        Windows can vary in size, but must be based around a core of 2x2 jet element RoI which are (as with the CPM) a local maximum in Et.
-        Counts multiplicity of hits in each region and begins Et sums for the MET calculation.
-        
-    Common Merger Module (CMM) -> replaced by Cluster Merger Modules (CMX) in Run 2 \cite{trigger_run2}
-        Uses all Cals including FCal.
-        Carries out final jet multiplicity counting and Et/missing Et sums
-
-L1 Muon Trigger \cite{trigger_run1}
-    Uses the Muon Trigger Chamber %\ref{sec:muon-trigger_chamber} FIXME uncomment 
-    to trigger based on particle pt and multiplicity
-
-
-%\section{Level 2 Trigger} Software level trigger on L1-based ROIs. Merged with HLT in Run 2
 
 \section{High Level Trigger}
-
-%What
-Software trigger using data from all detector elements (including the Inner Detector).
-
-%Why
-To further reduce event levels to levels permitting full offline analysis.
-
-%When
-Input rate of 100 kHz (output of L1), output rate of ~1 kHz.
-
-%Where
-Also very close to ATLAS, at the surface, in building SCX1. %see trigger_tdr figure 2
-
-%How
-The HLT performs rapid online reconstruction of event data [FIXME forward reference reconstruction here] into various physics ``signatures", with each signature corresponding to specific particles or physics processes.
-The main signatures used in ATLAS are: minimum bias signatures, electron/photons (Egamma), muons, jets, taus, missing transverse energy (MET), b-jets (as in jets from bottom quarks), and B-physics (as in B-hadrons).
-The process of reconstruction and the algorithms applied to these reconstructed signatures are based on offline software algorithms.
-These offline algorithms are adjusted for use in the online environment, which is discussed further in the next chapter.
+    After the L1 Trigger has reduced the event rate to 100 kHz, the software-based High Level Trigger (HLT) is used to further reduce the event rate to the final output of \textasciitilde 1 kHz.
+    Located in the SCX1 building (TODO insert trigger_tdr figure 2) at the surface of P1 (again to minimize latency), the HLT uses data from all detector elements completely reconstruct the event as it occured in ATLAS, and performs its selections based on this reconstructed event.
+    Different physics processes and particles, known as physics ``signatures", are reconstructed in different ways, and have different triggers based around them. 
+    The main signatures used in ATLAS are: minimum bias signatures, electron/photons (Egamma), muons, jets, taus, missing transverse energy (MET), b-jets (as in jets from bottom quarks), and B-physics (as in B-hadrons).
+    The process of reconstruction and the trigger algorithms applied to these reconstructed signatures are based on offline software algorithms.
+    These offline algorithms are adjusted for use in the online environment, which is discussed further chapter [TODO].
+    Once events have successfully passed both L1 and the HLT, they are finally distributed offsite for analysis by different physics groups.
     
-
+    
 
 % TODO: I think I'm going to move this into the "event reconstruction" chapter, since discussion of the retuning process is entirely based on discussion of the individual low-level and high-level algorithms used for the bjet trigger
 %\section{HLT Retuning Framework}
