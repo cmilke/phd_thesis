@@ -1,3 +1,4 @@
+\newcommand{\minimatrix}[1]{ \big(\begin{smallmatrix} #1 \end{smallmatrix}\big) }
 \chapter{Theory}\label{chapter:experiment}
 
 So what even do I need to talk about here?
@@ -14,17 +15,22 @@ Final goal = Higgs (final final goal should actually probably be di-higgs and a 
 %\section{Introduction and Basics: The Composition of the Universe} ...It looks like Matthew doesn't mention any of this. Maybe I can skip this part entirely?
 %
 %    What is the Universe made of (If you stick to this format at all, keep this section brief):
+%    \subsection{Matter and Forces}
+%       I need to discuss the elementary particles and their organization before I can really discuss the gauge fields.
+%       Might as well do it here first and foremost
+%
+%    \subsection{Position and Momentum: Quantum Mechanics}
+%       The position and momentum of that matter:
+%           Described via the Canonical Commutation Relation and the formalism of Quantum Mechanics
+%           (explain 'h' here?)
+%       Describe basic function of schrodinger equation and why it fails
 %
 %    \subsection{Space and Time: Special Relativity}
 %       The space-time in which that matter resides: described by the Minkowski Metric Tensor.
 %        Explain what the metric tensor means and maybe covariant notation,
 %        as well as mass-energy-momentum equivalence,
 %        and also the speed of light
-%
-%    \subsection{Position and Momentum: Quantum Mechanics}
-%       The position and momentum of that matter:
-%           Described via the Canonical Commutation Relation and the formalism of Quantum Mechanics
-%           (explain 'h' here?)
+%        Reformat schrodinger equation as klein gordon and show how this also fails
 %
 %
 %    \subsection{Particles and Fields: Quantum Field Theory}
@@ -45,18 +51,18 @@ Final goal = Higgs (final final goal should actually probably be di-higgs and a 
 
             $U(1)$ Local: $\psi(x) \rightarrow e^{i \alpha(x)} \psi(x)$
 
-            $SU(2)$ Global:  $\psi_i(x) \rightarrow  U(\epsilon)_{ij} \psi_j$; $U_{ij} \equiv e^{i \epsilon_a (\sigma_{a,ij} / 2)}$; $a=1,2,3$
-                $\sigma_a$ are the pauli matrices
+            $SU(2)$ Global:  $\psi_i(x) \rightarrow  U(\epsilon)_{ij} \psi_j$; $U_{ij} \equiv e^{i \epsilon_a (h_{a,ij} / 2)}$; $a=1,2,3$
+                $h_a$ are the pauli matrices
                 %- (cheng djvu pg 97 for details)
 
-            $SU(2)$ Local:  $\psi_i(x) \rightarrow  e^{i \epsilon_a(x) (\sigma_{a,ij} / 2)} \psi_j$
+            $SU(2)$ Local:  $\psi_i(x) \rightarrow  e^{i \epsilon_a(x) (h_{a,ij} / 2)} \psi_j$
                 %- (cheng djvu pg 238 for details)
 
             $SU(3)$ Global:  $\psi_i(x) \rightarrow  U(\epsilon)_{ij} \psi_j$; $U_{ij} \equiv e^{i \epsilon_a (\lambda{a,ij} / 2)}$; $a=1,..., 8$
                 $\lambda_a$ are 3x3 traceless hermitian matrices
             
 
-        what does a basic transformation look like. Show how you go from (1+da/dq) to e^(dq*da/dq).
+        what does a basic transformation look like. Show how you go from (1+da/dq) to e\^(dq*da/dq).
 
 
 
@@ -83,16 +89,20 @@ Final goal = Higgs (final final goal should actually probably be di-higgs and a 
 
     \subsection{Restricting Motion: The Lagrangian, Symmetry, and Noether's Theorem}
 
-       Explain how motion is described by a lagrangian of fields. 
-       Minization of Action.
-       Equations of motion derived from Euler-Lagrange Equations.
-       The lagrangian takes the form it does in order to satisfy poincare symmetry.
-       Discuss Noether's Theorem; refer to Halzen pg 314 (djvu=331) or, maybe better, Sredneki pg 144).
+        Explain how motion is described by a lagrangian of fields. 
+        Minization of Action.
+        Equations of motion derived from Euler-Lagrange Equations.
+        The lagrangian takes the form it does in order to satisfy poincare symmetry.
 
-       I also should maybe end this with a discussion of how forces aren't really a thing
+        Discuss Noether's Theorem; refer to Halzen pg 314 (djvu=331) or, maybe better, Sredneki pg 144).
+            ... Wait, do I even need to mention noether's theorem?
+            I don't think it's actually a factor in producing the higgs... which makes me slightly sad :-(
+
+        I also should maybe end this with a discussion of how forces aren't really a thing
             and particles in field theory exchange momentum by merely bumping into other particles.
-       Maybe, *maybe**** (maybe not) give a toy example lagrangian showing a particle which can interact with itself via a three-point vertex or something.
-       Note the basic symmetries that the basic lagrangian must satisfy (hence group theory going first)
+        Maybe, *maybe**** (maybe not) give a toy example lagrangian showing a particle which can interact with itself via a three-point vertex or something.
+        Note the basic symmetries that the basic lagrangian must satisfy (hence group theory going first)
+        \cite{Halzen_book}
 
 
     \subsection{Transferring Motion: Gauge Symmetry}
@@ -101,6 +111,18 @@ Final goal = Higgs (final final goal should actually probably be di-higgs and a 
         The effects of imposing gauge symmetries on the Lagrangian, and the advent of the gauge bosons and their forces.
         how do gauge bosons come out from symmetries.
 
+        U(1) is phase transforms
+
+        SU(2) is based on 2x2 pauli matrices and thus requires pairing generations of particles together;
+            so up and down-type quarks are paired together and charged leptons with neutrinos.
+        It treats left handed fields as these doublet pairs,
+            but works in "singlet representation" (which means it basically is just gone) for right-handed fields
+
+        SU(3) is based on a 3x3 structure constant, and thus acts on all three "generations" of quarks as one 3x1 vector.
+        It is a singlet (read, it literally doesn't matter) for leptons.
+        
+        \cite{Osborn_notes}
+        \cite{Peskin_book}
         \cite{Halzen_book}
 
 
@@ -135,64 +157,105 @@ Final goal = Higgs (final final goal should actually probably be di-higgs and a 
 
         A system in such a potential would invariably fall into one of these minima.
         The Lagrangian can be rewritten from the perspective of one of these minima (e.g.\ $+\nu$),
-            by substituting in a shifted field $\sigma$, where $\phi(x)=\nu+\sigma(x)$.
+            by substituting in a shifted field $h$, where $\phi(x)=\nu+h(x)$.
         The Langrangian now takes the form (after simplifying)
 
-        \begin{equation}
-            \Lag = \frac{1}{2} (\partial_{\mu} \sigma)^2
-                - \mu^2 \sigma^2
-                -\sqrt{\frac{\lambda}{6}} \mu \sigma^3
-                - \frac{\lambda}{4!} \sigma^4 \\
-        \end{equation}
+        \begin{equation} \begin{split} \label{eq:basic_higgs}
+            \Lag & = \frac{1}{2} (\partial_{\mu} h)^2
+                - \mu^2 h^2
+                -\sqrt{\frac{\lambda}{6}} \mu h^3
+                - \frac{\lambda}{4!} h^4 \\
+             & = \frac{1}{2} (\partial_{\mu} h)^2
+                - m_{h} h^2
+                - k_{h} h^3
+                - \frac{k_{2h}}{4!} h^4
+        \end{split} \end{equation}
 
-        \begin{equation}
-            \Lag = \frac{1}{2} (\partial_{\mu} \sigma)^2
-                - m_{\sigma} \sigma^2
-                - k_{\sigma} \sigma^3
-                - \frac{k_{2\sigma}}{4!} \sigma^4
-        \end{equation}
-
-        With the latter equation taking the form of a now massive field $\sigma$ with both a three and four point vertex,
-            governed by two different coupling values $k_{\sigma}$, and $k_{2\sigma}$.
+        With the latter equation taking the form of a now massive field $h$ with both a three and four point vertex,
+            governed by two different coupling values $k_{h}$, and $k_{2h}$.
 
         \cite{Halzen_book}
 
         
 
     \subsection{Electro-Weak Symmetry Breaking}
-        In full form, with bosons obeying U1XSU2 gauge symmetry, this produces 3 massive bosons W+, W-, Z0, and a massless photon.
-            (you might have to work this out first for only the kinetic term, not for the full lagrangian)
 
-        With the toy model done, let's now use the Higg's Mechanism to produce the massless photon and massive W and Z bosons.
-        How the Higg's Mechanism gives rise to fermion masses and the Higgs Boson will be left to the next section.
-        To do this, we start with the universe in a high-energy state,
-            with a scalar field that is simultaneously symmetric with regards to both the $U(1)$ and $SU(2)$ gauge groups.
-        This field then transforms as
+        Let's now give the scalar field a complex phase and spinor components:
         \begin{equation}
-            \phi \rightarrow e^{i \alpha^a \tau^a} e^{i \beta/2 } \phi
+            \phi(x) = \frac{1}{\sqrt{2}} e^{i \beta} \minimatrix{\phi_1 \\ \phi_2}
+        \end{equation}
+        $\phi$ is still a scalar in spacetime, but now also has vector components in the $SU(2)$ subspace.
+
+        As with the dirac fields, we will then impose $U(1) \times SU(2)$ gauge symmetry on the field, so it transforms as:
+        \begin{equation}
+            \phi(x) \rightarrow e^{i \alpha^a \tau^a} e^{i \beta/2 } \phi(x)
         \end{equation}.
 
-        Assign vev, perform gauge transform, get three massive and one massless boson (pg 722);
+        The added symmetries require that the derivative be changed to a covarient derivative 
+            $D^{\mu} = \partial^{\mu} - \frac{ig}{2} A^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu}$,
+            producing a Lagrangian:
+        \begin{equation} \begin{split}
+            \Lag & = \frac{1}{2} (D_{\mu} h)^2
+                - \mu^2 h^2
+                -\sqrt{\frac{\lambda}{6}} \mu h^3
+                - \frac{\lambda}{4!} h^4 \\
+        \end{split} \end{equation}
 
-        Get covariant derivative, evaluate at vev, pull out W,Z, and photon fields, and their masses (pg 722);
+        Once again, we allow the scalar field to fall into its offset vev $v$, as $\phi(x) \rightarrow h(x) + v$.
+        Now however, $v$ is a spinor value $v = \minimatrix{v_1 \\ v_2}$.
+        With gauge freedom, this can be rotated entirely along one axis as $\vec{v} = \minimatrix{0 \\ v}$,
+            with $v = \sqrt{\mu^2/\lambda}$.
+        Substituting into the Lagrangian now produces a more complex expression:
+        \begin{equation} \begin{split}
+            \Lag & = \frac{1}{2} (D_{\mu}^{ij} (h+v)_j)^2
+                + \mu^2 (h+v)^2
+                - \frac{\lambda}{4} (h+v)^4 \\
+             & = \Lag_h + \Lag_v
+        \end{split} \end{equation}
+        Where $\Lag_h$ takes a form similar to Equation \ref{eq:basic_higgs}, incorporating both the $h$ and $h$/$v$ cross terms.
+        Meanwhile, $\Lag_v$ refers only to the terms arising from $D_{\mu}$ acting on the vev:
+        $ \Lag_v = \frac{1}{2} (D_{\mu}^{ij} v_j)^2 $.
+        The expansion of this term is crucial to the structure of the Standard Model,
+            as it alone will lead to the breakdown of Electro-Weak Symmetry,
+            and the $W$ and $Z$ bosons acquiring mass.
 
-        Rewrite covariant derivative in terms of mass eigenstates (pg 723);
+        %Get covariant derivative, evaluate at vev, pull out W,Z, and photon fields, and their masses (pg 722);
+        An explicit expansion of $\Lag_v$ (noting that $\tau^a$ are the Pauli matrices) yields 
+        \begin{equation} \begin{split}
+            \Lag_v & = \frac{1}{2} (D_{\mu}^{ij} v_j)^2 \\
+            & = \frac{1}{2} (v_i D^{\mu}_{ij} D^{jk}_{\mu} v_k) \\
+            & = \frac{1}{2} \minimatrix{0 & v} \big( g A^a_{\mu} \tau^a + \frac{1}{2} g' B_{\mu} \big)
+            \big( g A^{b\mu} \tau^b + \frac{1}{2} g' B^{\mu} \big) \minimatrix{0 \\ v} \\
+            & = \frac{1}{2} \frac{v^2}{4} \big[ g^2 
+        \end{split} \end{equation}
 
-        Simplify by collecting terms into the EM and Weak couplings (pg 723-724);
 
-        Split fermions between right and left fields, assign LH to SU(2) doublets (T=+-1?), RH to SU(2) singlet (T=0), assign Y too (pg724-725);
 
-        Sandwitch covariant derivative terms between fermion fields, expand to get field currents (pg 725-726);
+        %Rewrite covariant derivative in terms of mass eigenstates (pg 723);
+        %Simplify by collecting terms into the EM and Weak couplings (pg 723-724);
 
-        *Try* to expand masses and fail because of representation incompatibilities (pg 725);
 
-        Anamoly cancellation thing I'll probably ignore (pg 726);
 
-        Add higgs interaction psibar phi psi to fermion lagrangian, expand into higgs interaction, convert to fermion mass (pg 734);
+        % Fermion time!!
+    %\subsection{Giving Mass to Fermions}
+
+        %Split fermions between right and left fields, assign LH to SU(2) doublets (T=+-1?), RH to SU(2) singlet (T=0), assign Y too (pg724-725);
+
+        %Sandwitch covariant derivative terms between fermion fields, expand to get field currents (pg 725-726);
+
+        %*Try* to expand masses and fail because of representation incompatibilities (pg 725);
+
+        %Anamoly cancellation thing I'll probably ignore (pg 726);
+
+        %Add higgs interaction psibar phi psi to fermion lagrangian, expand into higgs interaction, convert to fermion mass (pg 734);
 
 
 
         
+%    \subsection{The Higgs Boson and di-Higgs Interactions}
+%        Further work must then be done to couple the higgs boson to fermions and itself
+%        You need to tie k2v, kl, and kv in to the shape of the higgs potential here
+
 
 
 
@@ -202,13 +265,6 @@ Final goal = Higgs (final final goal should actually probably be di-higgs and a 
 %        Some kind of loop anomaly problem that can only be solved by a weird balance of leptons and quarks???
 %
 %
-%    \subsection{The Higgs Boson and di-Higgs Interactions}
-%        Further work must then be done to couple the higgs boson to fermions and itself
-%        You need to tie k2v, kl, and kv in to the shape of the higgs potential here
-%
-%    \subsection{The Particle Zoo}
-%        Summarize all the particle types (minus Higgs?), and their relationship to the gauge symmetries.
-
 
 %
 %       Either here or in appendix: how do forces arise from particle interactions (Lagrangian -> Euler-Lagrange equations -> equations of motion)
