@@ -52,7 +52,7 @@
 
         Let's now give the scalar field a complex phase and spinor components:
         \begin{equation}
-            \phi(x) = \frac{1}{\sqrt{2}} e^{i \beta} \minimatrix{\phi_1 \\ \phi_2}
+            \phi(x) = \frac{1}{\sqrt{2}} e^{i \beta} \tinymatrix{\phi_1 \\ \phi_2}
         \end{equation}
         $\phi$ is still a scalar in spacetime, but now also has vector components in the $SU(2)$ subspace.
 
@@ -62,7 +62,7 @@
         \end{equation}.
 
         The added symmetries require that the derivative be changed to a covarient derivative 
-            $D^{\mu} = \partial^{\mu} - \frac{ig}{2} A^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu}$,
+            $D^{\mu} = \partial^{\mu} - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu}$,
             producing a Lagrangian:
         \begin{equation} \begin{split}
             \Lag & = \frac{1}{2} (D_{\mu} h)^2
@@ -72,8 +72,8 @@
         \end{split} \end{equation}
 
         Once again, we allow the scalar field to fall into its offset vev $v$, as $\phi(x) \rightarrow h(x) + v$.
-        Now however, $v$ is a spinor value $v = \minimatrix{v_1 \\ v_2}$.
-        With gauge freedom, this can be rotated entirely along one axis as $\vec{v} = \frac{1}{\sqrt{2}}\minimatrix{0 \\ v}$,
+        Now however, $v$ is a spinor value $v = \tinymatrix{v_1 \\ v_2}$.
+        With gauge freedom, this can be rotated entirely along one axis as $\vec{v} = \frac{1}{\sqrt{2}}\tinymatrix{0 \\ v}$,
             with $v = \sqrt{\mu^2/\lambda}$.
         Substituting into the Lagrangian now produces a more complex expression:
         \begin{equation} \begin{split}
@@ -97,36 +97,36 @@
         %Get covariant derivative, evaluate at vev, pull out W,Z, and photon fields, and their masses (pg 722);
         Expanding only $D_{\mu}^{ij} v_j$ to start, the $\partial_{\mu}$ immediately vanishes ($v$ is a constant), yielding 
         \begin{equation} \begin{split}
-            D^{\mu} v  = \big( \partial^{\mu} & - \frac{ig}{2} A^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \minimatrix{0\\v} \\
-                = \big( & - \frac{ig}{2} A^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \minimatrix{0\\v} \\
-                = - \frac{i}{2} \big( & g A^a_{\mu} \sigma^a + g' B_{\mu} \big) \frac{1}{\sqrt{2}}\minimatrix{0\\1} v
+            D^{\mu} v  = \big( \partial^{\mu} & - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \frac{1}{\sqrt{2}}\minimatrix{0\\v} \\
+            = \big( & - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \frac{1}{\sqrt{2}}\minimatrix{0\\v} \\
+            = - \frac{i}{2} \big( & g \wField^a_{\mu} \sigma^a + g' B_{\mu} \big) \frac{1}{\sqrt{2}}\minimatrix{0\\1} v
         \end{split} \end{equation}
 
         It is useful here to fully expand the $U(1) \times SU(2)$ fields into their matrix components and add them explicitly,
             as doing so reveals the origin of the photon and W and Z bosons.
         \begin{equation} \begin{split}
-            g A^a_{\mu} \sigma^a + g' B_{\mu} & =
-                g A^1_{\mu} \sigma^1
-                + g A^2_{\mu} \sigma^2
-                + g A^3_{\mu} \sigma^3
+            g \wField^a_{\mu} \sigma^a + g' B_{\mu} & =
+                g \wField^1_{\mu} \sigma^1
+                + g \wField^2_{\mu} \sigma^2
+                + g \wField^3_{\mu} \sigma^3
                 + g' B_{\mu} I \\
             & = \begin{pmatrix}
-                0 & gA^1_{\mu} \\ gA^1_{\mu} & 0 \end{pmatrix}
-                + \begin{pmatrix} 0 & -igA^2_{\mu} \\ igA^2_{\mu} & 0 \end{pmatrix}
-                + \begin{pmatrix} gA^3_{\mu} & 0 \\ 0 & -gA^3_{\mu} \end{pmatrix}
+                0 & g\wField^1_{\mu} \\ g\wField^1_{\mu} & 0 \end{pmatrix}
+                + \begin{pmatrix} 0 & -ig\wField^2_{\mu} \\ ig\wField^2_{\mu} & 0 \end{pmatrix}
+                + \begin{pmatrix} g\wField^3_{\mu} & 0 \\ 0 & -g\wField^3_{\mu} \end{pmatrix}
                 + \begin{pmatrix} g'B_{\mu} & 0 \\ 0 & g'B_{\mu}
             \end{pmatrix} \\
             & = \begin{pmatrix} 
-                gA^3_{\mu} + g'B_{\mu} & gA^1_{\mu} - igA^2_{\mu} \\
-                gA^1_{\mu} + igA^2_{\mu} & -gA^3_{\mu} + g'B_{\mu}
+                g\wField^3_{\mu} + g'B_{\mu} & g\wField^1_{\mu} - ig\wField^2_{\mu} \\
+                g\wField^1_{\mu} + ig\wField^2_{\mu} & -g\wField^3_{\mu} + g'B_{\mu}
             \end{pmatrix}
         \end{split} \end{equation}
 
-        The four components of this matrix are the gauge boson fields of the electromagnetic and weak interactions
+        The four components of this matrix are the gauge boson fields of the electromagnetic ($A$) and weak ($W$ \& $Z$) interactions
         \begin{equation} \begin{split}
             \begin{pmatrix} 
-                gA^3_{\mu} + g'B_{\mu} & gA^1_{\mu} - igA^2_{\mu} \\
-                gA^1_{\mu} + igA^2_{\mu} & -gA^3_{\mu} + g'B_{\mu}
+                g\wField^3_{\mu} + g'B_{\mu} & g\wField^1_{\mu} - ig\wField^2_{\mu} \\
+                g\wField^1_{\mu} + ig\wField^2_{\mu} & -g\wField^3_{\mu} + g'B_{\mu}
             \end{pmatrix} =
             \begin{pmatrix} 
                 \sqrt{g^2 + g^{\prime 2}}\ A_{\mu} & g \sqrt{2}\ W^+_{\mu} \\
@@ -134,25 +134,25 @@
             \end{pmatrix}
         \end{split} \end{equation}
 
-        With $A$, $W^+$, $W^-$, and $Z^0$ related to the unbroken $A^a$ and $B$ fields by
+        With $A$, $W^+$, $W^-$, and $Z^0$ related to the unbroken $\wField^a$ and $B$ fields by
         \begin{equation} \begin{split}
-            A_{\mu} & = \frac{1}{\sqrt{g^2 + g^{\prime 2}}} ( gA^3_{\mu} + g'B_{\mu} ) \\
-            Z^0_{\mu} & = \frac{1}{\sqrt{g^2 + g^{\prime 2}}} ( gA^3_{\mu} - g'B_{\mu} ) \\
-            W^{\pm}_{\mu} & = \frac{1}{\sqrt{2}} (A^1_{\mu} \mp iA^2_{\mu})
+            A_{\mu} & = \frac{1}{\sqrt{g^2 + g^{\prime 2}}} ( g\wField^3_{\mu} + g'B_{\mu} ) \\
+            Z^0_{\mu} & = \frac{1}{\sqrt{g^2 + g^{\prime 2}}} ( g\wField^3_{\mu} - g'B_{\mu} ) \\
+            W^{\pm}_{\mu} & = \frac{1}{\sqrt{2}} (\wField^1_{\mu} \mp i\wField^2_{\mu})
         \end{split} \end{equation}
 
         The $\sqrt{g^2 + g^{\prime 2}}$ factor is the result of converting between
-            $\minimatrix{Z^0 \\ A}$ and $\minimatrix{A^3 \\ B}$ by way of a rotation matrix
+            $\tinymatrix{Z^0 \\ A}$ and $\tinymatrix{\wField^3 \\ B}$ by way of a rotation matrix
         \begin{equation} \begin{split}
             \begin{pmatrix} Z^0 \\ A \end{pmatrix} =
             \begin{pmatrix}
                 \frac{g}{\sqrt{g^2 + g^{\prime 2}}} & \frac{-g'}{\sqrt{g^2 + g^{\prime 2}}} \\
                 \frac{g'}{\sqrt{g^2 + g^{\prime 2}}} & \frac{g}{\sqrt{g^2 + g^{\prime 2}}}
-            \end{pmatrix} \begin{pmatrix} A^3 \\ B \end{pmatrix} = 
+            \end{pmatrix} \begin{pmatrix} \wField^3 \\ B \end{pmatrix} = 
             \begin{pmatrix}
                 \cos\theta_w & -\sin\theta_w \\
                 \sin\theta_w & \cos\theta_w
-            \end{pmatrix} \begin{pmatrix} A^3 \\ B \end{pmatrix}
+            \end{pmatrix} \begin{pmatrix} \wField^3 \\ B \end{pmatrix}
         \end{split} \end{equation}
 
         Where $\theta_w \equiv \cot(\frac{g'}{g})$ is known as the \textit{weak mixing angle}.
@@ -198,10 +198,16 @@
         As in Section \ref{sec:higgs_mechanism}, the $W$ and $Z$ fields now have additional mass terms associated with their kinetic energy terms,
             with $M_W = \frac{vg}{2}$ and $M_Z = \left(\frac{v}{2}\sqrt{g^2 + g^{\prime 2}}\right) $.
         The photon field $A_{\mu}$ is notably absent in the final vev product, and thus is left massless.
+        A similar procedure can then be followed to allow the Higgs Field to interact with fermions
+            (albeit with complications arising from mass-mixing and chirality), which will grant mass to the fermion particles.
 
 
         % Fermion time!!
     %\subsection{Giving Mass to Fermions}
+    % Ok this is seriously just the same thing but now we have to split the fermion fields into left and right and up-type and down-type
+    % and split the higgs into the higgs and conjugate higgs and also insert the complex mass matrix except don't insert it for charged leptons
+    % because reasons or something. And then poof your charged leptons have mass and your quarks have mass and flavour changing
+        
 
         %Split fermions between right and left fields, assign LH to SU(2) doublets (T=+-1?), RH to SU(2) singlet (T=0), assign Y too (pg724-725);
 
@@ -216,16 +222,24 @@
 
 
         
-%    \subsection{The Higgs Boson and di-Higgs Interactions}
-%        Further work must then be done to couple the higgs boson to fermions and itself
-%        You need to tie k2v, kl, and kv in to the shape of the higgs potential here
+    \subsection{The Higgs Boson and di-Higgs Interactions}
+
+        With the critical role of the Higgs Field established, it is now time to return to Equation \ref{eq:fullHiggs},
+            and investigate $\Lag_h$, the Lagrangian of the Higgs Boson itself.
+        The terms involved therein provide information not only about the Higgs Field,
+            but also provide insight into how the Higgs may be further studied.
+        \begin{equation} \begin{split}
+            \Lag & = \frac{1}{2} (D_{\mu}^{ij} (h+v)_j)^2
+                + \mu^2 (h+v)^2
+                - \frac{\lambda}{4} (h+v)^4 \\
+            = \big( \partial^{\mu} & - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \frac{1}{\sqrt{2}}h \\
+                - \mu^2 h^2
+                -\sqrt{\frac{\lambda}{6}} \mu h^3
+                - \frac{\lambda}{4!} h^4 \\
+        \end{split} \end{equation}
 
 
-
-
-%        Working out the full lagrangian gets...complicated (GWS theory).
-%        Weak interactions only interact with certain helicity states??
-%        Coupling all this to fermions requires weird mass treatment? Resolving this requires use of the CKM matrix (pg 714).
-%        Some kind of loop anomaly problem that can only be solved by a weird balance of leptons and quarks???
-%
-%
+        
+        
+        %Further work must then be done to couple the higgs boson to fermions and itself
+        %You need to tie k2v, kl, and kv in to the shape of the higgs potential here
