@@ -52,42 +52,58 @@
 
         Let's now give the scalar field a complex phase and spinor components:
         \begin{equation}
-            \phi(x) = \frac{1}{\sqrt{2}} e^{i \beta} \tinymatrix{\phi_1 \\ \phi_2}
+            \vec{\phi}(x) = \frac{1}{\sqrt{2}} \tinymatrix{\phi_1 \\ \phi_2}
         \end{equation}
-        $\phi$ is still a scalar in spacetime, but now also has vector components in the $SU(2)$ subspace.
+        $\vec{\phi}$ is still a scalar in spacetime, but now also has vector components in the $SU(2)$ subspace.
 
         As with the dirac fields, we will then impose $U(1) \times SU(2)$ gauge symmetry on the field, so it transforms as:
         \begin{equation}
-            \phi(x) \rightarrow e^{i \alpha^a \tau^a} e^{i \beta/2 } \phi(x)
+            \vec{\phi}(x) \rightarrow e^{i \alpha^a \tau^a} e^{i \beta/2 } \vec{\phi}(x)
         \end{equation}.
 
+        The additional symmetries will in general complicate matters signficantly,
+            but they do allow for one simplification which will be immediately utilized.
+        Regardless of symmetries, any abitrary vector such as $\vec{\phi}$ can be written as a unitary transformation $U(x)$ operating on a simpler single-valued vector
+        \begin{equation}
+            \vec{\phi}(x) = \frac{1}{\sqrt{2}} \tinymatrix{\phi_1 \\ \phi_2} = \frac{1}{\sqrt{2}} U(x) \tinymatrix{0 \\ \phi}
+        \end{equation}
+        Courtesy of the newly added gauge freedom, this field can be rotated through $SU(2) \times U(1)$ space freely without affecting the Lagrangian.
+        A particularly conventient rotation to perform then is one that aligns with the orientation of $U(x)$, such that $U(x)$ vanishes
+        \begin{equation} \begin{split}
+            \vec{\phi}(x) \rightarrow \vec{\phi}'(x) 
+                &= U^{-1}(x) \vec{\phi}(x)
+                = \frac{1}{\sqrt{2}} U^{-1}(x) U(x) \tinymatrix{0 \\ \phi}
+                = \frac{1}{\sqrt{2}} \tinymatrix{0 \\ \phi} \\
+            \vec{\phi}'(x) &= \frac{1}{\sqrt{2}} \tinymatrix{0 \\ \phi}
+        \end{split} \end{equation}
+        This orientation is refered as the \textit{Unitary Gauge}, and will be used for the rest of the chapter.
+
+
+        Now for the complications.
         The added symmetries require that the derivative be changed to a covarient derivative 
             $D^{\mu} = \partial^{\mu} - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu}$,
             producing a Lagrangian:
         \begin{equation} \begin{split}
-            \Lag & = \frac{1}{2} (D_{\mu} h)^2
-                - \mu^2 h^2
-                -\sqrt{\frac{\lambda}{6}} \mu h^3
-                - \frac{\lambda}{4!} h^4 \\
+            \Lag & = \frac{1}{2} |D_{\mu} \vec{\phi}|^2
+                - \mu^2 \vec{\phi}^2
+                -\sqrt{\frac{\lambda}{6}} \mu \vec{\phi}^3
+                - \frac{\lambda}{4!} \vec{\phi}^4 \\
         \end{split} \end{equation}
 
         Once again, we allow the scalar field to fall into its offset vev $v$, as $\phi(x) \rightarrow h(x) + v$.
-        Now however, $v$ is a spinor value $v = \tinymatrix{v_1 \\ v_2}$.
-        With gauge freedom, this can be rotated entirely along one axis as $\vec{v} = \frac{1}{\sqrt{2}}\tinymatrix{0 \\ v}$,
-            with $v = \sqrt{\mu^2/\lambda}$.
         Substituting into the Lagrangian now produces a more complex expression:
         \begin{equation} \begin{split}
             \label{eq:fullHiggs}
-            \Lag & = \frac{1}{2} (D_{\mu}^{ij} (h+v)_j)^2
-                + \mu^2 (h+v)^2
-                - \frac{\lambda}{4} (h+v)^4 \\
+            \Lag & = \frac{1}{2} \left|D_{\mu} \minimatrix{0\\h(x)+v}\right|^2
+                + \mu^2 \left|\minimatrix{0\\h(x)+v}\right|^2
+                - \frac{\lambda}{4} \left|\minimatrix{0\\h(x)+v}\right|^4 \\
              & = \Lag_h + \Lag_v
         \end{split} \end{equation}
         Where $\Lag_h$ takes a form similar to Equation \ref{eq:basic_higgs}, incorporating both the $h$ and $h$/$v$ cross terms.
         Meanwhile, $\Lag_v$ refers only to the terms arising from $D_{\mu}$ acting on the vev:
         \begin{equation}
             \label{eq:lagV}
-            \Lag_v = \frac{1}{2} (D_{\mu}^{ij} v_j)^2
+            \Lag_v = \frac{1}{2} (D_{\mu} \vec{v})^2
         \end{equation}
 
         The expansion of this term is crucial to the structure of the Standard Model,
@@ -95,7 +111,7 @@
             and the $W$ and $Z$ bosons acquiring mass.
 
         %Get covariant derivative, evaluate at vev, pull out W,Z, and photon fields, and their masses (pg 722);
-        Expanding only $D_{\mu}^{ij} v_j$ to start, the $\partial_{\mu}$ immediately vanishes ($v$ is a constant), yielding 
+        Expanding only $D_{\mu} \vec{v}$ to start, the $\partial_{\mu}$ immediately vanishes ($v$ is a constant), yielding 
         \begin{equation} \begin{split}
             D^{\mu} v  = \big( \partial^{\mu} & - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \frac{1}{\sqrt{2}}\minimatrix{0\\v} \\
             = \big( & - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \frac{1}{\sqrt{2}}\minimatrix{0\\v} \\
@@ -222,6 +238,8 @@
 
 
         
+    %Further work must then be done to couple the higgs boson to fermions and itself
+    %You need to tie k2v, kl, and kv in to the shape of the higgs potential here
     \subsection{The Higgs Boson and di-Higgs Interactions}
 
         With the critical role of the Higgs Field established, it is now time to return to Equation \ref{eq:fullHiggs},
@@ -229,17 +247,27 @@
         The terms involved therein provide information not only about the Higgs Field,
             but also provide insight into how the Higgs may be further studied.
         \begin{equation} \begin{split}
-            \Lag & = \frac{1}{2} (D_{\mu}^{ij} (h+v)_j)^2
-                + \mu^2 (h+v)^2
-                - \frac{\lambda}{4} (h+v)^4 \\
-            = \big( \partial^{\mu} & - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \frac{1}{\sqrt{2}}h \\
-                - \mu^2 h^2
-                -\sqrt{\frac{\lambda}{6}} \mu h^3
-                - \frac{\lambda}{4!} h^4 \\
+            \Lag &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2
+                - \mu^2 \vec{\phi}^2
+                -\sqrt{\frac{\lambda}{6}} \mu \vec{\phi}^3
+                - \frac{\lambda}{4!} \vec{\phi}^4 \\
+            &= \Lag_K + \Lag_V
+        \end{split} \end{equation}
+        
+        To make expansion easier, we will expand the covarient derivative terms ($\Lag_K$)
+            and the Higgs Potential terms ($\Lag_V$) seperately.
+        Starting with $\Lag_K$
+
+        \begin{equation} \begin{split}
+            \Lag_K &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2 \\
+            &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2
+                = \frac{1}{2} (D^{\mu} \vec{\phi})^\dag (D_{\mu} \vec{\phi})
+                = \frac{1}{2} [(\partial^{\mu}) \vec{\phi}]^\dag [(\partial_{\mu}) \vec{\phi}]
+            %& = \begin{pmatrix} 
+            %    g\wField^3_{\mu} + g'B_{\mu} & g\wField^1_{\mu} - ig\wField^2_{\mu} \\
+            %    g\wField^1_{\mu} + ig\wField^2_{\mu} & -g\wField^3_{\mu} + g'B_{\mu}
+            %\end{pmatrix}
         \end{split} \end{equation}
 
-
         
         
-        %Further work must then be done to couple the higgs boson to fermions and itself
-        %You need to tie k2v, kl, and kv in to the shape of the higgs potential here
