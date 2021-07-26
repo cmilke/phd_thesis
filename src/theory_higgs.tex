@@ -4,7 +4,7 @@
 
         Basic higgs mechanism example.
 
-        Have a field interacting with a potential V with quadratic and quartic terms.
+        Have a field interacting with a potential U with quadratic and quartic terms.
         This produces a symmetric but unstable equilibrium.
         Perform passive translation to recenter coordinates around stable equilibrium point/minimum of potential.
         In super-simple example, this gives an originally massless particle mass.
@@ -15,10 +15,10 @@
             \Lag = K_{\phi} = \frac{1}{2} (\partial_{\mu} \phi)^2
         \end{equation}
 
-        Let's introduce a quartic potential $V(\phi) = -\frac{1}{2} \mu^2 \phi^2 + \frac{\lambda}{4!} \phi^4$
+        Let's introduce a quartic potential $U(\phi) = -\frac{1}{2} \mu^2 \phi^2 + \frac{\lambda}{4!} \phi^4$
 
         \begin{equation}
-            \Lag = K_{\phi} - V{\phi} = \frac{1}{2} (\partial_{\mu} \phi)^2 
+            \Lag = K_{\phi} - U{\phi} = \frac{1}{2} (\partial_{\mu} \phi)^2 
                 +\frac{1}{2} \mu^2 \phi^2 - \frac{\lambda}{4!} \phi^4
         \end{equation}
 
@@ -84,25 +84,23 @@
             $D^{\mu} = \partial^{\mu} - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu}$,
             producing a Lagrangian:
         \begin{equation} \begin{split}
-            \Lag & = \frac{1}{2} |D_{\mu} \vec{\phi}|^2
-                - \mu^2 \vec{\phi}^2
-                -\sqrt{\frac{\lambda}{6}} \mu \vec{\phi}^3
-                - \frac{\lambda}{4!} \vec{\phi}^4 \\
+            \Lag &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2 +
+                \mu^2 \vec{\phi}^\dag \vec{\phi} - \lambda \left( \vec{\phi}^\dag\vec{\phi} \right)^2
         \end{split} \end{equation}
 
-        Once again, we allow the scalar field to fall into its offset vev $v$, as $\phi(x) \rightarrow h(x) + v$.
+        Once again, we allow the scalar field to fall into its offset minimum $v \equiv \frac{\mu}{\sqrt{\lambda}}$, as $\phi(x) \rightarrow h(x) + v$.
         Substituting into the Lagrangian now produces a more complex expression:
         \begin{equation} \begin{split}
             \label{eq:fullHiggs}
             \Lag & = \frac{1}{2} \left|D_{\mu} \minimatrix{0\\h(x)+v}\right|^2
                 + \mu^2 \left|\minimatrix{0\\h(x)+v}\right|^2
-                - \frac{\lambda}{4} \left|\minimatrix{0\\h(x)+v}\right|^4 \\
+                - \lambda \left|\minimatrix{0\\h(x)+v}\right|^4 \\
              & = \Lag_h + \Lag_v
         \end{split} \end{equation}
         Where $\Lag_h$ takes a form similar to Equation \ref{eq:basic_higgs}, incorporating both the $h$ and $h$/$v$ cross terms.
         Meanwhile, $\Lag_v$ refers only to the terms arising from $D_{\mu}$ acting on the vev:
         \begin{equation}
-            \label{eq:lagV}
+            \label{eq:lagv}
             \Lag_v = \frac{1}{2} (D_{\mu} \vec{v})^2
         \end{equation}
 
@@ -140,6 +138,7 @@
 
         The four components of this matrix are the gauge boson fields of the electromagnetic ($A$) and weak ($W$ \& $Z$) interactions
         \begin{equation} \begin{split}
+            \label{eq:electroweak_matrix}
             \begin{pmatrix} 
                 g\wField^3_{\mu} + g'B_{\mu} & g\wField^1_{\mu} - ig\wField^2_{\mu} \\
                 g\wField^1_{\mu} + ig\wField^2_{\mu} & -g\wField^3_{\mu} + g'B_{\mu}
@@ -173,7 +172,7 @@
 
         Where $\theta_w \equiv \cot(\frac{g'}{g})$ is known as the \textit{weak mixing angle}.
 
-        Returning now to Equation \ref{eq:lagV}, we now have
+        Returning now to Equation \ref{eq:lagv}, we now have
         \begin{equation} \begin{split}
             \Lag_v & = \frac{1}{2} (D_{\mu}^{ij} v_j)^2 \\
             & = \frac{1}{2}
@@ -223,21 +222,13 @@
     % Ok this is seriously just the same thing but now we have to split the fermion fields into left and right and up-type and down-type
     % and split the higgs into the higgs and conjugate higgs and also insert the complex mass matrix except don't insert it for charged leptons
     % because reasons or something. And then poof your charged leptons have mass and your quarks have mass and flavour changing
-        
 
         %Split fermions between right and left fields, assign LH to SU(2) doublets (T=+-1?), RH to SU(2) singlet (T=0), assign Y too (pg724-725);
-
         %Sandwitch covariant derivative terms between fermion fields, expand to get field currents (pg 725-726);
-
         %*Try* to expand masses and fail because of representation incompatibilities (pg 725);
-
         %Anamoly cancellation thing I'll probably ignore (pg 726);
-
         %Add higgs interaction psibar phi psi to fermion lagrangian, expand into higgs interaction, convert to fermion mass (pg 734);
 
-
-
-        
     %Further work must then be done to couple the higgs boson to fermions and itself
     %You need to tie k2v, kl, and kv in to the shape of the higgs potential here
     \subsection{The Higgs Boson and di-Higgs Interactions}
@@ -247,27 +238,80 @@
         The terms involved therein provide information not only about the Higgs Field,
             but also provide insight into how the Higgs may be further studied.
         \begin{equation} \begin{split}
-            \Lag &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2
-                - \mu^2 \vec{\phi}^2
-                -\sqrt{\frac{\lambda}{6}} \mu \vec{\phi}^3
-                - \frac{\lambda}{4!} \vec{\phi}^4 \\
-            &= \Lag_K + \Lag_V
+            \Lag &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2 +
+                \mu^2 \vec{\phi}^\dag \vec{\phi} - \lambda \left( \vec{\phi}^\dag\vec{\phi} \right)^2
+            \\&= \Lag_K + \Lag_U
         \end{split} \end{equation}
         
-        To make expansion easier, we will expand the covarient derivative terms ($\Lag_K$)
-            and the Higgs Potential terms ($\Lag_V$) seperately.
-        Starting with $\Lag_K$
+        To make expansion easier, we will expand the covarient derivative terms ($\Lag_D$) first,
+            and then add then expanded $\Lag_U$ terms.
+        Starting with $\Lag_D$, (and defining $Q_{\mu}$ as the matrix from Equation \ref{eq:electroweak_matrix})
 
         \begin{equation} \begin{split}
-            \Lag_K &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2 \\
-            &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2
-                = \frac{1}{2} (D^{\mu} \vec{\phi})^\dag (D_{\mu} \vec{\phi})
-                = \frac{1}{2} [(\partial^{\mu}) \vec{\phi}]^\dag [(\partial_{\mu}) \vec{\phi}]
-            %& = \begin{pmatrix} 
-            %    g\wField^3_{\mu} + g'B_{\mu} & g\wField^1_{\mu} - ig\wField^2_{\mu} \\
-            %    g\wField^1_{\mu} + ig\wField^2_{\mu} & -g\wField^3_{\mu} + g'B_{\mu}
-            %\end{pmatrix}
+            \Lag_D &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2
+                \\&= \frac{1}{2} (D^{\mu} \vec{\phi})^\dag (D_{\mu} \vec{\phi})
+                    = \frac{1}{2} \left[(\partial^{\mu} - \frac{i}{2}Q^{\mu}) \vec{\phi}\right]^\dag
+                    \left[(\partial_{\mu} - \frac{i}{2}Q^{\mu}) \vec{\phi}\right]
+                \\&= \frac{1}{2} \left(\vec{\phi}^\dag \partial^{\mu} + \frac{i}{2} \vec{\phi}^\dag Q^{\mu \dag} \right)
+                    \left(\partial_{\mu}\vec{\phi} - \frac{i}{2}Q_{\mu}\vec{\phi} \right)
+                \\&= \frac{1}{2} \left(
+                    \vec{\phi}^\dag \partial^{\mu} \partial_{\mu}\vec{\phi}
+                    - \frac{i}{2} \vec{\phi}^\dag \partial^{\mu} Q_{\mu}\vec{\phi}
+                    + \frac{i}{2} \vec{\phi}^\dag Q^{\mu \dag} \partial_{\mu}\vec{\phi}
+                    + \frac{1}{4} \vec{\phi}^\dag Q^{\mu \dag} Q_{\mu}\vec{\phi}
+                    \right)
+                \\&= \frac{1}{2} \left(
+                    | \partial_{\mu}\vec{\phi} |^2
+                    + \frac{1}{4} \vec{\phi}^\dag Q^{\mu} Q_{\mu} \vec{\phi}
+                    \right)
+                    = \frac{1}{2} | \partial_{\mu}h |^2 + \frac{1}{8} \vec{\phi}^\dag Q^{\mu}Q_{\mu} \vec{\phi}
+                \\&= \frac{1}{2} | \partial_{\mu}\vec{\phi} |^2 + \frac{1}{8} 
+                        \minimatrix{0 & h^* + v} Q^{\mu}
+                        Q_{\mu} \minimatrix{0 \\ h + v}
+                \\&= \frac{1}{2} | \partial_{\mu}h |^2
+                    + \frac{1}{2} \left[ \left(\frac{g}{2}\right)^2\  W^{-\ \mu} W^+_{\mu}
+                    + \frac{1}{2} \left(\frac{1}{2}\sqrt{g^2 + g^{\prime 2}}\right)\ (Z^0_{\mu})^2 \right] (h+v)^2
         \end{split} \end{equation}
+
+        The $(h+v)^2$ term will produce couplings quadratic in $v$ ($\Lag_v$), and both linear and quadratic in $h$.
+        %FIXME forget g_W and g_Z you should be using the W and Z masses here!
+        Replacing the coupling coefficients in front of the $W$ and $Z$ fields with $g_W$ and $g_Z$ for convenience
+
+        \begin{equation} \begin{split}
+            \Lag_D = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
+                + 2v\left[ g_W W^{-\ \mu} W^+_{\mu} + g_Z (Z^0_{\mu})^2 \right] h
+                + \left[ g_W W^{-\ \mu} W^+_{\mu} + g_Z (Z^0_{\mu})^2 \right] h^2
+        \end{split} \end{equation}
+
+        Often, $W$ and $Z$ field interactions are considered for the same process,
+            and as such are described together simply as Vector Bosons, $V$
+
+        \begin{equation} \begin{split}
+            \Lag_D = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
+                + 2 v g_V V^2 h + g_V V^2 h^2
+        \end{split} \end{equation}
+
+        Returning to $\Lag_U$ and substituting in for $v$
+        \begin{equation} \begin{split}
+            \Lag_U &= \mu^2 \vec{\phi}^\dag \vec{\phi} - \lambda \left( \vec{\phi}^\dag\vec{\phi} \right)^2
+            \\&= - \mu^2 h^2 -\lambda v h^3 - \frac{1}{4} \lambda h^4
+            \\&= - \mu^2 h^2 - \mu \sqrt\lambda h^3 - \frac{1}{4} \lambda h^4
+        \end{split} \end{equation}
+
+        Identifying the Higgs mass $m_h$ as $\sqrt{2}\mu$, we can now write the full Lagrangian for the Higgs field
+        \begin{equation} \begin{split}
+            \Lag_h &= \Lag_D + \Lag_U
+            \\&= \frac{1}{2} | \partial_{\mu}h |^2
+                + m_h \sqrt{\frac{2}{\lambda}}  g_V V^2 h + g_V V^2 h^2
+                - \frac{1}{2} m^2_h h^2 - m_h \sqrt{\frac{\lambda}{2}} h^3 - \frac{1}{4} \lambda h^4
+            \\&= \frac{1}{2} | (\partial_{\mu} -m_h) h |^2
+                + m_h \sqrt{\frac{2}{\lambda}}  g_V V^2 h + g_V V^2 h^2
+                - m_h \sqrt{\frac{\lambda}{2}} h^3 - \frac{1}{4} \lambda h^4
+        \end{split} \end{equation}
+
+
+
+
 
         
         
