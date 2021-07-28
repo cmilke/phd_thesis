@@ -1,9 +1,84 @@
+%How do we test any of this?
+%From Lagrangian to Cross-Section:
+%    I need to study up on exactly how you go from the lagrangian to the Feynman rules, and from there to a calcualable cross section
 \section{From Theory to Experiment: The Feynman Rules and Cross-Sections}
+    
+    %Justify why we care about cross sections
+    After all this discussion of theory, the obvious question to ask is: how can this be tested.
+    The most direct physically observable effects of the equations of the Standard Model are those of \textit{cross-sections}.
+    Cross-sections will be discussed in more detail in Section \ref{sec:lhc-interaction_region},
+        but for now it is sufficient to state that the probability of some physical interaction taking place is directly proportional to its cross-section.
+    Here I will provide a general outline for how to produce a measurable cross-section from the Lagrangian of Equation \ref{eq:higgskappas}.
 
-     How do we test any of this?
-        
-    From Lagrangian to Cross-Section:
-        I need to study up on exactly how you go from the lagrangian to the Feynman rules, and from there to a calcualable cross section
+    In quantum mechanics, probabilities are measured as the absolute square of amplitudes of wave functions, $\left|\braket{\psi}\right|^2$.
+    The probability of a transition between different states of a wavefunction are simililarly represented
+        as the absolute square of the original state, $\psi_i$, \textit{in the basis of} the final state $\psi_f$,
+        written $ \Tbraket{\psi_f}{\psi_i}$.
+    In Quantum Field Theory, states correspond to which particles are in existence at a given moment.
+    Thus, a state of one electron and one anti-electron could be written as $\ket{e \bar{e}}$,
+        and the transition of an electron-positron pair into a muon/anti-muon pair could be written
+        as $\Tbraket{\mu \bar{\mu}}{e \bar{e}}$.
+
+    The core process used in this paper to probe the Higgs' $\kappa$ values is that of Vector Boson Fusion to two Higgs Bosons.
+    The initial state of this process is two incoming quarks, $\ket{q_{i1} q_{i2}}$.
+    These quarks each emit a vector boson (either $W^{\pm}$ or $Z^0$), 
+    which should in turn fuse into two Higgs Bosons.
+    The initial quarks then continue on, significantly deflected by their emissions, and possibly flavor-changed if they emitted a charged $W$.
+    The final state of this process thus consists of two Higgs and two deflected quarks, $\bra{h_1 h_2 q_{f1} q_{f2}}$.
+    The transition of this process would then be written as $\Tbraket{ h_1 h_2 q_{f1} q_{f2}}{q_{i1} q_{i2}}$.
+    It should be noted that there are other intermediate processes (besides VBF)
+        that could produce these same initial and final states, but these will not be considered in this analysis.
+
+    In principle, this transition process can take an indeterminate period of time.
+    In the realm of high energy physics experiments though,
+        the interacting particles are moving so fast that the interaction period can be thought of as occuring at a single instant in time.
+    In this context, the initial state occurs in the (comparitively) distant past ($t_i$), and the final state in the equally distant future ($t_f$).
+    Since the transistion occurs at an instantaneous moment,
+        I need to perform a time-translation transformation both states to place them at the moment of the transition ($t_0$).
+    Using the Hamiltonian $H$ as the time translation operator,
+        I can relate the initial state at $t_0$ to its time $\Delta t$ units in the future, $t_i$, by the tranformation
+    \begin{equation}
+        \ket{q_{i1} q_{i2} (t_i)} = e^{i\Delta tH}\ket{q_{i1} q_{i2} (t_0)}
+    \end{equation}
+    The same can be done to transorm the final state backwards in time
+    \begin{equation}
+        \bra{h_1 h_2 q_{f1} q_{f2} (t_f)}
+        = \bra{h_1 h_2 q_{f1} q_{f2} (t_0)} (e^{i(-\Delta t)H})^\dag
+        = \bra{h_1 h_2 q_{f1} q_{f2} (t_0)} e^{i\Delta tH}
+    \end{equation}
+    Putting both of these together yields
+    \begin{equation} \begin{split}
+        \Tbraket{ h_1 h_2 q_{f1} q_{f2} (t_f)}{q_{i1} q_{i2} (t_i)}
+        &= \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{e^{i\Delta tH} e^{i\Delta tH}}{q_{i1} q_{i2} (t_0)}
+        \\&= \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{e^{i2\Delta tH}}{q_{i1} q_{i2} (t_0)}
+        \\&= \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{1 + iT}{q_{i1} q_{i2} (t_0)}
+    \end{split} \end{equation}
+
+    In the last step, the exponential operator is expanded as an infinite series of terms.
+    The first of these terms will just be 1, corresponding to the static situation in which no interaction occurs at all.
+    The sum of the remaining terms, represented as $iT$, is the part relevant for calculating the interaction probability.
 
 
+    
+
+
+
+
+    %basic formalism of cross-sections calculation as vacuum to particles (is that right?) to produce matrix elements
+
+    %individual matrix elements as different internal processes
+
+    %feynman diagrams as representation of matrix elements.
+    %explain how feynman diagrams work.
+    %Explain how I'm not going to deal with loop corrections...
+    %    except maybe I should briefly mention this?
+    %We do use N3LO for SM...
+
+    %Explain how feynman rules produce matrix element values for each diagram.
+
+    %Cover the main three diagrams for VBF->HH
+
+    %Explain how these cross-section values go up with energy. Thus LHC
+    %Mention that cross-section will be explained more later.
+    %Important thing now is just to note that higher cross-section = more likely that process will occur
 
