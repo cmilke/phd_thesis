@@ -13,7 +13,7 @@
     In quantum mechanics, probabilities are measured as the absolute square of amplitudes of wave functions, $\left|\braket{\psi}\right|^2$.
     The probability of a transition between different states of a wavefunction are simililarly represented
         as the absolute square of the original state, $\psi_i$, \textit{in the basis of} the final state $\psi_f$,
-        written $ \Tbraket{\psi_f}{\psi_i}$.
+        written $ |\Tbraket{\psi_f}{\psi_i}|^2$.
     In Quantum Field Theory, states correspond to which particles are in existence at a given moment.
     Thus, a state of one electron and one anti-electron could be written as $\ket{e \bar{e}}$,
         and the transition of an electron-positron pair into a muon/anti-muon pair could be written
@@ -32,7 +32,7 @@
     In principle, this transition process can take an indeterminate period of time.
     In the realm of high energy physics experiments though,
         the interacting particles are moving so fast that the interaction period can be thought of as occuring at a single instant in time.
-    In this context, the initial state occurs in the (comparitively) distant past ($t_i$), and the final state in the equally distant future ($t_f$).
+    Given this context, the initial state occurs in the (comparitively) distant past ($t_i$), and the final state in the equally distant future ($t_f$).
     Since the transistion occurs at an instantaneous moment,
         I need to perform a time-translation transformation both states to place them at the moment of the transition ($t_0$).
     Using the Hamiltonian $H$ as the time translation operator,
@@ -57,6 +57,12 @@
     In the last step, the exponential operator is expanded as an infinite series of terms.
     The first of these terms will just be 1, corresponding to the static situation in which no interaction occurs at all.
     The sum of the remaining terms, represented as $iT$, is the part relevant for calculating the interaction probability.
+    Calculation of the value $\TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{iT}{q_{i1} q_{i2} (t_0)}$ involves both
+        the kinematics of the incoming and outgoing particles as well as the physics involved in the interaction itself.
+    As such, it is useful to fuck all this I'm just going to skip the stupid transition amplitude stuff because
+        there's no clear transition from transition amplitude to cross section.
+
+
 
 
     
