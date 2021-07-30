@@ -1,0 +1,25 @@
+\begin{tikzpicture} \begin{feynman}
+    \vertex (c2v) {\tiny $C_{2V}$};
+    \vertex [above right=of c2v] (h1) {H};
+    \vertex [below right=of c2v] (h2) {H};
+    \vertex [above left=of c2v] (vb1);
+    \vertex [below left=of c2v] (vb2);
+    \vertex [left=of vb1] (q1i) {q};
+    \vertex [left=of vb2] (q2i) {q};
+    \vertex [above right=of h1] (b1) {$b$};
+    \vertex [below right=of h2] (bbar2) {$\bar b$};
+    \vertex [below=of b1] (bbar1) {$\bar b$};
+    \vertex [above=of bbar2] (b2) {$b$};
+
+    \vertex [above=of b1] (q1f) {q};
+    \vertex [below=of bbar2] (q2f) {q};
+
+    \diagram* {
+        (q1i) -- (vb1) -- (q1f),
+        (q2i) -- (vb2) -- (q2f), 
+        (vb1) -- [boson] (c2v) -- [boson] (vb2),
+        (h1) -- [scalar] (c2v) -- [scalar] (h2),
+        (b1) -- (h1) -- (bbar1),
+        (b2) -- (h2) -- (bbar2),
+    };
+\end{feynman} \end{tikzpicture}

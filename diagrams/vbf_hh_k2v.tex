@@ -1,0 +1,19 @@
+\begin{tikzpicture} \begin{feynman}
+    \vertex (k2v) {$\kvv$};
+    \vertex [above right=of k2v] (h1) {$h_1$};
+    \vertex [below right=of k2v] (h2) {$h_2$};
+    \vertex [above left=of k2v] (vb1);
+    \vertex [below left=of k2v] (vb2);
+    \vertex [left=of vb1] (q1i) {$q_{i1}$};
+    \vertex [left=of vb2] (q2i) {$q_{i2}$};
+
+    \vertex [above=of h1] (q1f) {$q_{f1}$};
+    \vertex [below=of h2] (q2f) {$q_{f2}$};
+
+    \diagram* {
+        (q1i) -- (vb1) -- (q1f),
+        (q2i) -- (vb2) -- (q2f), 
+        (vb1) -- [boson] (k2v) -- [boson] (vb2),
+        (h1) -- [scalar] (k2v) -- [scalar] (h2),
+    };
+\end{feynman} \end{tikzpicture}

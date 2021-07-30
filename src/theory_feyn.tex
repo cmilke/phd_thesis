@@ -5,10 +5,11 @@
     
     %Justify why we care about cross sections
     After all this discussion of theory, the obvious question to ask is: how can this be tested.
-    The most direct physically observable effects of the equations of the Standard Model are those of \textit{cross-sections}.
-    Cross-sections will be discussed in more detail in Section \ref{sec:lhc-interaction_region},
-        but for now it is sufficient to state that the probability of some physical interaction taking place is directly proportional to its cross-section.
-    Here I will provide a general outline for how to produce a measurable cross-section from the Lagrangian of Equation \ref{eq:higgskappas}.
+    The most direct physically observable effects of the equations of the Standard Model are those of \textit{differential cross-sections}.
+    Cross-sections will be discussed in more detail in Section \ref{sec:lhc-interaction_region}.
+    For now it is sufficient to state that the probability of some physical interaction taking place
+        is directly proportional to its differential cross-section.
+    Here I will provide a general outline for how the Lagrangian of Equation \ref{eq:higgskappas} can be related to a measurable cross-section.
 
     In quantum mechanics, probabilities are measured as the absolute square of amplitudes of wave functions, $\left|\braket{\psi}\right|^2$.
     The probability of a transition between different states of a wavefunction are simililarly represented
@@ -47,7 +48,7 @@
         = \bra{h_1 h_2 q_{f1} q_{f2} (t_0)} e^{i\Delta tH}
     \end{equation}
     Putting both of these together yields
-    \begin{equation} \begin{split}
+    \begin{equation} \begin{split} \label{eq:transition_amplitude}
         \Tbraket{ h_1 h_2 q_{f1} q_{f2} (t_f)}{q_{i1} q_{i2} (t_i)}
         &= \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{e^{i\Delta tH} e^{i\Delta tH}}{q_{i1} q_{i2} (t_0)}
         \\&= \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{e^{i2\Delta tH}}{q_{i1} q_{i2} (t_0)}
@@ -56,35 +57,106 @@
 
     In the last step, the exponential operator is expanded as an infinite series of terms.
     The first of these terms will just be 1, corresponding to the static situation in which no interaction occurs at all.
-    The sum of the remaining terms, represented as $iT$, is the part relevant for calculating the interaction probability.
-    Calculation of the value $\TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{iT}{q_{i1} q_{i2} (t_0)}$ involves both
-        the kinematics of the incoming and outgoing particles as well as the physics involved in the interaction itself.
-    As such, it is useful to fuck all this I'm just going to skip the stupid transition amplitude stuff because
-        there's no clear transition from transition amplitude to cross section.
+    The sum of the remaining terms, represented as $iT$, is the part relevant for calculating the interaction probability,
+        and the entire transition amplitude is reffered to as the \textit{invariant amplitude}, $\invAmp$.
+    \begin{equation}
+        i\invAmp \equiv \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{iT}{q_{i1} q_{i2} (t_0)}
+    \end{equation}
 
+    As stated above, the differential cross-section, $\dXsec$,
+        of a process is proportional to its probability $\mathcal{P}$,
+        which in turn can be related to the invariant amplitude
+    \begin{equation} \begin{split}
+        \dXsec &\propto \mathcal{P}( q_{i1} q_{i2} \rightarrow q_{f1} q_{f2} h_1 h_2 ) 
+            = \left| \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{iT}{q_{i1} q_{i2} (t_0)} \right|^2 
+            = |i \invAmp|^2 
+        \\\dXsec &= \Gamma(p_1, p_2, ...) |\invAmp|^2
+    \end{split} \end{equation}
 
+    Where $\Gamma(p_1, p_2, ...)$ is a function of the scattering kinematics,
+        e.g.\ the particles' crossing angle, energies, and momenta, etc.
+    These kinematics are mostly related to the properties of the setup of the scattering experiment under consideration.
+    All dependence on the Standard Model Lagrangian is contained within the $\invAmp$ term,
+        and the remainder of this chapter will be devoted to its calculation.
+    To do this, I turn to Feynman diagrams.
 
+    Calculation of the transition expectation value of the $iT$ term has historically been a very technical challenge.
+    Feynman diagrams are an elegent tool for performing this task more easily and intuitively.
+    The general process to using them begins with the following steps:
+    \begin{itemize}
+        \item Draw the initial and final states of the process in question as dots
+        \item Fully connect the initial and final state particles using any \textit{valid} intermediate lines and vertices
+        \item Valid connections can be identified through the terms present in the Lagrangian:
+        \begin{itemize}
+            \item Kinetic energy terms correspond to straight lines connecting a particle to itself
+            \item Interaction terms correspond to interaction vertices, connecting three or more particles at a time
+            \item All vertices must ensure conservation of any relevant quantum number
+        \end{itemize}
+        \item Repeat the above steps in order to draw all possible diagrams
+    \end{itemize}
 
-    
+    This final step may seem impossible, given that an infinite number of intermediate particles can be inserted between any two states.
+    Recall from the structure of $\invAmp$, that $iT$ is not one term, but in fact an infinite series expansion of the time translation operator.
+    For most situations, each of these terms will contribute less to the overall calculation.
+    Eventually, the the higher-order terms will contribute so little that they can be safely ignored.
+    This property is directly reflected in the Feynman Diagrams, in the form of \textit{loops}.
+    Any loop in a diagram indicates that the diagram is a higher order term in the expansion.
+    A diagram with no loops -- reffered as ``tree-level'' or ``leading order'' (LO) -- is part of the first term of $iT$.
+    Diagrams with one loop are part of the second term (next-to-leading order, or NLO),
+        two loops the third (next-to-next-to-leading order, or NNLO), and so forth.
 
+    One need only draw as many diagrams as is needed for the level of desired precision.
+    As a side note, just as succesive loops correspond to higher order terms in $iT$,
+        diagrams which are not fully connected correspond to the ``1'' term from the original $1+iT$ in Equation \ref{eq:transition_amplitude},
+        hence why disconnected diagrams are ignored entirely.
 
+    \begin{figure} \label{fig:tree_level_vbfhh}
+    \subfloat[$M_t$]{ \input{diagrams/vbf_hh_kv.tex} \label{fig:tree_level_vbfhh:kv} }
+    \subfloat[$M_s$]{ \input{diagrams/vbf_hh_kl.tex} \label{fig:tree_level_vbfhh:kl} }
+    \subfloat[$M_x$]{ \input{diagrams/vbf_hh_k2v.tex} \label{fig:tree_level_vbfhh:k2v} }
+    \caption{Tree-level diagrams of the VBF$\rightarrow$hh process}
+    \end{figure}
 
+    Once all possible diagrams have been drawn to the order desired, each diagram has a value assigned to it.
+    ``Feynman Rules'' are the rules governing how these values are assigned.
+    The rules are derived based on the structure of the Lagrangian and are rather extensive;
+        they will not be listed here, but can be found readily in any QFT textbook.
+    After the values have been assigned, the invariant amplitude is trivially calculated as the sum of the values of all drawn diagrams.
+    The VBF$\rightarrow$HH process studied here is primarily done at tree-level (Figure \ref{fig:tree_level_vbfhh}),
+        but N\textsuperscript{3}LO calculations are also used to some degree, and one such example is provided in Figure ??. %TODO
 
-    %basic formalism of cross-sections calculation as vacuum to particles (is that right?) to produce matrix elements
+    Finally, the differential cross-section can be calculated as as the absolute square of the sum of the Feynman Diagrams.
+    While I will not explicitly list the Feynman rules, I will note an aspect of the rules critical to this analysis.
+    That is, that each diagram's value $M$ is proportional to the \textit{product of the coefficients}
+        associated with each interaction vertex in the diagram.
+    Take for example Figure \ref{fig:tree_level_vbfhh:kv}, which contains four total vertices;
+        two corresponding to the Higgs-Vector Boson interaction (whose coefficient based on Equation \ref{eq:higgskappas} is $\kv q_V$),
+        and two corresponding to the quark-Vector Boson interaction (whose coefficient is $c_{qV}$).
+    Among other aspects of the diagram, this means that $M_t \propto \kv q_V \kv q_V c_{qV} c_{qV}$.
+    The quantites I am interested in are of course the $\kappa$ values,
+        so I can pull these values out in front of the invariant amplitude as $M_t \rightarrow \kv^2 M_t$.
+    At tree-level, I can then write out the absolute square of the invariant amplitude as
+    \begin{equation} \begin{split}
+        |\invAmp|^2 &= |  \kv^2 M_t + \kv \kl M_s + \kvv M_x |^2
+        \\&= \kv^2 \kl^2 M_s^2 + \kv^4 M_t^2 + \kvv^2 M_x^2 
+            \\&+ \kv^3 \kl (M_s^* M_t + M_t^* M_s) 
+            \\&+ \kv \kl \kvv (M_s^* M_x + M_x^* M_s ) 
+            \\&+ \kv^2 \kvv (M_t^* M_x + M_x^* M_t )
+        \\|\invAmp|^2 &= \kv^2 \kl^2 a_1 + \kv^4 a_2 + \kvv^2 a_3 + \kv^3 \kl a_4 + \kv \kl \kvv a_5 + \kv^2 \kvv a_6
+    \end{split} \end{equation}
 
-    %individual matrix elements as different internal processes
+    In the last line, the various squares and cross-terms of the diagram values have been aggregated entirely into the $a$ terms.
+    The formula for the cross-section will be proportional to this squared amplitude, along with various kinematic properties.
+    Of particular note among these kinematics is the center-of-mass energy of the interaction, with the final relation taking the form
 
-    %feynman diagrams as representation of matrix elements.
-    %explain how feynman diagrams work.
-    %Explain how I'm not going to deal with loop corrections...
-    %    except maybe I should briefly mention this?
-    %We do use N3LO for SM...
+    \begin{equation} \label{eq:dXsec_final} %FIXME: what is the E_com proportionality?
+        \dXsec \propto E_{CoM}^{??}\left(kv^2 \kl^2 a_1 + \kv^4 a_2 + \kvv^2 a_3 + \kv^3 \kl a_4 + \kv \kl \kvv a_5 + \kv^2 \kvv a_6 \right)
+    \end{equation}
 
-    %Explain how feynman rules produce matrix element values for each diagram.
-
-    %Cover the main three diagrams for VBF->HH
-
-    %Explain how these cross-section values go up with energy. Thus LHC
-    %Mention that cross-section will be explained more later.
-    %Important thing now is just to note that higher cross-section = more likely that process will occur
-
+    This final formula reveals two critical pieces of insight.
+    The first is that the cross-section depends on the values of the various $\kappa$ values in a manner which is non-trivial,
+        but nonetheless measurable.
+    The second is that, due to the extreme rarity of the process,
+        if one wants to make a noteworthy measurement of this process,
+        an extraordinarily high center-of-mass energy will be required.
+    Currently, there exists only one machine on the planet capable of achieving these energies.
