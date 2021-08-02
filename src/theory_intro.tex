@@ -58,6 +58,65 @@
 
 
 \section{Composition of Matter: Fields and Dirac Spinors}
+
+    %Fields are a thing.
+    The description of matter is governed by the formalism of Quantum Field Theory, which describes particles as pertubations of an overall particle \textit{field}.
+    %They're kinda like quantum waves, but not.
+    A particle field $\varphi$, describes every particle of the same type at once,
+        and particle states $\ket{\varphi}$ correspond to the number of that kind of particle that exists at a given moment.
+    The equation of motion used to describe a field varies depending on the properties of the field.
+    For a scalar (spinless) field, \phi, the equation of motion is the Klein-Gordon Equation
+    \begin{equation} \begin{split}
+        p^2 \phi = m^2 \phi
+        \\(p^2 - m^2) \phi = 0
+    \end{split} \end{equation}
+    Recalling the covariant, natural units, quantum mechanical definition of momentum as $p^u = i\partial^u$,
+        this can also be written as
+    \begin{equation} \begin{split}
+        (p^2 - m^2) \phi = 0 \rightarrow (\partial^\mu \partial_\mu + m^2) \phi = 0
+    \end{split} \end{equation}
+
+    The Klein-Gordan Equation will be used later when describing the Higgs Field,
+        but for now the more important equation is that used for fermions, $\psi$,
+        called the Dirac Equation
+    \begin{equation}
+        (\gamma^\mu p_\mu - m) \psi = 0
+        (i\gamma^\mu \partial_\mu  - m) \psi = 0
+    \end{equation}
+
+    The Dirac Equation seeks to make the equation of motion first order (i.e.\ only one derivative),
+        as this permits a representation of a spinor field.
+    Doing this comes with a cost however, as momentum $p_\mu$ is a four-vector, but mass is a scalar.
+    The resolution to this problem is a set of four, 4x4 matrices, $\gamma^\mu$, called the gamma matrices.
+
+
+    %Fields don't describe a single particle, but all particles of the same type at once.
+    %Field states are just a count of how many of that particles exist at a given time.
+    %Scalar particles are described by Klein Gordon Equation.
+    %Spin 1/2 particles are described by dirac equation.
+    %It's first order in p, but this requires the gamma matrices.
+    %Matrices take many forms, but one of the most revealing is the Weyl, or Chiral, form.
+    %Do some math to show fields in chiral form, to show Chirality.
+
+
+    %It takes from quantum mechanics the uncertainty principle, and from relativity the mass/energy equivalence 
+    %It takes from quantum mechanics the wave-like description of position and momentum, along with the uncertainty principle.
+    %From special relativity it incorporates the equivalence of space and time, the constance of the speed of light,
+    %    and the exchange between mass and energy.
+    %Combining the energy/time uncertainty principle with mass/energy equivalence in particular
+    %    has the outcome that the number of particles for a given system need not remain constant.
+    %To account for this, particles are not described as waves as with the Schrodinger Equation, but rather as ``fields''.
+    %A fermion field, $\psi$, does not describe a single particle, but rather all possible fermion for the same kind of particle.
+    %For instance, there is a seperate fermion field to describe electrons, up-quarks, and so forth.
+
+    
+    describe gamma matrices
+
+    describe anti particle psi bar
+
+    describe chiral representation
+    
+
     %What is the Universe made of (If you stick to this format at all, keep this section brief):
 
     %%Position and Momentum: Quantum Mechanics
@@ -82,48 +141,88 @@
 
 
 
-
 \section{Generating Motion: Group Theory and Transformations}
 
-    The Dirac field is entirely static. We need a way to make it dynamic. "Group" operations provide this
-    
-    Ok I guess I need a section on this because I -forgot- never actually understood how the representation crap works...
+    The Dirac Equation provides a description of matter.
+    The next key piece of the Standard Model is a description of motion itself.
+    For this, I will need to introduce Group Theory.
 
-    A ``group'' is a set of elements which can be ``multiplied'' according to some rule,
-        and which satisfies the four conditions of:
-            \begin{itemize}
-                \item Closure - the product of any two elements of the group are still in that group;
-                \item Associativity - $(a \times b)\times c = a\times(b \times c)$;
-                \item Identity - there is some element in the group $I$ for which $I \times a=a$;
-                \item and Inversion - every element $a$ has an inverse $a^{-1}$ such that if $b \times a = c$ then $c \times a^{-1} = b$.
-            \end{itemize}
+    A function can be altered using a \textit{transformation operator}.
+    A simple example of this would be a function $x(t)$, 
+        which (assuming constant velocity) can be transformed into a time $\Delta t$ in the future as
+    \begin{equation}
+    x(t) \rightarrow x'(t) = x(t) + v \Delta t
+    \end{equation}
+    Noting that $v$ is just $\frac{d}{dt} x(t)$, this can be rewritten as
+    \begin{equation}
+    x(t) \rightarrow x'(t) = x(t) + \Delta t \frac{d}{dt} x(t) = \left(1+\Delta t \frac{d}{dt}\right) x(t)
+    \end{equation}
 
-    If the group operation is commutative ($ab=ba$) then the group is ``Abelian''; if not, it is ``non-Abelian''.
+    This term $\left(1+\Delta t \frac{d}{dt}\right)$ is the classical time-translation operator.
+    Notice the assumption of \textit{constant velocity} though.
+    If velocity were not constant, this operator would be invalid, except for in the specific case in which $\Delta t$ is infinitesimal.
+    \begin{equation}
+    x(t) \rightarrow x'(t) = \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right) x(t)
+    \end{equation}
 
-    Ok now for the representation stuff. [Sredneki draft pg411]
+    To produce a more general finite operator however, I can just apply the infinitesimal operator an infinite number of times
+    \begin{equation} \begin{split}
+    x(t) \rightarrow x'(t) &= \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)...\ x(t)
+    \\x(t) \rightarrow x'(t) &= \lim_{N \to \infty} \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)^N x(t)
+    \\x(t) \rightarrow x'(t) &= e^{\Delta t \frac{d}{dt}} x(t)
+    \end{split} \end{equation}
+
+    Where $\Delta t$ is again a finite time transformation,
+        and I have compressed the infinite product of terms using the power series expansion of the exponential function.
+    In order to use this classical operator in quantum field theory, it must have a complex factor `$i$' associated with it
+    \begin{equation} \begin{split}
+    x(t) \rightarrow x'(t) = e^{i\Delta t \frac{d}{dt}} x(t)
+    \end{split} \end{equation}
+
+
+
+     
+
+    %A ``group'' is a set of elements which can be ``multiplied'' according to some rule,
+    %    and which satisfies the four conditions of:
+    %        \begin{itemize}
+    %            \item Closure - the product of any two elements of the group are still in that group;
+    %            \item Associativity - $(a \times b)\times c = a\times(b \times c)$;
+    %            \item Identity - there is some element in the group $I$ for which $I \times a=a$;
+    %            \item and Inversion - every element $a$ has an inverse $a^{-1}$ such that if $b \times a = c$ then $c \times a^{-1} = b$.
+    %        \end{itemize}
+
+    %If the group operation is commutative ($ab=ba$) then the group is ``Abelian''; if not, it is ``non-Abelian''.
+
 
     \cite{Cheng_book}
 
 \section{Restricting Motion: The Lagrangian and Symmetry}
-
-    Explain how motion is described by a lagrangian of fields. 
-    Minization of Action.
-    Equations of motion derived from Euler-Lagrange Equations.
-    The lagrangian takes the form it does in order to satisfy poincare symmetry.
-
-    Discuss Noether's Theorem; refer to Halzen pg 314 (djvu=331) or, maybe better, Sredneki pg 144).
-        ... Wait, do I even need to mention noether's theorem?
-        I don't think it's actually a factor in producing the higgs... which makes me slightly sad :-(
-
-    I also should maybe end this with a discussion of how forces aren't really a thing
-        and particles in field theory exchange momentum by merely bumping into other particles.
-    Maybe, *maybe**** (maybe not) give a toy example lagrangian showing a particle which can interact with itself via a three-point vertex or something.
-    Note the basic symmetries that the basic lagrangian must satisfy (hence group theory going first)
     
-    Should I also discuss renormalizability? (Peskin pg 80/101djvu)
-    Basically, all lagrangians must be renormalizable.
-    Renormalizability just means that the lagrangian doesn't explode from the unconstrained nature of virtual particles.
-    So infinite-mass virtual particles should not break a renormalizeable lagrangian.
+    The Dirac Equation describes the equation of motion of a single field.
+    I need a way to describe the collective motion and interactions of many fields at once.
+    Enter the Lagrangian.
+
+    
+
+    %Explain how motion is described by a lagrangian of fields. 
+    %Minization of Action.
+    %Equations of motion derived from Euler-Lagrange Equations.
+    %The lagrangian takes the form it does in order to satisfy poincare symmetry.
+
+    %Discuss Noether's Theorem; refer to Halzen pg 314 (djvu=331) or, maybe better, Sredneki pg 144).
+    %    ... Wait, do I even need to mention noether's theorem?
+    %    I don't think it's actually a factor in producing the higgs... which makes me slightly sad :-(
+
+    %I also should maybe end this with a discussion of how forces aren't really a thing
+    %    and particles in field theory exchange momentum by merely bumping into other particles.
+    %Maybe, *maybe**** (maybe not) give a toy example lagrangian showing a particle which can interact with itself via a three-point vertex or something.
+    %Note the basic symmetries that the basic lagrangian must satisfy (hence group theory going first)
+    %
+    %Should I also discuss renormalizability? (Peskin pg 80/101djvu)
+    %Basically, all lagrangians must be renormalizable.
+    %Renormalizability just means that the lagrangian doesn't explode from the unconstrained nature of virtual particles.
+    %So infinite-mass virtual particles should not break a renormalizeable lagrangian.
     \cite{Halzen_book}
 
 
