@@ -58,6 +58,12 @@
 
 
 \section{Composition of Matter: Fields and Dirac Spinors}
+    I'm actually starting to wonder if I should scrap this entire section and just merge the basic description of fields,
+        as well as a brief mention of the Dirac equation, into the prior section.
+    I don't think I'm going to go into detail about the weak-fermion coupling,
+        so I don't really need to describe left/right fields, so I don't really need to break down the structure of
+        the dirac and klein gordon equations.
+    I might even just move the klein gordon equation introduction over to the Higgs section.
 
     %Fields are a thing.
     The description of matter is governed by the formalism of Quantum Field Theory, which describes particles as pertubations of an overall particle \textit{field}.
@@ -65,7 +71,9 @@
     A particle field $\varphi$, describes every particle of the same type at once,
         and particle states $\ket{\varphi}$ correspond to the number of that kind of particle that exists at a given moment.
     The equation of motion used to describe a field varies depending on the properties of the field.
-    For a scalar (spinless) field, \phi, the equation of motion is the Klein-Gordon Equation
+    For a scalar (spinless) field, \phi, the equation of motion just comes from the relativistic mass-four-momentum relation $p^2=m^2$,
+        but repurposed for a quantum field.
+    This is the Klein-Gordon Equation
     \begin{equation} \begin{split}
         p^2 \phi = m^2 \phi
         \\(p^2 - m^2) \phi = 0
@@ -77,17 +85,35 @@
     \end{split} \end{equation}
 
     The Klein-Gordan Equation will be used later when describing the Higgs Field,
-        but for now the more important equation is that used for fermions, $\psi$,
-        called the Dirac Equation
+        but first I will use it here as the foundation for the equation of motion required for a spinor field.
+    For spinor fields, the equation of motion is the Dirac Equation,
+        formulated to be a first-order equation (i.e.\ linear in $p$).
     \begin{equation}
-        (\gamma^\mu p_\mu - m) \psi = 0
-        (i\gamma^\mu \partial_\mu  - m) \psi = 0
+        (\gamma^\mu p_\mu - m I) \psi = 0
+        (i\gamma^\mu \partial_\mu  - m I) \psi = 0
     \end{equation}
 
-    The Dirac Equation seeks to make the equation of motion first order (i.e.\ only one derivative),
-        as this permits a representation of a spinor field.
-    Doing this comes with a cost however, as momentum $p_\mu$ is a four-vector, but mass is a scalar.
-    The resolution to this problem is a set of four, 4x4 matrices, $\gamma^\mu$, called the gamma matrices.
+    The issue with creating a first-order equation in $p$ is that $p_\mu$ is a vector, which means it cannot be merely added to the scalar $m$.
+    The key feature of the Dirac Equation which addresses this is the inclusion of the \textit{gamma matrices}, $\gamma^\mu$.
+    $\gamma^\mu$, is a vector of four matrices, each of size 4x4 (note that $m$ is in turn multiplied by a 4x4 identity matrix $I$).
+    There are many different conventions for the exact structure of the matrices,
+        but the main requirement is that they all multiply together with very specific commutation rules.
+    The technical description of this property is that the gamma matrices must
+        anti-commute as $\{\gamma^u, \gamma^\nu\} = 2g^{\mu \nu}\times I$,
+        where $g^{\mu\nu}$ is the minkowski metric.
+    In practical terms, the goal is just to ensure that when the Dirac Equation is multiplied by its conjugate,
+        the product returns back to the Klein-Gordan Equation.
+    \begin{equation} \begin{split}
+        (\gamma^\nu p_\nu + m I) (\gamma^\mu p_\mu - m I) \psi = 0
+        \\ (\gamma^\nu \gamma^\mu p_\nu p_\mu - m \gamma^\nu p_\nu + m \gamma^\mu p_\mu - m^2 I) \psi = 0
+        \\ (\gamma^\nu \gamma^\mu p_\nu p_\mu - m^2 I) \psi = 0
+        \\ (g^{\mu \nu} I p_\nu p_\mu - m^2 I) \psi = 0
+        \\ (p^\mu p_\mu - m^2 ) \psi = 0
+        \\ (p^2 - m^2) \psi = 0
+    \end{split} \end{equation}
+    Where the anticommutation relation has been used in the fourth line to eliminate all the momentum cross terms.
+
+
 
 
     %Fields don't describe a single particle, but all particles of the same type at once.
@@ -165,7 +191,7 @@
     x(t) \rightarrow x'(t) = \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right) x(t)
     \end{equation}
 
-    To produce a more general finite operator however, I can just apply the infinitesimal operator an infinite number of times
+    To produce a more general finite operator I can apply the infinitesimal operator an infinite number of times
     \begin{equation} \begin{split}
     x(t) \rightarrow x'(t) &= \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)...\ x(t)
     \\x(t) \rightarrow x'(t) &= \lim_{N \to \infty} \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)^N x(t)
@@ -174,56 +200,125 @@
 
     Where $\Delta t$ is again a finite time transformation,
         and I have compressed the infinite product of terms using the power series expansion of the exponential function.
-    In order to use this classical operator in quantum field theory, it must have a complex factor `$i$' associated with it
+    In order to use this classical operator in quantum field theory, it must have a complex factor `$i$' associated with it,
     \begin{equation} \begin{split}
     x(t) \rightarrow x'(t) = e^{i\Delta t \frac{d}{dt}} x(t)
     \end{split} \end{equation}
 
+    Returning to Dirac Fields, which are functions of four-position $x_\mu$, this same transformation can be used
+         with the minor adjustment of changing the total derivative to a partial derivative in time, $\frac{partial}{\partial t} = \partial_0$
+    \begin{equation} \begin{split}
+    \psi(x) \rightarrow \psi'(x) = e^{i\Delta x^0 \partial_0} \psi(x)
+    \end{split} \end{equation}
 
+    Meanwhile, the Dirac anti-particle field transforms with a negative sign as
+    \begin{equation} \begin{split}
+        \psibar(x) \rightarrow \psibar'(x) = e^{-i\Delta x^0 \partial_0} \psibar(x)
+    \end{split} \end{equation}
+    
+    The time translation operator is but one of a myriad of different tranformation operators.
+    However, all of the transformation operators that will be used here will all take a form very similar to this one,
+        appearing something like
 
-     
+    \begin{equation} \begin{split}
+        \psi(x) \rightarrow \psi'(x) = e^{ q \cdot \mathcal{F}_q } \psi(x)
+    \end{split} \end{equation}
 
-    %A ``group'' is a set of elements which can be ``multiplied'' according to some rule,
-    %    and which satisfies the four conditions of:
-    %        \begin{itemize}
-    %            \item Closure - the product of any two elements of the group are still in that group;
-    %            \item Associativity - $(a \times b)\times c = a\times(b \times c)$;
-    %            \item Identity - there is some element in the group $I$ for which $I \times a=a$;
-    %            \item and Inversion - every element $a$ has an inverse $a^{-1}$ such that if $b \times a = c$ then $c \times a^{-1} = b$.
-    %        \end{itemize}
+    where $\mathcal{F}_q$ is the transformation \textit{generator} (e.g.\ $i\partial_0$),
+        and $q$ the amount to transform by (e.g.\ $\Delta t$).
 
-    %If the group operation is commutative ($ab=ba$) then the group is ``Abelian''; if not, it is ``non-Abelian''.
+    These transforms all fall under a larger realm of mathematics known as Group Theory,
+        and are in turn called ``group transformation''.
+    The basic definition of a ``group'' is a set of elements which can be ``multiplied'' according to some rule,
+        and which satisfies the four conditions of\cite{Cheng_book}:
+    \begin{itemize}
+        \item Closure - the product of any two elements of the group are still in that group;
+        \item Associativity - $(a \times b)\times c = a\times(b \times c)$;
+        \item Identity - there is some element in the group $I$ for which $I \times a=a$;
+        \item and Inversion - every element $a$ has an inverse $a^{-1}$ such that if $b \times a = c$ then $c \times a^{-1} = b$.
+    \end{itemize}
 
+    It should be relatively simple to see that time translation operations satisfy each of these.
+    Additional classifications for groups are whether a group is discrete or continuous,
+        and whether a group is ``Abelian'' (commutative) or ``non-Abelian'' (non-commutatitve).
+    Time translations are continuous (one can tranlate by an infinitesimally small amount of time),
+        and are Abelian (the order that the translation are applied does not matter).
+    An example of a non-Abelian group would be that of three-dimensional rotations (formally called the $SO(3)$ group),
+        as applying rotations in a different order can lead to a different final product.
 
-    \cite{Cheng_book}
+    As a final point regarding Group Theory, is the absolutely crucial idea of \textit{symmetry}.
+    If a system can be transformed under a group transformation and remain overall unchanged,
+        then that system is said to be invariant, or symmetric, under that group.
+    In a very deep sense, Group Theory and group symmetry are the driving forces behind the entire Standard Model,
+    As will be seen in the coming sections,
+        the motion of the Standard Model is ultimately described by Group Theory,
+        its interactions defined by Group Theory,
+        and its entire organizational structure ultimately rooted in Group Theory.
 
 \section{Restricting Motion: The Lagrangian and Symmetry}
     
-    The Dirac Equation describes the equation of motion of a single field.
-    I need a way to describe the collective motion and interactions of many fields at once.
-    Enter the Lagrangian.
+    The Dirac Equation describes the equation of motion of a single field,
+        but what is required is a way to describe the interactions of \textit{many} fields.
+    For this, the Standard Model makes use of the Principle of Least Action,
+        also known as the Lagrangian Formulation\cite{Halzen_book}.
+    The idea of the Principle of Least Action is to construct an overall description of all aspects of a system,
+        called the Lagrangian, $\Lag$.
+    One can then find the ``path'' of this Lagrangian which minimizes the ``Action'', $\mathscr{A}$
+    \begin{equation} %TODO: double check this!!
+        \mathscr{A} = \int \Lag d^4 x
+    \end{equation}
 
-    
+    This minimization is performed using the four-dimension Euler-Lagrange equations
+    \begin{equation}
+        \partial_\mu \frac{\partial \Lag}{\partial_\mu \varphi } - \frac{\partial \Lag}{\partial \varphi} = 0
+    \end{equation}
+    which yields the equations of motion of the interacting particles.
 
-    %Explain how motion is described by a lagrangian of fields. 
-    %Minization of Action.
-    %Equations of motion derived from Euler-Lagrange Equations.
-    %The lagrangian takes the form it does in order to satisfy poincare symmetry.
+    All of the physics of the Standard Model is inscribed within the Standard Model Lagrangian.
+    The construction of this Lagrangian will be the focus of most of the rest of the chapter.
+    To begin then, what physics \textit{does} the Lagrangian need to encode?
+    Paraphrasing Murray Gell-Mann, ``that which is not forbidden, is \textit{mandatory}.''
+    That is to say, that any physics which is not expressly prohibited, must automatically be allowed.
+    Formulation of the Standard Model Lagrangian must therefore start with an enumeration of restrictions,
+        given in the form of a series of groups that the Lagrangian must remain symmetric under.
+    Specifically, the Lagrangian must remain symmetric under ten transformations,
+        collectively reffered to as the Poincare Group.
+    Four of these transformations correspond to the space-time translations,
+        three to spatial rotations, and the remaining three to space-\textit{time} rotations,
+        also known as Lorentz Transformations (also known as just changing velocity).
 
-    %Discuss Noether's Theorem; refer to Halzen pg 314 (djvu=331) or, maybe better, Sredneki pg 144).
-    %    ... Wait, do I even need to mention noether's theorem?
-    %    I don't think it's actually a factor in producing the higgs... which makes me slightly sad :-(
+    The Lagrangian of a Dirac field satisfying these symmetries takes the form
+    \begin{equation}
+        \Lag = \psibar (\slashed{p} - m) \psi = i \psibar \slashed{\partial} \psi - m \psibar \psi
+    \end{equation}
+    Applying the Euler-Lagrange equations to this equation will seperately return the Dirac Equation
+        for the fermion and anti-fermion fields, as it should.
 
-    %I also should maybe end this with a discussion of how forces aren't really a thing
-    %    and particles in field theory exchange momentum by merely bumping into other particles.
-    %Maybe, *maybe**** (maybe not) give a toy example lagrangian showing a particle which can interact with itself via a three-point vertex or something.
-    %Note the basic symmetries that the basic lagrangian must satisfy (hence group theory going first)
-    %
+    As there are many different kinds of fermions, the Lagrangian can be expanded to include all of them
+    \begin{equation}
+        \Lag = \bar{e} (\slashed{p} - m) e
+        + \bar{\mu} (\slashed{p} - m) \mu
+        + \bar{\tau} (\slashed{p} - m) \tau
+        + \bar{u} (\slashed{p} - m) u
+        + ...
+    \end{equation}
+
+    Although this equation qualifies as a valid description of the behaviour of fermions,
+        there is a glaring flaw with it: the fields it describes are all completely independent of one another.
+    None of the fields are able to interact with each other.
+    In its current form, the Lagrangian proposes that particles, given some initial momentum,
+        will persist along the same trajectory forever, unable to affect or be affected by any other particle.
+    The Lagrangian has succesfully constrained the range of allowed physics,
+        but it has done so to such a degree that the described physics are now practically static.
+    Clearly this is not a satisfactory description of the universe, full of dynamic interactions as it is.
+    The resolution to this issue is, counter-intuitively, to enforce yet \textit{more} symmetry requirements.
+
+
+
     %Should I also discuss renormalizability? (Peskin pg 80/101djvu)
     %Basically, all lagrangians must be renormalizable.
     %Renormalizability just means that the lagrangian doesn't explode from the unconstrained nature of virtual particles.
     %So infinite-mass virtual particles should not break a renormalizeable lagrangian.
-    \cite{Halzen_book}
 
 
 \section{Transferring Motion: Gauge Symmetry}
