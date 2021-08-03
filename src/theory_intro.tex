@@ -291,6 +291,15 @@
     \begin{equation}
         \Lag = \psibar (\slashed{p} - m) \psi = i \psibar \slashed{\partial} \psi - m \psibar \psi
     \end{equation}
+    As an example of the symmetry now described, I will reuse the time translation operator $e^{i\Delta x^0 \partial_0}$
+
+    \begin{equation} \begin{split}
+        \Lag(t) \to \Lag' = \Lag(t+\Delta t) =
+            \left( e^{-i\Delta x^0 \partial_0} \psibar \right) (\slashed{p} - m) \left( e^{i\Delta x^0 \partial_0}\psi \right)
+        \\  = e^{-i\Delta x^0 \partial_0 + i \Delta x^0 \partial_0} \psibar (\slashed{p} - m) \psi
+        \\  = \psibar (\slashed{p} - m) \psi
+    \end{split} \end{equation}
+
     Applying the Euler-Lagrange equations to this equation will seperately return the Dirac Equation
         for the fermion and anti-fermion fields, as it should.
 
@@ -312,8 +321,8 @@
         but it has done so to such a degree that the described physics are now practically static.
     Clearly this is not a satisfactory description of the universe, full of dynamic interactions as it is.
     The resolution to this issue is, counter-intuitively, to enforce yet \textit{more} symmetry requirements.
-
-
+    In doing so, the various interactions of the Standard Model will be laid bare,
+        and the true beauty of the theory made apparent.
 
     %Should I also discuss renormalizability? (Peskin pg 80/101djvu)
     %Basically, all lagrangians must be renormalizable.
@@ -322,23 +331,98 @@
 
 
 \section{Transferring Motion: Gauge Symmetry}
-    Gauge Transformations are ones where the transformation is imposed differently at each point in spacetime.
-    Trying to impose a constraint on the Lagrangian that it be symmetric under gauge transformations would surely cause all manner of complications.
-    Obviously, this is exactly what nature seems to have chosen to do.
 
-    Gauge symmetries; U1, SU(N).
-    The effects of imposing gauge symmetries on the Lagrangian, and the advent of the gauge bosons and their forces.
-    how do gauge bosons come out from symmetries.
+    %Describe Global U1
+    I want to introduce another group, called $U(1)$ (Unitary Rank 1 Group).
+    This group corresponds to the \textit{phase} of a field, and the transformation takes the form
+    \begin{equation}
+        \psi(x) \to \psi'(x) = e^{i\theta} \psi(x)
+    \end{equation}
 
-    U(1) is phase transforms
+    %describe global vs local
+    As in prior examples, the exponential changes signs for the anti-fermion.
+    The generator here is just $i$, the phase shift amount given by the angle $\theta$.
+    It is trivial to see that the Lagrangian is invariant under such a group.
+    This group, along with all the others already described under the Poincare group,
+        all fall under the category of Global transformations.
+    A global transformation is one which is applied uniformly across all space-time.
+    There is a different kind of transformation, called a Local or ``Gauge'' transformation.
+    A gauge transform is one in which the transformation amount varies \textit{at each point in space-time}.
+    A local $U(1)$ transform would thus take the form 
+    %show local U1
+    \begin{equation}
+        \psi(x) \to \psi'(x) = e^{i\theta(x)} \psi(x)
+    \end{equation}
+    Noting that the phase-angle $\theta(x)$ is now a function of $x$.
 
-    SU(2) is based on 2x2 pauli matrices and thus requires pairing generations of particles together;
-        so up and down-type quarks are paired together and charged leptons with neutrinos.
-    It treats left handed fields as these doublet pairs,
-        but works in "singlet representation" (which means it basically is just gone) for right-handed fields
+    Demanding that the Lagrangian remain invariant under such a transformation would clearly be an absurd mandate.
+    Yet, this is exactly what nature seems to have done.
 
-    SU(3) is based on a 3x3 structure constant, and thus acts on all three "generations" of quarks as one 3x1 vector.
-    It is a singlet (read, it literally doesn't matter) for leptons.
+    %Show how this breaks lagrangian
+    I want to show how the Lagrangian in its current form breaks when attempting to perform a $U(1)$ gauge transform,
+        and how the resolution to this issue leads directly to fully dynamic, interacting Lagrangian.
+    First, apply the gauge transformation
+    \begin{equation} \begin{split}
+        \Lag(\theta_0) \to \Lag' = \Lag(\theta_0+\theta(x)) &=
+            \left( e^{-i\theta(x)} \psibar \right) (\slashed{p} - m) \left( e^{i\theta(x)}\psi \right)
+            \\ &= \left( e^{-i\theta(x)} \psibar \right) i\slashed{\partial} \left( e^{i\theta(x)}\psi \right)
+                - \left( e^{-i\theta(x)} \psibar \right) m \left( e^{i\theta(x)}\psi \right)
+    \end{split} \end{equation}
+    In the mass term, the transform will cancel in the usual fashion.
+    The momentum term however will \textit{not} cancel, as the derivative will also affect the position-dependant $\theta(x)$.
+    \begin{equation} \begin{split}
+        \Lag' &= \left( e^{-i\theta(x)} \psibar \right) i\slashed{\partial} \left( e^{i\theta(x)}\psi \right) - m \psibar(x) \psi(x)
+        \\ &= i \left( e^{-i\theta(x)} \psibar \right) \left[
+                \left( \slashed{\partial} e^{i\theta(x)} \right) \psi 
+                + e^{i\theta(x)} \left( \slashed{\partial} \psi \right)
+            \right] - m \psibar(x) \psi(x)
+        \\ &= i \left( e^{-i\theta(x)} \psibar \right)
+                \left( \slashed{\partial} e^{i\theta(x)} \right) \psi 
+            + i \psibar \slashed{\partial} \psi
+            - m \psibar(x) \psi(x)
+        \\ &= - \psibar \left( \slashed{\partial}\theta(x) \right) \psi 
+            + \psibar ( \slashed{p} - m ) \psi
+    \end{split} \end{equation}
+
+    %Show how to fix lagrangian
+    Under a local $U(1)$ transform, the Lagrangian is clearly not invariant,
+        as a result of the additional $\slashed{\partial}\theta(x)$ term.
+    In order to enforce gauge symmetry, a subtle but profound adjustment must be made to the Lagrangian.
+    This adjustment will take the form of a modification to the derivative,
+        replacing the standard derivative with a \textit{covarient} derivative, $\partial_\mu \to D_\mu \equiv \partial_\mu + i A_\mu(x)$.
+
+
+    %introduce photon field and show newly produced interaction
+
+    %at least briefly mention how equation of motion of fermion is now Lorentz force law,
+    %    eom of A field is Maxwell's Equation
+
+    %introduce SU(2) and SU(3)
+
+    %Tease at U1, Su2, and su3 corresponding to EM, weak and strong.
+    %Break this by explaining that w and z bosons have mass, which collapses the entire idea of basing the SM on symmetry.
+
+    %Transition with the idea of the higgs as the savior of the entire theory
+    
+
+
+    %Gauge Transformations are ones where the transformation is imposed differently at each point in spacetime.
+    %Trying to impose a constraint on the Lagrangian that it be symmetric under gauge transformations would surely cause all manner of complications.
+    %Obviously, this is exactly what nature seems to have chosen to do.
+
+    %Gauge symmetries; U1, SU(N).
+    %The effects of imposing gauge symmetries on the Lagrangian, and the advent of the gauge bosons and their forces.
+    %how do gauge bosons come out from symmetries.
+
+    %U(1) is phase transforms
+
+    %SU(2) is based on 2x2 pauli matrices and thus requires pairing generations of particles together;
+    %    so up and down-type quarks are paired together and charged leptons with neutrinos.
+    %It treats left handed fields as these doublet pairs,
+    %    but works in "singlet representation" (which means it basically is just gone) for right-handed fields
+
+    %SU(3) is based on a 3x3 structure constant, and thus acts on all three "generations" of quarks as one 3x1 vector.
+    %It is a singlet (read, it literally doesn't matter) for leptons.
     
     \cite{Osborn_notes}
     \cite{Peskin_book}
