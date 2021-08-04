@@ -36,7 +36,6 @@
         \caption{I'm probably going to need to find something else since this came from wikipedia. I just wanted a placeholder}
         \label{fig:sm_particles}
     \end{figure}
-        
 
     There are twelve distinct elementary fermions (see Figure \ref{fig:sm_particles}),
         which are split evenly into two subgroups, called quarks and leptons.
@@ -48,123 +47,36 @@
     Among the quarks, every generation contains a doublet of an up-type quark (Up, Charm, Top) with electromagnetic charge of 2/3,
         and a down-type quark (Down, Strange, Bottom) with EM charge of -1/3.
     For leptons, each doublet consists of a particle with EM charge of -1, and a neutrino with EM charge of 0.
-
     In addition to the fermions, there is also an entirely seperate class of particles, called gauge bosons,
         which play a fundamental role in the aforementioned interactions.
     However, the nature of these particles will be discussed later.
-    Now, with the enumeration of the various particles complete, it is time to begin the discussion of the Standard Model itself,
-        which will serve to explain how these fermions interact with each other.
 
-
-
-\section{Composition of Matter: Fields and Dirac Spinors}
-    I'm actually starting to wonder if I should scrap this entire section and just merge the basic description of fields,
-        as well as a brief mention of the Dirac equation, into the prior section.
-    I don't think I'm going to go into detail about the weak-fermion coupling,
-        so I don't really need to describe left/right fields, so I don't really need to break down the structure of
-        the dirac and klein gordon equations.
-    I might even just move the klein gordon equation introduction over to the Higgs section.
-
-    %Fields are a thing.
-    The description of matter is governed by the formalism of Quantum Field Theory, which describes particles as pertubations of an overall particle \textit{field}.
-    %They're kinda like quantum waves, but not.
+    Mathematically, particles are described as pertubations of an overall ``quantum field.''
     A particle field $\varphi$, describes every particle of the same type at once,
         and particle states $\ket{\varphi}$ correspond to the number of that kind of particle that exists at a given moment.
-    The equation of motion used to describe a field varies depending on the properties of the field.
-    For a scalar (spinless) field, \phi, the equation of motion just comes from the relativistic mass-four-momentum relation $p^2=m^2$,
-        but repurposed for a quantum field.
-    This is the Klein-Gordon Equation
+    Fermions in particular are described as manifestations of ''Dirac Fields'', $\psi(x)$,
+        which are defined by an equation of motion known as the Dirac Equation
     \begin{equation} \begin{split}
-        p^2 \phi = m^2 \phi
-        \\(p^2 - m^2) \phi = 0
-    \end{split} \end{equation}
-    Recalling the covariant, natural units, quantum mechanical definition of momentum as $p^u = i\partial^u$,
-        this can also be written as
-    \begin{equation} \begin{split}
-        (p^2 - m^2) \phi = 0 \rightarrow (\partial^\mu \partial_\mu + m^2) \phi = 0
+        (\gamma^\mu p_\mu - m I) \psi(x) = 0
+        \\ (i\gamma^\mu \partial_\mu  - m) \psi(x) = 0
     \end{split} \end{equation}
 
-    The Klein-Gordan Equation will be used later when describing the Higgs Field,
-        but first I will use it here as the foundation for the equation of motion required for a spinor field.
-    For spinor fields, the equation of motion is the Dirac Equation,
-        formulated to be a first-order equation (i.e.\ linear in $p$).
+    The term $\gamma^\mu$ is a vector of matrices, simply called the gamma matrices.
+    The gamma matrices are a fascinating subject all their own, 
+        but for the purposes of this discussion it will suffice to state that their primary purpose is allowing 
+        the 4-vector $p_\mu$ to be added to the scalar $m$. %TODO remove all feynman slashes. It's just another thing I have to explain
+
+    To conclude this discussion of the nature of matter,
+        I need to mention a peculiar consequence of Quantum Field Theory, in the form of \textit{anti-matter}.
+    Anti-matter particle fields correspond to negative-energy solutions to the Dirac Equation,
+        and are represented as
     \begin{equation}
-        (\gamma^\mu p_\mu - m I) \psi = 0
-        (i\gamma^\mu \partial_\mu  - m I) \psi = 0
+        \psibar(x) \equiv \gamma^0 \psi\dag(x)
     \end{equation}
-
-    The issue with creating a first-order equation in $p$ is that $p_\mu$ is a vector, which means it cannot be merely added to the scalar $m$.
-    The key feature of the Dirac Equation which addresses this is the inclusion of the \textit{gamma matrices}, $\gamma^\mu$.
-    $\gamma^\mu$, is a vector of four matrices, each of size 4x4 (note that $m$ is in turn multiplied by a 4x4 identity matrix $I$).
-    There are many different conventions for the exact structure of the matrices,
-        but the main requirement is that they all multiply together with very specific commutation rules.
-    The technical description of this property is that the gamma matrices must
-        anti-commute as $\{\gamma^u, \gamma^\nu\} = 2g^{\mu \nu}\times I$,
-        where $g^{\mu\nu}$ is the minkowski metric.
-    In practical terms, the goal is just to ensure that when the Dirac Equation is multiplied by its conjugate,
-        the product returns back to the Klein-Gordan Equation.
-    \begin{equation} \begin{split}
-        (\gamma^\nu p_\nu + m I) (\gamma^\mu p_\mu - m I) \psi = 0
-        \\ (\gamma^\nu \gamma^\mu p_\nu p_\mu - m \gamma^\nu p_\nu + m \gamma^\mu p_\mu - m^2 I) \psi = 0
-        \\ (\gamma^\nu \gamma^\mu p_\nu p_\mu - m^2 I) \psi = 0
-        \\ (g^{\mu \nu} I p_\nu p_\mu - m^2 I) \psi = 0
-        \\ (p^\mu p_\mu - m^2 ) \psi = 0
-        \\ (p^2 - m^2) \psi = 0
-    \end{split} \end{equation}
-    Where the anticommutation relation has been used in the fourth line to eliminate all the momentum cross terms.
-
-
-
-
-    %Fields don't describe a single particle, but all particles of the same type at once.
-    %Field states are just a count of how many of that particles exist at a given time.
-    %Scalar particles are described by Klein Gordon Equation.
-    %Spin 1/2 particles are described by dirac equation.
-    %It's first order in p, but this requires the gamma matrices.
-    %Matrices take many forms, but one of the most revealing is the Weyl, or Chiral, form.
-    %Do some math to show fields in chiral form, to show Chirality.
-
-
-    %It takes from quantum mechanics the uncertainty principle, and from relativity the mass/energy equivalence 
-    %It takes from quantum mechanics the wave-like description of position and momentum, along with the uncertainty principle.
-    %From special relativity it incorporates the equivalence of space and time, the constance of the speed of light,
-    %    and the exchange between mass and energy.
-    %Combining the energy/time uncertainty principle with mass/energy equivalence in particular
-    %    has the outcome that the number of particles for a given system need not remain constant.
-    %To account for this, particles are not described as waves as with the Schrodinger Equation, but rather as ``fields''.
-    %A fermion field, $\psi$, does not describe a single particle, but rather all possible fermion for the same kind of particle.
-    %For instance, there is a seperate fermion field to describe electrons, up-quarks, and so forth.
-
-    
-    describe gamma matrices
-
-    describe anti particle psi bar
-
-    describe chiral representation
-    
-
-    %What is the Universe made of (If you stick to this format at all, keep this section brief):
-
-    %%Position and Momentum: Quantum Mechanics
-    %   The position and momentum of that matter:
-    %       Described via the Canonical Commutation Relation and the formalism of Quantum Mechanics
-    %       (explain 'h' here?)
-    %   Describe basic function of schrodinger equation and why it fails
-
-    %%Space and Time: Special Relativity
-    %   The space-time in which that matter resides: described by the Minkowski Metric Tensor.
-    %    Explain what the metric tensor means and maybe covariant notation,
-    %    as well as mass-energy-momentum equivalence,
-    %    and also the speed of light
-    %    Reformat schrodinger equation as klein gordon and show how this also fails
-
-
-    %%Particles and Fields: Quantum Field Theory
-    %   A description of how the position of matter can change: Described by the Dirac Equation.
-    %    A unification of Quantum Mechanics and Special Relativity
-    %    (maybe go through the derivation, starting from schrodinger -> klein-gordon -> dirac and why each fails)
-    %    Describe Weyl Spinors and Chiral representation (peskin pg 64)
-
+    The true brilliance of the Standard Model lies in how it is able to describe the particles and interactions of nature
+        as consequences of pure mathematical structures.
+    Describing matter in mathemetical form is the first step in constructing the Standard Model.
+    The next step is to do the same with motion.
 
 
 \section{Generating Motion: Group Theory and Transformations}
