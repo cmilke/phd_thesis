@@ -18,7 +18,7 @@
 %Matter and Forces
 %I need to discuss the elementary particles and their organization before I can really discuss the gauge fields.
 %Might as well do it here first and foremost
-\section{The Standard Model of Particle Physics}
+\section{The Standard Model of Particle Physics}\label{sec:standard_model}
     
     At its core, the Standard Model of Particle Physics is a description of the behaviour and interaction of matter.
     First and foremost then, I want to discuss what this matter actually is.
@@ -288,7 +288,7 @@
         also known as Lorentz Transformations (also known as just changing velocity).
 
     The Lagrangian of a Dirac field satisfying these symmetries takes the form
-    \begin{equation}
+    \begin{equation} \label{eq:basic_fermionL}
         \Lag = \psibar (\slashed{p} - m) \psi = i \psibar \slashed{\partial} \psi - m \psibar \psi
     \end{equation}
     As an example of the symmetry now described, I will reuse the time translation operator $e^{i\Delta x^0 \partial_0}$
@@ -389,40 +389,119 @@
         as a result of the additional $\slashed{\partial}\theta(x)$ term.
     In order to enforce gauge symmetry, a subtle but profound adjustment must be made to the Lagrangian.
     This adjustment will take the form of a modification to the derivative,
-        replacing the standard derivative with a \textit{covarient} derivative, $\partial_\mu \to D_\mu \equiv \partial_\mu + i A_\mu(x)$.
+        replacing the standard derivative with a \textit{covarient} derivative,
+    \begin{equation}
+        \partial_\mu \to D_\mu \equiv \partial_\mu + i \emc A_\mu(x)
+    \end{equation}
+    where $\emc$ is a constant and the new function $A_\mu(x)$ is formulated such that it transforms under a $U(1)$ gauge rotation as
+    \begin{equation}
+        A_\mu(x) \to A'_\mu(x) = A_\mu(x) - \frac{1}{\emc} \partial_\mu \theta(x)
+    \end{equation}
 
+    With this additional term, the Lagrangian takes the form
+    \begin{equation} \begin{split}
+    \Lag = \psibar (i\slashed{D} - m) \psi
+        = \psibar \left[i\gamma^\mu(\partial_\mu + i \emc A_\mu) - m\right] \psi
+    \end{split} \end{equation}
+    and the specific transformation property of $A$ renders the entire equation invariant under a gauge transform
+    \begin{equation} \begin{split}
+    \Lag(\theta_0) \to \Lag' &= \Lag(\theta_0+\theta(x))
+        \\&= \left( e^{-i\theta(x)} \psibar \right) 
+        \left[i\gamma^\mu \left(\partial_\mu 
+            + i \emc \left[A_\mu - \frac{1}{\emc} \partial_\mu \theta(x)\right] \right) 
+            - m\right]
+        \left( e^{i\theta(x)}\psi \right)
+        \\&= \psibar \left[i\gamma^\mu(\partial_\mu + i \emc A_\mu) - m\right] \psi
+    \end{split} \end{equation}
 
     %introduce photon field and show newly produced interaction
+    % See Peskin pg484 (djvu 505) for derivation of kinetic term
+    % See also https://physics.stackexchange.com/questions/131097/gauge-field-tensor-from-wilson-loop
+    Through a subtle and much more complex derivation (which will not be demonstrated here),
+        it can also be shown that this new covarient derivative causes the Action to acquire an additional term 
+        related to the commutator of the covarient derivative, $[D_\mu, D_\nu] \equiv D_\mu D_\nu - D_\nu D_\mu$.
+    Defining a tensor $F_{\mu\nu}$ as $[D_\mu, D_\nu] = i\emc F_{\mu\nu}$,
+        the additional required term takes the form $-\frac{1}{4}F^{\mu\nu}F_{\mu\nu}$.
+    The final form of the $U(1)$ gauge invariant fermion Lagrangian now appears as
+    \begin{equation} \label{eq:qedL} \begin{split}
+        \Lag &= \psibar (i\slashed{D} - m) \psi - \frac{1}{4}(F_{\mu\nu})^2
+        \\&= i \psibar \gamma^\mu \partial_\mu \psi
+            - m \psibar \psi
+            + i \emc \psibar \gamma^\mu A_\mu \psi
+            - \frac{1}{4}F_{\mu\nu}F^{\mu\nu}
+    \end{split} \end{equation}
 
-    %at least briefly mention how equation of motion of fermion is now Lorentz force law,
+    Of extraordinary note is that the last term of $\Lag$ is completely independant of the fermion field $\psi$.
+    The true nature of $A$ is thus revealed, not as just a mere correction factor,
+        but as a massless field all its own.
+    Indeed, $A(x)$ corresponds to the photon field, $\emc$ to the electric charge,
+        and the term $-\frac{1}{4}(F_{\mu\nu})^2$ to the kinitec energy of the photon.
+    Furthermore, the three-field term $i \emc \psibar \gamma^\mu A_\mu \psi$
+        allows the fermion field to interact directly with the photon field,
+        and through the photon field to interact indirectly with \textit{other} fermion fields.
+    Far from the static situation described by Equation \ref{eq:basic_fermionL},
+        the new Lagrangian permits a wide range of dynamic interactions between particles.
+    % At least briefly mention how equation of motion of fermion is now Lorentz force law,
     %    eom of A field is Maxwell's Equation
+    In fact, using the Euler-Lagrange equations on Equation \ref{eq:qedL}
+        will now reproduce the Lorentz Force Law as the equation of motion for the fermion fields,
+        and Maxwell's Equations as the equation of motion for the photon.
 
-    %introduce SU(2) and SU(3)
+    % Introduce SU(2) and SU(3)
+    All of this complexity arose from the simple imposition of the $U(1)$ gauge symmetry upon the fermion Lagrangian.
+    The full extent of interaction in the Standard Model can be realized by imposing then two more gauge group symmetries:
+        $SU(2)$, and $SU(3)$.
+    Both of these groups behave in a similar manner to $U(1)$, with the transformations taking the forms
+    \begin{equation} \begin{split}
+        SU(2)&: e^{i \alpha^a(x) \sigma^a / 2}
+        \\SU(3)&: e^{i \xi^b(x) \mathscr{F}^b / 2}
+    \end{split} \end{equation}
+    where $\sigma^a$ corresponds to the three, 2x2 Pauli Matrices
+    \begin{equation}
+        \sigma^1 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \quad
+        \sigma^2 = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} \quad
+        \sigma^3 = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
+    \end{equation}
+    and $\mathscr{F}^b$ corresponds to the eight, 3x3 structure constant matrices of $SU(3)$
+        (which don't have a formal name and will not be explicitly written out).
+
+    While $U(1)$ acted as one-dimensional rotation of a single complex angle $\theta$,
+        $SU(2)$ performs three orthogonal rotations $\alpha^a$ through a three-dimensional complex space,
+        and $SU(3)$ performs rotations through an eight-dimensional complex space.
+    %SU(2) is based on 2x2 pauli matrices and thus requires pairing generations of particles together;
+    %    so up and down-type quarks are paired together and charged leptons with neutrinos.
+    Because $SU(2)$ operates through the 2x2 Pauli Matrices, it must operate on the fermions as ``doublets''
+        (recall Section \ref{sec:standard_model}).
+    \begin{equation}
+        \minimatrix{u_L \\ d_L} \to e^{i \alpha^a \sigma^a / 2} \minimatrix{u_L \\ d_L}
+    \end{equation}
+
+    %SU(3) is based on a 3x3 structure constant, and thus acts on all three "generations" of quarks as one 3x1 vector.
+    Similarly, the triplet nature of $SU(3)$ neccesitates that the group operate on all three generations of fermions at once
+    \begin{equation}
+        \minimatrix{u\\c\\t} \to e^{i \xi^b \mathscr{F}^b / 2} \minimatrix{u\\c\\t}
+    \end{equation}
+
+    %It treats left handed fields as these doublet pairs,
+    %    but works in "singlet representation" (which means it basically is just gone) for right-handed fields
+    %SU(3) is a singlet (read, it literally doesn't matter) for leptons.
+    Neither group operates uniformly across the fermions though.
+    $SU(2)$ acts only on the ``left-handed'' chiral state of the fermions (denoted by the subscript L),
+        and $SU(3)$ acts only on the quarks, having a charge of zero for all leptons.
 
     %Tease at U1, Su2, and su3 corresponding to EM, weak and strong.
     %Break this by explaining that w and z bosons have mass, which collapses the entire idea of basing the SM on symmetry.
+    The behaviour of these Gauge Groups established, the natural assumption is that the three gauge fields
+        $U(1)$, $SU(2)$, and $SU(3)$ correspond to the three fundamental interactions,
+        Electromagnetic, Weak, and Strong.
+    $SU(3)$ assuredly does correspond to the strong interaction, its gaugle field manifested as the Gluons.
+    Likewise, the electromagnetic interaction and its photons are \textit{effectively} the manifestation of the $U(1)$ group. 
+    For $SU(2)$ however, nature is far less simple.
 
-    %Transition with the idea of the higgs as the savior of the entire theory
     
 
 
-    %Gauge Transformations are ones where the transformation is imposed differently at each point in spacetime.
-    %Trying to impose a constraint on the Lagrangian that it be symmetric under gauge transformations would surely cause all manner of complications.
-    %Obviously, this is exactly what nature seems to have chosen to do.
 
-    %Gauge symmetries; U1, SU(N).
-    %The effects of imposing gauge symmetries on the Lagrangian, and the advent of the gauge bosons and their forces.
-    %how do gauge bosons come out from symmetries.
-
-    %U(1) is phase transforms
-
-    %SU(2) is based on 2x2 pauli matrices and thus requires pairing generations of particles together;
-    %    so up and down-type quarks are paired together and charged leptons with neutrinos.
-    %It treats left handed fields as these doublet pairs,
-    %    but works in "singlet representation" (which means it basically is just gone) for right-handed fields
-
-    %SU(3) is based on a 3x3 structure constant, and thus acts on all three "generations" of quarks as one 3x1 vector.
-    %It is a singlet (read, it literally doesn't matter) for leptons.
     
     \cite{Osborn_notes}
     \cite{Peskin_book}
