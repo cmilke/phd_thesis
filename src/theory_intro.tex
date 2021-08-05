@@ -8,11 +8,11 @@
     Moreover, I want to justify why the Higgs is so important as to be worth studying in the first place.
     And to understand the importance of the Higgs Boson, one must understand the structure of the Standard Model itself.
 
-    The structure of the following sections will begin with a discussion of the purpose and fundamental structure of the Standard Model.
-    I will follow this with an introduction to the mathematical formalism the Standard Model is based around,
+    The organization of the following sections will begin with a discussion of the purpose and fundamental layout of the Standard Model.
+    Following this will be an introduction to the mathematical formalism the Standard Model is based around,
         involving Group Theory, the calculus of variations, and symmetry.
     Here I will introduce the reason for the original postulation of the Higgs, what it is, how it works, and how it fits into the Standard Model.
-    Finally, I will motivate further study into the Higgs and provide a technique to perform this study.
+    Finally, the chapter will conclude with a motivation for further study into the Higgs Boson, and provide a technique to perform such study.
 
 
 %Matter and Forces
@@ -21,15 +21,15 @@
 \section{The Standard Model of Particle Physics}\label{sec:standard_model}
     
     At its core, the Standard Model of Particle Physics is a description of the behaviour and interaction of matter.
-    First and foremost then, I want to discuss what this matter actually is.
-    All matter can be described as a specific type of elementary particle called a fermion,
+    Hence, it is neccesary to discuss what this matter actually is, first and foremost.
+    All known matter can be described as a specific type of elementary particle called a fermion,
         defined by the fact that it contains no discernable substructure and possesses an intrinsic spin of 1/2.
-    These particles all have different masses, and are able to interact with each other through three ``fundamental interactions''.
-    The three fundamental interactions (more commonly called ``Fundamental Forces'') are known as
+    These fermions, each with a different mass, are able to interact with each other through three ``fundamental interactions''.
+    The three fundamental interactions (more commonly called ``Fundamental Forces'') are named as
         the Electromagnetic, Weak, and Strong interactions (gravity is entirely absent in the Standard Model).
     All the interactions have an associated ``charge'' which can be ascribed to different particles,
         and which govern how strongly that particle can interact with similarly charged particles.
-    The various fermions are distinct largely because of the charges they carry.
+    Indeed, the various fermions are distinct primarily because of the charges they carry.
 
     \begin{figure}[h!]
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{theory/Standard_Model_of_Elementary_Particles}
@@ -39,110 +39,107 @@
 
     There are twelve distinct elementary fermions (see Figure \ref{fig:sm_particles}),
         which are split evenly into two subgroups, called quarks and leptons.
-    Quarks have a charge of 1 with the Strong interaction,
+    Quarks have a charge of 1 with the Strong Interaction,
         while leptons have a charge of 0 (and thus cannot interact via the Strong Interaction at all).
-    Both classes of particles, quarks and leptons, are divided into three ``generations'' of progressively heavier particles.
-    Each generation thus consists of two quarks and two leptons.
-    These pairs, called ``doublets'', behave the same across all generations.
+    Both classes of particles -- quarks and leptons -- are divided into three ``generations'' of progressively heavier particles.
+    Each generation accordingly consists of two quarks and two leptons.
+    These pairs, dubbed ``doublets'', behave the same across all generations.
     Among the quarks, every generation contains a doublet of an up-type quark (Up, Charm, Top) with electromagnetic charge of 2/3,
         and a down-type quark (Down, Strange, Bottom) with EM charge of -1/3.
-    For leptons, each doublet consists of a particle with EM charge of -1, and a neutrino with EM charge of 0.
+    For leptons, each doublet consists of a charged particle (electron, muon, tauon) with EM charge of -1,
+        and a chargeless neutrino with EM charge of 0.
     In addition to the fermions, there is also an entirely seperate class of particles, called gauge bosons,
         which play a fundamental role in the aforementioned interactions.
-    However, the nature of these particles will be discussed later.
+    However, an in-depth discussion of these particles will need to wait until Section \ref{sec:gauge_symmetry}.
 
     Mathematically, particles are described as pertubations of an overall ``quantum field.''
     A particle field $\varphi$, describes every particle of the same type at once,
         and particle states $\ket{\varphi}$ correspond to the number of that kind of particle that exists at a given moment.
     Fermions in particular are described as manifestations of ''Dirac Fields'', $\psi(x)$,
-        which are defined by an equation of motion known as the Dirac Equation
+        which are defined as solutions to an equation of motion known as the Dirac Equation
     \begin{equation} \begin{split}
-        (\gamma^\mu p_\mu - m I) \psi(x) = 0
-        \\ (i\gamma^\mu \partial_\mu  - m) \psi(x) = 0
+        (\gamma^\mu p_\mu - m) \psi(x) = 0
+        \\ (i\gamma^\mu \partial_\mu - m) \psi(x) = 0
     \end{split} \end{equation}
-
     The term $\gamma^\mu$ is a vector of matrices, simply called the gamma matrices.
     The gamma matrices are a fascinating subject all their own, 
-        but for the purposes of this discussion it will suffice to state that their primary purpose is allowing 
-        the 4-vector $p_\mu$ to be added to the scalar $m$. %TODO remove all feynman slashes. It's just another thing I have to explain
+        but for the purposes of this discussion it will suffice to state that
+        their primary function is in allowing the 4-vector $p_\mu$ to be added to the scalar $m$.
 
-    To conclude this discussion of the nature of matter,
+    As a final note on the topic of matter,
         I need to mention a peculiar consequence of Quantum Field Theory, in the form of \textit{anti-matter}.
     Anti-matter particle fields correspond to negative-energy solutions to the Dirac Equation,
         and are represented as
     \begin{equation}
         \psibar(x) \equiv \gamma^0 \psi\dag(x)
     \end{equation}
-    The true brilliance of the Standard Model lies in how it is able to describe the particles and interactions of nature
-        as consequences of pure mathematical structures.
+    Anti-matter particles are identical to their matter components in every way,
+        with the most notable change being that their charges are inverted.
+
+    The brilliance of the Standard Model lies in how it is able to describe the 
+        particles and interactions of nature as consequences of pure mathematical structures.
     Describing matter in mathemetical form is the first step in constructing the Standard Model.
     The next step is to do the same with motion.
 
 
 \section{Generating Motion: Group Theory and Transformations}
 
-    The Dirac Equation provides a description of matter.
-    The next key piece of the Standard Model is a description of motion itself.
-    For this, I will need to introduce Group Theory.
-
+    %TODO Add a transistion here
     A function can be altered using a \textit{transformation operator}.
     A simple example of this would be a function $x(t)$, 
         which (assuming constant velocity) can be transformed into a time $\Delta t$ in the future as
     \begin{equation}
-    x(t) \rightarrow x'(t) = x(t) + v \Delta t
+    x(t) \to x'(t) = x(t) + v \Delta t
     \end{equation}
-    Noting that $v$ is just $\frac{d}{dt} x(t)$, this can be rewritten as
+    Recognizing that $v$ is just $\frac{d}{dt} x(t)$, this can be rewritten as
     \begin{equation}
-    x(t) \rightarrow x'(t) = x(t) + \Delta t \frac{d}{dt} x(t) = \left(1+\Delta t \frac{d}{dt}\right) x(t)
+    x(t) \to x'(t) = x(t) + \Delta t \frac{d}{dt} x(t) = \left(1+\Delta t \frac{d}{dt}\right) x(t)
     \end{equation}
 
     This term $\left(1+\Delta t \frac{d}{dt}\right)$ is the classical time-translation operator.
-    Notice the assumption of \textit{constant velocity} though.
-    If velocity were not constant, this operator would be invalid, except for in the specific case in which $\Delta t$ is infinitesimal.
+    Notice the assumption of constant velocity though.
+    If velocity were not constant, this operator would be invalid, except in the specific case for which $\Delta t$ is infinitesimal.
     \begin{equation}
-    x(t) \rightarrow x'(t) = \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right) x(t)
+    x(t) \to x'(t) = \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right) x(t)
     \end{equation}
 
     To produce a more general finite operator I can apply the infinitesimal operator an infinite number of times
     \begin{equation} \begin{split}
-    x(t) \rightarrow x'(t) &= \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)...\ x(t)
-    \\x(t) \rightarrow x'(t) &= \lim_{N \to \infty} \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)^N x(t)
-    \\x(t) \rightarrow x'(t) &= e^{\Delta t \frac{d}{dt}} x(t)
+    x(t) \to x'(t) &= \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)...\ x(t)
+    \\x(t) \to x'(t) &= \lim_{N \to \infty} \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)^N x(t)
+    \\x(t) \to x'(t) &= e^{\Delta t \frac{d}{dt}} x(t)
     \end{split} \end{equation}
 
     Where $\Delta t$ is again a finite time transformation,
         and I have compressed the infinite product of terms using the power series expansion of the exponential function.
     In order to use this classical operator in quantum field theory, it must have a complex factor `$i$' associated with it,
     \begin{equation} \begin{split}
-    x(t) \rightarrow x'(t) = e^{i\Delta t \frac{d}{dt}} x(t)
+    x(t) \to x'(t) = e^{i\Delta t \frac{d}{dt}} x(t)
     \end{split} \end{equation}
 
     Returning to Dirac Fields, which are functions of four-position $x_\mu$, this same transformation can be used
          with the minor adjustment of changing the total derivative to a partial derivative in time, $\frac{partial}{\partial t} = \partial_0$
     \begin{equation} \begin{split}
-    \psi(x) \rightarrow \psi'(x) = e^{i\Delta x^0 \partial_0} \psi(x)
+    \psi(x) \to \psi'(x) = e^{i\Delta x^0 \partial_0} \psi(x)
     \end{split} \end{equation}
 
     Meanwhile, the Dirac anti-particle field transforms with a negative sign as
     \begin{equation} \begin{split}
-        \psibar(x) \rightarrow \psibar'(x) = e^{-i\Delta x^0 \partial_0} \psibar(x)
+        \psibar(x) \to \psibar'(x) = e^{-i\Delta x^0 \partial_0} \psibar(x)
     \end{split} \end{equation}
     
     The time translation operator is but one of a myriad of different tranformation operators.
-    However, all of the transformation operators that will be used here will all take a form very similar to this one,
-        appearing something like
-
+    However, all of the transformation operators used here take a similar form to this, appearing as
     \begin{equation} \begin{split}
-        \psi(x) \rightarrow \psi'(x) = e^{ q \cdot \mathcal{F}_q } \psi(x)
+        \psi(x) \to \psi'(x) = e^{ q \cdot \mathcal{F}_q } \psi(x)
     \end{split} \end{equation}
-
-    where $\mathcal{F}_q$ is the transformation \textit{generator} (e.g.\ $i\partial_0$),
+    $\mathcal{F}_q$ is the transformation \textit{generator} (e.g.\ $i\partial_0$),
         and $q$ the amount to transform by (e.g.\ $\Delta t$).
 
-    These transforms all fall under a larger realm of mathematics known as Group Theory,
+    These transforms fall under a larger realm of mathematics known as Group Theory,
         and are in turn called ``group transformation''.
-    The basic definition of a ``group'' is a set of elements which can be ``multiplied'' according to some rule,
-        and which satisfies the four conditions of\cite{Cheng_book}:
+    The basic definition of a group is a set of elements which can be ``multiplied'' according to some rule,
+        and which satisfies the following four conditions\cite{Cheng_book}:
     \begin{itemize}
         \item Closure - the product of any two elements of the group are still in that group;
         \item Associativity - $(a \times b)\times c = a\times(b \times c)$;
@@ -156,16 +153,18 @@
     Time translations are continuous (one can tranlate by an infinitesimally small amount of time),
         and are Abelian (the order that the translation are applied does not matter).
     An example of a non-Abelian group would be that of three-dimensional rotations (formally called the $SO(3)$ group),
-        as applying rotations in a different order can lead to a different final product.
+        as applying rotations in a different order can lead to a different final orientation.
 
     As a final point regarding Group Theory, is the absolutely crucial idea of \textit{symmetry}.
     If a system can be transformed under a group transformation and remain overall unchanged,
         then that system is said to be invariant, or symmetric, under that group.
-    In a very deep sense, Group Theory and group symmetry are the driving forces behind the entire Standard Model,
-    As will be seen in the coming sections,
-        the motion of the Standard Model is ultimately described by Group Theory,
-        its interactions defined by Group Theory,
+
+    In a very deep sense, Group Theory and symmetry are the driving forces behind the entire Standard Model.
+    Not only is the motion of the Standard Model entirely described by Group Theory,
+        but as will be seen in the coming sections,
+        its interactions are defined by Group Theory,
         and its entire organizational structure ultimately rooted in Group Theory.
+
 
 \section{Restricting Motion: The Lagrangian and Symmetry}
     
@@ -180,7 +179,7 @@
         \mathscr{A} = \int \Lag d^4 x
     \end{equation}
 
-    This minimization is performed using the four-dimension Euler-Lagrange equations
+    This minimization is performed using the four-dimensional Euler-Lagrange equations
     \begin{equation}
         \partial_\mu \frac{\partial \Lag}{\partial_\mu \varphi } - \frac{\partial \Lag}{\partial \varphi} = 0
     \end{equation}
@@ -190,51 +189,50 @@
     The construction of this Lagrangian will be the focus of most of the rest of the chapter.
     To begin then, what physics \textit{does} the Lagrangian need to encode?
     Paraphrasing Murray Gell-Mann, ``that which is not forbidden, is \textit{mandatory}.''
-    That is to say, that any physics which is not expressly prohibited, must automatically be allowed.
+    That is to say, that any physics which is not expressly prohibited, can and will occur.
     Formulation of the Standard Model Lagrangian must therefore start with an enumeration of restrictions,
-        given in the form of a series of groups that the Lagrangian must remain symmetric under.
+        which are given in the form of a series of groups that the Lagrangian must remain symmetric under.
     Specifically, the Lagrangian must remain symmetric under ten transformations,
-        collectively reffered to as the Poincare Group.
+        collectively referred to as the Poincare Group.
     Four of these transformations correspond to the space-time translations,
         three to spatial rotations, and the remaining three to space-\textit{time} rotations,
         also known as Lorentz Transformations (also known as just changing velocity).
 
     The Lagrangian of a Dirac field satisfying these symmetries takes the form
     \begin{equation} \label{eq:basic_fermionL}
-        \Lag = \psibar (\slashed{p} - m) \psi = i \psibar \slashed{\partial} \psi - m \psibar \psi
+        \Lag = \psibar (\gamma^\mu p_\mu - m) \psi = i \psibar \gamma^\mu \partial_\mu \psi - m \psibar \psi
     \end{equation}
     As an example of the symmetry now described, I will reuse the time translation operator $e^{i\Delta x^0 \partial_0}$
 
     \begin{equation} \begin{split}
         \Lag(t) \to \Lag' = \Lag(t+\Delta t) =
-            \left( e^{-i\Delta x^0 \partial_0} \psibar \right) (\slashed{p} - m) \left( e^{i\Delta x^0 \partial_0}\psi \right)
-        \\  = e^{-i\Delta x^0 \partial_0 + i \Delta x^0 \partial_0} \psibar (\slashed{p} - m) \psi
-        \\  = \psibar (\slashed{p} - m) \psi
+            \left( e^{-i\Delta x^0 \partial_0} \psibar \right) (\gamma^\mu p_\mu - m) \left( e^{i\Delta x^0 \partial_0}\psi \right)
+        \\  = e^{-i\Delta x^0 \partial_0 + i \Delta x^0 \partial_0} \psibar (\gamma^\mu p_\mu - m) \psi
+        \\  = \psibar (\gamma^\mu p_\mu - m) \psi
     \end{split} \end{equation}
 
     Applying the Euler-Lagrange equations to this equation will seperately return the Dirac Equation
         for the fermion and anti-fermion fields, as it should.
 
-    As there are many different kinds of fermions, the Lagrangian can be expanded to include all of them
+    Given that there are many different kinds of fermions, the Lagrangian can be expanded to include all of them
     \begin{equation}
-        \Lag = \bar{e} (\slashed{p} - m) e
-        + \bar{\mu} (\slashed{p} - m) \mu
-        + \bar{\tau} (\slashed{p} - m) \tau
-        + \bar{u} (\slashed{p} - m) u
+        \Lag = \bar{e} (\gamma^\mu p_\mu - m) e
+        + \bar{\mu} (\gamma^\mu p_\mu - m) \mu
+        + \bar{\tau} (\gamma^\mu p_\mu - m) \tau
+        + \bar{u} (\gamma^\mu p_\mu - m) u
         + ...
     \end{equation}
 
-    Although this equation qualifies as a valid description of the behaviour of fermions,
+    Although this equation qualifies as a valid description of the motion of fermions,
         there is a glaring flaw with it: the fields it describes are all completely independent of one another.
-    None of the fields are able to interact with each other.
     In its current form, the Lagrangian proposes that particles, given some initial momentum,
         will persist along the same trajectory forever, unable to affect or be affected by any other particle.
     The Lagrangian has succesfully constrained the range of allowed physics,
         but it has done so to such a degree that the described physics are now practically static.
-    Clearly this is not a satisfactory description of the universe, full of dynamic interactions as it is.
+    Clearly, this is not a satisfactory description of the universe, full of dynamic interactions as it is.
     The resolution to this issue is, counter-intuitively, to enforce yet \textit{more} symmetry requirements.
     In doing so, the various interactions of the Standard Model will be laid bare,
-        and the true beauty of the theory made apparent.
+        and the beauty of the theory made apparent.
 
     %Should I also discuss renormalizability? (Peskin pg 80/101djvu)
     %Basically, all lagrangians must be renormalizable.
@@ -242,11 +240,11 @@
     %So infinite-mass virtual particles should not break a renormalizeable lagrangian.
 
 
-\section{Transferring Motion: Gauge Symmetry}
+\section{Transferring Motion: Gauge Symmetry} \label{sec:gauge_symmetry}
 
     %Describe Global U1
-    I want to introduce another group, called $U(1)$ (Unitary Rank 1 Group).
-    This group corresponds to the \textit{phase} of a field, and the transformation takes the form
+    Allow me to introduce another group, called $U(1)$ (Unitary Rank 1 Group).
+    This group corresponds to the phase of a field, and the transformation takes the form
     \begin{equation}
         \psi(x) \to \psi'(x) = e^{i\theta} \psi(x)
     \end{equation}
@@ -255,20 +253,19 @@
     As in prior examples, the exponential changes signs for the anti-fermion.
     The generator here is just $i$, the phase shift amount given by the angle $\theta$.
     It is trivial to see that the Lagrangian is invariant under such a group.
-    This group, along with all the others already described under the Poincare group,
-        all fall under the category of Global transformations.
-    A global transformation is one which is applied uniformly across all space-time.
+    This transformation, along with all the others already described under the Poincare group,
+        all fall under the category of \textit{global} transformations.
+    A global transformation is one which is applied uniformly across all of space-time.
     There is a different kind of transformation, called a Local or ``Gauge'' transformation.
-    A gauge transform is one in which the transformation amount varies \textit{at each point in space-time}.
+    Gauge transforms are such that the transformation amount varies \textit{at each point in space-time}.
     A local $U(1)$ transform would thus take the form 
-    %show local U1
     \begin{equation}
         \psi(x) \to \psi'(x) = e^{i\theta(x)} \psi(x)
     \end{equation}
     Noting that the phase-angle $\theta(x)$ is now a function of $x$.
 
-    Demanding that the Lagrangian remain invariant under such a transformation would clearly be an absurd mandate.
-    Yet, this is exactly what nature seems to have done.
+    Demanding that the Lagrangian remain invariant under such a transformation would surely be an absurd mandate.
+    Nonetheless, this is exactly what nature seems to have done.
 
     %Show how this breaks lagrangian
     I want to show how the Lagrangian in its current form breaks when attempting to perform a $U(1)$ gauge transform,
@@ -276,29 +273,29 @@
     First, apply the gauge transformation
     \begin{equation} \begin{split}
         \Lag(\theta_0) \to \Lag' = \Lag(\theta_0+\theta(x)) &=
-            \left( e^{-i\theta(x)} \psibar \right) (\slashed{p} - m) \left( e^{i\theta(x)}\psi \right)
-            \\ &= \left( e^{-i\theta(x)} \psibar \right) i\slashed{\partial} \left( e^{i\theta(x)}\psi \right)
+            \left( e^{-i\theta(x)} \psibar \right) (\gamma^\mu p_\mu - m) \left( e^{i\theta(x)}\psi \right)
+            \\ &= \left( e^{-i\theta(x)} \psibar \right) i\gamma^\mu \partial_\mu \left( e^{i\theta(x)}\psi \right)
                 - \left( e^{-i\theta(x)} \psibar \right) m \left( e^{i\theta(x)}\psi \right)
     \end{split} \end{equation}
     In the mass term, the transform will cancel in the usual fashion.
     The momentum term however will \textit{not} cancel, as the derivative will also affect the position-dependant $\theta(x)$.
     \begin{equation} \begin{split}
-        \Lag' &= \left( e^{-i\theta(x)} \psibar \right) i\slashed{\partial} \left( e^{i\theta(x)}\psi \right) - m \psibar(x) \psi(x)
+        \Lag' &= \left( e^{-i\theta(x)} \psibar \right) i\gamma^\mu \partial_\mu \left( e^{i\theta(x)}\psi \right) - m \psibar(x) \psi(x)
         \\ &= i \left( e^{-i\theta(x)} \psibar \right) \left[
-                \left( \slashed{\partial} e^{i\theta(x)} \right) \psi 
-                + e^{i\theta(x)} \left( \slashed{\partial} \psi \right)
+                \left( \gamma^\mu \partial_\mu e^{i\theta(x)} \right) \psi 
+                + e^{i\theta(x)} \left( \gamma^\mu \partial_\mu \psi \right)
             \right] - m \psibar(x) \psi(x)
         \\ &= i \left( e^{-i\theta(x)} \psibar \right)
-                \left( \slashed{\partial} e^{i\theta(x)} \right) \psi 
-            + i \psibar \slashed{\partial} \psi
+                \left( \gamma^\mu \partial_\mu e^{i\theta(x)} \right) \psi 
+            + i \psibar \gamma^\mu \partial_\mu \psi
             - m \psibar(x) \psi(x)
-        \\ &= - \psibar \left( \slashed{\partial}\theta(x) \right) \psi 
-            + \psibar ( \slashed{p} - m ) \psi
+        \\ &= - \psibar \left( \gamma^\mu \partial_\mu\theta(x) \right) \psi 
+            + \psibar ( \gamma^\mu p_\mu - m ) \psi
     \end{split} \end{equation}
 
     %Show how to fix lagrangian
     Under a local $U(1)$ transform, the Lagrangian is clearly not invariant,
-        as a result of the additional $\slashed{\partial}\theta(x)$ term.
+        as a result of the additional $\gamma^\mu \partial_\mu\theta(x)$ term.
     In order to enforce gauge symmetry, a subtle but profound adjustment must be made to the Lagrangian.
     This adjustment will take the form of a modification to the derivative,
         replacing the standard derivative with a \textit{covarient} derivative,
@@ -310,9 +307,9 @@
         A_\mu(x) \to A'_\mu(x) = A_\mu(x) - \frac{1}{\emc} \partial_\mu \theta(x)
     \end{equation}
 
-    With this additional term, the Lagrangian takes the form
+    With this additional term, the Lagrangian becomes
     \begin{equation} \begin{split}
-    \Lag = \psibar (i\slashed{D} - m) \psi
+    \Lag = \psibar (i\gamma^\mu D_\mu - m) \psi
         = \psibar \left[i\gamma^\mu(\partial_\mu + i \emc A_\mu) - m\right] \psi
     \end{split} \end{equation}
     and the specific transformation property of $A$ renders the entire equation invariant under a gauge transform
@@ -326,37 +323,35 @@
         \\&= \psibar \left[i\gamma^\mu(\partial_\mu + i \emc A_\mu) - m\right] \psi
     \end{split} \end{equation}
 
-    %introduce photon field and show newly produced interaction
+    % Introduce photon field and show newly produced interaction
     % See Peskin pg484 (djvu 505) for derivation of kinetic term
     % See also https://physics.stackexchange.com/questions/131097/gauge-field-tensor-from-wilson-loop
-    Through a subtle and much more complex derivation (which will not be demonstrated here),
+    Through a much more sophisticated derivation (which will not be demonstrated here),
         it can also be shown that this new covarient derivative causes the Action to acquire an additional term 
         related to the commutator of the covarient derivative, $[D_\mu, D_\nu] \equiv D_\mu D_\nu - D_\nu D_\mu$.
-    Defining a tensor $F_{\mu\nu}$ as $[D_\mu, D_\nu] = i\emc F_{\mu\nu}$,
+    Defining a tensor $F_{\mu\nu}$ as $i\emc F_{\mu\nu} = [D_\mu, D_\nu]$,
         the additional required term takes the form $-\frac{1}{4}F^{\mu\nu}F_{\mu\nu}$.
-    The final form of the $U(1)$ gauge invariant fermion Lagrangian now appears as
+    The final expression for the $U(1)$ gauge invariant fermion Lagrangian now appears as
     \begin{equation} \label{eq:qedL} \begin{split}
-        \Lag &= \psibar (i\slashed{D} - m) \psi - \frac{1}{4}(F_{\mu\nu})^2
+        \Lag &= \psibar (i\gamma^\mu D_\mu - m) \psi - \frac{1}{4}(F_{\mu\nu})^2
         \\&= i \psibar \gamma^\mu \partial_\mu \psi
             - m \psibar \psi
             + i \emc \psibar \gamma^\mu A_\mu \psi
             - \frac{1}{4}F_{\mu\nu}F^{\mu\nu}
     \end{split} \end{equation}
 
-    Of extraordinary note is that the last term of $\Lag$ is completely independant of the fermion field $\psi$.
+    Of extraordinary note is that the last term of $\Lag$ is completely independant of the Dirac field $\psi$.
     The true nature of $A$ is thus revealed, not as just a mere correction factor,
         but as a massless field all its own.
     Indeed, $A(x)$ corresponds to the photon field, $\emc$ to the electric charge,
         and the term $-\frac{1}{4}(F_{\mu\nu})^2$ to the kinitec energy of the photon.
     Furthermore, the three-field term $i \emc \psibar \gamma^\mu A_\mu \psi$
-        allows the fermion field to interact directly with the photon field,
-        and through the photon field to interact indirectly with \textit{other} fermion fields.
+        allows the Dirac field to interact directly with the photon field,
+        and through the photon field to interact indirectly with \textit{other} Dirac fields.
     Far from the static situation described by Equation \ref{eq:basic_fermionL},
         the new Lagrangian permits a wide range of dynamic interactions between particles.
-    % At least briefly mention how equation of motion of fermion is now Lorentz force law,
-    %    eom of A field is Maxwell's Equation
     In fact, using the Euler-Lagrange equations on Equation \ref{eq:qedL}
-        will now reproduce the Lorentz Force Law as the equation of motion for the fermion fields,
+        will now reproduce the Lorentz Force Law as the equation of motion for the Dirac fields,
         and Maxwell's Equations as the equation of motion for the photon.
 
     % Introduce SU(2) and SU(3)
@@ -380,36 +375,28 @@
     While $U(1)$ acted as one-dimensional rotation of a single complex angle $\theta$,
         $SU(2)$ performs three orthogonal rotations $\alpha^a$ through a three-dimensional complex space,
         and $SU(3)$ performs rotations through an eight-dimensional complex space.
-    %SU(2) is based on 2x2 pauli matrices and thus requires pairing generations of particles together;
-    %    so up and down-type quarks are paired together and charged leptons with neutrinos.
     Because $SU(2)$ operates through the 2x2 Pauli Matrices, it must operate on the fermions as ``doublets''
         (recall Section \ref{sec:standard_model}).
     \begin{equation}
         \minimatrix{u_L \\ d_L} \to e^{i \alpha^a \sigma^a / 2} \minimatrix{u_L \\ d_L}
     \end{equation}
 
-    %SU(3) is based on a 3x3 structure constant, and thus acts on all three "generations" of quarks as one 3x1 vector.
     Similarly, the triplet nature of $SU(3)$ neccesitates that the group operate on all three generations of fermions at once
     \begin{equation}
         \minimatrix{u\\c\\t} \to e^{i \xi^b \mathscr{F}^b / 2} \minimatrix{u\\c\\t}
     \end{equation}
 
-    %It treats left handed fields as these doublet pairs,
-    %    but works in "singlet representation" (which means it basically is just gone) for right-handed fields
-    %SU(3) is a singlet (read, it literally doesn't matter) for leptons.
     Neither group operates uniformly across the fermions though.
     $SU(2)$ acts only on the ``left-handed'' chiral state of the fermions (denoted by the subscript L),
         and $SU(3)$ acts only on the quarks, having a charge of zero for all leptons.
 
-    %Tease at U1, Su2, and su3 corresponding to EM, weak and strong.
-    %Break this by explaining that w and z bosons have mass, which collapses the entire idea of basing the SM on symmetry.
     The behaviour of these Gauge Groups established, the natural assumption is that the three gauge fields
         $U(1)$, $SU(2)$, and $SU(3)$ correspond to the three fundamental interactions,
         Electromagnetic, Weak, and Strong.
     This would serve to complete a theory of the universe based entirely on the geometric principle of symmetry.
-    $SU(3)$ assuredly does correspond to the strong interaction, its gaugle field manifested as the Gluons.
-    Likewise, the electromagnetic interaction and its photons are the manifestation of the $U(1)$ group. 
-    All of this breaks down however with $SU(2)$, which does \textit{not} correspond to the W and Z bosons;
+    $SU(3)$ assuredly does correspond to the strong interaction, its gauge field manifested as the Gluons.
+    Likewise, the electromagnetic interaction and its photons have already been revealed as manifestation of the $U(1)$ group. 
+    All of this breaks down however with $SU(2)$, which does \textbf{not} correspond to the W and Z bosons;
         at least, not directly.
 
     The problem is that the W and Z fields have mass.
@@ -423,7 +410,6 @@
     Not only did this theory resolve the origin of the W and Z masses;
         it predicted -- nearly a half-century in advance of its discovery --
         the existance of the scalar particle now known as the Higgs Boson.
-    
     \cite{Osborn_notes}
     \cite{Peskin_book}
     \cite{Halzen_book}
