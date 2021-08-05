@@ -1,40 +1,39 @@
 \section{Breaking Symmetry: The Higgs Mechanism}\label{sec:higgs_mechanism}
 
-    Basic higgs mechanism example.
-
-    Have a field interacting with a potential U with quadratic and quartic terms.
-    This produces a symmetric but unstable equilibrium.
-    Perform passive translation to recenter coordinates around stable equilibrium point/minimum of potential.
-    In super-simple example, this gives an originally massless particle mass.
-
-    Also I need to introduce the Klein-Gordon Equation
+    The derivation provided through the next three sections seeks to explain
+        how the Higgs Mechanism is able to preserve the theory of gauge symmetry,
+        and larglely follows the process laid out by Peskin\cite{Peskin_book}.
+    The first step is to indroduce a single massless, scalar field $\phi$.
+    The equation of motion for this field will be that of the Klein-Gordon equation
     \begin{equation} \begin{split}
         p^2 \phi = m^2 \phi
         \\(p^2 - m^2) \phi = 0
         \\(\partial^\mu \partial_\mu + m^2) \phi = 0
+        \\\partial^\mu \partial_\mu \phi = 0; m\to0
     \end{split} \end{equation}
 
-    Ok so let's start with a really basic lagrangian describing only the kinetic energy of a massless scalar particle $\phi$, of the form:
-
+    By default, the Lagrangian for this field will be a trivial kinetic-only term
     \begin{equation}
         \Lag = K_{\phi} = \frac{1}{2} (\partial_{\mu} \phi)^2
     \end{equation}
-
-    Let's introduce a quartic potential $U(\phi) = -\frac{1}{2} \mu^2 \phi^2 + \frac{\lambda}{4!} \phi^4$
-
+    
+    Next, introduce a quartic potential $U(\phi) = -\frac{1}{2} \mu^2 \phi^2 + \frac{\lambda}{4!} \phi^4$.
+    The lagrangian now takes the form
     \begin{equation}
         \Lag = K_{\phi} - U_{\phi} = \frac{1}{2} (\partial_{\mu} \phi)^2 
             +\frac{1}{2} \mu^2 \phi^2 - \frac{\lambda}{4!} \phi^4
     \end{equation}
-
-    Such a potential will result in a Hamiltonian which is symmetric about $\phi=0$, but that point will be a local maximum.% TODO figure for this
+    % TODO figure for this
+    Such a potential will result in a Hamiltonian which is symmetric about $\phi=0$, but that point will be a local maximum.
     The Hamiltonian will have two minima to either side of $\phi=0$, at points $\pm \nu = \pm \sqrt{\frac{6}{\lambda}} \mu$.
 
-    A system in such a potential would invariably fall into one of these minima.
+    This is a small, seemingly innocuous change, so allow me to emphasize:
+        \textit{this quartic potential is the lynchpin of the entire Standard Model,
+        and the origin of nearly all mass in the universe as it is currently understood}.
+    The reason for such a dramatic outcome begins with the fact that
+        a system in such a potential will invariably fall into one of these minima.
     The Lagrangian can be rewritten from the perspective of one of these minima (e.g.\ $+\nu$),
         by substituting in a shifted field $h$, where $\phi(x)=\nu+h(x)$.
-    The Langrangian now takes the form (after simplifying)
-
     \begin{equation} \begin{split} \label{eq:basic_higgs}
         \Lag & = \frac{1}{2} (\partial_{\mu} h)^2
             - \mu^2 h^2
@@ -48,20 +47,20 @@
 
     With the latter equation taking the form of a now massive field $h$ with both a three and four point vertex,
         governed by two different coupling values $k_{h}$, and $k_{2h}$.
+    This is the mechanism used to take a massless, symmetric field,
+        and convert it to a massive, asymmetric form.
+    In the next section, I will show how the scalar field can induce mass in fields other than itself.
 
-    \cite{Halzen_book}
-
-    
 
 \section{Keystone of the Standard Model: Electro-Weak Symmetry Breaking}
 
-    Let's now give the scalar field a complex phase and spinor components:
+    I will now give the scalar field a complex phase and spinor components:
     \begin{equation}
         \vec{\phi}(x) = \frac{1}{\sqrt{2}} \tinymatrix{\phi_1 \\ \phi_2}
     \end{equation}
     $\vec{\phi}$ is still a scalar in spacetime, but now also has vector components in the $SU(2)$ subspace.
 
-    As with the dirac fields, we will then impose $U(1) \times SU(2)$ gauge symmetry on the field, so it transforms as:
+    As with the dirac fields, I will then impose $U(1) \times SU(2)$ gauge symmetry on the field, so it transforms as:
     \begin{equation}
         \vec{\phi}(x) \rightarrow e^{i \alpha^a \tau^a} e^{i \beta/2 } \vec{\phi}(x)
     \end{equation}.
@@ -83,7 +82,6 @@
     \end{split} \end{equation}
     This orientation is refered as the \textit{Unitary Gauge}, and will be used for the rest of the chapter.
 
-
     Now for the complications.
     The added symmetries require that the derivative be changed to a covarient derivative 
         $D^{\mu} = \partial^{\mu} - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu}$,
@@ -93,7 +91,7 @@
             \mu^2 \vec{\phi}^\dag \vec{\phi} - \lambda \left( \vec{\phi}^\dag\vec{\phi} \right)^2
     \end{split} \end{equation}
 
-    Once again, we allow the scalar field to fall into its offset minimum $v \equiv \frac{\mu}{\sqrt{\lambda}}$, as $\phi(x) \rightarrow h(x) + v$.
+    Once again, I allow the scalar field to fall into its offset minimum $v \equiv \frac{\mu}{\sqrt{\lambda}}$, as $\phi(x) \rightarrow h(x) + v$.
     Substituting into the Lagrangian now produces a more complex expression:
     \begin{equation} \begin{split}
         \label{eq:fullHiggs}
@@ -177,7 +175,7 @@
 
     Where $\theta_w \equiv \cot(\frac{g'}{g})$ is known as the \textit{weak mixing angle}.
 
-    Returning now to Equation \ref{eq:lagv}, we have
+    Returning now to Equation \ref{eq:lagv}, I have
     \begin{equation} \begin{split}
         \label{eq:lagv_full}
         \Lag_v & = \frac{1}{2} (D_{\mu}^{ij} v_j)^2 \\
@@ -249,7 +247,7 @@
         \\&= \Lag_K + \Lag_U
     \end{split} \end{equation}
     
-    To make expansion easier, we will expand the covarient derivative terms ($\Lag_D$) first,
+    To make expansion easier, I will expand the covarient derivative terms ($\Lag_D$) first,
         and then add then expanded $\Lag_U$ terms.
     Starting with $\Lag_D$, (and defining $Q_{\mu}$ as the matrix from Equation \ref{eq:electroweak_matrix})
 
@@ -304,7 +302,7 @@
     \end{split} \end{equation}
 
     Identifying the Higgs mass $m_h$ as $\sqrt{2}\mu$, and the vev $v$ as $\frac{\mu}{\sqrt{\lambda}} = \frac{m_h}{\sqrt{2 \lambda}}$,
-    we can now write the full Lagrangian for the Higgs field\cite{Halzen_book}
+    I can now write the full Lagrangian for the Higgs field\cite{Halzen_book}
     \begin{equation} \begin{split} \label{eq:higgsfull}
         \Lag_h &= \Lag_D + \Lag_U
         \\&= \left[ \frac{1}{2} | \partial_{\mu}h |^2
