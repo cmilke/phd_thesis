@@ -2,7 +2,7 @@
 
     The derivation provided throughout the next three sections seeks to explain
         how the Higgs Mechanism is able to preserve the theory of gauge symmetry,
-        and larglely follows the process laid out by Peskin\cite{Peskin_book}.
+        and largely follows the process laid out by Peskin\cite{Peskin_book}.
     To start, indroduce a massless, scalar field $\phi$.
     The equation of motion for this field will be that of the Klein-Gordon equation
     \begin{equation} \begin{split}
@@ -28,8 +28,8 @@
     The Hamiltonian will have two minima to either side of $\phi=0$, at points $\pm v = \pm \sqrt{\frac{6}{\lambda}} \mu$.
 
     This is a small, seemingly innocuous change, so allow me to emphasize:
-        \textit{this quartic potential is the lynchpin of the entire Standard Model,
-        and the origin of nearly all mass in the universe as it is currently understood}.
+        this quartic potential is the lynchpin of the entire Standard Model,
+        and the origin of nearly all mass in the universe as it is currently understood.
     The reason for such a dramatic outcome begins with the fact that
         a system in such a potential will invariably fall into one of these minima.
     The Lagrangian can be rewritten from the perspective of one of these minima (e.g.\ $+v$),
@@ -84,8 +84,9 @@
 
     Now for the complications.
     The added symmetries require that the derivative be changed to a covarient derivative 
-        $D^{\mu} = \partial^{\mu} - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu}$,
-        producing a Lagrangian:
+        $D^{\mu} = \partial^{\mu} - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu}$.
+    Here, $\wField^a_\mu$ and $B_\mu$ correspond to the unbroken $SU(2)$ and $U(1)$ gauge fields respectively.
+    This produces a Lagrangian:
     \begin{equation} \begin{split}
         \Lag &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2 +
             \mu^2 \vec{\phi}^\dag \vec{\phi} - \lambda \left( \vec{\phi}^\dag\vec{\phi} \right)^2
@@ -94,7 +95,7 @@
     %TODO insert a picture of the famous "mexican hat" potential, with a note acknowledging that the real potential is actually three dimensional
 
     Once again, I allow the scalar field to fall into its offset minimum 
-        $v \equiv \frac{\mu}{\sqrt{\lambda}}$, as $\phi(x) \rightarrow h(x) + v$.
+        $v \equiv \frac{\mu}{\sqrt{\lambda}}$, as $\phi(x) \to h(x) + v$.
     Worth mentioning is that due to the added groups, there are no longer only two minima.
     Instead, there is now a continuum of equal-valued minima centered on a spherical ``valley'' a distance $v$ from $\phi=0$.
     Substituting into the Lagrangian now produces a more complex expression:
@@ -180,7 +181,7 @@
 
     Where $\theta_w \equiv \cot(\frac{g'}{g})$ is known as the \textit{weak mixing angle} (AKA the Weinberg angle).
 
-    Returning finally to Equation \ref{eq:lagv}, I have
+    Returning finally to Equation \ref{eq:lagv}, I now have
     \begin{equation} \begin{split}
         \label{eq:lagv_full}
         \Lag_v & = \frac{1}{2} (D_{\mu}^{ij} v_j)^2 \\
@@ -216,14 +217,16 @@
             \left[ 2 g^2  W^-_{\mu} W^+_{\mu}
             + \left(\sqrt{g^2 + g^{\prime 2}}\right)^2 (Z^0_{\mu})^2 \right] \\
         & = \frac{1}{2} \left[ \left(\frac{vg}{2}\right)^2\  W^-_{\mu} W^+_{\mu}
-            + \frac{1}{2} \left(\frac{v}{2}\sqrt{g^2 + g^{\prime 2}}\right)\ (Z^0_{\mu})^2 \right]
+            + \frac{1}{2} \left(\frac{v}{2}\sqrt{g^2 + g^{\prime 2}}\right)\ (Z^0_{\mu})^2 \right] \\
+        & = \frac{1}{2} \left[ m_W W^{-\ \mu} W^+_{\mu} + \frac{m_Z}{2} (Z^0_{\mu})^2 \right]
     \end{split} \end{equation}
 
     As in Section \ref{sec:higgs_mechanism}, the $W$ and $Z$ fields now have additional mass terms associated with their kinetic energy terms,
         with $m_W = \frac{vg}{2}$ and $m_Z = \left(\frac{v}{2}\sqrt{g^2 + g^{\prime 2}}\right) $.
     The photon field $A_{\mu}$ is notably absent in the final vev product, and thus remains massless.
     A similar procedure can then be followed to allow the Higgs Field to interact with fermions
-        (albeit with complications arising from mass-mixing and chirality), which will grant mass to the fermion particles.
+        (albeit with complications arising from mass-mixing and chirality),
+        which will grant mass to the Dirac fields.
 
 
     % Fermion time!!
@@ -325,26 +328,25 @@
         Higgs/Vector boson four-point interaction,
         Higgs self-coupling,
         and finally the Higgs four-point self-coupling.
-    Of course, this entire equation and procedure is purely theoretical, and there is no obligation on the part of reality to uphold it.
 
-    In 2012, the Higgs Boson itself was detected with a mass of 125 GeV, solidifying both its existance and crucial role in the Standard Model.
-    More to the point, its detection confirmed at least the existance of the Higgs kinetic energy term in the Lagrangian.
-    The various interaction terms, however, are still on more tenuous grounds.
+    In 2012, the Higgs Boson was detected with a mass of 125 GeV, solidifying both its existance and crucial role in the Standard Model.
+    More to the point, its detection confirmed the existance of at least the Higgs kinetic energy term in the Lagrangian.
+    The various interaction terms however, are still on more tenuous grounds.
     If they exist at all, there is no guarantee that these interactions have the coupling strength indicated by Equation \ref{eq:higgsfull}.
-    In order to account for this uncertainty, the Lagrangian can be rewritten with arbitrary couplings $g_?$ for the interactions
+    In order to account for this uncertainty, the Lagrangian can be rewritten with arbitrary couplings for the interactions
     \begin{equation} \begin{split} \label{eq:higgskappas}
         \Lag_h &= \frac{1}{2} \left(\partial^2 - m_h^2 \right) h^2
             + \kv g_V V^2 h + \kvv g_{2V} V^2 h^2
             + \kl g_{\lambda} h^3 + \kappa_{2 \lambda} g_{\lambda} h^4
     \end{split} \end{equation}
 
-    The new $\kappa$ terms are ratios of the coupling as predicted by the Standard Model to the true coupling value $g_?$.
-    For example, $\kappa_V \equiv \frac{m_h m_V \sqrt{2/\lambda}}{g_V}$.
+    The new $\kappa$ terms are ratios of the coupling, as predicted by the Standard Model ($g$), to the true coupling value ($g'$).
+    For example, $\kappa_V \equiv \frac{g'_V}{g_V} = \frac{g'_V}{m_h m_V \sqrt{2/\lambda}}$.
     A $\kappa$ value of 1 indicates consistency with the coupling strength predicted by the Standard Model.
-    Any value other than 1 would indicate deviation from the Standard Model, which would need to be explained with a new theory.
+    Any value other than 1 would indicate deviation from the Standard Model, which would need to be explained with a modification to (or entirely new) theory.
     As of 2020, $\kv$ has been measured at a value of $1.05 \pm 0.04$,
         based on combined analysis of single Higgs production processes\cite{paper:higgs_combined}.
-    The couplings $\kvv$, $\kl$, and $\kappa_{2\lambda}$ however do not significantly affect the production of single Higgs processes.
+    The couplings $\kvv$, $\kl$, and $\kappa_{2\lambda}$ however, do not significantly affect the production of single Higgs processes.
     The quartic coupling $\kappa_{2\lambda}$ is outside the scope of this paper,
         but $\kvv$ and $\kl$ can be measured through their effect on di-Higgs production.
     Constraining the range of these values could yield key insight into the validity of the Standard Model and the nature of the Higgs Potential,

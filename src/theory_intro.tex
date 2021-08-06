@@ -3,10 +3,11 @@
     The Higgs Boson sits as the crown jewel of a grand overarching theory of the behaviour of the universe,
         known as the Standard Model of Particle Physics.
     While its recent discovery has shed light on many of its key properties,
-        there are still many details of its nature that are as yet uncomfirmed.
+        there are still many details that are as yet uncomfirmed.
     In this chapter, I want to explain what these properties are and how they can be further studied.
     Moreover, I want to justify why the Higgs is so important as to be worth studying in the first place.
-    And to understand the importance of the Higgs Boson, one must understand the structure of the Standard Model itself.
+    And in order to explain the importance of the Higgs Boson,
+        I will need to explain the structure of the Standard Model itself.
 
     The organization of the following sections will begin with a discussion of the purpose and fundamental layout of the Standard Model.
     Following this will be an introduction to the mathematical formalism the Standard Model is based around,
@@ -25,7 +26,7 @@
     All known matter can be described as a specific type of elementary particle called a fermion,
         defined by the fact that it contains no discernable substructure and possesses an intrinsic spin of 1/2.
     These fermions, each with a different mass, are able to interact with each other through three ``fundamental interactions''.
-    The three fundamental interactions (more commonly called ``Fundamental Forces'') are named as
+    The three fundamental interactions (more commonly called ``Fundamental Forces'') are known as
         the Electromagnetic, Weak, and Strong interactions (gravity is entirely absent in the Standard Model).
     All the interactions have an associated ``charge'' which can be ascribed to different particles,
         and which govern how strongly that particle can interact with similarly charged particles.
@@ -44,23 +45,25 @@
     Both classes of particles -- quarks and leptons -- are divided into three ``generations'' of progressively heavier particles.
     Each generation accordingly consists of two quarks and two leptons.
     These pairs, dubbed ``doublets'', behave the same across all generations.
-    Among the quarks, every generation contains a doublet of an up-type quark (Up, Charm, Top) with electromagnetic charge of 2/3,
-        and a down-type quark (Down, Strange, Bottom) with EM charge of -1/3.
+    Among the quarks, every generation contains a doublet of an up-type quark (up, charm, top) with electromagnetic charge of 2/3,
+        and a down-type quark (down, strange, bottom) with EM charge of -1/3.
     For leptons, each doublet consists of a charged particle (electron, muon, tauon) with EM charge of -1,
         and a chargeless neutrino with EM charge of 0.
-    In addition to the fermions, there is also an entirely seperate class of particles, called gauge bosons,
+    In addition to the fermions, there is also an entirely seperate class of spin 1 particles, called gauge bosons,
         which play a fundamental role in the aforementioned interactions.
     However, an in-depth discussion of these particles will need to wait until Section \ref{sec:gauge_symmetry}.
 
     Mathematically, particles are described as pertubations of an overall ``quantum field.''
-    A particle field $\varphi$, describes every particle of the same type at once,
+    A particle field $\varphi$ describes every particle of the same type at once,
         and particle states $\ket{\varphi}$ correspond to the number of that kind of particle that exists at a given moment.
-    Fermions in particular are described as manifestations of ''Dirac Fields'', $\psi(x)$,
+    Fermions in particular are described as manifestations of ``Dirac Fields'', $\psi(x)$,
         which are defined as solutions to an equation of motion known as the Dirac Equation
     \begin{equation} \begin{split}
         (\gamma^\mu p_\mu - m) \psi(x) = 0
         \\ (i\gamma^\mu \partial_\mu - m) \psi(x) = 0
     \end{split} \end{equation}
+    Wherein the second line is written using the natural units, covarient,
+        quantum mechanical definition of momentum $p_\mu \equiv i\partial_\mu$.
     The term $\gamma^\mu$ is a vector of matrices, simply called the gamma matrices.
     The gamma matrices are a fascinating subject all their own, 
         but for the purposes of this discussion it will suffice to state that
@@ -71,23 +74,29 @@
     Anti-matter particle fields correspond to negative-energy solutions to the Dirac Equation,
         and are represented as
     \begin{equation}
-        \psibar(x) \equiv \gamma^0 \psi\dag(x)
+        \psibar(x) \equiv \gamma^0 \psi^\dag(x)
     \end{equation}
     Anti-matter particles are identical to their matter components in every way,
-        with the most notable change being that their charges are inverted.
+        except that their charges are inverted.
 
     The brilliance of the Standard Model lies in how it is able to describe the 
         particles and interactions of nature as consequences of pure mathematical structures.
-    Describing matter in mathemetical form is the first step in constructing the Standard Model.
+    Describing matter in mathemetical form is the first step in building the Standard Model.
     The next step is to do the same with motion.
 
 
 \section{Generating Motion: Group Theory and Transformations} \label{sec:group_theory}
 
-    %TODO Add a transistion here?
-    A function can be altered using a \textit{transformation operator}.
-    A simple example of this would be a function $x(t)$, 
-        which (assuming constant velocity) can be transformed into a time $\Delta t$ in the future as
+    An object described by mathematical functions can be ``moved'' using the concept of \textit{transformations}.
+    This is accomplished by operating on the function $f$ with a transformation operator $U$ as.
+    \begin{equation}
+    f \to f' = U f
+    \end{equation}
+
+    To see how such an operator works in practice,
+        I can start with a simple expression for the position of some object as a function of time, $x(t)$.
+    Assuming the object travels with a constant velocity,
+        its position can be transformed into a time $\Delta t$ in the future by
     \begin{equation}
     x(t) \to x'(t) = x(t) + v \Delta t
     \end{equation}
@@ -98,7 +107,8 @@
 
     This term $\left(1+\Delta t \frac{d}{dt}\right)$ is the classical time-translation operator.
     Notice the assumption of constant velocity though.
-    If velocity were not constant, this operator would be invalid, except in the specific case for which $\Delta t$ is infinitesimal.
+    If velocity were not constant, this operator would be invalid,
+        except in the specific case for which $\Delta t$ is an infinitesimal $\delta t$.
     \begin{equation}
     x(t) \to x'(t) = \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right) x(t)
     \end{equation}
@@ -107,6 +117,7 @@
     \begin{equation} \begin{split}
     x(t) \to x'(t) &= \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)...\ x(t)
     \\x(t) \to x'(t) &= \lim_{N \to \infty} \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)^N x(t)
+    \\x(t) \to x'(t) &= \lim_{N \to \infty} \left(1+\frac{\Delta t}{N} \frac{d}{dt}\right)^N x(t)
     \\x(t) \to x'(t) &= e^{\Delta t \frac{d}{dt}} x(t)
     \end{split} \end{equation}
 
@@ -118,7 +129,8 @@
     \end{split} \end{equation}
 
     Returning to Dirac Fields, which are functions of four-position $x_\mu$, this same transformation can be used
-         with the minor adjustment of changing the total derivative to a partial derivative in time, $\frac{partial}{\partial t} = \partial_0$
+         with the minor adjustment of changing the total derivative to a partial derivative in time,
+         $\frac{\partial}{\partial t} = \frac{\partial}{\partial x^0} = \partial_0$
     \begin{equation} \begin{split}
     \psi(x) \to \psi'(x) = e^{i\Delta x^0 \partial_0} \psi(x)
     \end{split} \end{equation}
@@ -137,7 +149,7 @@
         and $q$ the amount to transform by (e.g.\ $\Delta t$).
 
     These transforms fall under a larger realm of mathematics known as Group Theory,
-        and are in turn called ``group transformation''.
+        and are in turn called ``group transformations''.
     The basic definition of a group is a set of elements which can be ``multiplied'' according to some rule,
         and which satisfies the following four conditions\cite{Cheng_book}:
     \begin{itemize}
@@ -151,7 +163,7 @@
     Additional classifications for groups are whether a group is discrete or continuous,
         and whether a group is ``Abelian'' (commutative) or ``non-Abelian'' (non-commutatitve).
     Time translations are continuous (one can tranlate by an infinitesimally small amount of time),
-        and are Abelian (the order that the translation are applied does not matter).
+        and Abelian (the order that the translation are applied does not matter).
     An example of a non-Abelian group would be that of three-dimensional rotations (formally called the $SO(3)$ group),
         as applying rotations in a different order can lead to a different final orientation.
 
@@ -171,7 +183,7 @@
     The Dirac Equation describes the equation of motion of a single field,
         but what is required is a way to describe the interactions of \textit{many} fields.
     For this, the Standard Model makes use of the Principle of Least Action,
-        also known as the Lagrangian Formulation\cite{Halzen_book}.
+        also known as the Lagrangian Formalism\cite{Halzen_book}.
     The idea of the Principle of Least Action is to construct an overall description of all aspects of a system,
         called the Lagrangian, $\Lag$.
     One can then find the ``path'' of this Lagrangian which minimizes the ``Action'', $\mathscr{A}$
@@ -258,18 +270,17 @@
     A global transformation is one which is applied uniformly across all of space-time.
     There is a different kind of transformation, called a Local or ``Gauge'' transformation.
     Gauge transforms are such that the transformation amount varies \textit{at each point in space-time}.
-    A local $U(1)$ transform would thus take the form 
+    A local $U(1)$ transform would then take the form 
     \begin{equation}
         \psi(x) \to \psi'(x) = e^{i\theta(x)} \psi(x)
     \end{equation}
     Noting that the phase-angle $\theta(x)$ is now a function of $x$.
 
-    Demanding that the Lagrangian remain invariant under such a transformation would surely be an absurd mandate.
-    Nonetheless, this is exactly what nature seems to have done.
-
-    %Show how this breaks lagrangian
+    Demanding that the Lagrangian remain invariant under such a transformation is a much more strict condition,
+        one which the current Lagrangian cannot satisfy.
     I want to show how the Lagrangian in its current form breaks when attempting to perform a $U(1)$ gauge transform,
-        and how the resolution to this issue leads directly to fully dynamic, interacting Lagrangian.
+        and how the resolution to this issue leads directly to a fully dynamic, interacting Lagrangian.
+
     First, apply the gauge transformation
     \begin{equation} \begin{split}
         \Lag(\theta_0) \to \Lag' = \Lag(\theta_0+\theta(x)) &=
@@ -294,8 +305,8 @@
     \end{split} \end{equation}
 
     %Show how to fix lagrangian
-    Under a local $U(1)$ transform, the Lagrangian is clearly not invariant,
-        as a result of the additional $\gamma^\mu \partial_\mu\theta(x)$ term.
+    Under a local $U(1)$ transform, $\Lag$ is clearly not invariant,
+        due to the additional $\gamma^\mu \partial_\mu\theta(x)$ term.
     In order to enforce gauge symmetry, a subtle but profound adjustment must be made to the Lagrangian.
     This adjustment will take the form of a modification to the derivative,
         replacing the standard derivative with a \textit{covarient} derivative,
@@ -360,8 +371,8 @@
         $SU(2)$, and $SU(3)$.
     Both of these groups behave in a similar manner to $U(1)$, with the transformations taking the forms
     \begin{equation} \begin{split}
-        SU(2)&: e^{i \alpha^a(x) \sigma^a / 2}
-        \\SU(3)&: e^{i \xi^b(x) \mathscr{F}^b / 2}
+        SU(2)&: e^{i \alpha^a(x) \sigma^a / 2}, a=\{1,2,3\}
+        \\SU(3)&: e^{i \xi^b(x) \mathscr{F}^b / 2}, b=\{1,2, ..., 8\}
     \end{split} \end{equation}
     where $\sigma^a$ corresponds to the three, 2x2 Pauli Matrices
     \begin{equation}
@@ -369,13 +380,13 @@
         \sigma^2 = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} \quad
         \sigma^3 = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
     \end{equation}
-    and $\mathscr{F}^b$ corresponds to the eight, 3x3 structure constant matrices of $SU(3)$
-        (which don't have a formal name and will not be explicitly written out).
+    and $\mathscr{F}^b$ corresponds to the eight 3x3 Gell-Mann matrices of $SU(3)$
+        (which will not be explicitly written out).
 
     While $U(1)$ acted as one-dimensional rotation of a single complex angle $\theta$,
         $SU(2)$ performs three orthogonal rotations $\alpha^a$ through a three-dimensional complex space,
         and $SU(3)$ performs rotations through an eight-dimensional complex space.
-    Because $SU(2)$ operates through the 2x2 Pauli Matrices, it must operate on the fermions as ``doublets''
+    Because $SU(2)$ operates through the 2x2 Pauli Matrices, it must operate on the fermions in doublets
         (recall Section \ref{sec:standard_model}).
     \begin{equation}
         \minimatrix{u_L \\ d_L} \to e^{i \alpha^a \sigma^a / 2} \minimatrix{u_L \\ d_L}
@@ -394,8 +405,8 @@
         $U(1)$, $SU(2)$, and $SU(3)$ correspond to the three fundamental interactions,
         Electromagnetic, Weak, and Strong.
     This would serve to complete a theory of the universe based entirely on the geometric principle of symmetry.
-    $SU(3)$ assuredly does correspond to the strong interaction, its gauge field manifested as the Gluons.
-    Likewise, the electromagnetic interaction and its photons have already been revealed as manifestation of the $U(1)$ group. 
+    The electromagnetic interaction and its photons have already been revealed as the manifestation of the $U(1)$ group. 
+    Likewise, $SU(3)$ assuredly does correspond to the strong interaction, its gauge fields manifested as the Gluons.
     All of this breaks down however with $SU(2)$, which does \textbf{not} correspond to the W and Z bosons;
         at least, not directly.
 

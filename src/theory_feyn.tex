@@ -34,9 +34,9 @@
     In principle, this transition process can take an indeterminate period of time.
     In the realm of high energy physics experiments though,
         the interacting particles are moving so fast that the interaction period can be thought of as occuring at a single instant in time.
-    Given this context, the initial state occurs in the (comparitively) distant past ($t_i$), and the final state in the equally distant future ($t_f$).
+    Given this context, the initial state occurs in the (comparitively) distant past, $t_i$, and the final state in the equally distant future, $t_f$.
     Since the transistion occurs at an instantaneous moment,
-        I need to perform a time-translation transformation on both states to place them at the moment of the transition ($t_0$).
+        I need to perform a time-translation transformation on both states to place them at the moment of the transition, $t_0$.
     Using the Hamiltonian $H \equiv i\partial_0$ as the time translation operator,
         I can relate the initial state at $t_0$ to its time $\Delta t$ units in the future, $t_i$, by the tranformation
     \begin{equation}
@@ -90,7 +90,7 @@
         \item Fully connect the initial and final state particles using any \textit{valid} intermediate lines and vertices
         \item Valid connections can be identified through the terms present in the Lagrangian:
         \begin{itemize}
-            \item Kinetic energy terms correspond to straight lines connecting a particle to itself
+            \item Kinetic energy terms correspond to lines connecting a particle to itself
             \item Interaction terms correspond to interaction vertices, connecting three or more particles at a time
             \item All vertices must ensure conservation of any relevant quantum number
         \end{itemize}
@@ -98,7 +98,7 @@
     \end{itemize}
 
     This final step may seem impossible, given that an infinite number of intermediate particles can be inserted between any two states.
-    Recall from the structure of $\invAmp$, that $iT$ is not one term, but in fact an infinite series expansion of the time translation operator.
+    Recall from the structure of $\invAmp$, that $iT$ is not one term, but in fact an infinite series expansion of the Hamiltonian operator.
     For most situations, each of these terms will contribute less to the overall calculation.
     Eventually, the higher-order terms will contribute so little that they can be safely ignored.
     This property is directly reflected in the Feynman Diagrams, in the form of \textit{loops}.
@@ -113,16 +113,29 @@
         hence why disconnected diagrams are ignored entirely.
 
     \begin{figure} \label{fig:tree_level_vbfhh}
-    \subfloat[$M_t$]{ \input{diagrams/vbf_hh_kv.tex} \label{fig:tree_level_vbfhh:kv} }
-    \subfloat[$M_s$]{ \input{diagrams/vbf_hh_kl.tex} \label{fig:tree_level_vbfhh:kl} }
-    \subfloat[$M_x$]{ \input{diagrams/vbf_hh_k2v.tex} \label{fig:tree_level_vbfhh:k2v} }
+    \centering
+    \begin{subfigure}[$M_t$]{0.3\textwidth} 
+        \input{diagrams/vbf_hh_kv.tex} 
+        \caption{$M_t$}
+        \label{fig:tree_level_vbfhh:kv}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \input{diagrams/vbf_hh_kl.tex} 
+        \caption{$M_s$}
+        \label{fig:tree_level_vbfhh:kl}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \input{diagrams/vbf_hh_k2v.tex} 
+        \caption{$M_x$}
+        \label{fig:tree_level_vbfhh:k2v}
+    \end{subfigure}
     \caption{Tree-level diagrams of the VBF$\rightarrow$hh process}
     \end{figure}
 
     Once all possible diagrams have been drawn to the order desired, each diagram has a value assigned to it.
     ``Feynman Rules'' are the rules governing how these values are assigned.
     The rules are derived based on the structure of the Lagrangian and are rather extensive;
-        they will not be listed here, but can be found readily in any QFT textbook.
+        hence, they will not be listed here.
     After the values have been determined, the invariant amplitude is trivially calculated as the sum of the values of all drawn diagrams.
     The VBF$\to$HH process studied here is primarily done at tree-level (Figure \ref{fig:tree_level_vbfhh}),
         but N\textsuperscript{3}LO calculations are also used to some degree, and one such example is provided in Figure [TODO]. %TODO
@@ -141,9 +154,9 @@
     \begin{equation} \begin{split}
         |\invAmp|^2 &= |  \kv^2 M_t + \kv \kl M_s + \kvv M_x |^2
         \\&= \kv^2 \kl^2 M_s^2 + \kv^4 M_t^2 + \kvv^2 M_x^2 
-            \\&+ \kv^3 \kl (M_s^* M_t + M_t^* M_s) 
-            \\&+ \kv \kl \kvv (M_s^* M_x + M_x^* M_s ) 
-            \\&+ \kv^2 \kvv (M_t^* M_x + M_x^* M_t )
+            \\&\qquad + \kv^3 \kl (M_s^* M_t + M_t^* M_s) 
+            \\&\qquad + \kv \kl \kvv (M_s^* M_x + M_x^* M_s ) 
+            \\&\qquad + \kv^2 \kvv (M_t^* M_x + M_x^* M_t )
         \\|\invAmp|^2 &= \kv^2 \kl^2 a_1 + \kv^4 a_2 + \kvv^2 a_3 + \kv^3 \kl a_4 + \kv \kl \kvv a_5 + \kv^2 \kvv a_6
     \end{split} \end{equation}
 
