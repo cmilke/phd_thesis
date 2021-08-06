@@ -1,15 +1,15 @@
-\section{Breaking Symmetry: The Higgs Mechanism}\label{sec:higgs_mechanism}
+\section{Origin of Mass: The Higgs Mechanism}\label{sec:higgs_mechanism}
 
-    The derivation provided through the next three sections seeks to explain
+    The derivation provided throughout the next three sections seeks to explain
         how the Higgs Mechanism is able to preserve the theory of gauge symmetry,
         and larglely follows the process laid out by Peskin\cite{Peskin_book}.
-    The first step is to indroduce a single massless, scalar field $\phi$.
+    To start, indroduce a massless, scalar field $\phi$.
     The equation of motion for this field will be that of the Klein-Gordon equation
     \begin{equation} \begin{split}
         p^2 \phi = m^2 \phi
         \\(p^2 - m^2) \phi = 0
         \\(\partial^\mu \partial_\mu + m^2) \phi = 0
-        \\\partial^\mu \partial_\mu \phi = 0; m\to0
+        \\\partial^\mu \partial_\mu \phi = 0,\; m\to0
     \end{split} \end{equation}
 
     By default, the Lagrangian for this field will be a trivial kinetic-only term
@@ -18,22 +18,22 @@
     \end{equation}
     
     Next, introduce a quartic potential $U(\phi) = -\frac{1}{2} \mu^2 \phi^2 + \frac{\lambda}{4!} \phi^4$.
-    The lagrangian now takes the form
+    Now the lagrangian takes the form
     \begin{equation}
         \Lag = K_{\phi} - U_{\phi} = \frac{1}{2} (\partial_{\mu} \phi)^2 
             +\frac{1}{2} \mu^2 \phi^2 - \frac{\lambda}{4!} \phi^4
     \end{equation}
     % TODO figure for this
-    Such a potential will result in a Hamiltonian which is symmetric about $\phi=0$, but that point will be a local maximum.
-    The Hamiltonian will have two minima to either side of $\phi=0$, at points $\pm \nu = \pm \sqrt{\frac{6}{\lambda}} \mu$.
+    Such a potential will result in a Hamiltonian which is symmetric about a local maximum at $\phi=0$.
+    The Hamiltonian will have two minima to either side of $\phi=0$, at points $\pm v = \pm \sqrt{\frac{6}{\lambda}} \mu$.
 
     This is a small, seemingly innocuous change, so allow me to emphasize:
         \textit{this quartic potential is the lynchpin of the entire Standard Model,
         and the origin of nearly all mass in the universe as it is currently understood}.
     The reason for such a dramatic outcome begins with the fact that
         a system in such a potential will invariably fall into one of these minima.
-    The Lagrangian can be rewritten from the perspective of one of these minima (e.g.\ $+\nu$),
-        by substituting in a shifted field $h$, where $\phi(x)=\nu+h(x)$.
+    The Lagrangian can be rewritten from the perspective of one of these minima (e.g.\ $+v$),
+        by substituting in a shifted field $h$, where $\phi(x)=v+h(x)$.
     \begin{equation} \begin{split} \label{eq:basic_higgs}
         \Lag & = \frac{1}{2} (\partial_{\mu} h)^2
             - \mu^2 h^2
@@ -41,38 +41,38 @@
             - \frac{\lambda}{4!} h^4 \\
          & = \frac{1}{2} (\partial_{\mu} h)^2
             - m^2_{h} h^2
-            - k_{h} h^3
-            - \frac{k_{2h}}{4!} h^4
+            -\sqrt{\frac{\lambda}{6}} \mu h^3
+            - \frac{\lambda}{4!} h^4 \\
     \end{split} \end{equation} %FIXME: you screwed up the terms somewhere
 
-    With the latter equation taking the form of a now massive field $h$ with both a three and four point vertex,
-        governed by two different coupling values $k_{h}$, and $k_{2h}$.
+    With the latter equation taking the form of a now massive field $h$ with both a three and four point self-coupling vertex.
     This is the mechanism used to take a massless, symmetric field,
         and convert it to a massive, asymmetric form.
-    In the next section, I will show how the scalar field can induce mass in fields other than itself.
+    In the next section, I will show how the same scalar field can induce mass in fields other than itself.
 
 
-\section{Keystone of the Standard Model: Electro-Weak Symmetry Breaking}
+\section{Breaking Symmetry: GWS Theory}
 
-    I will now give the scalar field a complex phase and spinor components:
+    Based on the theory formulated by Glashow, Weinberg, and Salam (GWS Theory),
+        I will now give the scalar field a complex phase and spinor components:
     \begin{equation}
         \vec{\phi}(x) = \frac{1}{\sqrt{2}} \tinymatrix{\phi_1 \\ \phi_2}
     \end{equation}
     $\vec{\phi}$ is still a scalar in spacetime, but now also has vector components in the $SU(2)$ subspace.
 
-    As with the dirac fields, I will then impose $U(1) \times SU(2)$ gauge symmetry on the field, so it transforms as:
+    As with the Dirac fields, I will then impose $U(1) \times SU(2)$ gauge symmetry on the field, so it transforms as:
     \begin{equation}
         \vec{\phi}(x) \rightarrow e^{i \alpha^a \tau^a} e^{i \beta/2 } \vec{\phi}(x)
     \end{equation}.
 
     The additional symmetries will in general complicate matters signficantly,
-        but they do allow for one simplification which will be immediately utilized.
+        but they do allow for one simplification which I will immediately utilize.
     Regardless of symmetries, any abitrary vector such as $\vec{\phi}$ can be written as a unitary transformation $U(x)$ operating on a simpler single-valued vector
     \begin{equation}
         \vec{\phi}(x) = \frac{1}{\sqrt{2}} \tinymatrix{\phi_1 \\ \phi_2} = \frac{1}{\sqrt{2}} U(x) \tinymatrix{0 \\ \phi}
     \end{equation}
     Courtesy of the newly added gauge freedom, this field can be rotated through $SU(2) \times U(1)$ space freely without affecting the Lagrangian.
-    A particularly conventient rotation to perform then is one that aligns with the orientation of $U(x)$, such that $U(x)$ vanishes
+    A particularly conventient rotation to perform then, is one in alignment with the orientation of $U(x)$, such that $U(x)$ vanishes
     \begin{equation} \begin{split}
         \vec{\phi}(x) \rightarrow \vec{\phi}'(x) 
             &= U^{-1}(x) \vec{\phi}(x)
@@ -91,7 +91,12 @@
             \mu^2 \vec{\phi}^\dag \vec{\phi} - \lambda \left( \vec{\phi}^\dag\vec{\phi} \right)^2
     \end{split} \end{equation}
 
-    Once again, I allow the scalar field to fall into its offset minimum $v \equiv \frac{\mu}{\sqrt{\lambda}}$, as $\phi(x) \rightarrow h(x) + v$.
+    %TODO insert a picture of the famous "mexican hat" potential, with a note acknowledging that the real potential is actually three dimensional
+
+    Once again, I allow the scalar field to fall into its offset minimum 
+        $v \equiv \frac{\mu}{\sqrt{\lambda}}$, as $\phi(x) \rightarrow h(x) + v$.
+    Worth mentioning is that due to the added groups, there are no longer only two minima.
+    Instead, there is now a continuum of equal-valued minima centered on a spherical ``valley'' a distance $v$ from $\phi=0$.
     Substituting into the Lagrangian now produces a more complex expression:
     \begin{equation} \begin{split}
         \label{eq:fullHiggs}
@@ -107,12 +112,11 @@
         \Lag_v = \frac{1}{2} (D_{\mu} \vec{v})^2
     \end{equation}
 
-    The expansion of this term is crucial to the structure of the Standard Model,
-        as it alone will lead to the breakdown of Electro-Weak Symmetry,
+    The expansion of this term specifically will lead to the breakdown of Electro-Weak Symmetry,
         and the $W$ and $Z$ bosons acquiring mass.
 
     %Get covariant derivative, evaluate at vev, pull out W,Z, and photon fields, and their masses (pg 722);
-    Expanding only $D_{\mu} \vec{v}$ to start, the $\partial_{\mu}$ immediately vanishes ($v$ is a constant), yielding 
+    Expanding only $D_{\mu} \vec{v}$ initially, the $\partial_{\mu}$ immediately vanishes ($v$ is a constant), yielding 
     \begin{equation} \begin{split}
         D^{\mu} v  = \big( \partial^{\mu} & - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \frac{1}{\sqrt{2}}\minimatrix{0\\v} \\
         = \big( & - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \frac{1}{\sqrt{2}}\minimatrix{0\\v} \\
@@ -139,7 +143,8 @@
         \end{pmatrix}
     \end{split} \end{equation}
 
-    The four components of this matrix are the gauge boson fields of the electromagnetic ($A$) and weak ($W$ \& $Z$) interactions
+    The four components of this matrix will ultimately be associated with the 
+        gauge boson fields of the electromagnetic ($A$) and weak ($W$ \& $Z$) interactions
     \begin{equation} \begin{split}
         \label{eq:electroweak_matrix}
         \begin{pmatrix} 
@@ -173,9 +178,9 @@
         \end{pmatrix} \begin{pmatrix} \wField^3 \\ B \end{pmatrix}
     \end{split} \end{equation}
 
-    Where $\theta_w \equiv \cot(\frac{g'}{g})$ is known as the \textit{weak mixing angle}.
+    Where $\theta_w \equiv \cot(\frac{g'}{g})$ is known as the \textit{weak mixing angle} (AKA the Weinberg angle).
 
-    Returning now to Equation \ref{eq:lagv}, I have
+    Returning finally to Equation \ref{eq:lagv}, I have
     \begin{equation} \begin{split}
         \label{eq:lagv_full}
         \Lag_v & = \frac{1}{2} (D_{\mu}^{ij} v_j)^2 \\
@@ -216,7 +221,7 @@
 
     As in Section \ref{sec:higgs_mechanism}, the $W$ and $Z$ fields now have additional mass terms associated with their kinetic energy terms,
         with $m_W = \frac{vg}{2}$ and $m_Z = \left(\frac{v}{2}\sqrt{g^2 + g^{\prime 2}}\right) $.
-    The photon field $A_{\mu}$ is notably absent in the final vev product, and thus is left massless.
+    The photon field $A_{\mu}$ is notably absent in the final vev product, and thus remains massless.
     A similar procedure can then be followed to allow the Higgs Field to interact with fermions
         (albeit with complications arising from mass-mixing and chirality), which will grant mass to the fermion particles.
 
@@ -235,7 +240,7 @@
 
 %Further work must then be done to couple the higgs boson to fermions and itself
 %You need to tie k2v, kl, and kv in to the shape of the higgs potential here
-\section{The Higgs Boson and di-Higgs Interactions}
+\section{Keystone of the Standard Model: The Higgs Boson}
 
     With the critical role of the Higgs Field established, it is now time to return to Equation \ref{eq:fullHiggs},
         and investigate $\Lag_h$, the Lagrangian of the Higgs Boson itself.
@@ -301,8 +306,9 @@
         \\&= - \mu^2 h^2 - \mu \sqrt\lambda h^3 - \frac{1}{4} \lambda h^4
     \end{split} \end{equation}
 
-    Identifying the Higgs mass $m_h$ as $\sqrt{2}\mu$, and the vev $v$ as $\frac{\mu}{\sqrt{\lambda}} = \frac{m_h}{\sqrt{2 \lambda}}$,
-    I can now write the full Lagrangian for the Higgs field\cite{Halzen_book}
+    Identifying the Higgs mass $m_h$ as $\sqrt{2}\mu$,
+        and the vev $v$ as $\frac{\mu}{\sqrt{\lambda}} = \frac{m_h}{\sqrt{2 \lambda}}$,
+        I can now write the full Lagrangian for the Higgs field\cite{Halzen_book}
     \begin{equation} \begin{split} \label{eq:higgsfull}
         \Lag_h &= \Lag_D + \Lag_U
         \\&= \left[ \frac{1}{2} | \partial_{\mu}h |^2
@@ -314,14 +320,15 @@
     \end{split} \end{equation}
 
     The first term of this Lagrangian is simply the kinetic energy term for the Higgs.
-    The remaining terms, respectively,
-        correspond to the Higgs/Vector boson interaction,
+    The remaining terms correspond, respectively,
+        to the Higgs/Vector boson interaction,
         Higgs/Vector boson four-point interaction,
         Higgs self-coupling,
         and finally the Higgs four-point self-coupling.
     Of course, this entire equation and procedure is purely theoretical, and there is no obligation on the part of reality to uphold it.
-    The Higgs Boson itself has already been detected, its mass measured at 125 GeV.
-    Thus, the process of electro-weak symmetry breaking and the Higgs kinetic energy term of the Lagrangian can be accepted with reasonable confidence.
+
+    In 2012, the Higgs Boson itself was detected with a mass of 125 GeV, solidifying both its existance and crucial role in the Standard Model.
+    More to the point, its detection confirmed at least the existance of the Higgs kinetic energy term in the Lagrangian.
     The various interaction terms, however, are still on more tenuous grounds.
     If they exist at all, there is no guarantee that these interactions have the coupling strength indicated by Equation \ref{eq:higgsfull}.
     In order to account for this uncertainty, the Lagrangian can be rewritten with arbitrary couplings $g_?$ for the interactions
