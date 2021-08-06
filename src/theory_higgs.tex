@@ -3,7 +3,7 @@
     The derivation provided throughout the next three sections seeks to explain
         how the Higgs Mechanism is able to preserve the theory of gauge symmetry,
         and largely follows the process laid out by Peskin\cite{Peskin_book}.
-    To start, indroduce a massless, scalar field $\phi$.
+    To start, introduce a massless, scalar field $\phi$.
     The equation of motion for this field will be that of the Klein-Gordon equation
     \begin{equation} \begin{split}
         p^2 \phi = m^2 \phi
@@ -18,7 +18,7 @@
     \end{equation}
     
     Next, introduce a quartic potential $U(\phi) = -\frac{1}{2} \mu^2 \phi^2 + \frac{\lambda}{4!} \phi^4$.
-    Now the lagrangian takes the form
+    Now the Lagrangian takes the form
     \begin{equation}
         \Lag = K_{\phi} - U_{\phi} = \frac{1}{2} (\partial_{\mu} \phi)^2 
             +\frac{1}{2} \mu^2 \phi^2 - \frac{\lambda}{4!} \phi^4
@@ -28,7 +28,7 @@
     The Hamiltonian will have two minima to either side of $\phi=0$, at points $\pm v = \pm \sqrt{\frac{6}{\lambda}} \mu$.
 
     This is a small, seemingly innocuous change, so allow me to emphasize:
-        this quartic potential is the lynchpin of the entire Standard Model,
+        this quartic potential is the linchpin of the entire Standard Model,
         and the origin of nearly all mass in the universe as it is currently understood.
     The reason for such a dramatic outcome begins with the fact that
         a system in such a potential will invariably fall into one of these minima.
@@ -58,21 +58,21 @@
     \begin{equation}
         \vec{\phi}(x) = \frac{1}{\sqrt{2}} \tinymatrix{\phi_1 \\ \phi_2}
     \end{equation}
-    $\vec{\phi}$ is still a scalar in spacetime, but now also has vector components in the $SU(2)$ subspace.
+    $\vec{\phi}$ is still a scalar in space-time, but now also has vector components in the $SU(2)$ subspace.
 
     As with the Dirac fields, I will then impose $U(1) \times SU(2)$ gauge symmetry on the field, so it transforms as:
     \begin{equation}
         \vec{\phi}(x) \rightarrow e^{i \alpha^a \tau^a} e^{i \beta/2 } \vec{\phi}(x)
     \end{equation}.
 
-    The additional symmetries will in general complicate matters signficantly,
+    The additional symmetries will in general complicate matters significantly,
         but they do allow for one simplification which I will immediately utilize.
-    Regardless of symmetries, any abitrary vector such as $\vec{\phi}$ can be written as a unitary transformation $U(x)$ operating on a simpler single-valued vector
+    Regardless of symmetries, any arbitrary vector such as $\vec{\phi}$ can be written as a unitary transformation $U(x)$ operating on a simpler single-valued vector
     \begin{equation}
         \vec{\phi}(x) = \frac{1}{\sqrt{2}} \tinymatrix{\phi_1 \\ \phi_2} = \frac{1}{\sqrt{2}} U(x) \tinymatrix{0 \\ \phi}
     \end{equation}
     Courtesy of the newly added gauge freedom, this field can be rotated through $SU(2) \times U(1)$ space freely without affecting the Lagrangian.
-    A particularly conventient rotation to perform then, is one in alignment with the orientation of $U(x)$, such that $U(x)$ vanishes
+    A particularly convenient rotation to perform then, is one in alignment with the orientation of $U(x)$, such that $U(x)$ vanishes
     \begin{equation} \begin{split}
         \vec{\phi}(x) \rightarrow \vec{\phi}'(x) 
             &= U^{-1}(x) \vec{\phi}(x)
@@ -80,10 +80,10 @@
             = \frac{1}{\sqrt{2}} \tinymatrix{0 \\ \phi} \\
         \vec{\phi}'(x) &= \frac{1}{\sqrt{2}} \tinymatrix{0 \\ \phi}
     \end{split} \end{equation}
-    This orientation is refered as the \textit{Unitary Gauge}, and will be used for the rest of the chapter.
+    This orientation is referred as the \textit{Unitary Gauge}, and will be used for the rest of the chapter.
 
     Now for the complications.
-    The added symmetries require that the derivative be changed to a covarient derivative 
+    The added symmetries require that the derivative be changed to a covariant derivative 
         $D^{\mu} = \partial^{\mu} - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu}$.
     Here, $\wField^a_\mu$ and $B_\mu$ correspond to the unbroken $SU(2)$ and $U(1)$ gauge fields respectively.
     This produces a Lagrangian:
@@ -255,7 +255,7 @@
         \\&= \Lag_K + \Lag_U
     \end{split} \end{equation}
     
-    To make expansion easier, I will expand the covarient derivative terms ($\Lag_D$) first,
+    To make expansion easier, I will expand the covariant derivative terms ($\Lag_D$) first,
         and then add then expanded $\Lag_U$ terms.
     Starting with $\Lag_D$, (and defining $Q_{\mu}$ as the matrix from Equation \ref{eq:electroweak_matrix})
 
@@ -329,8 +329,8 @@
         Higgs self-coupling,
         and finally the Higgs four-point self-coupling.
 
-    In 2012, the Higgs Boson was detected with a mass of 125 GeV, solidifying both its existance and crucial role in the Standard Model.
-    More to the point, its detection confirmed the existance of at least the Higgs kinetic energy term in the Lagrangian.
+    In 2012, the Higgs Boson was detected with a mass of 125 GeV, solidifying both its existence and crucial role in the Standard Model.
+    More to the point, its detection confirmed the existence of at least the Higgs kinetic energy term in the Lagrangian.
     The various interaction terms however, are still on more tenuous grounds.
     If they exist at all, there is no guarantee that these interactions have the coupling strength indicated by Equation \ref{eq:higgsfull}.
     In order to account for this uncertainty, the Lagrangian can be rewritten with arbitrary couplings for the interactions

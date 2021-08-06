@@ -1,9 +1,9 @@
 \section{Introduction}
 
-    The Higgs Boson sits as the crown jewel of a grand overarching theory of the behaviour of the universe,
+    The Higgs Boson sits as the crown jewel of a grand overarching theory of the behavior of the universe,
         known as the Standard Model of Particle Physics.
     While its recent discovery has shed light on many of its key properties,
-        there are still many details that are as yet uncomfirmed.
+        there are still many details that are as yet unconfirmed.
     In this chapter, I want to explain what these properties are and how they can be further studied.
     Moreover, I want to justify why the Higgs is so important as to be worth studying in the first place.
     And in order to explain the importance of the Higgs Boson,
@@ -21,10 +21,10 @@
 %Might as well do it here first and foremost
 \section{The Standard Model of Particle Physics}\label{sec:standard_model}
     
-    At its core, the Standard Model of Particle Physics is a description of the behaviour and interaction of matter.
-    Hence, it is neccesary to discuss what this matter actually is, first and foremost.
+    At its core, the Standard Model of Particle Physics is a description of the behavior and interaction of matter.
+    Hence, it is necessary to discuss what this matter actually is, first and foremost.
     All known matter can be described as a specific type of elementary particle called a fermion,
-        defined by the fact that it contains no discernable substructure and possesses an intrinsic spin of 1/2.
+        defined by the fact that it contains no discernible substructure and possesses an intrinsic spin of 1/2.
     These fermions, each with a different mass, are able to interact with each other through three ``fundamental interactions''.
     The three fundamental interactions (more commonly called ``Fundamental Forces'') are known as
         the Electromagnetic, Weak, and Strong interactions (gravity is entirely absent in the Standard Model).
@@ -48,12 +48,12 @@
     Among the quarks, every generation contains a doublet of an up-type quark (up, charm, top) with electromagnetic charge of 2/3,
         and a down-type quark (down, strange, bottom) with EM charge of -1/3.
     For leptons, each doublet consists of a charged particle (electron, muon, tauon) with EM charge of -1,
-        and a chargeless neutrino with EM charge of 0.
-    In addition to the fermions, there is also an entirely seperate class of spin 1 particles, called gauge bosons,
+        and an uncharged neutrino with EM charge of 0.
+    In addition to the fermions, there is also an entirely separate class of spin 1 particles, called gauge bosons,
         which play a fundamental role in the aforementioned interactions.
     However, an in-depth discussion of these particles will need to wait until Section \ref{sec:gauge_symmetry}.
 
-    Mathematically, particles are described as pertubations of an overall ``quantum field.''
+    Mathematically, particles are described as perturbations of an overall ``quantum field.''
     A particle field $\varphi$ describes every particle of the same type at once,
         and particle states $\ket{\varphi}$ correspond to the number of that kind of particle that exists at a given moment.
     Fermions in particular are described as manifestations of ``Dirac Fields'', $\psi(x)$,
@@ -62,7 +62,7 @@
         (\gamma^\mu p_\mu - m) \psi(x) = 0
         \\ (i\gamma^\mu \partial_\mu - m) \psi(x) = 0
     \end{split} \end{equation}
-    Wherein the second line is written using the natural units, covarient,
+    Wherein the second line is written using the natural units, covariant,
         quantum mechanical definition of momentum $p_\mu \equiv i\partial_\mu$.
     The term $\gamma^\mu$ is a vector of matrices, simply called the gamma matrices.
     The gamma matrices are a fascinating subject all their own, 
@@ -81,7 +81,7 @@
 
     The brilliance of the Standard Model lies in how it is able to describe the 
         particles and interactions of nature as consequences of pure mathematical structures.
-    Describing matter in mathemetical form is the first step in building the Standard Model.
+    Describing matter in mathematical form is the first step in building the Standard Model.
     The next step is to do the same with motion.
 
 
@@ -140,7 +140,7 @@
         \psibar(x) \to \psibar'(x) = e^{-i\Delta x^0 \partial_0} \psibar(x)
     \end{split} \end{equation}
     
-    The time translation operator is but one of a myriad of different tranformation operators.
+    The time translation operator is but one of a myriad of different transformation operators.
     However, all of the transformation operators used here take a similar form to this, appearing as
     \begin{equation} \begin{split}
         \psi(x) \to \psi'(x) = e^{ q \cdot \mathcal{F}_q } \psi(x)
@@ -161,8 +161,8 @@
 
     It should be relatively simple to see that time translation operations satisfy each of these.
     Additional classifications for groups are whether a group is discrete or continuous,
-        and whether a group is ``Abelian'' (commutative) or ``non-Abelian'' (non-commutatitve).
-    Time translations are continuous (one can tranlate by an infinitesimally small amount of time),
+        and whether a group is ``Abelian'' (commutative) or ``non-Abelian'' (non-commutative).
+    Time translations are continuous (one can translate by an infinitesimally small amount of time),
         and Abelian (the order that the translation are applied does not matter).
     An example of a non-Abelian group would be that of three-dimensional rotations (formally called the $SO(3)$ group),
         as applying rotations in a different order can lead to a different final orientation.
@@ -223,7 +223,7 @@
         \\  = \psibar (\gamma^\mu p_\mu - m) \psi
     \end{split} \end{equation}
 
-    Applying the Euler-Lagrange equations to this equation will seperately return the Dirac Equation
+    Applying the Euler-Lagrange equations to this equation will separately return the Dirac Equation
         for the fermion and anti-fermion fields, as it should.
 
     Given that there are many different kinds of fermions, the Lagrangian can be expanded to include all of them
@@ -239,7 +239,7 @@
         there is a glaring flaw with it: the fields it describes are all completely independent of one another.
     In its current form, the Lagrangian proposes that particles, given some initial momentum,
         will persist along the same trajectory forever, unable to affect or be affected by any other particle.
-    The Lagrangian has succesfully constrained the range of allowed physics,
+    The Lagrangian has successfully constrained the range of allowed physics,
         but it has done so to such a degree that the described physics are now practically static.
     Clearly, this is not a satisfactory description of the universe, full of dynamic interactions as it is.
     The resolution to this issue is, counter-intuitively, to enforce yet \textit{more} symmetry requirements.
@@ -289,7 +289,7 @@
                 - \left( e^{-i\theta(x)} \psibar \right) m \left( e^{i\theta(x)}\psi \right)
     \end{split} \end{equation}
     In the mass term, the transform will cancel in the usual fashion.
-    The momentum term however will \textit{not} cancel, as the derivative will also affect the position-dependant $\theta(x)$.
+    The momentum term however will \textit{not} cancel, as the derivative will also affect the position-dependent $\theta(x)$.
     \begin{equation} \begin{split}
         \Lag' &= \left( e^{-i\theta(x)} \psibar \right) i\gamma^\mu \partial_\mu \left( e^{i\theta(x)}\psi \right) - m \psibar(x) \psi(x)
         \\ &= i \left( e^{-i\theta(x)} \psibar \right) \left[
@@ -309,7 +309,7 @@
         due to the additional $\gamma^\mu \partial_\mu\theta(x)$ term.
     In order to enforce gauge symmetry, a subtle but profound adjustment must be made to the Lagrangian.
     This adjustment will take the form of a modification to the derivative,
-        replacing the standard derivative with a \textit{covarient} derivative,
+        replacing the standard derivative with a \textit{covariant} derivative,
     \begin{equation}
         \partial_\mu \to D_\mu \equiv \partial_\mu + i \emc A_\mu(x)
     \end{equation}
@@ -338,8 +338,8 @@
     % See Peskin pg484 (djvu 505) for derivation of kinetic term
     % See also https://physics.stackexchange.com/questions/131097/gauge-field-tensor-from-wilson-loop
     Through a much more sophisticated derivation (which will not be demonstrated here),
-        it can also be shown that this new covarient derivative causes the Action to acquire an additional term 
-        related to the commutator of the covarient derivative, $[D_\mu, D_\nu] \equiv D_\mu D_\nu - D_\nu D_\mu$.
+        it can also be shown that this new covariant derivative causes the Action to acquire an additional term 
+        related to the commutator of the covariant derivative, $[D_\mu, D_\nu] \equiv D_\mu D_\nu - D_\nu D_\mu$.
     Defining a tensor $F_{\mu\nu}$ as $i\emc F_{\mu\nu} = [D_\mu, D_\nu]$,
         the additional required term takes the form $-\frac{1}{4}F^{\mu\nu}F_{\mu\nu}$.
     The final expression for the $U(1)$ gauge invariant fermion Lagrangian now appears as
@@ -351,11 +351,11 @@
             - \frac{1}{4}F_{\mu\nu}F^{\mu\nu}
     \end{split} \end{equation}
 
-    Of extraordinary note is that the last term of $\Lag$ is completely independant of the Dirac field $\psi$.
+    Of extraordinary note is that the last term of $\Lag$ is completely independent of the Dirac field $\psi$.
     The true nature of $A$ is thus revealed, not as just a mere correction factor,
         but as a massless field all its own.
     Indeed, $A(x)$ corresponds to the photon field, $\emc$ to the electric charge,
-        and the term $-\frac{1}{4}(F_{\mu\nu})^2$ to the kinitec energy of the photon.
+        and the term $-\frac{1}{4}(F_{\mu\nu})^2$ to the kinetic energy of the photon.
     Furthermore, the three-field term $i \emc \psibar \gamma^\mu A_\mu \psi$
         allows the Dirac field to interact directly with the photon field,
         and through the photon field to interact indirectly with \textit{other} Dirac fields.
@@ -392,7 +392,7 @@
         \minimatrix{u_L \\ d_L} \to e^{i \alpha^a \sigma^a / 2} \minimatrix{u_L \\ d_L}
     \end{equation}
 
-    Similarly, the triplet nature of $SU(3)$ neccesitates that the group operate on all three generations of fermions at once
+    Similarly, the triplet nature of $SU(3)$ necessitates that the group operate on all three generations of fermions at once
     \begin{equation}
         \minimatrix{u\\c\\t} \to e^{i \xi^b \mathscr{F}^b / 2} \minimatrix{u\\c\\t}
     \end{equation}
@@ -401,7 +401,7 @@
     $SU(2)$ acts only on the ``left-handed'' chiral state of the fermions (denoted by the subscript L),
         and $SU(3)$ acts only on the quarks, having a charge of zero for all leptons.
 
-    The behaviour of these Gauge Groups established, the natural assumption is that the three gauge fields
+    The behavior of these Gauge Groups established, the natural assumption is that the three gauge fields
         $U(1)$, $SU(2)$, and $SU(3)$ correspond to the three fundamental interactions,
         Electromagnetic, Weak, and Strong.
     This would serve to complete a theory of the universe based entirely on the geometric principle of symmetry.
@@ -412,15 +412,15 @@
 
     The problem is that the W and Z fields have mass.
     Gauge fields \textit{cannot} have mass.
-    A brief check will confirm that a lagrangian mass term such as $m_Z^2 (Z^0)^2$
-        will not remain invariant under the gauge field's own tranformation.
+    A brief check will confirm that a Lagrangian mass term such as $m_Z^2 (Z^0)^2$
+        will not remain invariant under the gauge field's own transformation.
     By all rights, the experimental measurement of the W and Z masses should have
         ended the idea of gauge symmetry as a principle of nature altogether.
     Instead, a theory was proposed which would allow gauge symmetry to persist,
         but only under the condition that an entirely new field, unlike any previously observed, must exist.
     Not only did this theory resolve the origin of the W and Z masses;
         it predicted -- nearly a half-century in advance of its discovery --
-        the existance of the scalar particle now known as the Higgs Boson.
+        the existence of the scalar particle now known as the Higgs Boson.
     \cite{Osborn_notes}
     \cite{Peskin_book}
     \cite{Halzen_book}

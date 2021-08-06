@@ -12,7 +12,7 @@
     Here I will provide a general outline for how the Lagrangian of Equation \ref{eq:higgskappas} can be related to a measurable cross-section.
 
     In quantum mechanics, probabilities are measured as the absolute square of amplitudes of wave functions, $\left|\braket{\psi}\right|^2$.
-    The probability of a transition between different states of a wavefunction are simililarly represented
+    The probability of a transition between different states of a wavefunction are similarly represented
         as the absolute square of the original state, $\psi_i$, \textit{in the basis of} the final state $\psi_f$,
         written $ |\Tbraket{\psi_f}{\psi_i}|^2$.
     In Quantum Field Theory, states correspond to which particles are in existence at a given moment.
@@ -33,16 +33,16 @@
 
     In principle, this transition process can take an indeterminate period of time.
     In the realm of high energy physics experiments though,
-        the interacting particles are moving so fast that the interaction period can be thought of as occuring at a single instant in time.
-    Given this context, the initial state occurs in the (comparitively) distant past, $t_i$, and the final state in the equally distant future, $t_f$.
-    Since the transistion occurs at an instantaneous moment,
+        the interacting particles are moving so fast that the interaction period can be thought of as occurring at a single instant in time.
+    Given this context, the initial state occurs in the (comparatively) distant past, $t_i$, and the final state in the equally distant future, $t_f$.
+    Since the transition occurs at an instantaneous moment,
         I need to perform a time-translation transformation on both states to place them at the moment of the transition, $t_0$.
     Using the Hamiltonian $H \equiv i\partial_0$ as the time translation operator,
-        I can relate the initial state at $t_0$ to its time $\Delta t$ units in the future, $t_i$, by the tranformation
+        I can relate the initial state at $t_0$ to its time $\Delta t$ units in the future, $t_i$, by the transformation
     \begin{equation}
         \ket{q_{i1} q_{i2} (t_i)} = e^{i\Delta tH}\ket{q_{i1} q_{i2} (t_0)}
     \end{equation}
-    The same can be done to transorm the final state backwards in time
+    The same can be done to transform the final state backwards in time
     \begin{equation}
         \bra{h_1 h_2 q_{f1} q_{f2} (t_f)}
         = \bra{h_1 h_2 q_{f1} q_{f2} (t_0)} (e^{i(-\Delta t)H})^\dag
@@ -60,7 +60,7 @@
         in a reversal of the procedure from Section \ref{sec:group_theory}.
     The first of these terms will just be 1, corresponding to the static situation in which no interaction occurs at all.
     The sum of the remaining terms, represented as $iT$, is the part relevant for calculating the interaction probability,
-        with the entire transition amplitude reffered to as the \textit{invariant amplitude}, $\invAmp$.
+        with the entire transition amplitude referred to as the \textit{invariant amplitude}, $\invAmp$.
     \begin{equation}
         i\invAmp \equiv \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{iT}{q_{i1} q_{i2} (t_0)}
     \end{equation}
@@ -83,7 +83,7 @@
     To do this, I turn to Feynman diagrams.
 
     Calculation of the transition expectation value of the $iT$ term has historically been a very technical challenge.
-    Feynman diagrams are an elegent tool for performing this task more easily and intuitively.
+    Feynman diagrams are an elegant tool for performing this task more easily and intuitively.
     The general process to using them begins with the following steps:
     \begin{itemize}
         \item Draw the initial and final states of the process in question as dots
@@ -103,12 +103,12 @@
     Eventually, the higher-order terms will contribute so little that they can be safely ignored.
     This property is directly reflected in the Feynman Diagrams, in the form of \textit{loops}.
     Any loop in a diagram indicates that the diagram is a higher order term of the expansion.
-    A diagram with no loops -- reffered as ``tree-level'' or ``leading order'' (LO) -- is part of the first term of $iT$.
+    A diagram with no loops -- referred as ``tree-level'' or ``leading order'' (LO) -- is part of the first term of $iT$.
     Diagrams with one loop are part of the second term (next-to-leading order, or NLO),
         two loops the third (next-to-next-to-leading order, or NNLO), and so forth.
 
     One need only draw as many diagrams as is needed for the level of desired precision.
-    As a side note, just as succesive loops correspond to higher order terms in $iT$,
+    As a side note, just as successive loops correspond to higher order terms in $iT$,
         diagrams which are not fully connected correspond to the ``1'' term from the original $1+iT$ in Equation \ref{eq:transition_amplitude},
         hence why disconnected diagrams are ignored entirely.
 
@@ -137,7 +137,7 @@
     The rules are derived based on the structure of the Lagrangian and are rather extensive;
         hence, they will not be listed here.
     After the values have been determined, the invariant amplitude is trivially calculated as the sum of the values of all drawn diagrams.
-    The VBF$\to$HH process studied here is primarily done at tree-level (Figure \ref{fig:tree_level_vbfhh}),
+    The VBF$\to$hh process studied here is primarily done at tree-level (Figure \ref{fig:tree_level_vbfhh}),
         but N\textsuperscript{3}LO calculations are also used to some degree, and one such example is provided in Figure [TODO]. %TODO
 
     Finally, the differential cross-section can be calculated as the absolute square of the sum of the Feynman Diagrams.
@@ -148,7 +148,7 @@
         two corresponding to the Higgs-Vector Boson interaction (whose coefficient based on Equation \ref{eq:higgskappas} is $\kv q_V$),
         and two corresponding to the quark-Vector Boson interaction (whose coefficient is $c_{qV}$).
     As per the Feynman rules, this means that $M_t$ is proportional to $\kv q_V \kv q_V c_{qV} c_{qV}$.
-    The quantites I am interested in are of course the $\kappa$ values,
+    The quantities I am interested in are of course the $\kappa$ values,
         so I can pull these values out in front of the invariant amplitude as $M_t \rightarrow \kv^2 M_t$.
     At tree-level, I can then write out the absolute square of the invariant amplitude as
     \begin{equation} \begin{split}
@@ -173,7 +173,7 @@
         but nonetheless measurable.
     The second is the strong energy dependence.
     Explicit calculation of the cross-section will show that, if the Standard Model is correct,
-        this VBF \to HH process is exceedingly rare.
+        this VBF \to hh process is exceedingly rare.
     Consequently, if one wants to make a noteworthy measurement of this process,
         an extraordinarily high center-of-mass energy will be required.
     Currently, there exists only one machine on the planet capable of achieving these energies.
