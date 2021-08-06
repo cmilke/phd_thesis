@@ -4,10 +4,10 @@
 \section{From Theory to Experiment: The Feynman Rules and Cross-Sections}
     
     %Justify why we care about cross sections
-    After all this discussion of theory, the obvious question to ask is: how can this be tested.
+    After so much discussion of theory, the obvious question to ask is: how can this be tested?
     The most direct physically observable effects of the equations of the Standard Model are those of \textit{differential cross-sections}.
-    Cross-sections will be discussed in more detail in Section \ref{sec:lhc-interaction_region}.
-    For now it is sufficient to state that the probability of some physical interaction taking place
+    Cross-sections will be discussed in more detail in Section \ref{sec:lhc-interaction_region},
+        but for now it is sufficient to state that the probability of some physical interaction taking place
         is directly proportional to its differential cross-section.
     Here I will provide a general outline for how the Lagrangian of Equation \ref{eq:higgskappas} can be related to a measurable cross-section.
 
@@ -21,22 +21,23 @@
         as $\Tbraket{\mu \bar{\mu}}{e \bar{e}}$.
 
     The core process used in this paper to probe the Higgs' $\kappa$ values is that of Vector Boson Fusion to two Higgs Bosons.
-    The initial state of this process is two incoming quarks, $\ket{q_{i1} q_{i2}}$.
+    Two incoming quarks, $\ket{q_{i1} q_{i2}}$, form the initial state of this process.
     These quarks each emit a vector boson (either $W^{\pm}$ or $Z^0$), 
-    which should in turn fuse into two Higgs Bosons.
-    The initial quarks then continue on, significantly deflected by their emissions, and possibly flavor-changed if they emitted a charged $W$.
-    The final state of this process thus consists of two Higgs and two deflected quarks, $\bra{h_1 h_2 q_{f1} q_{f2}}$.
-    The transition of this process would then be written as $\Tbraket{ h_1 h_2 q_{f1} q_{f2}}{q_{i1} q_{i2}}$.
-    It should be noted that there are other intermediate processes (besides VBF)
-        that could produce these same initial and final states, but these will not be considered in this analysis.
+        which will in turn fuse into a final state of two Higgs Bosons.
+    After being deflected by the gluon ejection, the initial quarks then continue on, possibly flavor-changed if they emitted a charged $W$.
+    The final state of this process consists of two Higgs and two deflected quarks, $\bra{h_1 h_2 q_{f1} q_{f2}}$.
+    I can then write the transition of this process as $\Tbraket{ h_1 h_2 q_{f1} q_{f2}}{q_{i1} q_{i2}}$.
+    It should be noted that there are other intermediate processes besides VBF
+        that could produce these same initial and final states, 
+        but these will not be considered in this analysis.
 
     In principle, this transition process can take an indeterminate period of time.
     In the realm of high energy physics experiments though,
         the interacting particles are moving so fast that the interaction period can be thought of as occuring at a single instant in time.
     Given this context, the initial state occurs in the (comparitively) distant past ($t_i$), and the final state in the equally distant future ($t_f$).
     Since the transistion occurs at an instantaneous moment,
-        I need to perform a time-translation transformation both states to place them at the moment of the transition ($t_0$).
-    Using the Hamiltonian $H$ as the time translation operator,
+        I need to perform a time-translation transformation on both states to place them at the moment of the transition ($t_0$).
+    Using the Hamiltonian $H \equiv i\partial_0$ as the time translation operator,
         I can relate the initial state at $t_0$ to its time $\Delta t$ units in the future, $t_i$, by the tranformation
     \begin{equation}
         \ket{q_{i1} q_{i2} (t_i)} = e^{i\Delta tH}\ket{q_{i1} q_{i2} (t_0)}
@@ -55,10 +56,11 @@
         \\&= \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{1 + iT}{q_{i1} q_{i2} (t_0)}
     \end{split} \end{equation}
 
-    In the last step, the exponential operator is expanded as an infinite series of terms.
+    In the last step, the exponential operator is expanded as an infinite series of terms,
+        in a reversal of the procedure from Section \ref{sec:group_theory}.
     The first of these terms will just be 1, corresponding to the static situation in which no interaction occurs at all.
     The sum of the remaining terms, represented as $iT$, is the part relevant for calculating the interaction probability,
-        and the entire transition amplitude is reffered to as the \textit{invariant amplitude}, $\invAmp$.
+        with the entire transition amplitude reffered to as the \textit{invariant amplitude}, $\invAmp$.
     \begin{equation}
         i\invAmp \equiv \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{iT}{q_{i1} q_{i2} (t_0)}
     \end{equation}
@@ -98,9 +100,9 @@
     This final step may seem impossible, given that an infinite number of intermediate particles can be inserted between any two states.
     Recall from the structure of $\invAmp$, that $iT$ is not one term, but in fact an infinite series expansion of the time translation operator.
     For most situations, each of these terms will contribute less to the overall calculation.
-    Eventually, the the higher-order terms will contribute so little that they can be safely ignored.
+    Eventually, the higher-order terms will contribute so little that they can be safely ignored.
     This property is directly reflected in the Feynman Diagrams, in the form of \textit{loops}.
-    Any loop in a diagram indicates that the diagram is a higher order term in the expansion.
+    Any loop in a diagram indicates that the diagram is a higher order term of the expansion.
     A diagram with no loops -- reffered as ``tree-level'' or ``leading order'' (LO) -- is part of the first term of $iT$.
     Diagrams with one loop are part of the second term (next-to-leading order, or NLO),
         two loops the third (next-to-next-to-leading order, or NNLO), and so forth.
@@ -110,29 +112,29 @@
         diagrams which are not fully connected correspond to the ``1'' term from the original $1+iT$ in Equation \ref{eq:transition_amplitude},
         hence why disconnected diagrams are ignored entirely.
 
-    %\begin{figure} \label{fig:tree_level_vbfhh}
-    %\subfloat[$M_t$]{ \input{diagrams/vbf_hh_kv.tex} \label{fig:tree_level_vbfhh:kv} }
-    %\subfloat[$M_s$]{ \input{diagrams/vbf_hh_kl.tex} \label{fig:tree_level_vbfhh:kl} }
-    %\subfloat[$M_x$]{ \input{diagrams/vbf_hh_k2v.tex} \label{fig:tree_level_vbfhh:k2v} }
-    %\caption{Tree-level diagrams of the VBF$\rightarrow$hh process}
-    %\end{figure}
+    \begin{figure} \label{fig:tree_level_vbfhh}
+    \subfloat[$M_t$]{ \input{diagrams/vbf_hh_kv.tex} \label{fig:tree_level_vbfhh:kv} }
+    \subfloat[$M_s$]{ \input{diagrams/vbf_hh_kl.tex} \label{fig:tree_level_vbfhh:kl} }
+    \subfloat[$M_x$]{ \input{diagrams/vbf_hh_k2v.tex} \label{fig:tree_level_vbfhh:k2v} }
+    \caption{Tree-level diagrams of the VBF$\rightarrow$hh process}
+    \end{figure}
 
     Once all possible diagrams have been drawn to the order desired, each diagram has a value assigned to it.
     ``Feynman Rules'' are the rules governing how these values are assigned.
     The rules are derived based on the structure of the Lagrangian and are rather extensive;
         they will not be listed here, but can be found readily in any QFT textbook.
-    After the values have been assigned, the invariant amplitude is trivially calculated as the sum of the values of all drawn diagrams.
-    The VBF$\rightarrow$HH process studied here is primarily done at tree-level (Figure \ref{fig:tree_level_vbfhh}),
-        but N\textsuperscript{3}LO calculations are also used to some degree, and one such example is provided in Figure ??. %TODO
+    After the values have been determined, the invariant amplitude is trivially calculated as the sum of the values of all drawn diagrams.
+    The VBF$\to$HH process studied here is primarily done at tree-level (Figure \ref{fig:tree_level_vbfhh}),
+        but N\textsuperscript{3}LO calculations are also used to some degree, and one such example is provided in Figure [TODO]. %TODO
 
-    Finally, the differential cross-section can be calculated as as the absolute square of the sum of the Feynman Diagrams.
-    While I will not explicitly list the Feynman rules, I will note an aspect of the rules critical to this analysis.
-    That is, that each diagram's value $M$ is proportional to the \textit{product of the coefficients}
+    Finally, the differential cross-section can be calculated as the absolute square of the sum of the Feynman Diagrams.
+    There is one critical (to this analysis) detail of the Feynman rules I will mention,
+        which is that each diagram's value $M$ is proportional to the \textit{product of the coefficients}
         associated with each interaction vertex in the diagram.
     Take for example Figure \ref{fig:tree_level_vbfhh:kv}, which contains four total vertices;
         two corresponding to the Higgs-Vector Boson interaction (whose coefficient based on Equation \ref{eq:higgskappas} is $\kv q_V$),
         and two corresponding to the quark-Vector Boson interaction (whose coefficient is $c_{qV}$).
-    Among other aspects of the diagram, this means that $M_t \propto \kv q_V \kv q_V c_{qV} c_{qV}$.
+    As per the Feynman rules, this means that $M_t$ is proportional to $\kv q_V \kv q_V c_{qV} c_{qV}$.
     The quantites I am interested in are of course the $\kappa$ values,
         so I can pull these values out in front of the invariant amplitude as $M_t \rightarrow \kv^2 M_t$.
     At tree-level, I can then write out the absolute square of the invariant amplitude as
@@ -147,16 +149,18 @@
 
     In the last line, the various squares and cross-terms of the diagram values have been aggregated entirely into the $a$ terms.
     The formula for the cross-section will be proportional to this squared amplitude, along with various kinematic properties.
-    Of particular note among these kinematics is the center-of-mass energy of the interaction, with the final relation taking the form
+    Of particular importance among these kinematics is the center-of-mass energy of the interaction, with the final relation taking the form
 
     \begin{equation} \label{eq:dXsec_final} %FIXME: what is the E_com proportionality?
         \dXsec \propto E_{CoM}^{??}\left(kv^2 \kl^2 a_1 + \kv^4 a_2 + \kvv^2 a_3 + \kv^3 \kl a_4 + \kv \kl \kvv a_5 + \kv^2 \kvv a_6 \right)
     \end{equation}
 
-    This final formula reveals two critical pieces of insight.
+    This final formula reveals two essential pieces of insight.
     The first is that the cross-section depends on the values of the various $\kappa$ values in a manner which is non-trivial,
         but nonetheless measurable.
-    The second is that, due to the extreme rarity of the process,
-        if one wants to make a noteworthy measurement of this process,
+    The second is the strong energy dependence.
+    Explicit calculation of the cross-section will show that, if the Standard Model is correct,
+        this VBF \to HH process is exceedingly rare.
+    Consequently, if one wants to make a noteworthy measurement of this process,
         an extraordinarily high center-of-mass energy will be required.
     Currently, there exists only one machine on the planet capable of achieving these energies.
