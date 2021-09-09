@@ -16,23 +16,68 @@
 
     This entails ... what? For VBF 4b I think we have:
 
-    Tracks: Helix fitting, I don't think I really know how this works but that's fine I'll figure it out...
 
-    Primary Vertex
+    %    I should have an image for this in some way %TODO
+    \subsection{Tracks}
+        Intro about tracks being the first things we see because they're assembled from the inner detector or something.
+        Also I should probably explain what a track is...
+        Might need to explain helix parameters as well
 
-    Jets:
-        what is a jet.
+        %Clusterization
+        The first step to producing a track is the process of clusterization.
+        Ionizing particles often deposit energy across several adjacent pixels on a given layer.
+        A \textit{connected component analysis} algorithm is used to group pixels together. 
+        Based on the pattern of energy distribution in these groups,
+            a \textit{space-point} is created indicating the estimated position at which a particle crossed the detector.
+        Several space-points can be assigned to the same pixel cluster,
+            if the energy deposition pattern suggests multiple particles traversed the same location.
 
-    Jet flavour tagging.
-        b-jets used for higgs,
+        %Combinatorial track finding
+        Initial guesses at tracks, called track seeds, are formed by assembling all realistic combinations of three space-points.
+        The track seeds are assigned helix parameters by assuming they travel through a uniform magnetic field,
+            allowing immediate estimates of the tracks' momentum.
+        These seeds are expanded into \textit{track candidates},
+            by including more space-points across additional detectors in the ID using a Kalman filter.
+
+        %Ambiguity solving; NN clustering; Track fit
+        A number of criteria are then used to reject poor-quality tracks, as well as to assign scores to all remaining track candidates.
+        The scores are then used to resolve ambiguities where multiple tracks are assigned to the same space-points,
+            with preference given to higher-scoring candidates.
+        Neural networks are used to assist in some ambiguity solving situations,
+            as well as to help identify clusters with multiple valid tracks.
+        Once ambiguities have been resolved and all malformed track candidates removed,
+            the remaining tracks are refit using all available information at high-resolution.
+        \cite{atlas_track_reco_performance}
+
+    \subsection{Jets}
+        Jets are an algorithm.
+        Specifically, the anti-$k_t$ algorithm, with $\Delta R = 0.4$.
+        Something about topological-clusters (topo-clusters).
+        \cite{anti_kt}
+        Something about assuming hard-scatter jets come from the primary vertex.
+        Also explain what a primary vertex is.
+        FYI, a primary vertex is a "reconstructed vertex with at least two associated tracks, and the largest sum of squared track momentum".
+
+        Jets created using only calorimeter-based topological-clusters (at the electromagnetic scale [what does this mean??]) %TODO?
+            are reffered to as \textit{EMtopo Jets}.
+        The jets for this analysis use a more advanced type of jet however, called \textit{PFlow Jets},
+            which are constructed using information from both the calorimeters and the inner trackers.
+        And now I need to explain how pflow works...
+        \cite{pflow}
+        \cite{jet_energy_scale13TeV}
+
+    \subsection{Flavor Tagging}
+        b-jets used for higgs, (I should justify this with the high branching ratio of H->b,bbar)
         light jets used for VBF IS quarks.
-    
-    ... is that it? I'll look around to see if there's anything else.
+        \cite{bjet_id_and_performance}
 
-    I should explain how online and offline reco differs.
-    \cite{cell_clustering}
-    \cite{bjet_id_and_performance}
-    
+    \subsection{Online VS Offline Reconstruction}
+        I should explain how online and offline reco differs.
+        I should also describe the mv2 reweighting procedure here.
+
+    \subsection{Other?}
+        ... is that it? I'll look around to see if there's anything else.
+
 
 
     %Reconstruction is performed for an event twice.
