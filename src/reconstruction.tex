@@ -1,6 +1,6 @@
-\chapter{Event Reconstruction and Selection}
+\chapter{Event Reconstruction}
 
-    Oh god how do I even start with this crap. These two are so tightly linked and there's no obvious way to speparate them AHHHHHH.
+%    Oh god how do I even start with this crap. These two are so tightly linked and there's no obvious way to speparate them AHHHHHH.
     
 %    Once a bunch crossing event has cleared the Level 1 Trigger system, the process of event reconstruction begins.
 %    An event in ATLAS is, initially, nothing but a collection of electrical signals emitted from the various detectors.
@@ -9,8 +9,6 @@
 %
 
 
-\section{Object Classification}
-
     Ok let's just get the basic objects contructed first, since nothing else (triggers, later reconstruction, final selection)
         make sense until I have them.
 
@@ -18,7 +16,7 @@
 
 
     %    I should have an image for this in some way %TODO
-    \subsection{Tracks}
+    \section{Tracks}
         Intro about tracks being the first things we see because they're assembled from the inner detector or something.
         Also I should probably explain what a track is...
         Might need to explain helix parameters as well
@@ -49,7 +47,7 @@
             the remaining tracks are refit using all available information at high-resolution.
         \cite{atlas_track_reco_performance}
 
-    \subsection{Jets}
+    \section{Jets}
         Jets are an algorithm.
         Specifically, the anti-$k_t$ algorithm, with $\Delta R = 0.4$.
         Something about topological-clusters (topo-clusters).
@@ -60,22 +58,53 @@
 
         Jets created using only calorimeter-based topological-clusters (at the electromagnetic scale [what does this mean??]) %TODO?
             are reffered to as \textit{EMtopo Jets}.
-        The jets for this analysis use a more advanced type of jet however, called \textit{PFlow Jets},
-            which are constructed using information from both the calorimeters and the inner trackers.
-        And now I need to explain how pflow works...
+        The jets for this analysis use a more advanced jet algorithm, called \textit{Particle Flow},
+            which are constructed by matching tracks from the inner detector to topo-clusters from the calorimeter,
+            based on both location and energy projections.
+        The resulting \textit{PFlow Jets} are then used forthwith.
         \cite{pflow}
         \cite{jet_energy_scale13TeV}
 
-    \subsection{Flavor Tagging}
-        b-jets used for higgs, (I should justify this with the high branching ratio of H->b,bbar)
-        light jets used for VBF IS quarks.
+    \section{Flavour Tagging}
+        Of crucial importance:
+            b-jets used for higgs, (I should justify this with the high branching ratio of H->b,bbar);
+            VBF initial scatter jets anti-b-tagged
+
+        Flavour Tagging is performed in two-stages:
+            with low-level taggers,
+            which are then used as inputs for the high level taggers.
+
+        Low Level Taggers:
+            IPxD - IP2D and IP3D - Impact Parameter 2/3 Dimensional; 
+            Vertex Algos - SV1 (Secondary Vertex 1) and JetFitter
+
+        High Level Taggers:
+            MV2, a Boosted Decision Tree (BDT);
+            DL1, a Deep Learning Neural Network (DL1r is what we specifically use)
         \cite{bjet_id_and_performance}
+        \cite{btagging_optimisation}
 
-    \subsection{Online VS Offline Reconstruction}
-        I should explain how online and offline reco differs.
-        I should also describe the mv2 reweighting procedure here.
+    \section{Online VS Offline Reconstruction}
+        I should explain how online and offline reco differs;
+            it seems to just come down to the fact that the HLT doesn't neccesarily use the most high resolution calorimeter information,
+            and often generates tracks using a faster, less acurate algorithm.
+            
+        I should also describe the mv2 reweighting procedure here
+            (We don't use mv2 for the late-stage b-tag requirement on the higgs decay candidates,
+            but we DO use it in the triggers):
+            Step1.1 - Run HLT reco on MC files;
+            Step1.2 - Return low level taggers on MC HLT reco;
+            Step2   - Rerun HLT reco on MC, now with retuned low level tagging info;
+            Step3.1 - Perform BDT training for MV2 on HLT MC reco w/ low level tags;
+            Step3.2 - Convert training output to useable histograms;
+            Step4   - Rerun HLT reco on MC once more, to get full retuned tagging ouput. Use output performance to determine working points;
 
-    \subsection{Other?}
+
+    \section{Scale Factors}
+        Oh this one's going to suck...
+
+
+    \section{Other?}
         ... is that it? I'll look around to see if there's anything else.
 
 
@@ -89,45 +118,3 @@
     %    more comprehensive, reconstruction of each event.
     %For both the ``online'' (HLT) and ``offline'' (GRID) environments, event reconstruction is carried out by the same suite of software,
     %    called \textit{Athena}.
-    
-
-
-
-
-
-\section{HH4b VBF Analysis}
-    
-    I think I'm just going to do everything else here? It's weird, because I'm going backwards to triggers,
-        and then forward to the final analysis stuff. But at least I have all the complicated object algorithms and stuff listed I guess?
-
-    %Truthfully, reconstruction and selection are not distinct stages of the analysis, but rather are interwoven with each other.
-    %The first step of selection really occured before any signficant reconstruction had even taken place, in the L1 Trigger system.
-    %Yet the final stage of event reconstruction -- the reconstruction of the di-Higgs system --
-    %    will be performed \textit{after} almost every other stage of selection.
-
-    Triggers used in this analysis and why (do we have any plots showing why we use these triggers?)
-
-    Trigger bucketing strategy?
-
-    I need to discuss the kinematics of VBF and 4b in order to justify the ->
-
-    kinematic cuts
-        basic jet multiplicity reqs,
-        4b-tagged, central
-        2 non-btagged jets with min-mjj for VBF
-
-    Then there's the minDR pairing of b's to reconstruct HH
-
-    Then cut on dihiggs and full system kinematics
-
-    Then make sure the higgss fall within the "signal region" (their individual masses are approximately 125 GeV)
-
-    Pretty sure that's it?
-
-
-
-%...and how we wittle the abundance of events down to a manageable subset.
-%If I stick to this format, there's still a bit of event reconstruction done here.
-%
-%HH4b Resolved Reco and Selection (literally just go through resolved recon...).
-%    Final stage is the signal region selection
