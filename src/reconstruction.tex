@@ -71,14 +71,16 @@
             VBF initial scatter jets anti-b-tagged
 
         Flavour Tagging is performed in two-stages:
-            with low-level taggers,
+            first with basic low-level taggers,
             which are then used as inputs for the high level taggers.
 
-        Low Level Taggers:
+        \subsection{Low Level Taggers}
+
             IPxD - IP2D and IP3D - Impact Parameter 2/3 Dimensional; 
             Vertex Algos - SV1 (Secondary Vertex 1) and JetFitter
 
-        High Level Taggers:
+        \subsection{High Level Taggers}
+
             MV2, a Boosted Decision Tree (BDT);
             DL1, a Deep Learning Neural Network (DL1r is what we specifically use)
         \cite{bjet_id_and_performance}
