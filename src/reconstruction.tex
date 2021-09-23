@@ -1,7 +1,5 @@
 \chapter{Event Reconstruction}
 
-%    Oh god how do I even start with this crap. These two are so tightly linked and there's no obvious way to speparate them AHHHHHH.
-    
 %    Once a bunch crossing event has cleared the Level 1 Trigger system, the process of event reconstruction begins.
 %    An event in ATLAS is, initially, nothing but a collection of electrical signals emitted from the various detectors.
 %    Event reconstruction is the process wherein detector readings are aggregated together into meaningful patterns,
@@ -77,6 +75,7 @@
         \subsection{Low Level Taggers}
 
             IPxD - IP2D and IP3D - Impact Parameter 2/3 Dimensional; 
+
             Vertex Algos - SV1 (Secondary Vertex 1) and JetFitter
 
         \subsection{High Level Taggers}
@@ -90,6 +89,16 @@
         I should explain how online and offline reco differs;
             it seems to just come down to the fact that the HLT doesn't neccesarily use the most high resolution calorimeter information,
             and often generates tracks using a faster, less acurate algorithm.
+
+        Reconstruction is performed for an event twice.
+        It is first done rapidly, using coarse measurments and calculations,
+            for the purpose of allowing the aforementioned HLT to trigger events for readout.
+        These events which pass the trigger are passed off to a massive global computer cluster reffered to as the GRID.
+        No longer bound by the stringent time contrainsts of the ``online'' running environment,
+            the GRID is able to devote vast amounts of time and computing power to a second, 
+            more comprehensive, reconstruction of each event.
+        For both the ``online'' (HLT) and ``offline'' (GRID) environments, event reconstruction is carried out by the same suite of software,
+            called \textit{Athena}.
             
         I should also describe the mv2 reweighting procedure here
             (We don't use mv2 for the late-stage b-tag requirement on the higgs decay candidates,
@@ -111,12 +120,3 @@
 
 
 
-    %Reconstruction is performed for an event twice.
-    %It is first done rapidly, using coarse measurments and calculations,
-    %    for the purpose of allowing the aforementioned HLT to trigger events for readout.
-    %These events which pass the trigger are passed off to a massive global computer cluster reffered to as the GRID.
-    %No longer bound by the stringent time contrainsts of the ``online'' running environment,
-    %    the GRID is able to devote vast amounts of time and computing power to a second, 
-    %    more comprehensive, reconstruction of each event.
-    %For both the ``online'' (HLT) and ``offline'' (GRID) environments, event reconstruction is carried out by the same suite of software,
-    %    called \textit{Athena}.

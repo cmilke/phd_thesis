@@ -1,3 +1,141 @@
 \chapter{Background Estimation}
 
-Selection doesn't remove all non-signal events (not even close...), so we need to be able to model the background that remains.
+\section{Data Reweighting}
+
+Selection doesn't remove all non-signal events (not even close...),
+    so we need to be able to model the background (which consists of ttbar and QCD) that remains.
+
+We need a way to predict what the kinematic shape of the background will look like in the 4b Signal region,
+    without looking in the signal region.
+Background simulation with MC is not feasible because the background for this many jets is absurd
+    and not something we can simulate in a reasonable time-span.
+Instead, we're going to predict the background in our data using *other* parts of our data.
+
+Fundamental assumption is that background events with only 2 b-tagged jets (2b data)
+    will have kinematics very similar to the background events with 4 b-tagged (4b) jets.
+Thus, we can use the kinematic distribution of the 2b signal region as an estimate of the background in the 4b signal region.
+Unfortunately, we can't expect the kinematics to match completely, so we have to "reweight" the 2b signal data,
+    which adjusts the kinematic distribution to match that of 4b.
+This reweighting takes the form of a function $R$,
+    which for each event $i$ takes a series of kinematic variables $x_i$ as an argmuent,
+    and returns a reweight value $r_i$ that scales that event's contribution to kinematic distributions:
+    $r_i = R(x_i)$.
+The set of variables used for this function are discussed in a later section
+    (just copy your appendix on the VBF NNRW vars from the int note).
+
+This reweighting function is derived using machine learning techniques.
+A neural network is trained to identify how reweight 2b data such that the final result looks like 4b data.
+Though, in order to improve stability in the reweighting function,
+    we use not one neural network, but rather the median of 100 neural networks (which is called the "Nominal Estimate").
+Note that each neural network instance $j$ produces a reweighting factor $w_{ij}$, and has a normalization factor $\alpha_j$ associated with it.
+This normalization is such that the total yield of all 2b reweighted events,
+    matches that of the 4b yield in the same region.
+So for $N$ total 2b events and $N'$ total 4b events:
+    \begin{equation}
+    \sum_{i=1}^{N} \alpha_j w_{ij} = N'
+    \end{equation}
+
+The nominal estimate $\tilde{w}$ constructed from the median of these networks will not neccesarily satisfy this same relation,
+    so it is given its own seperate normalization $\tilde \alpha$:
+    \begin{equation}
+    \sum_{i=1}^{N} \tilde \alpha \tilde w_i = N'
+    \end{equation}
+
+    TODO: include a bunch of those reweighting validation plots
+
+
+\section{VBF Reweighting Variables}
+    
+    TODO: copy your appendix from the int note in here
+
+\section{Systematic Error}
+
+The problem with this training approach, is that the 4b signal region cannot be used to train against.
+Instead, the Neural networks must be trained on the Control region (4b Cr?).
+Because the reweighting function is trained on a different kinematic region than the signal region,
+    a systematic uncertainty is associated with it.
+This is calculated by training another ensemble of NNs on yet another kinematic region (Validation);
+    the difference between the median of these validation-trained NNs and the nominal estimate
+    is used to compute the overall background estimation systematic uncertainty.
+The precise formula for this error is:
+    $what?$.
+
+
+The region difference error is combined with a additional errors resulting from a lot of things.
+
+\section{Statistical Error}
+
+Now to talk about statistical error in the Neural network estimate
+
+Poisson stat errors: stat error on bin i is 
+    \begin{equation}
+    \sigma_i = \sqrt{\sum_{j \in i} w_j^2}
+    \end{equation}
+
+Bootstrap uncertainty: A bin-by-bin statistical error resulting from the variations in each of the networks' reweighting functions.
+Naively, this would mean using the average of all networks, with an error calculated as the standard deviation of all histograms of all the networks, for a given variable of interest.
+Slightly less naively (to make us more robust to outliers),
+    we would use the median of all networks, and the IQR values of the networks as the error.
+In reality, it's impractical to retain the information of all networks for all histograms.
+We can still use the median value, but the error has to be calculated another way.
+Specifically, the error is calculated by storing a small amount of extra information regarding the IQR of the bootstraps.
+Whenever a kinematic distribution is produced, \textbf{two} histograms are generated:
+    the nominal histogram, and the \textit{varied} histogram.
+The difference between the values of the nominal and varied histograms, per bin,
+    are taken as the error on that bin for the nominal histogram.
+
+The nominal event weights are calculated as
+    \begin{equation}
+    \tilde w_i = \textrm{median}(\alpha_1 w_{1,i}, ..., \alpha_{100} w_{100,i})
+    \end{equation}
+    with the normalization $\tilde \alpha$ calculated as described above.
+So if the yield of normalized nominal weights is denoted
+    \begin{equation}
+    \tilde Y \equiv \sum_{i=1}^{N} \tilde \alpha \tilde w_i = \textrm{yield of 4b control region}
+    \end{equation}
+then the values of the bins of the nominal histogram, $H_j$ are:
+    \begin{equation}
+    H_j = \tilde \alpha \sum_{i \in j} \tilde w_i
+    \end{equation}
+
+A "weight variation" factor is calculated per event as 
+    \begin{equation}
+    V^w_i = \frac{1}{2}\textrm{IQR}(w_{1,i}, w_{2,i}, ..., w_{100,i})
+    \end{equation}
+Likewise, a "normalization variation" factor is calculated as
+    \begin{equation}
+    V^{\alpha} = \frac{1}{2}\textrm{IQR}(\alpha_{1}, \alpha_{2}, ..., \alpha_{100})
+    \end{equation}
+The sum of the varied weights is 
+    \begin{equation}
+    Y_v = \sum_{i=1}^{N} \left( \tilde w_i + V^w_i \right)
+    \end{equation}
+And the ratio of the nominal yield to the varied yield is $R_Y \equiv \tilde Y / Y_v$
+
+The "varied" histogram $H'$ is then calculated based on these variation factors as:
+    \begin{equation} \begin{split}
+    H'_j &= \left[ R_Y \sum_{i \in j} \tilde w_i + V^w_i \right] + V^{\alpha} H_j
+    \\H'_j &= \sum_{i \in j} \left[ R_Y \left( \tilde w_i + V^w_i \right)
+        + V^{\alpha} \tilde \alpha \tilde w_i \right]
+    \end{split} \end{equation}
+
+The error of the nominal histogram bin $j$ then is
+    \begin{equation} \begin{split}
+    \sigma_j &= | H'_j - H_j |
+    \\&= \left| \sum_{i \in j} \left[
+        R_Y \left( \tilde w_i + V^w_i \right)
+        + V^{\alpha} \tilde \alpha \tilde w_i \right] 
+        -\tilde \alpha \sum_{i \in j} \tilde w_i \right|
+    \\&= \left| \sum_{i \in j} \left[
+        R_Y \left( \tilde w_i + V^w_i \right)
+        + V^{\alpha} \tilde \alpha \tilde w_i 
+        - \tilde \alpha \tilde w_i
+        \right] \right|
+    \\&= \left| \sum_{i \in j} \left[
+        R_Y \left( \tilde w_i + V^w_i \right) 
+        + \tilde \alpha \tilde w_i (V^{\alpha}-1) \right] \right|
+    \end{split} \end{equation}
+
+
+
+
