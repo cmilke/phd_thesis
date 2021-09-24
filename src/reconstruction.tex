@@ -59,13 +59,15 @@
         The jets for this analysis use a more advanced jet algorithm, called \textit{Particle Flow},
             which are constructed by matching tracks from the inner detector to topo-clusters from the calorimeter,
             based on both location and energy projections.
-        The resulting \textit{PFlow Jets} are then used forthwith.
+        The resulting \textit{PFlow Jets} are then used for the rest of the reconstruction process.
         \cite{pflow}
         \cite{jet_energy_scale13TeV}
 
     \section{Flavour Tagging}
         Of crucial importance:
-            b-jets used for higgs, (I should justify this with the high branching ratio of H->b,bbar);
+            b-jets used for higgs,
+                (I should justify this with the high branching ratio of H->b,bbar;
+                you put this in your thesis commitee talk, use it);
             VBF initial scatter jets anti-b-tagged
 
         Flavour Tagging is performed in two-stages:
@@ -77,13 +79,14 @@
             IPxD - IP2D and IP3D - Impact Parameter 2/3 Dimensional; 
 
             Vertex Algos - SV1 (Secondary Vertex 1) and JetFitter
+            \cite{thesis_giacinto}
 
         \subsection{High Level Taggers}
 
             MV2, a Boosted Decision Tree (BDT);
             DL1, a Deep Learning Neural Network (DL1r is what we specifically use)
-        \cite{bjet_id_and_performance}
-        \cite{btagging_optimisation}
+            \cite{bjet_id_and_performance}
+            \cite{btagging_optimisation}
 
     \section{Online VS Offline Reconstruction}
         I should explain how online and offline reco differs;
