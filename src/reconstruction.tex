@@ -1,17 +1,20 @@
 \chapter{Event Reconstruction}
 
-%    Once a bunch crossing event has cleared the Level 1 Trigger system, the process of event reconstruction begins.
-%    An event in ATLAS is, initially, nothing but a collection of electrical signals emitted from the various detectors.
-%    Event reconstruction is the process wherein detector readings are aggregated together into meaningful patterns,
-%        which are interpreted as physical objects and processes.
-%
 
 
     \section{Introduction}
-        Ok let's just get the basic objects contructed first, since nothing else (triggers, later reconstruction, final selection)
-            make sense until I have them.
-
-        This entails ... what? For VBF 4b I think we have:
+        Once a bunch-crossing event has cleared the Level 1 Trigger system, the process of event reconstruction begins.
+        An event in ATLAS is, initially, nothing but a collection of electrical signals emitted from the various detectors.
+        Event reconstruction is the process wherein detector readings are aggregated together into meaningful patterns,
+            which are interpreted as physical objects and processes.
+        The key objects of interest in this analysis are \textit{particle tracks} and \textit{jets}.
+        As well, the process by which b-quark-originating jets (``b-jets'') are distinguished from other jet types,
+            called \textit{flavour tagging}, plays a particularly critical role in this analysis.
+        Finally, special attention will be given to the fact that reconstruction occurs not once, but twice;
+            first in the High Level Trigger online running environment,
+            and again in the offline environment after events have been read out.
+        The ways that reconstruction differs between these two environments plays a subtle but important part
+            in later stages of this analysis, and so is worth discussing further.
 
 
     %    I should have an image for this in some way %TODO
@@ -29,17 +32,30 @@
             This is due to the fact that any charged particle, with a momentum component orthogonal to a magnetic field,
                 will trace out a \textit{helical} trajectory.
             If the shape of the helix is known, then basic electrodynamics principles can be used to determine the
-                momentum, charge, and mass of the particle that formed it.
+                momentum and charge of the particle that formed it.
 
-            To see how this can be done, 
 
+
+            Specifically, for a particle with four-momentum given as 
+            \begin{equation}
+            p = \minimatrix{E \\ p_T \\ \theta \\ \phi}
+            \end{equation}
+            the track's helical shape can reveal all components except for the energy $E$ (this will be handled by the calorimeters).
+            Most notably, the radius of curvature of the helix, $r$, can be related through the lorentz force and centripetal acceleration
+                to the particle's tranverse momentum and charge
+            \begin{equation}
+            r = \frac{p_T}{qB} = \frac{\vec{p} \sin(\theta)}{qB}
+            \end{equation}
+            where $B$ is the magnetic field of the Inner Detector Solenoid Magnet.
+
+            To understand 
             
 
 
 
             Might need to explain helix parameters as well
             \cite{thesis_track_sim_and_reco}
-            \cite{charged_particle_tracking}
+            \cite{thesis_giacinto}
 
         \subsection{Track Reconstruction}
 
@@ -141,6 +157,5 @@
             Step4   - Rerun HLT reco on MC once more, to get full retuned tagging ouput. Use output performance to determine working points;
 
 
-    \section{Scale Factors}
-        
-        Ugghhh... I wonder if this should go up into the trigger chapter? Might make more sense
+    %\section{Scale Factors} %TODO
+        %Ugghhh... I wonder if this should go up into the trigger chapter? Might make more sense
