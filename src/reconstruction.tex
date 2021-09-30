@@ -33,29 +33,58 @@
                 will trace out a \textit{helical} trajectory.
             If the shape of the helix is known, then basic electrodynamics principles can be used to determine the
                 momentum and charge of the particle that formed it.
-
-
-
             Specifically, for a particle with four-momentum given as 
             \begin{equation}
             p = \minimatrix{E \\ p_T \\ \theta \\ \phi}
             \end{equation}
             the track's helical shape can reveal all components except for the energy $E$ (this will be handled by the calorimeters).
-            Most notably, the radius of curvature of the helix, $r$, can be related through the lorentz force and centripetal acceleration
-                to the particle's tranverse momentum and charge
+            To understand how this is achieved, it is worth discussing how a track helix is described mathematically.
+            A helix can be described using five parameters structured in a parametric equation.
+            There are several conventions for the form these parameters should take,
+                but in ATLAS a helix is described by the equations\cite{thesis_giacinto}:
+            \begin{equation} \begin{split}
+            x(\alpha) &= x_{PV} + d_0 \cos(\phi) + \rho \left[ \cos(\alpha) - \cos(\phi) \right] \\
+            y(\alpha) &= y_{PV} + d_0 \sin(\phi) + \rho \left[ \sin(\alpha) - \sin(\phi) \right] \\
+            z(\alpha) &= z_{PV} + z_0 - \rho \cot(\theta) (\alpha - \phi)
+            \end{split} \end{equation}
+
+            The helix is described relative to the Primary Vertex, whose position is given by the coordinates $(x_{PV},y_{PV},z_{PV})$.
+            The five parameters governing the shape of this helix, called \textit{perigee paramters}, 
+                are described largely in terms of the ``Point of Closest Approach'' (PoCA),
+                the point on the helix closest to the PV in the $x,y$ plane.
+            \begin{itemize}
+                \item $d_0$: $|(x,y)|$-Distance from the PV to the closest point on the helix, in the $x,y$ plane
+                \item $z_0$: $z$-Distance between the PoCA and the PV
+                \item $\phi$: Angle in the $x,y$ plane of the PoCA
+                \item $\theta$: The angle of the helix's trajectory in the $\rho,z$ plane
+                \item $\rho$: The radius of curvature of the helix
+            \end{itemize}
+
+            \begin{figure}
+                \subfloat[Perigee Parameters]{
+                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_base}
+                }
+                \subfloat[Front View, $(x,y)$-Plane]{
+                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_front}
+                }\\
+                \subfloat[Top View, $(x,z)$-Plane]{
+                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_top}
+                }
+                \caption{
+                    Perigee parameters are hard!
+                }
+                \label{fig:perigee_params}
+            \end{figure}
+            
+
+            Both $d_0$ and $z_0$ will be used in later sections for the purpose of flavour tagging.
+            Returning to the four-momentum, $\phi$ and $\theta$ are themselves components of the particle's 4-vector.
+            The final parameter, $\rho$ can then be related to the particle's tranverse momentum and electric charge as
             \begin{equation}
             r = \frac{p_T}{qB} = \frac{\vec{p} \sin(\theta)}{qB}
             \end{equation}
             where $B$ is the magnetic field of the Inner Detector Solenoid Magnet.
-
-            To understand 
-            
-
-
-
-            Might need to explain helix parameters as well
             \cite{thesis_track_sim_and_reco}
-            \cite{thesis_giacinto}
 
         \subsection{Track Reconstruction}
 
