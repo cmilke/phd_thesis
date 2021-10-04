@@ -43,12 +43,12 @@
             There are several conventions for the form these parameters should take,
                 but in ATLAS a helix is described by the equations\cite{thesis_giacinto}:
             \begin{equation} \begin{split}
-            x(\alpha) &= x_{PV} + d_0 \cos(\phi) + \rho \left[ \cos(\alpha) - \cos(\phi) \right] \\
-            y(\alpha) &= y_{PV} + d_0 \sin(\phi) + \rho \left[ \sin(\alpha) - \sin(\phi) \right] \\
-            z(\alpha) &= z_{PV} + z_0 - \rho \cot(\theta) (\alpha - \phi)
+            x(\alpha) &= d_0 \cos(\phi) + \rho \left[ \cos(\alpha) - \cos(\phi) \right] \\
+            y(\alpha) &= d_0 \sin(\phi) + \rho \left[ \sin(\alpha) - \sin(\phi) \right] \\
+            z(\alpha) &= z_0 - \rho \cot(\theta) (\alpha - \phi)
             \end{split} \end{equation}
 
-            The helix is described relative to the Primary Vertex, whose position is given by the coordinates $(x_{PV},y_{PV},z_{PV})$.
+            The helix is described relative to the Interaction Region's origin.
             The five parameters governing the shape of this helix, called \textit{perigee paramters}, 
                 are described largely in terms of the ``Point of Closest Approach'' (PoCA),
                 the point on the helix closest to the PV in the $x,y$ plane.
@@ -71,7 +71,7 @@
                     \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_top}
                 }
                 \caption{
-                    Perigee parameters are hard!
+                    Perigee parameters are hard! Also I need to replace PV with just Origin, since the PV comes later (oops).
                 }
                 \label{fig:perigee_params}
             \end{figure}
@@ -94,11 +94,11 @@
             %Clusterization
             The first step to producing a track is the process of clusterization.
             Ionizing particles often deposit energy across several adjacent pixels on a given layer.
-            A \textit{connected component analysis} algorithm is used to group pixels together. 
+            A \textit{connected component analysis} algorithm is used to group pixels together.
             Based on the pattern of energy distribution in these groups,
                 a \textit{space-point} is created indicating the estimated position at which a particle crossed the detector.
             Several space-points can be assigned to the same pixel cluster,
-                if the energy deposition pattern suggests multiple particles traversed the same location.
+                if the energy readout pattern suggests multiple particles traversed the same location.
 
             %Combinatorial track finding
             Initial guesses at tracks, called track seeds, are formed by assembling all realistic combinations of three space-points.
@@ -114,17 +114,47 @@
             Neural networks are used to assist in some ambiguity solving situations,
                 as well as to help identify clusters with multiple valid tracks.
             Once ambiguities have been resolved and all malformed track candidates removed,
-                the remaining tracks are refit using all available information at high-resolution.
-            \cite{atlas_track_reco_performance}
+                the remaining tracks are refit using all available information at high-resolution\cite{atlas_track_reco_performance}.
 
     \section{Jets}
-        Jets are an algorithm.
-        Specifically, the anti-$k_t$ algorithm, with $\Delta R = 0.4$.
-        Something about topological-clusters (topo-clusters).
-        \cite{anti_kt}
+        Moving outwards from the inner tracker into the calorimeters, focus shifts from tracks to the reconstructed objects known as \textit{jets}.
+        Jets are an attempt to encapsulate the process of scattering within high-Z materials.
+        A high energy particle encoutering the heavy-metal plates in the calorimeters will be deflected,
+            while releasing other particles which travel in different directions.
+        All these new particles will produce similar reactions, until the various particles posses too little energy to produce any more scattering.
+        The overall effect appears as a cone-shaped shower of particles,
+            whose ``tip'' is located at the original particle's point of entry into the calorimeters.
+        This cone has an associated vector corresponding to the direction the cone opens out at.
+        Due to conservation of momentum, the momentum vector of the original particle will be roughly equal to the jet vector,
+            since the total momentum of the various scattered particles must sum back to the momentum of the initial particle.
+
+        Though jets are meant to represent a physical phenomenon,
+            it should be emphasized that jets themselves \textit{are not physical objects}.
+        Rather, jets are an algorithm.
+        Specifically, jets are an algorithm used to cluster different cells in a calorimeter together,
+            based on the energy deposited in each cell.
+        The general goal is to have each complete ``topological cluster'' (topo-cluster) correspond to one particle.
+        In practice however, particles frequently overlap in their energy deposition,
+            making it challenging to distinguish where one cluster should begin and another should end.
+        Historically, a number of different jet algorithms have been used to describe particle showers.
+        In ATLAS, the jet algorithm currently in use is the \textit{\antikt} clustering algorithm\cite{anti_kt},
+            whose adoption has largely been motivated by its robust ability to isolate jet boundaries both from each other
+            and from the surrounding stochastic noise of the detector.
+
+        Once topo-clusters have been formed, their energy and momentum must be calibrated.
+        As discussed in Section \ref{sec:calorimeter}, the ATLAS calorimeters are sampling calorimeters.
+        This means that the bulk of energy deposited is lost in inactive material, and not read out.
+        Additional energy losses are incurred from inefficiencies in the clustering algorithm and from the \textit{non-compensating} nature of ATLAS calorimeters.
+        That is, they do not have an intrinsic method to acount for the fact that electromagnetic radiation deposits a higher fraction of its energy into the detectors than hadronic radiation.
+        \cite{cell_clustering}
+        
+
         Something about assuming hard-scatter jets come from the primary vertex.
         Also explain what a primary vertex is.
         FYI, a primary vertex is a "reconstructed vertex with at least two associated tracks, and the largest sum of squared track momentum".
+        \cite{jet_energy_scale13TeV}
+
+
 
         Jets created using only calorimeter-based topological-clusters (at the electromagnetic scale [what does this mean??]) %TODO?
             are reffered to as \textit{EMtopo Jets}.
@@ -133,7 +163,6 @@
             based on both location and energy projections.
         The resulting \textit{PFlow Jets} are then used for the rest of the reconstruction process.
         \cite{pflow}
-        \cite{jet_energy_scale13TeV}
 
     \section{Flavour Tagging}
         Of crucial importance:
@@ -174,6 +203,8 @@
             more comprehensive, reconstruction of each event.
         For both the ``online'' (HLT) and ``offline'' (GRID) environments, event reconstruction is carried out by the same suite of software,
             called \textit{Athena}.
+
+        %TODO: Do I have ROC curves comparing MV2c10 scores b/t on and offline?
             
         I should also describe the mv2 reweighting procedure here
             (We don't use mv2 for the late-stage b-tag requirement on the higgs decay candidates,
@@ -185,6 +216,3 @@
             Step3.2 - Convert training output to useable histograms;
             Step4   - Rerun HLT reco on MC once more, to get full retuned tagging ouput. Use output performance to determine working points;
 
-
-    %\section{Scale Factors} %TODO
-        %Ugghhh... I wonder if this should go up into the trigger chapter? Might make more sense
