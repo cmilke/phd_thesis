@@ -1,7 +1,5 @@
 \chapter{Event Reconstruction}
 
-
-
     \section{Introduction}
         Once a bunch-crossing event has cleared the Level 1 Trigger system, the process of event reconstruction begins.
         An event in ATLAS is, initially, nothing but a collection of electrical signals emitted from the various detectors.
@@ -17,7 +15,6 @@
             in later stages of this analysis, and so is worth discussing further.
 
 
-    %    I should have an image for this in some way %TODO
     \section{Tracks}
             
             %Intro about tracks being the first things we see because they're assembled from the inner detector or something.
@@ -138,31 +135,42 @@
             making it challenging to distinguish where one cluster should begin and another should end.
         Historically, a number of different jet algorithms have been used to describe particle showers.
         In ATLAS, the jet algorithm currently in use is the \textit{\antikt} clustering algorithm\cite{anti_kt},
-            whose adoption has largely been motivated by its robust ability to isolate jet boundaries both from each other
+            whose adoption has been motivated by its robust ability to isolate jet boundaries both from each other
             and from the surrounding stochastic noise of the detector.
+        [NOTE: Hey Steve, do I need to describe how antikt works?
+        It's not that complicated, but it's kinda weird and unintuitive and I'm not sure if its description would add much]
 
         Once topo-clusters have been formed, their energy and momentum must be calibrated.
         As discussed in Section \ref{sec:calorimeter}, the ATLAS calorimeters are sampling calorimeters.
         This means that the bulk of energy deposited is lost in inactive material, and not read out.
         Additional energy losses are incurred from inefficiencies in the clustering algorithm and from the \textit{non-compensating} nature of ATLAS calorimeters.
-        That is, they do not have an intrinsic method to acount for the fact that electromagnetic radiation deposits a higher fraction of its energy into the detectors than hadronic radiation.
-        \cite{cell_clustering}
-        
+        That is, they do not have an intrinsic method to acount for the fact that electromagnetic radiation deposits a higher fraction of its energy into the detectors than hadronic radiation\cite{cell_clustering}.
 
-        Something about assuming hard-scatter jets come from the primary vertex.
-        Also explain what a primary vertex is.
-        FYI, a primary vertex is a "reconstructed vertex with at least two associated tracks, and the largest sum of squared track momentum".
-        \cite{jet_energy_scale13TeV}
+        After correcting for energy, the next step is to correct for momentum.
+        This is achieved by making a key assumption in reconstruction, related to the \textit{Primary Vertex}.
+        When bunches collide in the IR of ATLAS, most of the collisions of a given bunch are fairly minor.
+        Events which clear the L1 trigger however, typically do so because of the presence of a hard-scatter interaction.
+        Identifying the location along the beamline at which this hard-scatter interaction occured is achieved via ``vertex-finding.''
+        Points along $z$ from which particles originate are reffered to as ``vertices''.
+        They are identified in reconstruction by tracing the aformentioned tracks backwards
+            and identifying points at which they intersect the $z$-axis.
+        Most of the vertices are of little interest, and are known as Pile-up vertices.
+        The vertex assumed to be associated with the hard-scatter interaction, called the Primary Vertex (PV),
+            is identified as a vertex which is associated with two tracks,
+            and whose tracks posses the largest sum of squared momentum\cite{jet_energy_scale13TeV}.
+        Reconstructed jets are assumed to originate from the hard-scatter interaction point.
+        Thus, the momentum vectors associated with the jets and their topo-clusters are adjusted to point back from the PV.
 
+        As a final step in the jet reconstruction process for this analyis comes the track-matching algorithm.
+        To improve the performance of reconstructing hadronic jets,
+            the various jet vectors are each matched to a corresponding track that the jet likely started from.
+        This algorithm, called \textit{Particle Flow} treats the jets as extensions of the reconstructed particles,
+            matching jets to tracks based on both location and energy projections.
+        The resulting jet-track combination objects are known as \textit{PFlow Jets},
+            which are then used for the rest of the reconstruction process\cite{pflow}.
 
-
-        Jets created using only calorimeter-based topological-clusters (at the electromagnetic scale [what does this mean??]) %TODO?
-            are reffered to as \textit{EMtopo Jets}.
-        The jets for this analysis use a more advanced jet algorithm, called \textit{Particle Flow},
-            which are constructed by matching tracks from the inner detector to topo-clusters from the calorimeter,
-            based on both location and energy projections.
-        The resulting \textit{PFlow Jets} are then used for the rest of the reconstruction process.
-        \cite{pflow}
+        %Jets created using only calorimeter-based topological-clusters (at the electromagnetic scale [what does this mean??]) %TODO?
+            %are reffered to as \textit{EMtopo Jets}. %I still don't really get this, and I'm not sure they're even really used, so imma skip it
 
     \section{Flavour Tagging}
         Of crucial importance:
