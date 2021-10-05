@@ -50,8 +50,8 @@
                 are described largely in terms of the ``Point of Closest Approach'' (PoCA),
                 the point on the helix closest to the PV in the $x,y$ plane.
             \begin{itemize}
-                \item $d_0$: $|(x,y)|$-Distance from the PV to the closest point on the helix, in the $x,y$ plane
-                \item $z_0$: $z$-Distance between the PoCA and the PV
+                \item $d_0$: $|(x,y)|$-Distance from the origin to the closest point on the helix, in the $x,y$ plane
+                \item $z_0$: $z$-Distance between the PoCA and the origin
                 \item $\phi$: Angle in the $x,y$ plane of the PoCA
                 \item $\theta$: The angle of the helix's trajectory in the $\rho,z$ plane
                 \item $\rho$: The radius of curvature of the helix
@@ -173,22 +173,46 @@
             %are reffered to as \textit{EMtopo Jets}. %I still don't really get this, and I'm not sure they're even really used, so imma skip it
 
     \section{Flavour Tagging}
-        Of crucial importance:
-            b-jets used for higgs,
-                (I should justify this with the high branching ratio of H->b,bbar;
-                you put this in your thesis commitee talk, use it);
-            VBF initial scatter jets anti-b-tagged
+        
+        There are many kinds of particles and processes that can produce jets.
+        One particular kind of jet which is integral to this analysis is that of b-quark-initiated jets,
+            more simply known as b-jets.
+        B-jets are important because, of all the particles the Higgs can decay to,
+            its branching ratio to a $\bbar$ pair is highest.
+        Distinguishing b-jets from other jet types,
+            achieved through the process of \textit{flavour tagging},
+            is therefore of paramount importance in this analysis.
+        Flavour Tagging in ATLAS is performed in two stages;
+            first with a set of simple low-level taggers,
+            and then with a set of more sophisticated taggers which use the low-level tagger information as inputs.
 
-        Flavour Tagging is performed in two-stages:
-            first with basic low-level taggers,
-            which are then used as inputs for the high level taggers.
+        \subsection{Impact Paramter Taggers}
 
-        \subsection{Low Level Taggers}
+            The low-level b-tagging algorithms come mainly in the two forms of impact parameter taggers and vertex algorithms.
+            IP2D and IP3D are the two and three-dimensional impact parameter-based taggers.
+            They take advantage of the fact that b-quarks are significantly longer lived than light and charm quarks,
+                and thus their associated tracks typically have larger impact parameter values.
+            They take every track associated with a PFlow Jet,
+                and then use a slightly modified version of the perigee parameters discussed above in order to tag it.
+            Namely, the $d_0$ and $z_0$ parameters are given a positive or negative sign to help better emphasize key characteristics of b-jets.
+            [explain the sign convention.]
+            Physically, this sign convention is to distinguish tracks which are likely to have actually been part of the jet (with a positive sign)
+                from those likely originating from pile-up vertices (negative sign).
+            Values are associated with \textit{each} track in a jet based on probability density functions (PDF) of the different jet types.
+            IP2D and IP3D are then constructed as likelihood ratios of the product of all track-values $t_i$for a jet.
+            For example, the likelihood ratio of a jet being a b-jet versus a light-jet would be based on
+                the PDF of the impact parameter for b-jets ($\textrm{PDF}_b$) to that for light-jets ($\textrm{PDF}_l$)
 
-            IPxD - IP2D and IP3D - Impact Parameter 2/3 Dimensional; 
+            \begin{equation}
+                R(t_1, t_2, ... t_N) \equiv \frac{\prod_{i=1}{N} \textrm{PDF}_b(t_i)}{\prod_{i=1}{N} \textrm{PDF}_l(t_i)}
+            \end{equation}
+
+            These distributions are then used as a discriminant to distinguish b-jets from charm and light-jets
+                (see Figure TODO)\cite{thesis_giacinto}.
+
+        \subsection{Secondary Vertexing Algorithms}
 
             Vertex Algos - SV1 (Secondary Vertex 1) and JetFitter
-            \cite{thesis_giacinto}
 
         \subsection{High Level Taggers}
 
