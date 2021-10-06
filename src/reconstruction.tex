@@ -40,12 +40,14 @@
             There are several conventions for the form these parameters should take,
                 but in ATLAS a helix is described by the equations\cite{thesis_giacinto}:
             \begin{equation} \begin{split}
-            x(\alpha) &= d_0 \cos(\phi) + \rho \left[ \cos(\alpha) - \cos(\phi) \right] \\
-            y(\alpha) &= d_0 \sin(\phi) + \rho \left[ \sin(\alpha) - \sin(\phi) \right] \\
-            z(\alpha) &= z_0 - \rho \cot(\theta) (\alpha - \phi)
+            x(\alpha) &= x_R + d_0 \cos(\phi) + \rho \left[ \cos(\alpha) - \cos(\phi) \right] \\
+            y(\alpha) &= y_R + d_0 \sin(\phi) + \rho \left[ \sin(\alpha) - \sin(\phi) \right] \\
+            z(\alpha) &= z_R + z_0 - \rho \cot(\theta) (\alpha - \phi)
             \end{split} \end{equation}
 
-            The helix is described relative to the Interaction Region's origin.
+            The helix is described relative to some sort of reference point $R$,
+                which is initially set to beam-spot location in the IR
+                (later stages of tracking will redefine the perigee parameters with respect to different reference points as needed).
             The five parameters governing the shape of this helix, called \textit{perigee paramters}, 
                 are described largely in terms of the ``Point of Closest Approach'' (PoCA),
                 the point on the helix closest to the PV in the $x,y$ plane.
@@ -68,7 +70,7 @@
                     \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_top}
                 }
                 \caption{
-                    Perigee parameters are hard! Also I need to replace PV with just Origin, since the PV comes later (oops).
+                    Perigee parameters are hard! Also I need to replace PV with just Reference, since the PV comes later (oops).
                 }
                 \label{fig:perigee_params}
             \end{figure}
@@ -113,6 +115,26 @@
             Once ambiguities have been resolved and all malformed track candidates removed,
                 the remaining tracks are refit using all available information at high-resolution\cite{atlas_track_reco_performance}.
 
+        \subsection{Primary Vertexing}
+
+            Once track filtering has concluded,
+                the remaining tracks can be used to identify a crucial piece of event information, 
+                called the \textit{Primary Vertex}.
+            When bunches collide in the IR of ATLAS, most of the collisions of a given bunch are fairly minor.
+            Events which clear the L1 trigger however, typically do so because of the presence of a hard-scatter interaction. %FIXME: really?
+            Identifying the location along the beamline at which this hard-scatter interaction occured is achieved via ``vertex-finding.''
+            Points along $z$ from which particles originate are reffered to as ``vertices''.
+            They are identified in reconstruction by tracing the reconstructed tracks backwards
+                and identifying points at which they intersect the $z$-axis.
+            All tracks which intersect at the same point are associated to that vertex.
+            Most of the vertices are of little interest, and are known as Pile-up vertices.
+            The vertex assumed to be the location of the hard-scatter interaction, called the Primary Vertex (PV),
+                is identified as a vertex associated with at least two tracks,
+                and whose tracks posses the largest sum of squared momentum\cite{jet_energy_scale13TeV}.
+            Once the primary vertex is identified, the high resolution track fitting step is rerun,
+                but now with the Primary Vertex set as the reference point $R$ instead of the beamspot.
+
+
     \section{Jets}
         Moving outwards from the inner tracker into the calorimeters, focus shifts from tracks to the reconstructed objects known as \textit{jets}.
         Jets are an attempt to encapsulate the process of scattering within high-Z materials.
@@ -147,17 +169,6 @@
         That is, they do not have an intrinsic method to acount for the fact that electromagnetic radiation deposits a higher fraction of its energy into the detectors than hadronic radiation\cite{cell_clustering}.
 
         After correcting for energy, the next step is to correct for momentum.
-        This is achieved by making a key assumption in reconstruction, related to the \textit{Primary Vertex}.
-        When bunches collide in the IR of ATLAS, most of the collisions of a given bunch are fairly minor.
-        Events which clear the L1 trigger however, typically do so because of the presence of a hard-scatter interaction.
-        Identifying the location along the beamline at which this hard-scatter interaction occured is achieved via ``vertex-finding.''
-        Points along $z$ from which particles originate are reffered to as ``vertices''.
-        They are identified in reconstruction by tracing the aformentioned tracks backwards
-            and identifying points at which they intersect the $z$-axis.
-        Most of the vertices are of little interest, and are known as Pile-up vertices.
-        The vertex assumed to be associated with the hard-scatter interaction, called the Primary Vertex (PV),
-            is identified as a vertex which is associated with two tracks,
-            and whose tracks posses the largest sum of squared momentum\cite{jet_energy_scale13TeV}.
         Reconstructed jets are assumed to originate from the hard-scatter interaction point.
         Thus, the momentum vectors associated with the jets and their topo-clusters are adjusted to point back from the PV.
 
@@ -186,20 +197,24 @@
             first with a set of simple low-level taggers,
             and then with a set of more sophisticated taggers which use the low-level tagger information as inputs.
 
-        \subsection{Impact Paramter Taggers}
+        \subsection{Impact Parameter Taggers}
 
             The low-level b-tagging algorithms come mainly in the two forms of impact parameter taggers and vertex algorithms.
             IP2D and IP3D are the two and three-dimensional impact parameter-based taggers.
-            They take advantage of the fact that b-quarks are significantly longer lived than light and charm quarks,
-                and thus their associated tracks typically have larger impact parameter values.
             They take every track associated with a PFlow Jet,
                 and then use a slightly modified version of the perigee parameters discussed above in order to tag it.
             Namely, the $d_0$ and $z_0$ parameters are given a positive or negative sign to help better emphasize key characteristics of b-jets.
             [explain the sign convention.]
             Physically, this sign convention is to distinguish tracks which are likely to have actually been part of the jet (with a positive sign)
                 from those likely originating from pile-up vertices (negative sign).
-            Values are associated with \textit{each} track in a jet based on probability density functions (PDF) of the different jet types.
-            IP2D and IP3D are then constructed as likelihood ratios of the product of all track-values $t_i$for a jet.
+            %TODO: I might want a plot explaining this. kinda like giacinto's figure 6.3, but ideally less confusing
+
+            Values are assigned to \textit{each} track in a jet based on probability density functions (PDF) of the different jet types.
+            Specifically, a PDF is constructed of the impact parameter \textit{significance}, $d_0/\sigma_{d0}$,
+                where $\sigma_{d0}$ is the error of the measurment.
+            The probability that a given track, $i$, would have some impact parameter significance value (based on the PDF)
+                is then that track's assigned IP2D value, $t_i$.
+            IP2D and IP3D are then constructed as likelihood ratios of the product of all track-values for a jet.
             For example, the likelihood ratio of a jet being a b-jet versus a light-jet would be based on
                 the PDF of the impact parameter for b-jets ($\textrm{PDF}_b$) to that for light-jets ($\textrm{PDF}_l$)
 
@@ -207,12 +222,15 @@
                 R(t_1, t_2, ... t_N) \equiv \frac{\prod_{i=1}{N} \textrm{PDF}_b(t_i)}{\prod_{i=1}{N} \textrm{PDF}_l(t_i)}
             \end{equation}
 
-            These distributions are then used as a discriminant to distinguish b-jets from charm and light-jets
-                (see Figure TODO)\cite{thesis_giacinto}.
+            These distributions are then used as a discriminant to distinguish b-jets and charm-jets from light-jets
+                (see Figure TODO)\cite{thesis_giacinto}. %TODO: is there non-empiricle, like, physics reason for this?
 
-        \subsection{Secondary Vertexing Algorithms}
+        \subsection{Secondary Vertexing}
 
             Vertex Algos - SV1 (Secondary Vertex 1) and JetFitter
+
+            They take advantage of the fact that b-quarks are significantly longer lived than light and charm quarks,
+                and thus their associated secondary vertices typically have a larger displacement from the primary vertex.
 
         \subsection{High Level Taggers}
 
@@ -222,6 +240,7 @@
             \cite{btagging_optimisation}
 
     \section{Online VS Offline Reconstruction}
+
         I should explain how online and offline reco differs;
             it seems to just come down to the fact that the HLT doesn't neccesarily use the most high resolution calorimeter information,
             and often generates tracks using a faster, less acurate algorithm.
