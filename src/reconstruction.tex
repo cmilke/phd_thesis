@@ -223,19 +223,29 @@
             \end{equation}
 
             These distributions are then used as a discriminant to distinguish b-jets and charm-jets from light-jets
-                (see Figure TODO)\cite{thesis_giacinto}. %TODO: is there non-empiricle, like, physics reason for this?
+                (see Figure TODO)\cite{thesis_giacinto}. %TODO: is there a non-empiricle, like, physics reason for this?
 
         \subsection{Secondary Vertexing}
 
-            Vertex Algos - SV1 (Secondary Vertex 1) and JetFitter
-
-            They take advantage of the fact that b-quarks are significantly longer lived than light and charm quarks,
+            Secondary Vertexing algorithms take advantage of the fact that b-quarks are significantly longer lived than light and charm quarks,
                 and thus their associated secondary vertices typically have a larger displacement from the primary vertex.
+            In ATLAS, there are two primary algorithms used to perform btagging with Secondary Vertexing.
+            Realistically, hadronic matter decays in multiple steps, producing a series of close vertices each emitting more particles.
+            The first of the ATLAS Secondary Vertex algorithms, JetFitter, seeks to reconstruct this full multi-vertex structure of the hadronic decay.
+            In contrast, the other algorithm, SV1 (Secondary Vertex 1), works by making an approximation as to how hadronic decays behave.
+            SV1 takes a simpler view of the decay process, and reconstructs all the resulting tracks as products of a single secondary vertex.
+            For both algorithms, several fit parameters are produced from the vertexing,
+                which are then used both as discriminants themselves,
+                as well as utilized in the next step as inputs to the more advanced taggers\cite{btagging_optimisation}.
 
         \subsection{High Level Taggers}
 
-            MV2, a Boosted Decision Tree (BDT);
-            DL1, a Deep Learning Neural Network (DL1r is what we specifically use)
+            After running all of the low level taggers,
+                the final step in flavour tagging is the use of a pair of high-level machine-learing-based tagging algorithms.
+            There are two high level taggers, both trained and run using inputs from the various low-level taggers discussed earlier.
+            MV2, the Multi-Variat tagger, is a boosted decision tree (BDT).
+            DL1, the Deep Learning tagger, is a multi-layer neural network.
+            In the case of this analysis, a recurant neural network version of DL1, called DL1r, is used instead.
             \cite{bjet_id_and_performance}
             \cite{btagging_optimisation}
 
