@@ -17,8 +17,6 @@
 
     \section{Tracks}
             
-            %Intro about tracks being the first things we see because they're assembled from the inner detector or something.
-            %Also I should probably explain what a track is...
         \subsection{Track Definition}
             
             The first point of contact for anything leaving the interaction region of ATLAS is the tracking detectors.
@@ -99,6 +97,8 @@
             Several space-points can be assigned to the same pixel cluster,
                 if the energy readout pattern suggests multiple particles traversed the same location.
 
+            %TODO - pic: Find an image of track fitting some points?
+
             %Combinatorial track finding
             Initial guesses at tracks, called track seeds, are formed by assembling all realistic combinations of three space-points.
             The track seeds are assigned helix parameters by assuming they travel through a uniform magnetic field,
@@ -147,6 +147,8 @@
         Due to conservation of momentum, the momentum vector of the original particle will be roughly equal to the jet vector,
             since the total momentum of the various scattered particles must sum back to the momentum of the initial particle.
 
+        %TODO - pic: Do I want a jet picture?
+
         Though jets are meant to represent a physical phenomenon,
             it should be emphasized that jets themselves \textit{are not physical objects}.
         Rather, jets are an algorithm.
@@ -157,8 +159,9 @@
             making it challenging to distinguish where one cluster should begin and another should end.
         Historically, a number of different jet algorithms have been used to describe particle showers.
         In ATLAS, the jet algorithm currently in use is the \textit{\antikt} clustering algorithm\cite{anti_kt},
-            whose adoption has been motivated by its robust ability to isolate jet boundaries both from each other
+            whose adoption has been motivated by its robust ability to isolate jet boundaries both from each other,
             and from the surrounding stochastic noise of the detector.
+        %TODO: somehow explain the whole dR=0.4 thing?
         [NOTE: Hey Steve, do I need to describe how antikt works?
         It's not that complicated, but it's kinda weird and unintuitive and I'm not sure if its description would add much]
 
@@ -207,7 +210,7 @@
             [explain the sign convention.]
             Physically, this sign convention is to distinguish tracks which are likely to have actually been part of the jet (with a positive sign)
                 from those likely originating from pile-up vertices (negative sign).
-            %TODO: I might want a plot explaining this. kinda like giacinto's figure 6.3, but ideally less confusing
+            %TODO - pic: I might want a plot explaining this. kinda like giacinto's figure 6.3, but ideally less confusing
 
             Values are assigned to \textit{each} track in a jet based on probability density functions (PDF) of the different jet types.
             Specifically, a PDF is constructed of the impact parameter \textit{significance}, $d_0/\sigma_{d0}$,
@@ -224,6 +227,8 @@
 
             These distributions are then used as a discriminant to distinguish b-jets and charm-jets from light-jets
                 (see Figure TODO)\cite{thesis_giacinto}. %TODO: is there a non-empiricle, like, physics reason for this?
+
+            %TODO - pic: IP2D histogram for b-jet vs light-jet
 
         \subsection{Secondary Vertexing}
 
@@ -249,6 +254,8 @@
             \cite{bjet_id_and_performance}
             \cite{btagging_optimisation}
 
+            %TODO - pic: MV2c10 performance plot?
+
     \section{Online VS Offline Reconstruction}
 
         I should explain how online and offline reco differs;
@@ -265,7 +272,7 @@
         For both the ``online'' (HLT) and ``offline'' (GRID) environments, event reconstruction is carried out by the same suite of software,
             called \textit{Athena}.
 
-        %TODO: Do I have ROC curves comparing MV2c10 scores b/t on and offline?
+        %TODO - pic: Do I have ROC curves comparing MV2c10 scores b/t on and offline?
             
         I should also describe the mv2 reweighting procedure here
             (We don't use mv2 for the late-stage b-tag requirement on the higgs decay candidates,
