@@ -1,21 +1,21 @@
 \chapter{Event Reconstruction}
 
     \section{Introduction}
+
         Once a bunch-crossing event has cleared the Level 1 Trigger system, the process of event reconstruction begins.
         An event in ATLAS is, initially, nothing but a collection of electrical signals emitted from the various detectors.
         Event reconstruction is the process wherein detector readings are aggregated together into meaningful patterns,
             which are interpreted as physical objects and processes.
         The key objects of interest in this analysis are \textit{particle tracks} and \textit{jets}.
-        As well, the process by which b-quark-originating jets (``b-jets'') are distinguished from other jet types,
-            called \textit{flavour tagging}, plays a particularly critical role in this analysis.
+        As well, the process by which b-quark-initiated jets (``b-jets'') are distinguished from other jet types,
+            called \textit{flavour tagging}, plays a particularly important role in this analysis.
         Finally, special attention will be given to the fact that reconstruction occurs not once, but twice;
             first in the High Level Trigger online running environment,
             and again in the offline environment after events have been read out.
-        The ways that reconstruction differs between these two environments plays a subtle but important part
+        The ways that reconstruction differs between these two environments plays a role
             in later stages of this analysis, and so is worth discussing further.
 
-
-    \section{Tracks}
+    \section{Tracks} \label{sec:reco_tracks}
             
         \subsection{Track Definition}
             
@@ -28,13 +28,13 @@
                 will trace out a \textit{helical} trajectory.
             If the shape of the helix is known, then basic electrodynamics principles can be used to determine the
                 momentum and charge of the particle that formed it.
-            Specifically, for a particle with four-momentum given as 
+            Specifically, for a charged particle with four-momentum given as 
             \begin{equation}
             p = \minimatrix{E \\ p_T \\ \theta \\ \phi}
             \end{equation}
             the track's helical shape can reveal all components except for the energy $E$ (this will be handled by the calorimeters).
             To understand how this is achieved, it is worth discussing how a track helix is described mathematically.
-            A helix can be described using five parameters structured in a parametric equation.
+            A helix can be defined using five parameters structured in a three-dimensional parametric equation.
             There are several conventions for the form these parameters should take,
                 but in ATLAS a helix is described by the equations\cite{thesis_giacinto}:
             \begin{equation} \begin{split}
@@ -44,11 +44,11 @@
             \end{split} \end{equation}
 
             The helix is described relative to some sort of reference point $R$,
-                which is initially set to beam-spot location in the IR
-                (later stages of tracking will redefine the perigee parameters with respect to different reference points as needed).
+                which is initially set to the beam-spot location in the IR.
+            Later stages of tracking will redefine the perigee parameters with respect to different reference points as needed.
             The five parameters governing the shape of this helix, called \textit{perigee paramters}, 
                 are described largely in terms of the ``Point of Closest Approach'' (PoCA),
-                the point on the helix closest to the PV in the $x,y$ plane.
+                the point on the helix closest to $R$ in the $x,y$ plane.
             \begin{itemize}
                 \item $d_0$: $|(x,y)|$-Distance from the origin to the closest point on the helix, in the $x,y$ plane
                 \item $z_0$: $z$-Distance between the PoCA and the origin
@@ -72,7 +72,6 @@
                 }
                 \label{fig:perigee_params}
             \end{figure}
-            
 
             Both $d_0$ and $z_0$ will be used in later sections for the purpose of flavour tagging.
             Returning to the four-momentum, $\phi$ and $\theta$ are themselves components of the particle's 4-vector.
@@ -80,26 +79,30 @@
             \begin{equation}
             r = \frac{p_T}{qB} = \frac{\vec{p} \sin(\theta)}{qB}
             \end{equation}
-            where $B$ is the magnetic field of the Inner Detector Solenoid Magnet.
-            \cite{thesis_track_sim_and_reco}
+            where $B$ is the magnetic field of the Inner Detector Solenoid Magnet\cite{thesis_track_sim_and_reco}.
+            Note that uncharged particles, like photons, will not be bent, and will thus have no curvature,
+                negating the ability to measure their transverse momentum in this way.
 
         \subsection{Track Reconstruction}
 
             As particles pass through the inner detector subsystems, they trace out a path of ionized detector elements.
-            The trajectory can be reconstructed by playing connect the dots.
+            This trajectory can be reconstructed by effectively playing connect-the-dots.
 
             %Clusterization
-            The first step to producing a track is the process of clusterization.
+            The first step in reconstructing a track is to figure out where the dots to connect actually are, 
+                a process called ``clusterization''.
             Ionizing particles often deposit energy across several adjacent pixels on a given layer.
             A \textit{connected component analysis} algorithm is used to group pixels together.
             Based on the pattern of energy distribution in these groups,
-                a \textit{space-point} is created indicating the estimated position at which a particle crossed the detector.
+                a \textit{space-point} (the ``dot'' in my metaphor) 
+                is created indicating the estimated position at which a particle crossed the detector.
             Several space-points can be assigned to the same pixel cluster,
                 if the energy readout pattern suggests multiple particles traversed the same location.
 
             %TODO - pic: Find an image of track fitting some points?
 
             %Combinatorial track finding
+            Once the ``dots'' are established, a series of guesses at how they should be connected are made.
             Initial guesses at tracks, called track seeds, are formed by assembling all realistic combinations of three space-points.
             The track seeds are assigned helix parameters by assuming they travel through a uniform magnetic field,
                 allowing immediate estimates of the tracks' momentum.
@@ -107,6 +110,7 @@
                 by including more space-points across additional detectors in the ID using a \textit{Kalman filter}.
 
             %Ambiguity solving; NN clustering; Track fit
+            The last step is then to choose a final ``picture'' that looks valid.
             A number of criteria are then used to reject poor-quality tracks, as well as to assign scores to all remaining track candidates.
             The scores are then used to resolve ambiguities where multiple tracks are assigned to the same space-points,
                 with preference given to higher-scoring candidates.
@@ -132,17 +136,20 @@
                 is identified as a vertex associated with at least two tracks,
                 and whose tracks posses the largest sum of squared momentum\cite{jet_energy_scale13TeV}.
             Once the primary vertex is identified, the high resolution track fitting step is rerun,
-                but now with the Primary Vertex set as the reference point $R$ instead of the beamspot.
+                but now with the PV set as the reference point $R$ instead of the beamspot.
 
 
     \section{Jets}
+
+        \subsection{Jet Definition}
+
         Moving outwards from the inner tracker into the calorimeters, focus shifts from tracks to the reconstructed objects known as \textit{jets}.
         Jets are an attempt to encapsulate the process of scattering within high-Z materials.
         A high energy particle encoutering the heavy-metal plates in the calorimeters will be deflected,
             while releasing other particles which travel in different directions.
-        All these new particles will produce similar reactions, until the various particles posses too little energy to produce any more scattering.
-        The overall effect appears as a cone-shaped shower of particles,
-            whose ``tip'' is located at the original particle's point of entry into the calorimeters.
+        All these new particles will produce similar reactions, until the various particles posses too little energy to scatter any more.
+        The overall effect appears as a roughly cone-shaped shower of particles,
+            whose ``tip'' is located somewhere near the interaction vertex.
         This cone has an associated vector corresponding to the direction the cone opens out at.
         Due to conservation of momentum, the momentum vector of the original particle will be roughly equal to the jet vector,
             since the total momentum of the various scattered particles must sum back to the momentum of the initial particle.
@@ -158,12 +165,21 @@
         In practice however, particles frequently overlap in their energy deposition,
             making it challenging to distinguish where one cluster should begin and another should end.
         Historically, a number of different jet algorithms have been used to describe particle showers.
-        In ATLAS, the jet algorithm currently in use is the \textit{\antikt} clustering algorithm\cite{anti_kt},
-            whose adoption has been motivated by its robust ability to isolate jet boundaries both from each other,
+        In ATLAS, the jet algorithm currently in use is the \textit{\antikt} clustering algorithm\cite{anti_kt}.
+        Adoption of \antikt has been motivated by its robust ability to isolate jet boundaries both from each other,
             and from the surrounding stochastic noise of the detector.
-        %TODO: somehow explain the whole dR=0.4 thing?
+        \antikt has a single input parameter, $\Delta R$, which roughly corresponds to the ``radius''
+            of the jets in the calorimeters that \antikt should attempt to match to.
+        %what is delta R
+        This radius is described as a solid angle (in $\phi$ and $\eta$) distance from the center of the topo-cluster,
+            such that $\Delta R^2 \equiv \Delta \eta^2 + \Delta \phi^2$.
+        A $\Delta R$ value of 0.4 is the standard for jets, and what is used for this analysis.
+        This value means that \antikt will generally keep aggregating cells together until the topo-cluster's
+            $\Delta R$ radius equals 0.4, and not much beyond that.
         [NOTE: Hey Steve, do I need to describe how antikt works?
         It's not that complicated, but it's kinda weird and unintuitive and I'm not sure if its description would add much]
+
+        \subsection{Jet Calibration}
 
         Once topo-clusters have been formed, their energy and momentum must be calibrated.
         As discussed in Section \ref{sec:calorimeter}, the ATLAS calorimeters are sampling calorimeters.
@@ -202,12 +218,12 @@
 
         \subsection{Impact Parameter Taggers}
 
-            The low-level b-tagging algorithms come mainly in the two forms of impact parameter taggers and vertex algorithms.
+            The low-level b-tagging algorithms come in the two forms of impact parameter taggers and secondary vertexing algorithms.
             IP2D and IP3D are the two and three-dimensional impact parameter-based taggers.
             They take every track associated with a PFlow Jet,
                 and then use a slightly modified version of the perigee parameters discussed above in order to tag it.
             Namely, the $d_0$ and $z_0$ parameters are given a positive or negative sign to help better emphasize key characteristics of b-jets.
-            [explain the sign convention.]
+            [explain the sign convention. TODO]
             Physically, this sign convention is to distinguish tracks which are likely to have actually been part of the jet (with a positive sign)
                 from those likely originating from pile-up vertices (negative sign).
             %TODO - pic: I might want a plot explaining this. kinda like giacinto's figure 6.3, but ideally less confusing
@@ -216,7 +232,7 @@
             Specifically, a PDF is constructed of the impact parameter \textit{significance}, $d_0/\sigma_{d0}$,
                 where $\sigma_{d0}$ is the error of the measurment.
             The probability that a given track, $i$, would have some impact parameter significance value (based on the PDF)
-                is then that track's assigned IP2D value, $t_i$.
+                is that track's assigned IP2D value, $t_i$.
             IP2D and IP3D are then constructed as likelihood ratios of the product of all track-values for a jet.
             For example, the likelihood ratio of a jet being a b-jet versus a light-jet would be based on
                 the PDF of the impact parameter for b-jets ($\textrm{PDF}_b$) to that for light-jets ($\textrm{PDF}_l$)
@@ -254,33 +270,54 @@
             \cite{bjet_id_and_performance}
             \cite{btagging_optimisation}
 
-            %TODO - pic: MV2c10 performance plot?
-
     \section{Online VS Offline Reconstruction}
 
-        I should explain how online and offline reco differs;
-            it seems to just come down to the fact that the HLT doesn't neccesarily use the most high resolution calorimeter information,
-            and often generates tracks using a faster, less acurate algorithm.
-
-        Reconstruction is performed for an event twice.
+        Reconstruction is actually performed for an event twice.
         It is first done rapidly, using coarse measurments and calculations,
             for the purpose of allowing the aforementioned HLT to trigger events for readout.
-        These events which pass the trigger are passed off to a massive global computer cluster reffered to as the GRID.
-        No longer bound by the stringent time contrainsts of the ``online'' running environment,
+        These events which pass the trigger are passed off to a massive global computer cluster, reffered to as the GRID.
+        No longer bound by the stringent time contrainsts of the online running environment,
             the GRID is able to devote vast amounts of time and computing power to a second, 
             more comprehensive, reconstruction of each event.
-        For both the ``online'' (HLT) and ``offline'' (GRID) environments, event reconstruction is carried out by the same suite of software,
+        For both the online (HLT) and offline (GRID) environments, event reconstruction is carried out by the same suite of software,
             called \textit{Athena}.
+        The main difference in how they operate is the time they can devote to calculations, especially in the context of tracking.
+        As seen is Section \ref{sec:reco_tracks}, track reconstruction is very computationally intensive.
+        There are many steps, and the fitting itself is a lengthy process.
+        Thus, the online environment runs a slimmed-down version of the track fitting.
+        This allows the HLT to reconstruct tracks much faster, but at the expense of precision and accuracy.
+
+        Such accuracy loss in tracking has significant downstream consequences across all aspects of reconstruction.
+        Of particular note for this analysis are the effects on flavour tagging.
+        The low level flavour-taggers operate mainly based on probability distributions of the parameters of the reconstructed tracks.
+        With the degradation in track quality in the online environment, the low level taggers' PDFs are altered.
+        And, since the low-level taggers are affected, the high-level taggers are then also affected.
+        To account for this, the flavour tagging algorithms undergo a \textit{retuning} procedure from offline to online,
+            which adjust how the algorithms expect tracks to look.
+
+        The retuning process operates in five steps.
+        %Step1.1 - Run HLT reco on MC files;
+        First, the HLT-tuned Athena framework is run on a large sample of simulation-based data,
+            which emulates the reconstruction behaviour of Athena in the online environment.
+        %Step1.2 - Return low level taggers on MC HLT reco;
+        Based on this simulated reconstruction, the distributions used by the low-level taggers
+            (e.g.\ $d0$-significance) are recorded and turned into PDFs.
+        This constitutes the retuning of the low-level taggers.
+        %Step2   - Rerun HLT reco on MC, now with retuned low level tagging info;
+        With the low-level taggers retuned, the Athena reconstruction is run again,
+            this time recording the output of the low-level taggers themselves.
+        %Step3.1 - Perform BDT training for MV2 on HLT MC reco w/ low level tags;
+        The low-level tagger output is now fed as input to the training frameworks for the high-level taggers.
+        For MV2, this is ROOT's thing, and for DL1 this is the python package Keras.
+        %Step3.2 - Convert training output to useable histograms;
+        Once training is complete, the output machine-learning structure is converted into a form usuable by Athena,
+            and the full retuning is completed.
+        %Step4   - Rerun HLT reco on MC once more, to get full retuned tagging ouput. Use output performance to determine working points;
+        At this stage, the framework is run once more, in its entirety,
+            so its performance can be analyzed and any potential issues addressed.
 
         %TODO - pic: Do I have ROC curves comparing MV2c10 scores b/t on and offline?
-            
-        I should also describe the mv2 reweighting procedure here
-            (We don't use mv2 for the late-stage b-tag requirement on the higgs decay candidates,
-            but we DO use it in the triggers):
-            Step1.1 - Run HLT reco on MC files;
-            Step1.2 - Return low level taggers on MC HLT reco;
-            Step2   - Rerun HLT reco on MC, now with retuned low level tagging info;
-            Step3.1 - Perform BDT training for MV2 on HLT MC reco w/ low level tags;
-            Step3.2 - Convert training output to useable histograms;
-            Step4   - Rerun HLT reco on MC once more, to get full retuned tagging ouput. Use output performance to determine working points;
+
+        %(We don't use mv2 for the late-stage b-tag requirement on the higgs decay candidates,
+        %    but we DO use it in the triggers):
 
