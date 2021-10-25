@@ -44,9 +44,91 @@ The nominal estimate $\tilde{w}$ constructed from the median of these networks w
     TODO: include a bunch of those reweighting validation plots
 
 
-\section{VBF Reweighting Variables}
-    
-    TODO: copy your appendix from the int note in here
+\section{VBF Background Reweighting Variables} \label{app:vbf_bgdNNRW}
+    The Neural Network used to reweight the 2b-Tagged Control-Region data into the 4b Signal region,
+        uses a different set of variables when trained for the VBF process than it does for ggF.
+    This list of variables was selected by first producing a set of plots showing how strongly correlated different variables are to \mhh
+        (Figure \ref{fig:mhh_corr}).
+
+    \begin{figure}[!htbp]
+        \subfloat[$\deta \leq 1.5$]{
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-LTE1.5_hist_m_hh}
+        }
+        \subfloat[$\deta > 1.5$]{
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-GT1.5_hist_m_hh}
+        }
+        \caption{
+            The Pearson Correlation Coefficients associated with \mhh for the 2b Control Region data.
+            The regions in which $\deta \leq 1.5$ and $\deta>1.5$ are separately displayed.
+            The higher up on the chart a variable is, the more strongly correlated it is to \mhh,
+                with \mhh itself at the top with a coefficient of 1.
+            Note that most of the VBF-specific variables, such as vbf\_mjj, are very poorly correlated to \mhh and thus not preffered.
+        }
+        \label{fig:mhh_corr}
+    \end{figure}
+
+    Based on their high correlation to \mhh in both \deta regions, 23 variables were then selected for further study.
+    These 23 variables were plotted against each other in a correlation matrix.
+    A final set of seven variables was selected based (Table \ref{tab:vbf_NNRW_vars}) on which variables were \textit{least} correlated to each other,
+        in order to avoid variables carrying redundant information (Figure \ref{fig:vbf_corr_matrix}).
+
+    \begin{figure}[!htbp]
+        \subfloat[$\deta \leq 1.5$]{
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-LTE1.5_matrix}
+        }
+        \subfloat[$\deta > 1.5$]{
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-GT1.5_matrix}
+        }
+        \caption{
+            The Pearson Correlation Coefficients matrix associated with variables in the 2b Control Region data.
+            The regions in which $\deta \leq 1.5$ and $\deta>1.5$ are separately displayed.
+            Bins with more saturated (i.e.\ more blue or more red) colors indicate strong correlation between those two variables.
+            All variables are of course 100\% correlated to themselves, hence the deep red line running down the diagonal.
+            The most highly preffered variables are those with correlation coefficients near 0 for as many other variables as possible.
+            If a variable (i.e.\ m\_max\_dj) is selected, any other variables with strong correlations to it (i.e.\ pT\_h2)
+                are then strongly disfavored for later selection.
+        }
+        \label{fig:vbf_corr_matrix}
+    \end{figure}
+
+
+    %'m_max_dj', 'E_h1', 'E_h2', 'X_wt_tag', 'm_min_dj', 'eta_i', 'pairing_score_2' 
+    \begin{table}[!htbp] \centering \footnotesize
+    \caption{Final Set of Neural Network Variables}
+    \label{tab:vbf_NNRW_vars}
+    \begin{tabular}{ |l|l|l| }
+        \hline
+        \textbf {Variable} & \textbf {Internal Name} & \textbf {Description} \\
+        \hline
+        $M_{max \Delta j}$ & \code{m\_max\_dj}         & 
+            Take the di-jet mass of the six possible pairings\\
+            && of the four higgs’ candidate jets;\\
+            && this is the maximum di-jet mass of those pairings \\ 
+        \hline
+        $M_{min \Delta j}$ & \code{m\_min\_dj}         & 
+            As above, but the minimum \\
+        \hline
+        $E_{H1}$           & \code{E\_h1}              & 
+            Energy of the leading-$p_T$ reconstructed Higgs \\
+        \hline
+        $E_{H2}$           & \code{E\_h2}              & 
+            Energy of the sub-leading-$p_T$ reconstructed Higgs \\
+        \hline
+        Xwt-tag            & \code{X\_wt\_tag}         & 
+            $\log\left(X_{Wt}\right)$, where $X_{Wt}$ is the variable used for the top veto \\
+        \hline
+        $\eta_i$           & \code{eta\_i}             & 
+            Average $\eta$ of the the four Higgs decay jets \\
+        \hline
+        Pairing Score 2    & \code{pairing\_score\_2 } & 
+            This changes depending on the Higgs pairing algorithm used. \\
+            &&The current algorithm used is minDR. \\
+            &&With four jets, there are three possible pairings of the jets. \\
+            &&The pairings are ranked by the $\Delta_R$ of the leading-$p_T$ Higgs candidate. \\
+            &&Pairing Score 2 is the $\Delta-R$ of the second-smallest of these pairings. \\
+        \hline
+    \end{tabular} \end{table}
+
 
 \section{Systematic Error}
 
