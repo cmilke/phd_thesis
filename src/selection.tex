@@ -3,18 +3,13 @@
     I think I'm just going to do everything else here? It's weird, because I'm going backwards to triggers,
         and then forward to the final analysis stuff. But at least I have all the complicated object algorithms and stuff listed I guess?
 
-    I need to discuss the kinematics of VBF and 4b in order to justify the ->
+    %I need to discuss the kinematics of VBF and 4b in order to justify the ->
 
     %Truthfully, reconstruction and selection are not distinct stages of the analysis, but rather are interwoven with each other.
     %The first step of selection really occured before any signficant reconstruction had even taken place, in the L1 Trigger system.
     %Yet the final stage of event reconstruction -- the reconstruction of the di-Higgs system --
     %    will be performed \textit{after} almost every other stage of selection.
 
-    \section{Event Display}
-        For any of the cuts to make sense, I should show what a VBF to 4b event looks like,
-            and explain its key features.
-
-        Make note of the fact that the anti-$k_t$ algorithm is set with $\Delta R = 0.4$.
 
     \section{Triggers}
 
@@ -29,6 +24,27 @@
 
     \section{Analysis Cuts} 
 
+        %Do I need to show proof of all our cut steps? Like, surely there's a motivation for each of them?
+
+        Two VBF Initial Scatter (IS) quark jets:
+            light jets (u,d, or maybe charm);
+            high pt;
+            wide opening angle;
+            high mjj;
+            can be central or forward.
+
+        Four b-jets:
+            decay products of higgss;
+            all central; %TODO: why are interesting things always central? can i show this mathematically?
+            also high pt;
+            b/b-bar products are expected to have very low opening angle between them.
+
+        Overall:
+            Zero pt initially, so expected low pt for vector sum of all jets combined
+            
+
+        Make note of the fact that the anti-$k_t$ algorithm is set with $\Delta R = 0.4$.
+
     kinematic cuts
         basic jet multiplicity reqs,
         btag jets with DL1r 77\% working point,
@@ -41,9 +57,6 @@
     Then cut on dihiggs and full system kinematics
 
     Then make sure the higgss fall within the "signal region" (their individual masses are approximately 125 GeV)
-
-    Pretty sure that's it?
-
 
 
 %...and how we wittle the abundance of events down to a manageable subset.
