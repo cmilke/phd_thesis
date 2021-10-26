@@ -20,14 +20,46 @@ Mostly just a bunch of software.
         with further showering and scattering effects modeled.
     The detectors' response to the simulated particles are recorded, with the detector output stored in the same format as that produced by the ATLAS hardware.
 
+    \begin{table}[tbh]
+       \begin{center}
+           \caption{Simulated signal samples used in this analysis.
+                    Results retrieved via pyAMI tool~\cite{pyAMIdoc}\cite{hh4b_2021_int_note}.
+                 }
+           \label{tab:mcsample}
+           \footnotesize
+           \begin{tabular}{lllSl}
+           \toprule
+               DSID  &	Type and parameters  &	Generator  &{AMI $\sigma$ [fb]}& Total gen events (MC16a+d+e) \\
+               \midrule
+               502970  &	VBF \kl=1, \kvv=1, \kv=1    &  MadGraph+Pythia8 &	1.1836  & $399000  +520000  +678000  $\\
+               502971  &	VBF \kl=1, \kvv=0, \kv=1    &  MadGraph+Pythia8 &	18.593  & $400000  +520000  +677000  $\\
+               502972  &	VBF \kl=1, \kvv=0.5, \kv=1  &  MadGraph+Pythia8 &	6.6177  & $199000  +260000  +338000  $\\
+               502973  &	VBF \kl=1, \kvv=1.5, \kv=1  &  MadGraph+Pythia8 &	2.3032  & $190000  +260000  +339000  $\\
+               502974  &	VBF \kl=1, \kvv=2, \kv=1    &  MadGraph+Pythia8 &	9.9726  & $199000  +258000  +213000  $\\
+               502975  &	VBF \kl=1, \kvv=3, \kv=1    &  MadGraph+Pythia8 &	44.944  & $200000  +260000  +338000  $\\
+               502976  &	VBF \kl=0, \kvv=1, \kv=1    &  MadGraph+Pythia8 &	3.1659  & $200000  +259000  +339000  $\\
+               502977  &	VBF \kl=2, \kvv=1, \kv=1    &  MadGraph+Pythia8 &	1.068   & $200000  +259000  +323000  $\\
+               502978  &	VBF \kl=10, \kvv=1, \kv=1   &  MadGraph+Pythia8 &	67.377  & $400000  +517000  +680000  $\\
+               502979  &	VBF \kl=1, \kvv=1, \kv=0.5  &  MadGraph+Pythia8 &	7.5289  & $200000  +259000  +340000  $\\
+               502980  &	VBF \kl=1, \kvv=1, \kv=1.5  &  MadGraph+Pythia8 &	45.412  & $200000  +259000  +340000  $\\
+               502981  &	VBF \kl=0, \kvv=0, \kv=1    &  MadGraph+Pythia8 &	25.4    & $199000  +260000  +340000  $\\
+               502981  &	VBF \kl=-5, \kvv=1, \kv=0.5 &  MadGraph+Pythia8 &	25.4    & $199000  +260000  +340000  $\tnote{a}\\ %FIXME
+           \bottomrule
+           \end{tabular}
+           \begin{tablenotes}
+            \item[a] 450050: This dataset was produced after the others based on the studies of Section \ref{sec:solidarity}
+          \end{tablenotes}
+       \end{center}
+    \end{table}
+
 \section{Signal Combination}
 
     As discussed in Section \ref{sec:feyn_rules}, the cross-section and kinematic distributions of the di-Higgs production processes depend fundamentally on a number of coupling constants between the Higgs and other particles.
     Of particular interest in this analysis are \kl for the Higg's self-coupling and \kvv for the \HHVV coupling.
     The values of \kl and \kvv have loose experimental constraints \cite{EXOT-2016-31} \cite{HDBS-2018-18-witherratum} \cite{ATLAS-CONF-2019-049},
         requiring analysis across a wide range of these coupling values.
-    Unfortunately, MC generation is computationally expensive and time consuming.
-    As such, only a handful of MC simulation samples for only a handful of coupling values are actually produced,
+    Unfortunately, the MC generation process discussed in Section \ref{sec:mcsim} is computationally expensive and time consuming.
+    As such, only a handful of MC simulation samples for a select few coupling values are actually produced,
         and a sample combination technique is employed to model the signal hypothesis across the coupling parameter space.
 
     The process of combining a few samples in such a way as to model the entire parameter space of coupling constants is based on exploiting the underlying mathematics of the differential cross-section formula.
@@ -104,7 +136,7 @@ Mostly just a bunch of software.
     A number of validation tests are thus performed, comparing the distributions from the combination to an already existing MC sample.
     Displayed in Figure \ref{fig:vbf_hh_6term_validation}, the combination shows strong agreement with the MC sample.
 
-    \begin{figure}
+    \begin{figure}[tbh]
         \subfloat[Validation \kv = 1.5]{
             \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/reco_mHH_cvv1p00cl1p00cv1p50}
         }
@@ -118,7 +150,7 @@ Mostly just a bunch of software.
         \label{fig:vbf_hh_6term_validation}
     \end{figure}
 
-    \begin{figure}
+    \begin{figure}[tbh]
     	\centering
         \subfloat[Validation against MC with $\kl=0$]{
             \includegraphics[width=0.32\linewidth,height=\textheight,keepaspectratio]{signal/reco_mHH_cvv1p00cl0p00cv1p00}
@@ -140,15 +172,16 @@ Mostly just a bunch of software.
     As an additional test, I also checked the distribution shape predicted by the combination at points far from the SM.
     These points have no MC samples to compare to, but the points can still be checked to ensure they at least look well-behaved.
 
-    \begin{figure}
+    \begin{figure}[tbh]
+        \centering
         \subfloat[Combined \mhh distribution at \kvv = 2.5, \kl = -10]{
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/preview_reco_mHH_new_cvv2p50cl-10p00cv1p00}
+            \includegraphics[width=0.32\linewidth,height=\textheight,keepaspectratio]{signal/preview_reco_mHH_new_cvv2p50cl-10p00cv1p00}
         }
         \subfloat[Combined \mhh distribution at \kvv = 2.0, \kl = -10]{
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/preview_reco_mHH_new_cvv2p00cl-10p00cv1p00}
-        }\\
+            \includegraphics[width=0.32\linewidth,height=\textheight,keepaspectratio]{signal/preview_reco_mHH_new_cvv2p00cl-10p00cv1p00}
+        }
         \subfloat[Combined \mhh distribution at \kvv = 0, \kl = 13]{
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/preview_reco_mHH_new_cvv0p00cl13p00cv1p00}
+            \includegraphics[width=0.32\linewidth,height=\textheight,keepaspectratio]{signal/preview_reco_mHH_new_cvv0p00cl13p00cv1p00}
         }
         \caption{
             \mhh distribution produced by the 6-term combination at points far from the SM.
@@ -158,7 +191,7 @@ Mostly just a bunch of software.
         \label{fig:vbf_hh_6term_preview}
     \end{figure}
 
-    \begin{figure}
+    \begin{figure}[tbh]
     	\centering
         \subfloat[Combination at  \kvv = -2]{
             \includegraphics[width=0.44\linewidth,height=\textheight,keepaspectratio]{signal/preview_reco_mHH_new_cvv-2p00cl1p00cv1p00}
@@ -175,6 +208,90 @@ Mostly just a bunch of software.
     \end{figure}
 
 
-\section{Solidarity}
+\section{Solidarity} \label{sec:solidarity}
     
-    Should this go here?
+    As a final note on the discussion of the signal sample combination technique,
+        I would like to address the reason that some combination bases work better than others.
+    Originally, the 2021 MC production for the 4b analysis consisted of 12 samples (All but the bottom row of Table \ref{tab:mcsample}).
+    However, inspection of these samples using the Negative Weight technique discussed above revealed very poor modeling performance.
+    From a combinatorics perspective, there were 12 samples available, and six are needed for the combination.
+    There are 924 ways to choose 6 samples from 12, and of those 619 produce linearly solvable systems of equations.
+    Of the 619, only 250 include the Standard Model MC sample.
+    None of these 250 combination bases produced stable signal models across the $\kappa$-coupling space.
+    The performance of the two bases with the overall fewest number of negative bin weights is shown in Figures \ref{fig:mcnWeight_old} and \ref{fig:mcpreviews_old}.
+
+    \begin{figure}[tbh]
+    	\centering
+        \subfloat[Original 12, Rank 1 Negative Weight Heatmap]{
+            \includegraphics[width=0.44\linewidth,height=\textheight,keepaspectratio]{signal/negative_weights_toprank0}
+        }
+        \subfloat[Original 12, Rank 2 Negative Weight Heatmap]{
+            \includegraphics[width=0.44\linewidth,height=\textheight,keepaspectratio]{signal/negative_weights_toprank1}
+        }
+        \caption{
+            The two best performing bases of the original 12 MC samples.
+            Both bases show a distressing abundance of negative weighted bins across a wide swath of the $\kappa$-couplings space.
+        }
+        \label{fig:mcnWeight_old}
+    \end{figure}
+
+
+    \begin{figure}[tbh]
+    	\centering
+        \subfloat[]{ \includegraphics[width=0.44\linewidth,height=\textheight,keepaspectratio]{signal/reco_mHH_compare_preview_auto_top_3D_0-1_cvv-1p5cl14p0cv1p0} }
+        \subfloat[]{ \includegraphics[width=0.44\linewidth,height=\textheight,keepaspectratio]{signal/reco_mHH_compare_preview_auto_top_3D_0-1_cvv0p5cl5p0cv1p0} }\\
+        \subfloat[]{ \includegraphics[width=0.44\linewidth,height=\textheight,keepaspectratio]{signal/reco_mHH_compare_preview_auto_top_3D_0-1_cvv2p0cl-3p0cv1p0} }
+        \subfloat[]{ \includegraphics[width=0.44\linewidth,height=\textheight,keepaspectratio]{signal/reco_mHH_compare_preview_auto_top_3D_0-1_cvv2p0cl-9p0cv1p0} }
+        \caption{
+            The two best performing bases of the original 12 MC samples,
+                modelling \mhh distributions for points far from the SM.
+            Both bases produce very unstable distributions.
+        }
+        \label{fig:mcpreviews_old}
+    \end{figure}
+
+
+    The proposed solution was to generate one additional MC sample,
+        which could be used in combination with five of the original samples to produce a stable basis.
+    Of course, until the sample was produced, the negative weight optimization technique could not be used to asses the new sample's performance.
+    As such, I developed a novel optimization metric which could predict the performance of a particular basis,
+        without the need for any MC production.
+    My hypothesis for the behaviour of the sample combinations is that the regions of the coupling space which perform poorly
+        (e.g.\ the top left corners of Figure \ref{fig:mcnWeight_old}),
+        do so because one or two of the samples is disproportionately represented in the combination compared to the others.
+    The formula for the combination of the samples amounts to weighting each sample's yield by a coupling-dependent coefficient,
+        and then adding these weighted yields together to obtain the combined yield.
+    Different samples can have yields which are orders of magnitude different from each other
+        (e.g./ the 1.18 fb yield of the SM point to the 67 fb yield of the \kl=10 sample).
+    As well, the coupling-based coefficients can vary dramatically across the coupling space.
+    The product of the sample yield and the coupling coefficient (the \textit{weighted yield})
+        can therefore vary a great deal across the coupling space.
+    For many regions of the coupling space, it can happen that one or two of the samples' weighted yields vastly outweigh the others.
+    In such cases, the combined yield is then based almost entirely on these one or two over-represented samples,
+        making the combination much more susceptible to statistical deficiencies.
+    I propose that this ``closeness'' of the weighted yields can be used as a highly effective metric of performance,
+        and one which does not neccesarily depend on the generation of MC.
+
+    Here I define a metric to quantify this behaviour.
+    Due to the nature of the weighted yields,
+        the metric will be dependant both on the basis samples' yields ($\sigma_i$),
+        and on the coupling coefficient ($c_i(\kvv,\kl,\kv)$) of the specific point in the coupling space to be modeled.
+    As well, I want to explicitly note the occurance of \textit{negative} coefficients in the combination sum.
+    I propose that negative coefficients are \textit{not} intrinsically a bad thing.
+    Rather, they merely reflect the behaviour inherent in calculating cross-sections,
+        in that some Feynman diagrams invariably cancel with others.
+    Thus, I will be looking at the ``closeness'' of the \textit{absolute values} of the weighted yields,
+        specifically ensuring that bases are \textbf{not} penalized for large cancellations between terms.
+    The resulting metric, which I deem \textit{Solidarity}, effectively measures how well the basis samples work together at a given point.
+
+    \begin{equation}
+    \textrm{\textbf{Solidarity}: }S \equiv \frac{ \sum\limits_{i=1}^6 c_i\sigma_i }{ \textrm{Stdev}(|c_i\sigma_i|) }
+    \end{equation}
+
+    That is, first take the standard deviation of the absolute values of the $c_i\sigma_i$ weighted yields.
+    Normalize this by the combined yield at that point (i.e.\ the sum of the weighted yields).
+    Then take the \textit{reciprocal} of this normalized standard deviation,
+        such $S$ increases as the absolute standard deviation gets smaller.
+
+
+
