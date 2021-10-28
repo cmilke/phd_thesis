@@ -350,18 +350,49 @@ Mostly just a bunch of software.
     Thus, each Solidarity Surface Integral histogram corresponded to 13 samples,
         and served as a figure of merit for the 13th (the prospective) sample's performance.
 
-
-
     \begin{figure}[tbh]
-        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/negative_weights_base}
-        \caption{
-            Frequency of negative bin weights in \mhh distribution across \kvv,\kl range.
-            Brighter regions indicate more negative-weighted bins, and suggest less stable signal modelling.
-            This particular combination of samples was chosen for how much of the space is ``dark",
-                with darker regions indicating generally stable signal modelling.
-            The table of coupling values in the upper right corner indicates the 6 MC samples
-                (highlighted on the plot with cyan dots) used in the combination.
+        \subfloat[Original 12 Samples]{
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/projective_solidarity_all}
         }
-        \label{fig:vbf_hh_6term_nWeight_grid}
+        \subfloat[Using All 13 Samples]{
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/projective_solidarity_dump}
+        }
+        \caption{
+            plot of all the histograms.
+            The rows are sorted from top to bottom by the sum of their bins
+                (That is, the sum of all Solidarity surface integrals for all bases associated with the same additional MC sample point).
+        }
+        \label{fig:solidarity_dump}
     \end{figure}
 
+    Aligning all of these histograms together as in Figure \ref{fig:solidarity_dump}
+        produces a clear method of distinguishing samples that 
+        could produce high stability combinations with the existing 12 samples.
+    The aggregate sum of all Solidarity surface integrals associated with a new sample
+        can evidently be used as a scalar metric to by which to rank different prospective coupling points.
+    The culmination of these tests is Figure \ref{fig:solidarity_performance_map}
+
+    \begin{figure}[tbh]
+        \subfloat[\kv = 1]{
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/solidarity_performance_kv1}
+        }\\
+        \subfloat[\kv = 0.5]{
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/solidarity_performance_kv0.5}
+        }
+        \subfloat[\kv = 1.5]{
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/solidarity_performance_kv1.5}
+        }
+        \caption{
+            Solidarity cumulative performance maps for various values of \kv.
+            The color of a particular (\kvv,\kl) point indicates the overall
+                benefit to adding an MC sample with that set of couplings
+                to the existing set of 12 MC samples.
+        }
+        \label{fig:solidarity_performance_map}
+    \end{figure}
+
+    Using Figure \ref{fig:solidarity_performance_map} as a guide,
+        a number of points (mostly those corresponding to the highest aggregate performance values, ~5.5)
+        were selected for limited simulation at truth level.
+    Based on the prelinary stability shown by these truth level simulations,
+        a full MC production run was generated with its coupling values set to \kvv=1, \kl=-5, \kv=0.5.
