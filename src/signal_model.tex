@@ -10,7 +10,7 @@
     Now it is time to discuss how I constructed a hypothesis that can be tested against the data provided from that experiment.
 
     The most basic hypothesis made in this analysis is simply that the di-Higgs process exists at all.
-    Unfortunately, a direct measurent of the di-Higgs process is unlikely to occur in this study, as will be discussed in Chapter \ref{ch:results}.
+    Unfortunately, a direct measurent of the di-Higgs process is unlikely to occur in this study, as will be discussed in Chapter \ref{chapter:results}.
     An additional hypothesis that can be tested however,
         relate to the Higgs Boson coupling constants and their influence on di-Higgs production cross-sections
         (recall Equation \ref{eq:tree_level_invamp}).
@@ -31,32 +31,60 @@
     If the \mhh distribution reconstructed from the data collected at ATLAS has no resemblence to
         the \mhh distribution predicted for a particular combination of the coupling values,
         then that set of couplings can be ruled out as incompatible with data
-        (see Chapter \ref{ch:results} for more details).
+        (see Chapter \ref{chapter:results} for more details).
 
     Of course, making a prediction for the shape of the \mhh distribution as it would appear in ATLAS is easier said than done.
     Calculating the event yield alone is already a challenging process to perform by hand.
     Calculating the event yield \textit{as a function of an obervable kinematic variable} is almost certainly impossible to do analytically.
-    To then further determine what the kinematic distribution looks like \textit{in ATLAS}, rather than in theory,
+    To then further determine what the kinematic distribution looks like \textit{within ATLAS}, rather than in theory,
         adds several additional layers of complexity to the problem.
-    In order to address these issues, I will need to turn to the power of Monte-Carlo simulation programs.
+    In order to address these issues, I will need to turn to the power of Monte-Carlo simulation.
 
 
 \section{Monte-Carlo Simulation} \label{sec:mcsim}
     
-    The process of simulating physics events is done in many steps, using a suit of different software programs.
+    Currently, Monte-Carlo simulation is the most effective method of making predictions
+        for how theoretical parameters should affect experimental observations in particle physics.
+    The process as used for this analysis is a complex one, using an entire suite of programs to achieve a fully simulated output prediction.
+    This set of programs, referred to as a \textit{production chain}, consists of three distinct software programs.
+    Their ultimate goal is to produce a faithful reproduction of how a collection of VBF \to HH processes would appear,
+        were they to occur in data collected from ATLAS.
+    The chain begins with pure theoretical simulation from MadGraph,
+        the output of which is fed to a program called Pythia8,
+        which in turn then has its output run through the Geant4 simulation framework.
+    Output from Geant4 takes the same form as if it came from the ATLAS hardware,
+        at which point it is run through the same reconstruction and selection process as real data.
 
-    The signal simulation samples used in this analysis proceed through a production chain of three programs
-        -- MadGraph, Pythia8, and Geant4 -- before going through the reconstruction and selection processes described in Chapters \ref{ch:reconstruction} and \ref{ch:selection}.
+    MadGraph is used for producing simulated particle interactions based on the Feynman diagrams of the process.
+    Using a configuration of particle properties and interaction vertices,
+        MadGraph is able to construct a tree-level formula akin to Equation \ref{eq:tree_level_invamp}.
+    It does this by using the provided configuration to prepare a list of Feynman rules,
+        compose all tree-level diagrams that could result from those rules,
+        and then perform the appropriate matrix element squared expansion.
+    Given a desired initial and final particle state,
+        MadGraph can produce PDFs for the four-momentum of the final-state particles.
+    A collection of \textit{truth-level} simulated events can then be generated from MadGraph
+        by sampling from these kinematic PDFs.
 
-    MadGraph is used to simulate the feynman-diagram process of VBF \to HH \to 4b.
-    It generates a bunch of events with output kinematics.
+    Although MadGraph does a fine job of generating output particles with kinematics resulting from a production process,
+        in practice such particles rarely remain in such a state for very long.
+    Most particles, given any appreciable amount of time to propagate, will undergo some form of decay or radiactive emission.
+    Such processes occur randomly, and will often occur repeatedly
+        (e.g./ the products of a decay process can themselves undergo further decay).
+    Pythia8 is used to simulate these decay chains.
+    It uses a variety of built-in physics processes to inform the behaviour of high-energy collision particle products.
+    This simulation is done entirely in a vaccum though, and one last program is required for full simulation.
 
-    Pythia8 is used to simulate particle decay, showering, and radiation.
-
-    Geant4 simulates the entirety of the ATLAS detector.
-    The particles and showers output by Pythia8 are propogated through the materials of the ATLAS machine by Geant4,
+    Geant4 is responsible for the final step of event simulation,
+        which is to simulate the propagation of particles through the physical hardware of ATLAS,
+        and then simulate the detector response of ATLAS to this propagation.
+    A full three-dimensional simulation of ATLAS has been constructed within the Geant4 framework,
+        modeling the exact dimensions and material composition of every component,
+        be it an active detector material or an inactive support structure.
+    The particles and showers output by Pythia8 are propagated through the materials of the ATLAS machine by Geant4,
         with further showering and scattering effects modeled.
     The detectors' response to the simulated particles are recorded, with the detector output stored in the same format as that produced by the ATLAS hardware.
+
 
     \begin{table}[tbh]
        \begin{center}
