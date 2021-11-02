@@ -1,10 +1,59 @@
-\chapter{Signal Modeling}
+\chapter{Signal Modelling}
 
-How do we produce a signal hypothesis that we can test?
-Mostly just a bunch of software.
+
+\section{Hypothesis}
+
+    The core of the Scientific method is in the practice of making a hypothesis, and of then testing that hypothesis through experiment.
+    The hypothesis made in this analysis is that the Standard Model of Particle Physics is mostly correct,
+        and that deviations from this theory should manifest in the probabilities of physical processes.
+    I have spent the past several chapters discussing the experimentation process.
+    Now it is time to discuss how I constructed a hypothesis that can be tested against the data provided from that experiment.
+
+    The most basic hypothesis made in this analysis is simply that the di-Higgs process exists at all.
+    Unfortunately, a direct measurent of the di-Higgs process is unlikely to occur in this study, as will be discussed in Chapter \ref{ch:results}.
+    An additional hypothesis that can be tested however,
+        relate to the Higgs Boson coupling constants and their influence on di-Higgs production cross-sections
+        (recall \ref{eq:tree_level_invamp}).
+    If the Standard Model is exactly correct, then the various $\kappa$ coupling constants,
+        discussed in Section \ref{sec:higgs_boson},
+        should all be identically 1.
+    The most simple hypothesis to construct would be to calculate the expected event yield of the VBF->HH process,
+        by multiplying the integrated luminosity of LHC Run 2 with the cross-section predicted by the SM.
+    The same can be done to obtain predicted event yields for various alternative values of the couplings.
+
+    \begin{table}[tbh]
+       \begin{center}
+           \caption{Theoretical Event yields.
+                    Results retrieved via pyAMI tool~\cite{pyAMIdoc}\cite{hh4b_2021_int_note}.
+                 }
+           \label{tab:mcyields}
+           \footnotesize
+           \begin{tabular}{lllSl}
+           \toprule
+               \kl & \kvv & \kv & {AMI $\sigma$ [fb]} & Event Yield (for 126 fb\textsuperscript{-1}) \\
+               \midrule
+               1  & 1   & 1    &	1.1836  & 149.1336  \\
+               1  & 0   & 1    &	18.593  & 2342.718  \\
+               1  & 0.5 & 1    &	6.6177  & 833.8302  \\
+               1  & 1.5 & 1    &	2.3032  & 290.2032  \\
+               1  & 2   & 1    &	9.9726  & 1256.5476 \\
+               1  & 3   & 1    &	44.944  & 5662.944  \\
+               0  & 1   & 1    &	3.1659  & 398.9034  \\
+               2  & 1   & 1    &	1.068   & 134.568   \\
+               10 & 1   & 1    &	67.377  & 8489.502  \\
+               1  & 1   & 0.5  &	7.5289  & 948.6414  \\
+               1  & 1   & 1.5  &	45.412  & 5721.912  \\
+               0  & 0   & 1    &	25.4    & 3200.4    \\
+               -5 & 1   & 0.5  &	25.4    & 3200.4    \\
+           \bottomrule
+           \end{tabular}
+       \end{center}
+    \end{table}
+
+
 
 \section{Monte-Carlo Simulation} \label{sec:mcsim}
-
+    
     The process of simulating physics events is done in many steps, using a suit of different software programs.
 
     The signal simulation samples used in this analysis proceed through a production chain of three programs
