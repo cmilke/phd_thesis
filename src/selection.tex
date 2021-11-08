@@ -22,41 +22,91 @@
 
         Trigger bucketing strategy?
 
+
     \section{Analysis Cuts} \label{sec:analysis_cuts}
+
+        After the triggers, a number of other things are cut on.
+
+    \subsection{Jet Multiplicity and Categorization}
+
+        Central Jets are defined as those within $|\eta| \leq 2.5$, %TODO
+            with pt > 40 GeV and which pass JVT or have pt > 60 or have |eta| > 2.4. %TODO
+        
+        Forward Jets are those with $ 2.5 < |\eta| \leq 4.5 $,
+            with pt >= 30 GeV %TODO
+
+        Must have at least six total central and forward jets.
+        At least four of the jets must be b-tagged central jets.
+        At least two of the jets (forward or central) must be anti-btagged.
+
+        The Higgs decay jets are chosen as the four highest-pt, b-tagged, Central jets.
+        The VBF jets are chosen as the pair of anti-btagged jets (central or forward)
+            with the largest vector-sum invariant mass (mjj) between them. %TODO: at most just provide a source that does this, since it's common practice
+
+
+    \subsection{VBF Topology}
+        
+        The selected VBF pair must have a \deta between them of at least 3, %TODO
+            and an mjj of at least 1 TeV. %TODO
+        As well, the combined vector-sum-pt of all six jets
+            (the four Higgs products and the two VBF jets)
+            must be less than 65 GeV. %TODO
+
+
+    \subsection{HH \deta Cut}
+
+        MinDR pairing to reconstruct Higgss; %TODO
+        Reconstructed Higgs Bosons must have a \deta between them of at most 1.5 %TODO 
+
+
+    \subsection{Region Definition}
+        
+        There are three ``regions'' which are used for the analysis.
+        The ``Control'' and ``Validation'' regions are used for the Background Estimation (see Chapter \ref{chapter:background}).
+        The ``Signal'' Region is the set of data which will be used to search for the di-Higgs signal.
+
+        The region which an event falls into is based on the reconstructed masses of the leading and sub-leading Higgs.
+        The Signal Region corresponds to those events for which the reconstructed Higgs masses
+            align closely with the measured value of the Higgs Boson (125 GeV), with additional room provided for error in measurment.
+        The Control and Validation Regions are adjacent to the Signal Region,
+            designating events with kinematics very similar to the Signal Region,
+            but with reconstructed Higgs masses incompatible with experimental measurment (see Figure TODO).
+
+
 
         %Do I need to show proof of all our cut steps? Like, surely there's a motivation for each of them?
 
-        Two VBF Initial Scatter (IS) quark jets:
-            light jets (u,d, or maybe charm);
-            high pt;
-            wide opening angle;
-            high mjj;
-            can be central or forward.
+  %      Two VBF Initial Scatter (IS) quark jets:
+  %          light jets (u,d, or maybe charm);
+  %          high pt;
+  %          wide opening angle;
+  %          high mjj;
+  %          can be central or forward.
 
-        Four b-jets:
-            decay products of higgss;
-            all central; %TODO: why are interesting things always central? can i show this mathematically?
-            also high pt;
-            b/b-bar products are expected to have very low opening angle between them.
+  %      Four b-jets:
+  %          decay products of higgss;
+  %          all central; %TODO: why are interesting things always central? can i show this mathematically?
+  %          also high pt;
+  %          b/b-bar products are expected to have very low opening angle between them.
 
-        Overall:
-            Zero pt initially, so expected low pt for vector sum of all jets combined
-            
+  %      Overall:
+  %          Zero pt initially, so expected low pt for vector sum of all jets combined
+  %          
 
-        Make note of the fact that the anti-$k_t$ algorithm is set with $\Delta R = 0.4$.
+  %      Make note of the fact that the anti-$k_t$ algorithm is set with $\Delta R = 0.4$.
 
-    kinematic cuts
-        basic jet multiplicity reqs,
-        btag jets with DL1r 77\% working point,
-        4b-tagged, central
-        also 2b and 3b1f, which are reserved for background estimation
-        2 non-btagged jets with min-mjj for VBF
+  %  kinematic cuts
+  %      basic jet multiplicity reqs,
+  %      btag jets with DL1r 77\% working point,
+  %      4b-tagged, central
+  %      also 2b and 3b1f, which are reserved for background estimation
+  %      2 non-btagged jets with min-mjj for VBF
 
-    Then there's the minDR pairing of b's to reconstruct HH
+  %  Then there's the minDR pairing of b's to reconstruct HH
 
-    Then cut on dihiggs and full system kinematics
+  %  Then cut on dihiggs and full system kinematics
 
-    Then make sure the higgss fall within the "signal region" (their individual masses are approximately 125 GeV)
+  %  Then make sure the higgss fall within the "signal region" (their individual masses are approximately 125 GeV)
 
 
 %...and how we wittle the abundance of events down to a manageable subset.
