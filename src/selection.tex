@@ -5,12 +5,6 @@
 
     %I need to discuss the kinematics of VBF and 4b in order to justify the ->
 
-    %Truthfully, reconstruction and selection are not distinct stages of the analysis, but rather are interwoven with each other.
-    %The first step of selection really occured before any signficant reconstruction had even taken place, in the L1 Trigger system.
-    %Yet the final stage of event reconstruction -- the reconstruction of the di-Higgs system --
-    %    will be performed \textit{after} almost every other stage of selection.
-
-
     \section{Triggers}
 
         \input{tables/selection/nr-triggers-table}
@@ -43,7 +37,8 @@
         The Higgs decay jets are chosen as the four highest-pt, b-tagged, Central jets.
         The VBF jets are chosen as the pair of anti-btagged jets (central or forward)
             with the largest vector-sum invariant mass (mjj) between them.
-        %TODO: at most just provide a source that does this, since it's common practice
+        %TODO: I should probably provide a source that does this, since it's common practice
+        % Maybe pull up one of the papers Ariel had you read?
 
 
     \subsection{VBF Topology}
@@ -76,8 +71,43 @@
 
 
     \subsection{B-Quark Pairing}
+        
+        What is detected within ATLAS and reconstructed by Athena are not Higgs Bosons, but rather their decay products.
+        To reconstruct the two Higgs Bosons, the four reconstructed b-quarks must be combined together, two b's to each Higgs.
+        A pairing algorithm, called MinDR \cite{hh4b_2021_int_note},
+            is used to determine which b-quarks should be paired to each other.
+        MinDR operates under the assumption that the decay products of the Higgs boson
+            should be relatively close to each other in angular space, maintaining the Higgs' high $p_T$.
+        With four jets, which need to be split into two pairs, there are three ways to choose the pairings.
+        For each of the three pairing options, MinDR takes the pair with the leading $p_T$ as the ``leading Higgs Candidate''
+        The pairing option which is chosen is that which minimizes the $\Delta R$ between the leading Higgs Candidate decay products
+            (see Figure \ref{fig:minDR_pairing_diagram}).
+        The effectiveness of this algorithm has been validated for multiple values of \kvv and \kl,
+            as shown in Figure \ref{fig:HHpairing}.
 
-        MinDR pairing to reconstruct Higgss; %TODO
+        \begin{figure}[tbh]
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/pairing}
+            \caption{
+                TODO (minDR picks pair 2 btw)\cite{hh4b_2021_int_note}
+            }
+            \label{fig:minDR_pairing_diagram}
+        \end{figure}
+
+        \begin{figure}[hbt]
+            \centering
+            \subfloat[Pairing accuracy vs \kl]{
+                     \includegraphics[width=0.4\textwidth]{selection/pairing_accuracy_kl}
+                \label{fig:acc_kl_exists}
+            }
+            \subfloat[Pairing accuracy vs $\kappa_{2V}$]{
+                     \includegraphics[width=0.4\textwidth]{selection/pairing_accuracy_k2v}
+                \label{fig:acc_k2v_exists}
+            }
+            \caption{TODO \cite{hh4b_2021_int_note}}
+            \label{fig:HHpairing}
+        \end{figure}
+                                                                                                         
+        \FloatBarrier
 
 
     \subsection{Region Definition}
@@ -87,12 +117,38 @@
         The ``Signal'' Region is the set of data which will be used to search for the di-Higgs signal.
 
         The region which an event falls into is based on the reconstructed masses of the leading and sub-leading Higgs.
-        The Signal Region corresponds to those events for which the reconstructed Higgs masses
+        The Signal Region (SR) corresponds to those events for which the reconstructed Higgs masses
             align closely with the measured value of the Higgs Boson (125 GeV), with additional room provided for error in measurment.
-        The Control and Validation Regions are adjacent to the Signal Region,
+        The Control and Validation Regions (CR and VR) are adjacent to the Signal Region,
             designating events with kinematics very similar to the Signal Region,
-            but with reconstructed Higgs masses incompatible with experimental measurment (see Figure TODO).
+            but with reconstructed Higgs masses incompatible with experimental measurment (see Figure \ref{fig:region_definition}).
+        The boundaries of these regions are governed by a quantity $X_HH$, defined as:
 
+        \begin{equation}
+            \Xhh \equiv \sqrt{\left(\frac{m_{H1} - \124\textrm{GeV}}{0.1 \ m_{\1}}\right)^{2}
+                + \left(\frac{m_{H2} - 117\textrm{GeV}}{0.1 \ m_{H2}}\right)^{2}}
+            \label{eq:xhh}
+        \end{equation}
+        
+        The SR is defined by $X_{hh} < 1.6$,
+            while the CR and VR are set within a ring-like shape between the Signal Region
+            and an outer bondary defined by:
+        \begin{equation}
+            \text{CR\ Outer\ Edge} \quad &: \quad \sqrt{ \left(m_{H1} - 1.05 \cdot 124\textrm{GeV}\right)^2
+                +  \left(m_{H2} - 1.05 \cdot 117\textrm{GeV}\right)^2 } = 45\textrm{GeV}
+            \label{eq:cr_out}
+        \end{equation}
+        
+        The split between the CR and VR is based on studies demonstrating that this split results in
+            close kinematic similarity between the two regions.
+
+        \begin{figure}[tbh]
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/massplane_sig_all_4b_vbf_Xwt_1.5_k2V_0}
+            \caption{
+                We use k2v=0 because we're trying to exclude it.\cite{hh4b_2021_int_note}
+            }
+            \label{fig:region_definition}
+        \end{figure}
 
 
         %Do I need to show proof of all our cut steps? Like, surely there's a motivation for each of them?
@@ -106,7 +162,8 @@
 
   %      Four b-jets:
   %          decay products of higgss;
-  %          all central; %TODO: why are interesting things always central? can i show this mathematically?
+  %          all central; why are interesting things always central?
+  %                       can i show this mathematically (dude it's just Newton's first law... don't overthink it)
   %          also high pt;
   %          b/b-bar products are expected to have very low opening angle between them.
 
