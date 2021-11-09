@@ -29,11 +29,12 @@
 
     \subsection{Jet Multiplicity and Categorization}
 
-        Central Jets are defined as those within $|\eta| \leq 2.5$, %TODO in 2018 but outdated
-            with pt > 40 GeV and which pass JVT or have pt > 60 or have |eta| > 2.4. %TODO in 2018 but outdated
+        Central Jets are defined as those within $|\eta| \leq 2.5$
+            (to ensure these jets have passed through the tracker, which is needed for the b-tagging tools\cite{vbf_hh_4b_resonant_2018_int}),
+            with pt > 40 GeV and which pass JVT or have pt > 60 or have |eta| > 2.4. %I think these are just more trigger things
         
-        Forward Jets are those with $ 2.5 < |\eta| \leq 4.5 $, in 2018 but outdated
-            with pt >= 30 GeV %TODO in 2018 but outdated
+        Forward Jets are those with $ 2.5 < |\eta| \leq 4.5 $, 
+            with pt >= 30 GeV %Pretty sure this is just a trigger threshold
 
         Must have at least six total central and forward jets.
         At least four of the jets must be b-tagged central jets.
@@ -41,22 +42,42 @@
 
         The Higgs decay jets are chosen as the four highest-pt, b-tagged, Central jets.
         The VBF jets are chosen as the pair of anti-btagged jets (central or forward)
-            with the largest vector-sum invariant mass (mjj) between them. %TODO: at most just provide a source that does this, since it's common practice
+            with the largest vector-sum invariant mass (mjj) between them.
+        %TODO: at most just provide a source that does this, since it's common practice
 
 
     \subsection{VBF Topology}
         
-        The selected VBF pair must have a \deta between them of at least 3, %TODO in 2018 but outdated
-            and an mjj of at least 1 TeV. %TODO in 2018 but outdated
+        The selected VBF pair must have a \deta between them of at least 3,
+            and an mjj of at least 1 TeV.
         As well, the combined vector-sum-pt of all six jets
             (the four Higgs products and the two VBF jets)
-            must be less than 65 GeV. %2018 int Figure 13 - all pt is expected to cancel
+            must be less than 65 GeV.
+        (See Figure \ref{fig:vbf_cuts})
+
+        \begin{figure}[tbh]
+            \subfloat[$m_{jj}$ Cut Significance]{
+                \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{selection/mjj_significance}
+            }
+            \subfloat[$\deta_{jj}$ Cut Significance]{
+                \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{selection/detajj_significance}
+            }\\
+            \subfloat[6-Jet Vector-Sum $p_{T}$ Cut Significance]{
+                \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{selection/vecsum_pt}
+            }
+            \caption{
+                Significance value (see Chapter \ref{chapter:results})
+                    for different cut values on the various VBF selection criteria\cite{vbf_hh_4b_2018_int}.
+                TODO: I might need to replace these (especially the detajj one... that or our current cuts are super wrong).
+            }
+            \label{fig:vbf_cuts}
+        \end{figure}
+        \FloatBarrier
 
 
-    \subsection{HH \deta Cut}
+    \subsection{B-Quark Pairing}
 
         MinDR pairing to reconstruct Higgss; %TODO
-        Reconstructed Higgs Bosons must have a \deta between them of at most 1.5 %
 
 
     \subsection{Region Definition}
