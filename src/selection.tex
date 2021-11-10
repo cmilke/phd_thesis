@@ -1,20 +1,89 @@
 \chapter{Event Selection} \label{chapter:selection}
-    
-    I think I'm just going to do everything else here? It's weird, because I'm going backwards to triggers,
-        and then forward to the final analysis stuff. But at least I have all the complicated object algorithms and stuff listed I guess?
 
+\section{Introduction}
+
+    In parallel with the process of reconstruction, is that of event selection.
+    As was mentioned earlier in the discussion of the ATLAS Trigger,
+        there are far too many events in ATLAS to analyze them all.
+    Thus, a series of selection algorithms are used to veto the abundance of background events.
+    Unfortunately, these selection algorithms are not perfect,
+        and so a careful balance must be attained between removing a suitable amount of background,
+        while retaining as many signal events as possible.
+
+    \begin{figure}[tbh]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/massplane_sig_all_4b_vbf_Xwt_1.5_k2V_0}
+        \caption{
+            TODO; FIXME
+        }
+        \label{fig:event_display}
+    \end{figure}
+
+    %TODO also don't forget all the truth-level validation plots you have just LAYING AROUND ALREADY
+    % that you can dump in here as a demonstration of probably any point you want to make
+    
+    Figure \ref{fig:event_display} is an ``event display'' of what a VBF \to 4b event is expected to look like,
+        based on Monte-Carlo simulation (see Chapter \ref{chapter:signal}).
+    It demonstrates the key features these selection algorithms use to differentiate signal from background.
+    The most obvious feature to identify is the high-$p_T$ jet multiplicity.
+    VBF \to 4b will invariably produce a total of six jets;
+        the two initial-scatter (IS) light-quark jets, plus the 4 b-jets from the Higgs decay.
+    All six of these jets will carry significant energy and transverse momentum.
+    A hallmark of the VBF process is the wide opening angle and high invariant mass between the IS jets.
+    Such a jet pattern stands out dramatically from most of the stochastic background noise,
+        one of the main advantages of the VBF process.
+    Additionally, while the four b-jets of the Higgs are not exclusively produced in the low-$\eta$ regions,
+        so many high-$p_T$ b-jets orthogonal to the beamline is extremely rare for background events,
+        and thus makes for another highly identifiable feature of the signal.
+    Something something bjet decays close together.
+
+
+
+
+    The initial selection process is carried out before and during reconstruction, via the aforementioned trigger system.
+    After the primary reconstruction process, an additional set of selection criteria,
+        specific to this analysis,
+        are applied to the fully reconstructed event objects.
+
+    
     %I need to discuss the kinematics of VBF and 4b in order to justify the ->
+    \FloatBarrier
 
     \section{Triggers}
+        
+        The first stage of the Selection process occurs, to some degree,
+            before reconstruction has even begun, in the L1, HLT, and Offline ATLAS Triggers.
+        Table \ref{tab:nr-triggers-used} lists the trigger chains used in this analysis.
+        An event from ATLAS is incorporated into the data used in this analysis as long as it passes at least one 
+            of the listed chains associated with its year.
+        These triggers have been chosen based on any features that lend themselves to the VBF \to 4b process.
+        Noteably, the triggers in use heavily emphasize high jet multiplicity and an abundance of b-jets
+            (both integral to VBF \to 4b).
+        To understand how, it is necessary to understand the nomenclature of the trigger chains.
+        A full reference can be found in ??, but a brief example of how to read the chains is provided here:
+
+        HLT\_j110\_gsc150\_boffperf\_split\_2j45\_gsc55\_bmv2c1070\_split\_L1J85\_3J30:
+        \begin{itemize}
+            \item HLT: Most of the following requirements are based in the High Level Trigger
+            \item j110: Requires one 110 GeV jet
+            \item gsc150: Cut on jet $p_T \geq 150$ GeV after Global Sequential Calibration (GSC) algorithm is applied
+            \item boffperf: b-jet Offline Performance algorithm
+            \item split: Using ``Split'' track reconstruction algorithm
+            \item 2j45: Find 2 jets with $p_T$ of at least 45 GeV
+            \item gsc55: Cut on jet $p_T \geq 55$ GeV after GSC algorithm is applied
+            \item bmv2c1070: passes b-jet MV2c10 algorithm at 70\% efficiency level
+            \item split: (as above)
+            \item L1J85: Level 1 Trigger algorithm requiring a cluster with an energy of at least 85 GeV 
+            \item 3J30: Require at least 3 jets with a minimum $p_T$ of 30 GeV
+        \end{itemize}
+
 
         \input{tables/selection/nr-triggers-table}
 
-        Triggers used in this analysis and why (do we have any plots showing why we use these triggers?)
+        % Triggers used in this analysis and why
+        % (do we have any plots showing why we use these triggers?)
+        %   Yes, though I might be able to get away without using them
 
-        Maybe I should just take that old trigger explaining slide of Mathew's
-            and literally just lay out how to interpret what each of these triggers does.
-
-        Trigger bucketing strategy?
+        %Trigger bucketing strategy? What are the chances I can just not deal with this?
 
 
     \section{Analysis Cuts} \label{sec:analysis_cuts}
