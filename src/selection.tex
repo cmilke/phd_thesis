@@ -10,13 +10,13 @@
         and so a careful balance must be attained between removing a suitable amount of background,
         while retaining as many signal events as possible.
 
-    \begin{figure}[tbh]
-        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/massplane_sig_all_4b_vbf_Xwt_1.5_k2V_0}
-        \caption{
-            TODO; FIXME
-        }
-        \label{fig:event_display}
-    \end{figure}
+    %\begin{figure}[tbh]
+    %    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/massplane_sig_all_4b_vbf_Xwt_1.5_k2V_0}
+    %    \caption{
+    %        TODO; FIXME
+    %    }
+    %    \label{fig:event_display}
+    %\end{figure}
 
     %TODO also don't forget all the truth-level validation plots you have just LAYING AROUND ALREADY
     % that you can dump in here as a demonstration of probably any point you want to make
@@ -34,24 +34,21 @@
     Additionally, while the four b-jets of the Higgs are not exclusively produced in the low-$\eta$ regions,
         so many high-$p_T$ b-jets orthogonal to the beamline is extremely rare for background events,
         and thus makes for another highly identifiable feature of the signal.
-    Something something bjet decays close together.
+    Finally, due to their high initial momentum,
+        the $\bbar$ decay products of each Higgs will have little spread between them,
+        producing an identifiable pattern in the final distribution of jets.
 
-
-
-
+    All of these features are exploited by the selection process carried out in this analysis,
+        which is performed across two distinct stages.
     The initial selection process is carried out before and during reconstruction, via the aforementioned trigger system.
     After the primary reconstruction process, an additional set of selection criteria,
-        specific to this analysis,
-        are applied to the fully reconstructed event objects.
-
+        specific to this analysis, are applied to the fully reconstructed event objects.
     
-    %I need to discuss the kinematics of VBF and 4b in order to justify the ->
     \FloatBarrier
-
     \section{Triggers}
         
-        The first stage of the Selection process occurs, to some degree,
-            before reconstruction has even begun, in the L1, HLT, and Offline ATLAS Triggers.
+        The first stage of the Selection process largely occurs before reconstruction has even begun,
+            in the L1, HLT, and Offline ATLAS Triggers.
         Table \ref{tab:nr-triggers-used} lists the trigger chains used in this analysis.
         An event from ATLAS is incorporated into the data used in this analysis as long as it passes at least one 
             of the listed chains associated with its year.
@@ -88,36 +85,52 @@
 
     \section{Analysis Cuts} \label{sec:analysis_cuts}
 
-        After the triggers, a number of other things are cut on.
+        Upon completion of the ATLAS-wide trigger selection,
+            the appropriate data samples are copied for use by this analysis.
+        The available data still contains a vast excess of background events however,
+            and so this analysis makes an additional series of selection cuts on the fully reconstructed events.
+        These cuts focus on the topological features discussed earlier,
+            selecting events based on their jet multiplicity,
+            the VBF jet kinematics,
+            and the angular clustering of the Higgs decay products.
 
     \subsection{Jet Multiplicity and Categorization}
-
-        Central Jets are defined as those within $|\eta| \leq 2.5$
-            (to ensure these jets have passed through the tracker, which is needed for the b-tagging tools\cite{vbf_hh_4b_resonant_2018_int}),
-            with pt > 40 GeV and which pass JVT or have pt > 60 or have |eta| > 2.4. %I think these are just more trigger things
         
-        Forward Jets are those with $ 2.5 < |\eta| \leq 4.5 $, 
-            with pt >= 30 GeV %Pretty sure this is just a trigger threshold
+        First and foremost is a check to ensure that there are enough jets to even constitute a VBF \to $\bbar$ event.
+        Moreover, the selection is particular about the quality and position of jets it will permit.
+        Jets are categorized as ``Central'' if they fall within $|\eta| \leq 2.5$,
+            and are ``Forward'' if they are found with $ 2.5 < |\eta| \leq 4.5 $.
+        The reason for the distinction between the two is that Central jets fall within the boundaries of the ATLAS tracker system
+            (see Section \ref{sec:inner_detector}).
+        As the tracking system is necessary for the b-tagging algorithms,
+            candidates for the Higgs' decay products are taken exclusively from Central jets.
+        Central jets are only used if they have a $p_T > 40$ GeV, and satisfy at least one of the following three conditions:
+            pass the JVT algorithm, have $p_T > 60$ GeV, or have $2.4 < |\eta| < 2.5$.
+        Forward jets have less stringent requirements, needing only have a $p_T > 30$ GeV.
 
-        Must have at least six total central and forward jets.
-        At least four of the jets must be b-tagged central jets.
-        At least two of the jets (forward or central) must be anti-btagged.
+        After jets have been categorized and selected, an event is only used if there at least six selected jets remaining.
+        Of these, at least four of the Central jets must have been b-tagged by the trigger system.
+        From the remaining jets (Central or Forward), there must be at least two \textit{anti}-b-tagged jets
+            (i.e.\ jets that were marked as not b-jets).
 
-        The Higgs decay jets are chosen as the four highest-pt, b-tagged, Central jets.
-        The VBF jets are chosen as the pair of anti-btagged jets (central or forward)
-            with the largest vector-sum invariant mass (mjj) between them.
-        %TODO: I should probably provide a source that does this, since it's common practice
+        The VBF jets are chosen as the pair of anti-b-tagged jets with the largest vector-sum invariant mass (mjj) between them,
+            while the Higgs decay jets are chosen as the four highest-pt, b-tagged, Central jets.
+        Any other jets in the event are discarded for the purposes of the rest of the analysis.
+        The remaining selection cuts are made on these two categories of jets.
+        
+        %TODO: I should probably provide a source that justifies the mjj thing, since it's common practice
         % Maybe pull up one of the papers Ariel had you read?
 
 
     \subsection{VBF Topology}
-        
+
+        For the VBF jets, the charactistic wide-opening angle and high invariant mass is exploited here.
         The selected VBF pair must have a \deta between them of at least 3,
             and an mjj of at least 1 TeV.
         As well, the combined vector-sum-pt of all six jets
             (the four Higgs products and the two VBF jets)
             must be less than 65 GeV.
-        (See Figure \ref{fig:vbf_cuts})
+        These specfic values for the cuts are based on the significance values shown in Figure \ref{fig:vbf_cuts}).
 
         \begin{figure}[tbh]
             \subfloat[$m_{jj}$ Cut Significance]{
@@ -140,7 +153,7 @@
 
 
     \subsection{B-Quark Pairing}
-        
+
         What is detected within ATLAS and reconstructed by Athena are not Higgs Bosons, but rather their decay products.
         To reconstruct the two Higgs Bosons, the four reconstructed b-quarks must be combined together, two b's to each Higgs.
         A pairing algorithm, called MinDR \cite{hh4b_2021_int_note},
@@ -182,16 +195,16 @@
     \subsection{Region Definition}
         
         There are three ``regions'' which are used for the analysis.
-        The ``Control'' and ``Validation'' regions are used for the Background Estimation (see Chapter \ref{chapter:background}).
+        ``Control'' and ``Validation'' regions are used for the Background Estimation (see Chapter \ref{chapter:background}).
         The ``Signal'' Region is the set of data which will be used to search for the di-Higgs signal.
 
-        The region which an event falls into is based on the reconstructed masses of the leading and sub-leading Higgs.
+        Which region an event falls into is based on the reconstructed masses of the leading and sub-leading Higgs.
         The Signal Region (SR) corresponds to those events for which the reconstructed Higgs masses
             align closely with the measured value of the Higgs Boson (125 GeV), with additional room provided for error in measurment.
-        The Control and Validation Regions (CR and VR) are adjacent to the Signal Region,
+        Adjacent to the SR lie the Control and Validation Regions (CR and VR),
             designating events with kinematics very similar to the Signal Region,
             but with reconstructed Higgs masses incompatible with experimental measurment (see Figure \ref{fig:region_definition}).
-        The boundaries of these regions are governed by a quantity $X_HH$, defined as:
+        A quantity $X_hh$ governs the boundaries of these regions, and is defined as:
 
         \begin{equation}
             X_{HH} \equiv \sqrt{\left(\frac{m_{H1} - 124\textrm{GeV}}{0.1 \ m_{H1}}\right)^{2}
@@ -210,6 +223,8 @@
         
         The split between the CR and VR is based on studies demonstrating that this split results in
             close kinematic similarity between the two regions.
+        With the final set of data samples selected and placed into the required subsets, 
+            the process of analyzing the data can begin.
 
         \begin{figure}[tbh]
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/massplane_sig_all_4b_vbf_Xwt_1.5_k2V_0}
