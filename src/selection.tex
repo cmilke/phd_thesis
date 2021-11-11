@@ -10,13 +10,21 @@
         and so a careful balance must be attained between removing a suitable amount of background,
         while retaining as many signal events as possible.
 
-    %\begin{figure}[tbh]
-    %    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/massplane_sig_all_4b_vbf_Xwt_1.5_k2V_0}
-    %    \caption{
-    %        TODO; FIXME
-    %    }
-    %    \label{fig:event_display}
-    %\end{figure}
+    \begin{figure}[tbh]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/event_display}
+        \caption{
+            Event display of a typical VBF \to 4b event, visualized in $\eta-\phi$ space.
+            The various circles correspond to jets in the event.
+            The `+' sign in the center of every circle indicates the jet's $p_T$ (scale on right).
+            The yellow circles correspond to the b-jet decay products of the Higgs bosons,
+                and their red inlay indicates that they have been tagged as b-jets by the btagging algorithms.
+            The blue jets with white `X's correspond to the VBF initial scatter jets.
+            The final blue circle corresponds to a jet caused by a particle radiated by the nearby ID jet.
+            The teal vertical lines designate $|\eta|=2.5$,
+                the distinction between the ``Forward'' and ``Central'' regions.
+        }
+        \label{fig:event_display}
+    \end{figure}
 
     %TODO also don't forget all the truth-level validation plots you have just LAYING AROUND ALREADY
     % that you can dump in here as a demonstration of probably any point you want to make
@@ -44,7 +52,6 @@
     After the primary reconstruction process, an additional set of selection criteria,
         specific to this analysis, are applied to the fully reconstructed event objects.
     
-    \FloatBarrier
     \section{Triggers}
         
         The first stage of the Selection process largely occurs before reconstruction has even begun,
