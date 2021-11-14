@@ -2,41 +2,42 @@
 
 \section{Data-Driven Background Estimate}
 
-    Selection does not remove all non-signal events. (not even close...),
-    Indeed, most of the remaining data events are almost certainly not signal events.
-    Since these background events cannot be effectively differentiated from data,
+    Selection does not remove all non-signal events.
+    Indeed, most of the events remaining in the data are very likely background.
+    Since these background events cannot be effectively differentiated from signal data,
         a technique must be used to estimate how much of the oberved data is coming from background.
     Specifically, the analysis employs a method to predict the kinematic shape (in \mhh)
         of the background events within the 4b Signal Region,
-        without observing that set of events.
+        without directly observing that set of events.
 
     For the \vbfproc process, the background consists almost entirely of QCD jet events.
     The usual approach of simulating the background using Monte-Carlo techniques is not feasible,
-        as such simulations are innacurate when trying to model such complex, many-jet processes.
+        as such simulations are innacurate when trying to model such complex, many-jet processes. [TODO: is this the actual reason?]
     Instead, the yield from background in the SR data is predicted based on the background yield in different subsets of the data.
         
     The fundamental assumption for this data-driven background estimate
         is that background events with only two b-tagged jets (2b data)
         will have kinematics very similar to the background events with 4 b-tagged (4b) jets.
+    [TODO: double check what regions are used for what, since the 3b1f thing has made this weird]
     Thus, the kinematic distribution of the 2b signal region can be used as an estimate of the background in the 4b signal region.
     Unfortunately, the kinematics of the 2b and 4b data are not expected to match completely,
         so the 2b signal data must undergo a "reweighting" process,
         which adjusts the kinematic distribution to match that of 4b.
     This reweighting takes the form of a function $R$,
         which for each event $i$ takes a series of kinematic variables $x_i$ as an argmuent,
-        and returns a reweight value $r_i$ which scales that event's contribution to kinematic distributions:
+        and returns a reweighting value $r_i$ which scales that event's contribution to the kinematic distributions:
         $r_i = R(x_i)$.
-    Deriving this function, and determining the appropriate inputs for it, is the an undertaking of its own.
-    %The set of variables used for this function are discussed in Section \ref{sec:vbf_bgdNNRW}.
+    Deriving this function, and determining the appropriate inputs for it,
+        are the challenges addressed in the following sections.
 
 \section{Neural Network Training and Uncertainty}
 
     The reweighting function is derived using machine learning techniques.
-    A neural network (NN) is trained to identify how to reweight 2b data such that the final result looks like 4b data.
+    A neural network (NN) is trained to identify how to reweight 2b data such that the cumalitive kinematic distribution looks like that of 4b data.
     In order to improve stability in the reweighting function,
         an ensemble of 100 networks is trained, and the median of their calculations is used (called the ``Nominal Estimate'').
     Each neural network instance $j$ produces a reweighting factor $w_{ij}$, and has a normalization factor $\alpha_j$ associated with it.
-    This normalization is such that the total yield of all 2b reweighted events matches that of the 4b yield in the same region.
+    This normalization factor is calculated so the total yield of all 2b reweighted events matches that of the 4b yield in the same region.
     So for $N$ total 2b events and $N'$ total 4b events:
         \begin{equation}
         \sum_{i=1}^{N} \alpha_j w_{ij} = N'
@@ -57,12 +58,13 @@
         }
         \caption{
             The \mhh kinematic distribution of the 2b VS 4b regions, before and after reweighting the 2b region.
+            [TODO: these look ... very similar. Am I using the right plots?]
         }
         \label{fig:data_mhh_reweight}
     \end{figure}
 
-    The problem with this training approach, is that the 4b signal region cannot be used to train against.
-    Instead, the Neural networks are trained using the Control Region data,
+    The problem with this training approach, is that the 4b signal region cannot be used in the training.
+    Instead, the neural networks are trained using the Control Region data,
         and are optimized to reweight the 2b CR data to resemble the 4b CR data.
     Because the reweighting function is trained on a different kinematic region than the signal region,
         a systematic uncertainty is associated with it.
@@ -70,16 +72,17 @@
     The difference between the median of these validation-trained NNs and the nominal estimate
         produces a ``shape uncertainty'' for the reweighting.
     The shape uncertainty is symmetrized around the nominal estimate to produce the final systematic uncertainty
-        associated with the reweighting.
+        associated with the reweighting procedure.
     A comprehensive error for the background estimate is produced by combing the shape uncertainty with the statistical error
         associated with the limited sample size of the training data.
 
 
 \section{VBF Background Reweighting Variables} \label{sec:vbf_bgdNNRW}
 
-    The Neural Network used to reweight the 2b-Tagged Control-Region data into the 4b Signal region,
+    The Neural Network used to reweight the 2b-Tagged Control-Region data into the 4b Signal region
         uses a different set of variables when trained for the VBF process than it does for ggF.
-    This list of variables was selected by first producing a set of plots showing how strongly correlated different variables are to \mhh
+    This list of variables was selected through two correlation tests,
+        the first of which was determining how strongly correlated different variables are to \mhh
         (Figure \ref{fig:mhh_corr}).
 
     \begin{figure}[!htbp]
@@ -100,7 +103,8 @@
     \end{figure}
 
     Based on their high correlation to \mhh in both \deta regions, 23 variables were then selected for further study.
-    These 23 variables were plotted against each other in a correlation matrix.
+    These 23 variables were plotted against each other in a correlation matrix,
+        which displayed how strongly correlated these variables are to each other.
     A final set of seven variables was selected based (Table \ref{tab:vbf_NNRW_vars}) on which variables were \textit{least} correlated to each other,
         in order to avoid variables carrying redundant information (Figure \ref{fig:vbf_corr_matrix}).
 
@@ -162,7 +166,9 @@
 
 
 
-%\section{Statistical Error} %TODO I don't even want to bother with this until the group figures out what it's doing
+\section{Statistical Error}
+
+    TODO: I don't even want to bother with this until the group figures out what to do.
 %
 %    Now to talk about statistical error in the Neural network estimate
 %
