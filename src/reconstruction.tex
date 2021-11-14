@@ -15,6 +15,7 @@
         The ways that reconstruction differs between these two environments plays a role
             in later stages of this analysis, and so is worth discussing.
 
+    \FloatBarrier
     \section{Tracks} \label{sec:reco_tracks}
             
         \subsection{Track Definition}
@@ -85,6 +86,7 @@
             Note that uncharged particles, like photons, will not be bent, and will thus have no curvature,
                 negating the ability to measure their transverse momentum in this way.
 
+        \FloatBarrier
         \subsection{Track Reconstruction}
 
             As particles pass through the inner detector subsystems, they trace out a path of ionized detector elements.
@@ -101,7 +103,15 @@
             Several space-points can be assigned to the same pixel cluster,
                 if the energy readout pattern suggests multiple particles traversed the same location.
 
-            %TODO - pic: Find an image of track fitting some points?
+            \begin{figure}[tbh]
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/track_reconstruction}
+                \caption{
+                    Diagram of track fitting in the ATLAS inner detector
+                    [FIME: Steve how do I cite an indico presentation? Also is this even a good image to use?].
+                }
+                \label{fig:atlas_shower}
+            \end{figure}
+
 
             %Combinatorial track finding
             Once the ``dots'' are established, a series of guesses at how they should be connected are made.
@@ -121,6 +131,7 @@
             Once ambiguities have been resolved and all malformed track candidates removed,
                 the remaining tracks are refit using all available information at high-resolution\cite{atlas_track_reco_performance}.
 
+        \FloatBarrier
         \subsection{Primary Vertexing}
 
             Once track filtering has concluded,
@@ -141,6 +152,7 @@
                 but now with the PV set as the reference point $R$ instead of the beamspot.
 
 
+    \FloatBarrier
     \section{Jets}
 
         \subsection{Jet Definition}
@@ -156,7 +168,13 @@
         Due to conservation of momentum, the momentum vector of the original particle will be roughly equal to the jet vector,
             since the total momentum of the various scattered particles must sum back to the momentum of the initial particle.
 
-        %TODO - pic: Do I want a jet picture?
+        \begin{figure}[tbh]
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/ATLAS_Detector_Schematic_black_particles}
+            \caption{
+                Depiction of different particle types showering through the ATLAS detectors\cite{Mehlhase:2770815}.
+            }
+            \label{fig:atlas_shower}
+        \end{figure}
 
         Though jets are meant to represent a physical phenomenon,
             it should be emphasized that jets themselves \textit{are not physical objects}.
@@ -181,6 +199,7 @@
         [NOTE: Hey Steve, do I need to describe how antikt works?
         It's not that complicated, but it's kinda weird and unintuitive and I'm not sure if its description would add much]
 
+        \FloatBarrier
         \subsection{Jet Calibration}
 
         Once topo-clusters have been formed, their energy and momentum must be calibrated.
@@ -204,6 +223,7 @@
         %Jets created using only calorimeter-based topological-clusters (at the electromagnetic scale [what does this mean??]) %TODO?
             %are referred to as \textit{EMtopo Jets}. %I still don't really get this, and I'm not sure they're even really used, so imma skip it
 
+    \FloatBarrier
     \section{Flavour Tagging}
         
         There are many kinds of particles and processes that can produce jets.
@@ -220,6 +240,7 @@
 
         TODO: insert table of branching fraction of higgs?
 
+        \FloatBarrier
         \subsection{Impact Parameter Taggers}
 
             The low-level b-tagging algorithms can be divided between impact parameter taggers and secondary vertexing algorithms.
@@ -233,9 +254,29 @@
             \end{split} \end{equation}
             Physically, this sign convention is to distinguish tracks which are likely to have actually been part of the jet (with a positive sign)
                 from those likely originating from pile-up vertices (negative sign).
-            [NOTE: I'm not sure these equation are actually right. At the very least, I don't understand them, so I'll need to revisit this]
+            [TODO: I'm not sure these equations are actually right. At the very least, I don't understand them, so I'll need to revisit this]
+            See Figure \ref{fig:ip3d_sign} for a graphical illustration of this convention.
 
-            TODO - pic: I need a plot explaining this. kinda like giacinto's figure 6.3, but ideally less confusing
+            \begin{figure}
+                \subfloat[IP3D Negative Sign Convention]{
+                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_sign_negative}
+                }
+                \subfloat[IP3D Positive Sign Convention]{
+                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_sign_positive}
+                }
+                \caption{
+                    Diagrams of the sign convention used for IP3D.
+                    In the left diagram, the track $p_T$ vector intersects with the jet $p_T$ vector axis
+                        \textit{before} the PV, suggesting this track originated from a source unrelated to the PV
+                        (and is thus likely just noise from a pileup vertex).
+                    In the right diagram, the track $p_T$ vector intersects with the jet $p_T$ vector axis
+                        \textit{after} the PV, suggesting this track originated from a secondary vertex of
+                        a particle emitted from the PV
+                        (around the area marked with a red X).
+                    \cite{thesis_giacinto}.
+                }
+                \label{fig:ip3d_sign}
+            \end{figure}
 
             Values are assigned to \textit{each} track in a jet based on probability density functions (PDF) of the different jet types.
             Specifically, a PDF is constructed of the impact parameter \textit{significance}, $d_0/\sigma_{d0}$,
@@ -251,10 +292,29 @@
             \end{equation}
 
             These distributions are then used as a discriminant to distinguish b-jets and charm-jets from light-jets
-                (see Figure TODO)\cite{thesis_giacinto}. %TODO: is there a non-empirical, like, physics reason for this?
+                (see Figure \ref{fig:ip3dsig})\cite{thesis_giacinto}. %TODO: is there a non-empirical, like, physics reason for this?
 
-            TODO - pic: IP2D histogram for b-jet vs light-jet
+            \begin{figure}
+                \subfloat[IP3D-$d_0$, 2016]{
+                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_d0_sig_2016}
+                }
+                \subfloat[IP3D-$d_0$, 2017]{
+                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_d0_sig_2017}
+                }\\
+                \subfloat[IP3D-$z_0$, 2016]{
+                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_z0_sig_2016}
+                }
+                \subfloat[IP3D-$z_0$, 2017]{
+                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_z0_sig_2017}
+                }
+                \caption{
+                    IP3D d0 and z0, for 2016 and 2017 configurations\cite{btagging_optimisation}.
+                }
+                \label{fig:ip3dsig}
+            \end{figure}
 
+
+        \FloatBarrier
         \subsection{Secondary Vertexing}
 
             Secondary Vertexing algorithms take advantage of the fact that b-quarks are significantly longer lived than light and charm quarks,
@@ -268,6 +328,7 @@
                 which are then used both as discriminant themselves,
                 as well as utilized in the next step as inputs to the more advanced taggers\cite{btagging_optimisation}.
 
+        \FloatBarrier
         \subsection{High Level Taggers}
 
             After running all of the low level taggers,
@@ -279,6 +340,7 @@
             \cite{bjet_id_and_performance}
             \cite{btagging_optimisation}
 
+    \FloatBarrier
     \section{Online VS Offline Reconstruction}
 
         Reconstruction is actually performed for an event twice.
@@ -325,7 +387,13 @@
         At this stage, the framework is run once more, in its entirety,
             so its performance can be analyzed and any potential issues addressed.
 
-        %TODO - pic: Do I have ROC curves comparing MV2c10 scores b/t on and offline?
+        \begin{figure}[tbh]
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/mv2_on-off_performance}
+            \caption{
+                Comparison of the performance of MV2c10 and low level taggers VS offline performance\cite{Gupta:2271945}.
+            }
+            \label{fig:mv2_performance}
+        \end{figure}
 
         %(We don't use mv2 for the late-stage b-tag requirement on the higgs decay candidates,
         %    but we DO use it in the triggers):
