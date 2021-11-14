@@ -2,9 +2,9 @@
 
 \section{Introduction}
 
-    In parallel with the process of reconstruction, is that of event selection.
-    As was mentioned earlier in the discussion of the ATLAS Trigger,
-        there are far too many events in ATLAS to analyze them all.
+    Run in parallel with the process of reconstruction, is that of event selection.
+    As discussed earlier in the discussion of the ATLAS Trigger,
+        there are far too many events in ATLAS to record and analyze them all.
     Thus, a series of selection algorithms are used to veto the abundance of background events.
     Unfortunately, these selection algorithms are not perfect,
         and so a careful balance must be attained between removing a suitable amount of background,
@@ -32,15 +32,15 @@
     Figure \ref{fig:event_display} is an ``event display'' of what a VBF \to 4b event is expected to look like,
         based on Monte-Carlo simulation (see Chapter \ref{chapter:signal}).
     It demonstrates the key features these selection algorithms use to differentiate signal from background.
-    The most obvious feature to identify is the high-$p_T$ jet multiplicity.
-    VBF \to 4b will invariably produce a total of six jets;
+    The most obvious feature to identify is the high-$p_T$-jet multiplicity.
+    VBF \to 4b will, by definition, produce a total of six jets;
         the two initial-scatter (IS) light-quark jets, plus the 4 b-jets from the Higgs decay.
     All six of these jets will carry significant energy and transverse momentum.
     A hallmark of the VBF process is the wide opening angle and high invariant mass between the IS jets.
     Such a jet pattern stands out dramatically from most of the stochastic background noise,
         one of the main advantages of the VBF process.
     Additionally, while the four b-jets of the Higgs are not exclusively produced in the low-$\eta$ regions,
-        so many high-$p_T$ b-jets orthogonal to the beamline is extremely rare for background events,
+        so many high-$p_T$ b-jets orthogonal to the beamline is rare for background events,
         and thus makes for another highly identifiable feature of the signal.
     Finally, due to their high initial momentum,
         the $\bbar$ decay products of each Higgs will have little spread between them,
@@ -49,7 +49,7 @@
     All of these features are exploited by the selection process carried out in this analysis,
         which is performed across two distinct stages.
     The initial selection process is carried out before and during reconstruction, via the aforementioned trigger system.
-    After the primary reconstruction process, an additional set of selection criteria,
+    After the offline reconstruction process an additional set of selection criteria,
         specific to this analysis, are applied to the fully reconstructed event objects.
     
     \section{Triggers}
@@ -57,13 +57,13 @@
         The first stage of the Selection process largely occurs before reconstruction has even begun,
             in the L1, HLT, and Offline ATLAS Triggers.
         Table \ref{tab:nr-triggers-used} lists the trigger chains used in this analysis.
-        An event from ATLAS is incorporated into the data used in this analysis as long as it passes at least one 
+        An event from ATLAS is incorporated into the data used as long as it passes at least one 
             of the listed chains associated with its year.
         These triggers have been chosen based on any features that lend themselves to the VBF \to 4b process.
-        Noteably, the triggers in use heavily emphasize high jet multiplicity and an abundance of b-jets
-            (both integral to VBF \to 4b).
+        Notably, the utilized triggers heavily emphasize high jet multiplicity and an abundance of b-jets.
         To understand how, it is necessary to understand the nomenclature of the trigger chains.
-        A full reference can be found in ??, but a brief example of how to read the chains is provided here:
+        A full reference can be found in [FIXME: find a reference for this],
+            but a brief example of how to read the chains is provided here:
 
         HLT\_j110\_gsc150\_boffperf\_split\_2j45\_gsc55\_bmv2c1070\_split\_L1J85\_3J30:
         \begin{itemize}
@@ -79,11 +79,11 @@
             \item L1J85: Level 1 Trigger algorithm requiring a cluster with an energy of at least 85 GeV 
             \item 3J30: Require at least 3 jets with a minimum $p_T$ of 30 GeV
         \end{itemize}
+        [NOTE: the other reason I need to find a reference is to make sure I've got these right]
 
-
-        \input{tables/selection/nr-triggers-table}
 
         % Triggers used in this analysis and why
+        \input{tables/selection/nr-triggers-table}
         % (do we have any plots showing why we use these triggers?)
         %   Yes, though I might be able to get away without using them
 
@@ -113,10 +113,13 @@
             candidates for the Higgs' decay products are taken exclusively from Central jets.
         Central jets are only used if they have a $p_T > 40$ GeV, and satisfy at least one of the following three conditions:
             pass the JVT algorithm, have $p_T > 60$ GeV, or have $2.4 < |\eta| < 2.5$.
-        Forward jets have less stringent requirements, needing only have a $p_T > 30$ GeV.
+        [TODO: I'm going to have to justify this wonky set of requirements huh?
+            I haven't found a good explanation yet, so I might need to ask somebody
+            (our int note just straight up skips these requirements, even though I can see them in the code)]
+        Forward jets have less stringent requirements, needing only a $p_T > 30$ GeV.
 
         After jets have been categorized and selected, an event is only used if there at least six selected jets remaining.
-        Of these, at least four of the Central jets must have been b-tagged by the trigger system.
+        Of these, at least four must be Central jets which have been b-tagged by the trigger system.
         From the remaining jets (Central or Forward), there must be at least two \textit{anti}-b-tagged jets
             (i.e.\ jets that were marked as not b-jets).
 
@@ -137,6 +140,8 @@
         As well, the combined vector-sum-pt of all six jets
             (the four Higgs products and the two VBF jets)
             must be less than 65 GeV.
+        The maximum sum-$p_T$ requirement follows from the fact that the initial incoming beamline particles have
+            zero tranverse momentum, and so the output of their interaction should as well.
         These specfic values for the cuts are based on the significance values shown in Figure \ref{fig:vbf_cuts}).
 
         \begin{figure}[tbh]
@@ -163,7 +168,7 @@
 
         What is detected within ATLAS and reconstructed by Athena are not Higgs Bosons, but rather their decay products.
         To reconstruct the two Higgs Bosons, the four reconstructed b-quarks must be combined together, two b's to each Higgs.
-        A pairing algorithm, called MinDR \cite{hh4b_2021_int_note},
+        A pairing algorithm called MinDR\cite{hh4b_2021_int_note}
             is used to determine which b-quarks should be paired to each other.
         MinDR operates under the assumption that the decay products of the Higgs boson
             should be relatively close to each other in angular space, maintaining the Higgs' high $p_T$.
@@ -211,7 +216,7 @@
         Adjacent to the SR lie the Control and Validation Regions (CR and VR),
             designating events with kinematics very similar to the Signal Region,
             but with reconstructed Higgs masses incompatible with experimental measurment (see Figure \ref{fig:region_definition}).
-        A quantity $X_hh$ governs the boundaries of these regions, and is defined as:
+        A quantity $X_{HH}$ governs the boundaries of these regions, and is defined as:
 
         \begin{equation}
             X_{HH} \equiv \sqrt{\left(\frac{m_{H1} - 124\textrm{GeV}}{0.1 \ m_{H1}}\right)^{2}
@@ -240,46 +245,3 @@
             }
             \label{fig:region_definition}
         \end{figure}
-
-
-        %Do I need to show proof of all our cut steps? Like, surely there's a motivation for each of them?
-
-  %      Two VBF Initial Scatter (IS) quark jets:
-  %          light jets (u,d, or maybe charm);
-  %          high pt;
-  %          wide opening angle;
-  %          high mjj;
-  %          can be central or forward.
-
-  %      Four b-jets:
-  %          decay products of higgss;
-  %          all central; why are interesting things always central?
-  %                       can i show this mathematically (dude it's just Newton's first law... don't overthink it)
-  %          also high pt;
-  %          b/b-bar products are expected to have very low opening angle between them.
-
-  %      Overall:
-  %          Zero pt initially, so expected low pt for vector sum of all jets combined
-  %          
-
-  %      Make note of the fact that the anti-$k_t$ algorithm is set with $\Delta R = 0.4$.
-
-  %  kinematic cuts
-  %      basic jet multiplicity reqs,
-  %      btag jets with DL1r 77\% working point,
-  %      4b-tagged, central
-  %      also 2b and 3b1f, which are reserved for background estimation
-  %      2 non-btagged jets with min-mjj for VBF
-
-  %  Then there's the minDR pairing of b's to reconstruct HH
-
-  %  Then cut on dihiggs and full system kinematics
-
-  %  Then make sure the higgss fall within the "signal region" (their individual masses are approximately 125 GeV)
-
-
-%...and how we wittle the abundance of events down to a manageable subset.
-%If I stick to this format, there's still a bit of event reconstruction done here.
-%
-%HH4b Resolved Reco and Selection (literally just go through resolved recon...).
-%    Final stage is the signal region selection
