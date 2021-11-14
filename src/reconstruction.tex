@@ -2,13 +2,13 @@
 
     \section{Introduction}
 
-        Once a bunch-crossing event has cleared the Level 1 Trigger system, the process of event reconstruction begins.
-        An event in ATLAS is, initially, nothing but a collection of electrical signals emitted from the various detectors.
-        Event reconstruction is the procedure wherein detector readings are aggregated together into meaningful patterns,
-            which are interpreted as physical objects and processes.
+        Once a bunch-crossing event has cleared the Level 1 Trigger system, the stage of event reconstruction begins.
+        An event in ATLAS is initially nothing but a collection of electrical signals emitted from the various detectors.
+        Event reconstruction is the process wherein detector readings are aggregated together into meaningful patterns,
+            which are interpreted as physical objects and events.
         The key objects of interest in this analysis are particle \textit{tracks} and \textit{jets}.
-        As well, the process by which b-quark-initiated jets (``b-jets'') are distinguished from other jet types,
-            called \textit{flavour tagging}, plays a particularly important role in this analysis.
+        As well, the way in which b-quark-initiated jets (``b-jets'') are distinguished from other jet types,
+            called \textit{flavour tagging}, plays a particularly important role.
         Finally, special attention will be given to the fact that reconstruction occurs not once, but twice;
             first in the High Level Trigger online running environment,
             and again in the offline environment after events have been read out.
@@ -26,7 +26,7 @@
                 particles exiting the Interaction Region travel along a relatively unimpeded trajectory.
             Thanks to the inclusion of the Solenoid Magnet field encompassing the Inner Detectors,
                 these trajectories reveal crucial information about the particles in an event.
-            This is due to the fact that any charged particle, with a momentum component orthogonal to a magnetic field,
+            This is because any charged particle, with a momentum component orthogonal to a magnetic field,
                 will trace out a \textit{helical} trajectory.
             If the shape of the helix is known, then basic electrodynamics principles can be used to determine the
                 momentum and charge of the particle that formed it.
@@ -34,7 +34,7 @@
             \begin{equation}
             p = \minimatrix{E \\ p_T \\ \theta \\ \phi}
             \end{equation}
-            the track's helical shape can reveal all components except for the energy $E$ (this will be handled by the calorimeters).
+            the track's helical shape can reveal all components except for the energy $E$ (which will be handled by the calorimeters).
             To understand how this is achieved, one must understand how a track helix is described mathematically.
             A helix can be defined using five parameters structured in a three-dimensional parametric equation.
             There are several conventions for the form these parameters should take,
@@ -47,7 +47,7 @@
 
             The helix is described relative to a reference point $R$,
                 which is initially set to the beam-spot location in the IR.
-            Later stages of tracking will redefine the perigee parameters with respect to different reference points as needed.
+            Later stages of tracking will redefine the equations with respect to different reference points as needed.
             The five parameters governing the shape of this helix, called \textit{perigee parameters}, 
                 are described largely in terms of the ``Point of Closest Approach'' (PoCA),
                 the point on the helix closest to $R$ in the $x,y$ plane.
@@ -70,21 +70,26 @@
                     \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_top}
                 }
                 \caption{
-                    Perigee parameters are hard! Also I need to replace PV with just Reference, since the PV comes later (oops).
-                    Also I should make the labels on these bigger.
+                    A diagram showing a helix trajectory from multiple angles,
+                        with the five perigee parameters highlighted.
+                    [FIXME: Perigee parameters are hard!
+                    Also I need to replace PV with just `Reference', since the PV comes later (oops).
+                    Also I should make the labels on these bigger.]
                 }
                 \label{fig:perigee_params}
             \end{figure}
 
-            Both $d_0$ and $z_0$ will be used in later sections for the purpose of flavour tagging.
-            Returning to the four-momentum, $\phi$ and $\theta$ are themselves components of the particle's 4-vector.
-            The final parameter, $\rho$ can then be related to the particle's transverse momentum and electric charge as
+            All five of the parameters are used at some stage of the analysis.
+            With regards to the aformentioned particle momentum, $\phi$ and $\theta$ are themselves components of the particle's 4-vector.
+            $\rho$ can then be related to the particle's transverse momentum and electric charge as
             \begin{equation}
             r = \frac{p_T}{qB} = \frac{|\vec{p}| \sin(\theta)}{qB}
             \end{equation}
             where $B$ is the magnetic field of the Inner Detector Solenoid Magnet\cite{thesis_track_sim_and_reco}.
             Note that uncharged particles, like photons, will not be bent, and will thus have no curvature,
                 negating the ability to measure their transverse momentum in this way.
+            The impact parameters, $d_0$ and $z_0$, are not related to momentum,
+                but will be used in later sections for the purpose of flavour tagging.
 
         \FloatBarrier
         \subsection{Track Reconstruction}
@@ -100,7 +105,7 @@
             Based on the pattern of energy distribution in these groups,
                 a \textit{space-point} (the ``dot'' in my metaphor) 
                 is created indicating the estimated position at which a particle crossed the detector.
-            Several space-points can be assigned to the same pixel cluster,
+            Several space-points can be assigned to the same pixel cluster
                 if the energy readout pattern suggests multiple particles traversed the same location.
 
             \begin{figure}[tbh]
@@ -112,17 +117,16 @@
                 \label{fig:atlas_shower}
             \end{figure}
 
-
             %Combinatorial track finding
             Once the ``dots'' are established, a series of guesses at how they should be connected are made.
             Initial guesses at tracks, called track seeds, are formed by assembling all realistic combinations of three space-points.
             The track seeds are assigned helix parameters by assuming they travel through a uniform magnetic field,
-                allowing immediate estimates of the tracks' momentum.
+                allowing rapid estimates of the tracks' momentum.
             These seeds are expanded into \textit{track candidates},
                 by including more space-points across additional detectors in the ID using a \textit{Kalman filter}.
 
             %Ambiguity solving; NN clustering; Track fit
-            The last step is then to choose a final ``picture'' that looks valid.
+            The last step is then to choose a final ``picture'' that looks the most valid.
             A number of criteria are used to reject poor-quality tracks, as well as to assign scores to all remaining track candidates.
             These scores are used to resolve ambiguities where multiple tracks are assigned to the same space-points,
                 with preference given to higher-scoring candidates.
@@ -210,12 +214,12 @@
 
         After correcting for energy, the next step is to correct for momentum.
         Reconstructed jets are assumed to originate from the hard-scatter interaction point.
-        Thus, the momentum vectors associated with the jets and their topo-clusters are adjusted to point back from the PV.
+        Thus, the momentum vectors associated with the jets and their topo-clusters are adjusted to point away from the PV.
 
-        The final step in the jet reconstruction process for this analysis is the track-matching algorithm.
-        To improve the performance of reconstructing hadronic jets,
+        The final step in the jet reconstruction process is the track-matching algorithm.
+        To improve the performance of reconstructing hadronic jets
             the various jet vectors are each matched to a corresponding track that the jet likely started from.
-        This algorithm, called \textit{Particle Flow} treats the jets as extensions of the reconstructed particles,
+        This algorithm, called \textit{Particle Flow}, treats the jets as extensions of the reconstructed particles,
             matching jets to tracks based on both location and energy projections.
         The resulting jet-track combination objects are known as \textit{PFlow Jets},
             which are then used for the rest of the reconstruction process\cite{pflow}.
@@ -238,7 +242,7 @@
             first with a set of simple low-level taggers,
             and then with a set of more sophisticated taggers which use the low-level tagger information as inputs.
 
-        TODO: insert table of branching fraction of higgs?
+        TODO: insert table of branching fraction of higgs? Should that go here or elsewhere?
 
         \FloatBarrier
         \subsection{Impact Parameter Taggers}
@@ -291,7 +295,7 @@
                 R(t_1, t_2, ... t_N) \equiv \frac{\prod_{i=1}^N \textrm{PDF}_b(t_i)}{\prod_{i=1}^N \textrm{PDF}_l(t_i)}
             \end{equation}
 
-            These distributions are then used as a discriminant to distinguish b-jets and charm-jets from light-jets
+            These distributions are subsequently used as a discriminant to distinguish b-jets and charm-jets from light-jets
                 (see Figure \ref{fig:ip3dsig})\cite{thesis_giacinto}. %TODO: is there a non-empirical, like, physics reason for this?
 
             \begin{figure}
@@ -339,6 +343,7 @@
             In the case of this analysis, a recurrent neural network version of DL1, called DL1r, is used instead.
             \cite{bjet_id_and_performance}
             \cite{btagging_optimisation}
+            [NOTE: This feels way too short, but I'm not sure what else to say about them... Steve?]
 
     \FloatBarrier
     \section{Online VS Offline Reconstruction}
@@ -346,7 +351,7 @@
         Reconstruction is actually performed for an event twice.
         It is first done rapidly, using coarse measurements and calculations,
             for the purpose of allowing the aforementioned HLT to trigger events for readout.
-        These events which pass the trigger are passed off to a massive global computer cluster, referred to as the GRID.
+        These events which pass the trigger are passed off to a massive global computer cluster, called the CERN GRID.
         No longer bound by the stringent time constraints of the online running environment,
             the GRID is able to devote vast amounts of time and computing power to a second, 
             more comprehensive, reconstruction of each event.
@@ -359,10 +364,10 @@
         This allows the HLT to reconstruct tracks much faster, but at the expense of precision and accuracy.
 
         Such accuracy loss in tracking has significant downstream consequences across all aspects of reconstruction.
-        Of particular note for this analysis are the effects on flavour tagging.
-        The low level flavour-taggers operate mainly based on probability distributions of the parameters of the reconstructed tracks.
-        With the degradation in track quality of the online environment, the low level taggers' PDFs are altered.
-        And, since the low-level taggers are affected, the high-level taggers are then also affected.
+        Of note for this analysis are the effects on flavour tagging.
+        The low level flavour-taggers function on probability distributions of the parameters of the reconstructed tracks.
+        With the degradation in track quality of the online environment, the PDFs of the low level taggers are altered.
+        Since the low-level taggers are affected, the high-level taggers are also affected.
         To account for this, the flavour tagging algorithms undergo a \textit{retuning} procedure, 
             which adjusts how the algorithms expect tracks to look.
 
