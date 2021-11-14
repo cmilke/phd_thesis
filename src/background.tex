@@ -48,7 +48,18 @@
         \sum_{i=1}^{N} \tilde \alpha \tilde w_i = N'
         \end{equation}
 
-        TODO: include a bunch of those reweighting validation plots
+    \begin{figure}[!htbp]
+        \subfloat[Data before reweighting]{
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/NR-MAY21-crypto-m_hh-control-no_rw-allyr-3b1f-dEtahhcat_inclusive}
+        }
+        \subfloat[Data after reweighting]{
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/NR-MAY21-crypto-m_hh-control-NN-allyr-3b1f-dEtahhcat_inclusive}
+        }
+        \caption{
+            The \mhh kinematic distribution of the 2b VS 4b regions, before and after reweighting the 2b region.
+        }
+        \label{fig:data_mhh_reweight}
+    \end{figure}
 
     The problem with this training approach, is that the 4b signal region cannot be used to train against.
     Instead, the Neural networks are trained using the Control Region data,
