@@ -2,9 +2,9 @@
 
     \section{Introduction}
 
-        Once a bunch-crossing event has cleared the Level 1 Trigger system, the stage of event reconstruction begins.
+        Once a bunch-crossing event has cleared the Level 1 Trigger system, the process of event reconstruction begins.
         An event in ATLAS is initially nothing but a collection of electrical signals emitted from the various detectors.
-        Event reconstruction is the process wherein detector readings are aggregated together into meaningful patterns,
+        Event reconstruction is when the myriad detector readings are aggregated together into meaningful patterns,
             which are interpreted as physical objects and events.
         The key objects of interest in this analysis are particle \textit{tracks} and \textit{jets}.
         As well, the way in which b-quark-initiated jets (``b-jets'') are distinguished from other jet types,
@@ -13,7 +13,7 @@
             first in the High Level Trigger online running environment,
             and again in the offline environment after events have been read out.
         The ways that reconstruction differs between these two environments plays a role
-            in later stages of this analysis, and so is worth discussing.
+            in later stages of the analysis, and so is worth discussing.
 
     \FloatBarrier
     \section{Tracks} \label{sec:reco_tracks}
@@ -34,7 +34,8 @@
             \begin{equation}
             p = \minimatrix{E \\ p_T \\ \theta \\ \phi}
             \end{equation}
-            the track's helical shape can reveal all components except for the energy $E$ (which will be handled by the calorimeters).
+            the track's helical shape can reveal all components except for the energy $E$,
+                which will eventually be handled by the calorimeters.
             To understand how this is achieved, one must understand how a track helix is described mathematically.
             A helix can be defined using five parameters structured in a three-dimensional parametric equation.
             There are several conventions for the form these parameters should take,
@@ -48,12 +49,13 @@
             The helix is described relative to a reference point $R$,
                 which is initially set to the beam-spot location in the IR.
             Later stages of tracking will redefine the equations with respect to different reference points as needed.
-            The five parameters governing the shape of this helix, called \textit{perigee parameters}, 
+            The five parameters governing the shape of this helix,
+                called \textit{perigee parameters} (see Figure \ref{fig:perigee_params}),
                 are described largely in terms of the ``Point of Closest Approach'' (PoCA),
                 the point on the helix closest to $R$ in the $x,y$ plane.
             \begin{itemize}
-                \item $d_0$: $|(x,y)|$-Distance from the origin to the closest point on the helix, in the $x,y$ plane
-                \item $z_0$: $z$-Distance between the PoCA and the origin
+                \item $d_0$: $|(x,y)|$-distance from the origin to the closest point on the helix, in the $x,y$ plane
+                \item $z_0$: $z$-distance between the PoCA and the origin
                 \item $\phi$: Angle in the $x,y$ plane of the PoCA
                 \item $\theta$: The angle of the helix's trajectory in the $\rho,z$ plane
                 \item $\rho$: The radius of curvature of the helix
@@ -81,12 +83,12 @@
 
             All five of the parameters are used at some stage of the analysis.
             With regards to the aformentioned particle momentum, $\phi$ and $\theta$ are themselves components of the particle's 4-vector.
-            $\rho$ can then be related to the particle's transverse momentum and electric charge as
+            $\rho$ can be related to the particle's transverse momentum and electric charge by:
             \begin{equation}
-            r = \frac{p_T}{qB} = \frac{|\vec{p}| \sin(\theta)}{qB}
+                \rho = \frac{p_T}{qB} = \frac{|\vec{p}| \sin \theta}{qB}
             \end{equation}
             where $B$ is the magnetic field of the Inner Detector Solenoid Magnet\cite{thesis_track_sim_and_reco}.
-            Note that uncharged particles, like photons, will not be bent, and will thus have no curvature,
+            Note that uncharged particles (e.g.\ photons) will not be bent, and so will have no curvature,
                 negating the ability to measure their transverse momentum in this way.
             The impact parameters, $d_0$ and $z_0$, are not related to momentum,
                 but will be used in later sections for the purpose of flavour tagging.
@@ -112,9 +114,9 @@
                 \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/track_reconstruction}
                 \caption{
                     Diagram of track fitting in the ATLAS inner detector
-                    [FIME: Steve how do I cite an indico presentation? Also is this even a good image to use?].
+                    [FIXME: Steve how do I cite an indico presentation? Also is this even a good image to use?].
                 }
-                \label{fig:atlas_shower}
+                \label{fig:track_fit}
             \end{figure}
 
             %Combinatorial track finding
@@ -272,7 +274,7 @@
                     Diagrams of the sign convention used for IP3D.
                     In the left diagram, the track $p_T$ vector intersects with the jet $p_T$ vector axis
                         \textit{before} the PV, suggesting this track originated from a source unrelated to the PV
-                        (and is thus likely just noise from a pileup vertex).
+                        (and so is likely just noise from a pileup vertex).
                     In the right diagram, the track $p_T$ vector intersects with the jet $p_T$ vector axis
                         \textit{after} the PV, suggesting this track originated from a secondary vertex of
                         a particle emitted from the PV

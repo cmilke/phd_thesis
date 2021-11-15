@@ -1,4 +1,4 @@
-\chapter{Signal Modelling}
+\chapter{Signal Modelling} \label{chapter:signal}
 
 \section{Building a Hypothesis}
 
@@ -41,6 +41,7 @@
     In order to address these issues, I will need to turn to the power of Monte-Carlo simulation.
 
 
+\FloatBarrier
 \section{Monte-Carlo Simulation} \label{sec:mcsim}
     
     Currently, Monte-Carlo simulation is the most effective method of making predictions
@@ -70,7 +71,7 @@
         in practice such particles rarely remain in such a state for very long.
     Most particles, given any appreciable amount of time to propagate, will undergo some form of decay or radiactive emission.
     Such processes occur randomly, and will often occur repeatedly
-        (e.g./ the products of a decay process can themselves undergo further decay).
+        (e.g.\ the products of a decay process can themselves undergo further decay).
     Pythia8 is used to simulate these decay chains.
     It uses a variety of built-in physics processes to inform the behaviour of high-energy collision particle products.
     This simulation is done entirely in a vaccum though, and one last program is required for full simulation.
@@ -118,6 +119,7 @@
        \end{center}
     \end{table}
 
+\FloatBarrier
 \section{Signal Combination}
 
     As discussed in Section \ref{sec:feyn_rules},
@@ -149,10 +151,6 @@
         the samples used in the combination must have already been run through the full reconstruction and selection process detailed in Section \ref{sec:mcsim}.
     The signal distribution modelling is thus performed by directly combining the reconstructed \mhh distributions of post-selection signal samples.
 
-    In theory, with infinite events, the only requirement for these samples is that they are linearly independent of each other.
-    In practice, the final samples are statistically limited, and different combinations of variations yield different statistical power.
-    The 6-sample combination used in this analysis (\ref{tab:vbf_hh_6term_varlist} and \ref{eqn:vbf_hh_6term_chosen}) has been chosen specifically for its ability to avoid mismodelling errors.
-
     \begin{table}[] \centering
     \caption{6-Term VBF Combination Sample Variations}
     \label{tab:vbf_hh_6term_varlist}
@@ -168,6 +166,11 @@
             0   &  -5 & 0.5 \\
         \hline
     \end{tabular} \end{table}
+
+
+    In theory, with infinite events, the only requirement for these samples is that they are linearly independent of each other.
+    In practice, the final samples are statistically limited, and different combinations of variations yield different statistical power.
+    The 6-sample combination used in this analysis (Table \ref{tab:vbf_hh_6term_varlist} and Equation \ref{eqn:vbf_hh_6term_chosen}) has been chosen specifically for its ability to avoid mismodelling errors.
 
     {\footnotesize \begin{equation}
     \label{eqn:vbf_hh_6term_chosen}
@@ -276,6 +279,7 @@
     \end{figure}
 
 
+\FloatBarrier
 \section{Solidarity} \label{sec:solidarity}
     
     As a final note on the discussion of the signal sample combination technique,
@@ -326,7 +330,7 @@
     The formula for the combination of the samples amounts to weighting each sample's yield by a coupling-dependent coefficient,
         and then adding these weighted yields together to obtain the combined yield.
     Different samples can have yields which are orders of magnitude apart from each other
-        (e.g./ the 1.18 fb yield of the SM point VS the 67 fb yield of the \kl=10 sample).
+        (e.g.\ the 1.18 fb yield of the SM point VS the 67 fb yield of the \kl=10 sample).
     As well, the coupling-based coefficients can vary dramatically across the coupling space.
     The product of the sample yield and the coupling coefficient (the \textit{weighted yield})
         can therefore fluctuate a great deal across the coupling space.
@@ -341,7 +345,7 @@
         the metric will be dependant both on the basis samples' yields ($\sigma_i$),
         and on the coupling coefficient ($c_i(\kvv,\kl,\kv)$) of the specific point in the coupling space to be modeled.
     As well, I want to explicitly note the occurance of \textit{negative} coefficients in the combination sum.
-    My suggestion is that negative coefficients are \textit{not} intrinsically detrimental to the combination.
+    My claim is that negative coefficients are \textit{not} intrinsically detrimental to the combination.
     Rather, they merely reflect the behaviour inherent to calculating cross-sections,
         in that some Feynman diagrams invariably cancel with others.
     Thus, I will be looking at the ``closeness'' of the \textit{absolute values} of the weighted yields,
@@ -421,14 +425,14 @@
         would do well to use a more sophisticated optimization technique}.
 
     \begin{figure}[tbh]
-        \subfloat[Original 12 Samples]{
+        \subfloat[All Tested ``13th'' Variation Possibilities]{
             \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/projective_solidarity_all}
         }
-        \subfloat[Using All 13 Samples]{
+        \subfloat[Close-up of the top of Figure (a)]{
             \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/projective_solidarity_dump}
         }
         \caption{
-            A 2D representation of all the Solidarity Integral histograms generated for a myriad of different ``extra sample'' points.
+            A 2D heatmap representation of all the Solidarity Integral histograms generated for a myriad of different ``extra sample'' points.
             The rows are sorted from top to bottom by the sum of their bins
                 (That is, the sum of all Solidarity surface integrals for all bases associated with the same additional MC sample point).
         }
@@ -447,10 +451,10 @@
             \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/solidarity_performance_kv1}
         }\\
         \subfloat[\kv = 0.5]{
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio,ext=.pdf,type=pdf]{signal/solidarity_performance_kv0.5.pdf}
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/solidarity_performance_kv0p5.pdf}
         }
         \subfloat[\kv = 1.5]{
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio,ext=.pdf,type=pdf]{signal/solidarity_performance_kv1.5.pdf}
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/solidarity_performance_kv1p5.pdf}
         }
         \caption{
             Solidarity cumulative performance maps for various values of \kv.
@@ -462,9 +466,9 @@
     \end{figure}
 
     Using Figure \ref{fig:solidarity_performance_map} as a guide,
-        a number of points (mostly those corresponding to the highest aggregate performance values, ~5.5)
+        a number of points (mostly those corresponding to the highest aggregate performance values, $\approx 5.5$)
         were selected for limited simulation at truth level.
     Based on the prelinary stability shown by these truth level simulations,
         a full MC production run was generated with its coupling values set to \kvv=1, \kl=-5, \kv=0.5.
-    This new sample, along with those generated before, as well as with the collected data and background estimation,
+    This set of MC samples combined with the collected data and background estimation,
         can then be used together to test the validity of different possible hypotheses.

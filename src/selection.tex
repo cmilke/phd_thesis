@@ -3,11 +3,11 @@
 \section{Introduction}
 
     Run in parallel with the process of reconstruction, is that of event selection.
-    As discussed earlier in the discussion of the ATLAS Trigger,
+    As discussed earlier in Chapter \ref{chapter:trigger},
         there are far too many events in ATLAS to record and analyze them all.
     Thus, a series of selection algorithms are used to veto the abundance of background events.
     Unfortunately, these selection algorithms are not perfect,
-        and so a careful balance must be attained between removing a suitable amount of background,
+        and so a careful balance must be achieved between removing a suitable amount of background,
         while retaining as many signal events as possible.
 
     \begin{figure}[tbh]
@@ -38,7 +38,7 @@
     All six of these jets will carry significant energy and transverse momentum.
     A hallmark of the VBF process is the wide opening angle and high invariant mass between the IS jets.
     Such a jet pattern stands out dramatically from most of the stochastic background noise,
-        one of the main advantages of the VBF process.
+        and is one of the main advantages of the VBF process.
     Additionally, while the four b-jets of the Higgs are not exclusively produced in the low-$\eta$ regions,
         so many high-$p_T$ b-jets orthogonal to the beamline is rare for background events,
         and thus makes for another highly identifiable feature of the signal.
@@ -52,6 +52,7 @@
     After the offline reconstruction process an additional set of selection criteria,
         specific to this analysis, are applied to the fully reconstructed event objects.
     
+    \FloatBarrier
     \section{Triggers}
         
         The first stage of the Selection process largely occurs before reconstruction has even begun,
@@ -90,11 +91,12 @@
         %Trigger bucketing strategy? What are the chances I can just not deal with this?
 
 
+    \FloatBarrier
     \section{Analysis Cuts} \label{sec:analysis_cuts}
 
         Upon completion of the ATLAS-wide trigger selection,
             the appropriate data samples are copied for use by this analysis.
-        The available data still contains a vast excess of background events however,
+        The available data still contains a vast excess of background events though,
             and so this analysis makes an additional series of selection cuts on the fully reconstructed events.
         These cuts focus on the topological features discussed earlier,
             selecting events based on their jet multiplicity,
@@ -103,7 +105,7 @@
 
     \subsection{Jet Multiplicity and Categorization}
         
-        First and foremost is a check to ensure that there are enough jets to even constitute a VBF \to $\bbar$ event.
+        First and foremost is a check to ensure that there are enough jets to even constitute a \vbfproc event.
         Moreover, the selection is particular about the quality and position of jets it will permit.
         Jets are categorized as ``Central'' if they fall within $|\eta| \leq 2.5$,
             and are ``Forward'' if they are found with $ 2.5 < |\eta| \leq 4.5 $.
@@ -112,7 +114,7 @@
         As the tracking system is necessary for the b-tagging algorithms,
             candidates for the Higgs' decay products are taken exclusively from Central jets.
         Central jets are only used if they have a $p_T > 40$ GeV, and satisfy at least one of the following three conditions:
-            pass the JVT algorithm, have $p_T > 60$ GeV, or have $2.4 < |\eta| < 2.5$.
+            they pass the JVT algorithm, have $p_T > 60$ GeV, or have $2.4 < |\eta| < 2.5$.
         [TODO: I'm going to have to justify this wonky set of requirements huh?
             I haven't found a good explanation yet, so I might need to ask somebody
             (our int note just straight up skips these requirements, even though I can see them in the code)]
@@ -239,9 +241,9 @@
             the process of analyzing the data can begin.
 
         \begin{figure}[tbh]
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio,ext=.png,type=png]{selection/massplane_sig_all_4b_vbf_Xwt_1.5_k2V_0.png}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/massplane_sig_all_4b_vbf_Xwt_1p5_k2V_0}
             \caption{
-                We use k2v=0 because we're trying to exclude it.\cite{hh4b_2021_int_note}
+                TODO, We use k2v=0 because we're trying to exclude it.\cite{hh4b_2021_int_note}
             }
             \label{fig:region_definition}
         \end{figure}
