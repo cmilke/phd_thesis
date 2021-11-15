@@ -1,41 +1,41 @@
 \chapter{Signal Modelling}
 
-
 \section{Building a Hypothesis}
 
-    The core of the Scientific method is in the practice of making a hypothesis, and of then testing that hypothesis through experiment.
+    The core of the Scientific method is in the practice of making a hypothesis,
+        and of then testing that hypothesis through experiment.
     The hypothesis made in this analysis is that the Standard Model of Particle Physics is mostly correct,
         and that deviations from this theory should manifest in the probabilities of physical processes.
     I have spent the past several chapters discussing the experimentation process.
     Now it is time to discuss how I constructed a hypothesis that can be tested against the data provided from that experiment.
 
-    The most basic hypothesis made in this analysis is simply that the di-Higgs process exists at all.
+    The most basic hypothesis made in this analysis is that the di-Higgs process exists at all.
     Unfortunately, a direct measurent of the di-Higgs process is unlikely to occur in this study, as will be discussed in Chapter \ref{chapter:results}.
     An additional hypothesis that can be tested however,
-        relate to the Higgs Boson coupling constants and their influence on di-Higgs production cross-sections
+        is related to the Higgs Boson coupling constants and their influence on di-Higgs production cross-sections
         (recall Equation \ref{eq:tree_level_invamp}).
     If the Standard Model is exactly correct, then the various $\kappa$ coupling constants,
         discussed in Section \ref{sec:higgs_boson},
         should all be identically 1.
-    The most simple hypothesis to construct would be to calculate the expected event yield of the VBF \to HH process,
+    A simple hypothesis to construct would be to calculate the expected event yield of the VBF \to HH process,
         by multiplying the integrated luminosity of LHC Run 2 with the cross-section predicted by the SM.
     The same could be done to obtain predicted event yields for various alternative values of the couplings.
     However, testing a hypothesis using a single number presents a challenge, as many different unrelated factors can affect the event yield.
 
     Instead, a more robust hypothesis can be constructed by choosing an observable quantity distinct to the process in question.
-    Here the observable used is the invariant mass of the di-Higgs system (\mhh).
+    Here, the observable used is the invariant mass of the di-Higgs system (\mhh).
     The advantage of using \mhh is that the probability density function (PDF) for the \mhh of an event
         is predicted to vary significantly based on the values of the \kappa coupling constants.
     As such, the shape of the PDF for \mhh is unique to particular values of the couplings, 
-        and so it can be used to test the validity of a hypothesis.
+        and so can be used to test the validity of a hypothesis.
     If the \mhh distribution reconstructed from the data collected at ATLAS has no resemblence to
         the \mhh distribution predicted for a particular combination of the coupling values,
         then that set of couplings can be ruled out as incompatible with data
         (see Chapter \ref{chapter:results} for more details).
 
     Of course, making a prediction for the shape of the \mhh distribution as it would appear in ATLAS is easier said than done.
-    Calculating the event yield alone is already a challenging process to perform by hand.
-    Calculating the event yield \textit{as a function of an obervable kinematic variable} is almost certainly impossible to do analytically.
+    Calculating the event yield alone is not too difficult to perform by hand.
+    Calculating the event yield \textit{as a function of an obervable kinematic variable} is much more challenging [TODO: is it actually?].
     To then further determine what the kinematic distribution looks like \textit{within ATLAS}, rather than in theory,
         adds several additional layers of complexity to the problem.
     In order to address these issues, I will need to turn to the power of Monte-Carlo simulation.
@@ -46,14 +46,14 @@
     Currently, Monte-Carlo simulation is the most effective method of making predictions
         for how theoretical parameters should affect experimental observations in particle physics.
     The process as used for this analysis is a complex one, using an entire suite of programs to achieve a fully simulated output prediction.
-    This set of programs, referred to as a \textit{production chain}, consists of three distinct software programs.
+    This set of programs, referred to as a \textit{production chain}, consists of three distinct software frameworks.
     Their ultimate goal is to produce a faithful reproduction of how a collection of VBF \to HH processes would appear,
         were they to occur in data collected from ATLAS.
     The chain begins with pure theoretical simulation from MadGraph,
         the output of which is fed to a program called Pythia8,
-        which in turn then has its output run through the Geant4 simulation framework.
-    Output from Geant4 takes the same form as if it came from the ATLAS hardware,
-        at which point it is run through the same reconstruction and selection process as real data.
+        which in turn has its output run through the Geant4 simulation framework.
+    Output from Geant4 is made to take the same form as if it came from the ATLAS hardware,
+        at which point it is processed by the same reconstruction and selection process as real data.
 
     MadGraph is used for producing simulated particle interactions based on the Feynman diagrams of the process.
     Using a configuration of particle properties and interaction vertices,
@@ -77,12 +77,12 @@
 
     Geant4 is responsible for the final step of event simulation,
         which is to simulate the propagation of particles through the physical hardware of ATLAS,
-        and then simulate the detector response of ATLAS to this propagation.
+        and then simulate the detector response to this propagation.
     A full three-dimensional simulation of ATLAS has been constructed within the Geant4 framework,
         modeling the exact dimensions and material composition of every component,
         be it an active detector material or an inactive support structure.
     The particles and showers output by Pythia8 are propagated through the materials of the ATLAS machine by Geant4,
-        with further showering and scattering effects modeled.
+        with further modelling of showering and scattering effects.
     The detectors' response to the simulated particles are recorded, with the detector output stored in the same format as that produced by the ATLAS hardware.
 
 
@@ -120,7 +120,9 @@
 
 \section{Signal Combination}
 
-    As discussed in Section \ref{sec:feyn_rules}, the cross-section and kinematic distributions of the di-Higgs production processes depend fundamentally on a number of coupling constants between the Higgs and other particles.
+    As discussed in Section \ref{sec:feyn_rules},
+        the cross-section and kinematic distributions of the di-Higgs production processes
+        depend fundamentally on a number of coupling constants between the Higgs and other particles.
     Of particular interest in this analysis are \kl for the Higg's self-coupling and \kvv for the \HHVV coupling.
     The values of \kl and \kvv have loose experimental constraints \cite{EXOT-2016-31} \cite{HDBS-2018-18-witherratum} \cite{ATLAS-CONF-2019-049},
         requiring analysis across a wide range of these coupling values.
@@ -142,7 +144,7 @@
     Instead, for a given coupling, its cross-section for a given \mhh can be mathematically determined by solving a set of linear equations for the $a_i$ terms.
     This is done using six different cross-section values (for the same \mhh) for six different coupling values.
     In practice, the cross-section values of these six \textit{basis} samples are represented by their yields from MC simulation, binned by their \mhh.
-    These six samples (rather, their \mhh-binned MC yields) are then combined using the aformentioned linear equations.
+    These six samples (rather, their \mhh-binned MC yields) are then combined using the aformentioned linear equation.
     Due to the complexities of the kinematics of the VBF process,
         the samples used in the combination must have already been run through the full reconstruction and selection process detailed in Section \ref{sec:mcsim}.
     The signal distribution modelling is thus performed by directly combining the reconstructed \mhh distributions of post-selection signal samples.
@@ -236,7 +238,7 @@
     \end{figure}
 
     As an additional test, I also checked the distribution shape predicted by the combination at points far from the SM.
-    These points have no MC samples to compare to, but the points can still be checked to ensure they at least look well-behaved.
+    These points have no MC samples to compare to, but the points can still be checked to ensure they at least appear well-behaved.
 
     \begin{figure}[tbh]
         \centering
@@ -323,28 +325,28 @@
         do so because one or two of the samples is disproportionately represented in the combination compared to the others.
     The formula for the combination of the samples amounts to weighting each sample's yield by a coupling-dependent coefficient,
         and then adding these weighted yields together to obtain the combined yield.
-    Different samples can have yields which are orders of magnitude different from each other
-        (e.g./ the 1.18 fb yield of the SM point to the 67 fb yield of the \kl=10 sample).
+    Different samples can have yields which are orders of magnitude apart from each other
+        (e.g./ the 1.18 fb yield of the SM point VS the 67 fb yield of the \kl=10 sample).
     As well, the coupling-based coefficients can vary dramatically across the coupling space.
     The product of the sample yield and the coupling coefficient (the \textit{weighted yield})
-        can therefore vary a great deal across the coupling space.
+        can therefore fluctuate a great deal across the coupling space.
     For many regions of the coupling space, it can happen that one or two of the samples' weighted yields vastly outweigh the others.
     In such cases, the combined yield is then based almost entirely on these one or two over-represented samples,
         making the combination much more susceptible to statistical deficiencies.
-    I propose that this ``closeness'' of the weighted yields can be used as a highly effective metric of performance,
-        and one which does not neccesarily depend on the generation of MC.
+    I propose that this ``closeness'' of the weighted yields can be used as an effective metric of performance,
+        and one which does not depend on the generation of MC.
 
     Here I define a metric to quantify this behaviour.
     Due to the nature of the weighted yields,
         the metric will be dependant both on the basis samples' yields ($\sigma_i$),
         and on the coupling coefficient ($c_i(\kvv,\kl,\kv)$) of the specific point in the coupling space to be modeled.
     As well, I want to explicitly note the occurance of \textit{negative} coefficients in the combination sum.
-    I propose that negative coefficients are \textit{not} intrinsically a bad thing.
-    Rather, they merely reflect the behaviour inherent in calculating cross-sections,
+    My suggestion is that negative coefficients are \textit{not} intrinsically detrimental to the combination.
+    Rather, they merely reflect the behaviour inherent to calculating cross-sections,
         in that some Feynman diagrams invariably cancel with others.
     Thus, I will be looking at the ``closeness'' of the \textit{absolute values} of the weighted yields,
         specifically ensuring that bases are \textbf{not} penalized for large cancellations between terms.
-    The resulting metric, which I deem \textit{Solidarity}, effectively measures how well the basis samples work together at a given point.
+    The resulting metric, which I call \textit{Solidarity}, effectively measures how well the basis samples work together at a given point.
 
     \begin{equation}
     \textrm{\textbf{Solidarity}: }S \equiv \frac{ \sum\limits_{i=1}^6 c_i\sigma_i }{ \textrm{Stdev}(|c_i\sigma_i|) }
@@ -354,11 +356,10 @@
     Normalize this by the combined yield at that point (i.e.\ the sum of the weighted yields).
     Then take the \textit{reciprocal} of this normalized standard deviation,
         such that $S$ increases as the absolute standard deviation gets smaller.
-    The quantity used for the samples' yields can vary,
-        but the advantage of Solidarity as a metric
-        is that yield can be represented by the pure theoretical cross-section.
-    So long as the process of reconstruction and selection does not alter the ratios of the various samples' total event yields,
-        this allows Solidarity to be used to gauge the performance of a basis without the need for any MC production.
+    The advantage of Solidarity as a metric
+        is that the yield value can be represented by the pure theoretical cross-section.
+    So long as the process of reconstruction and selection does not significantly alter the ratios of the various samples' total event yields,
+        Solidarity can be used to gauge the performance of a basis without the need for any MC production.
 
     As the metric is calculated on a per-coupling basis,
         a heatmap similar to the Negative Weight Heatmap can be generated in a similar manner.
@@ -385,7 +386,7 @@
     Using the surface integral of the heatmap as was done for the negative-weight map allows a similar metric to be given to a basis as a whole.
     Comparing this Theoretical Solidarity Integral to the corresponding Negative Weight Integral (Figure \ref{fig:nWeight_solidarity_scatter})
         shows a very strong correlation between the two,
-        which can be exploited to predict useful samples bases before generating any MC samples.
+        which can be exploited to predict useful sample bases before generating any MC samples.
 
     \begin{figure}[tbh]
         \subfloat[Original 12 Samples]{ \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/Nweight_integral_VS_theory_solidarity_integral_old} }
@@ -407,14 +408,17 @@
     Figure \ref{fig:nWeight_solidarity_scatter} was generated using all 1307 linearly independant bases of combining 6 of the 13 available MC samples.
     Due to the strong correlation between negative-weighted bins and solidarity,
         a histogram of only the Theoretical Solidarity Surface Integral
-        (effectively just the x-axis of Figure \ref{fig:nWeight_solidarity_scatter})
+        (basically just the x-axis of Figure \ref{fig:nWeight_solidarity_scatter})
         can be used to determine the overall potential performance a set of MC samples might have.
     In order to determine which MC sample should be produced to work most effectively with the already existing 12 samples,
         I constructed such Solidarity Surface Integral histograms for a wide range of possible new samples.
     Each histogram was constructed using the bases formed from all possible combinations of 6 samples from
         the 12 original samples plus one prospective MC sample.
     Thus, each Solidarity Surface Integral histogram corresponded to 13 samples,
-        and served as a figure of merit for the 13th (the prospective) sample's performance.
+        and served as a figure of merit for the 13th (the prospective) sample's performance\footnote{
+    I would like to note that this brute-force applicaton of Solidarity is far from efficient,
+        and any future attempts at producing MC with this metric
+        would do well to use a more sophisticated optimization technique}.
 
     \begin{figure}[tbh]
         \subfloat[Original 12 Samples]{
@@ -424,7 +428,7 @@
             \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/projective_solidarity_dump}
         }
         \caption{
-            plot of all the histograms.
+            A 2D representation of all the Solidarity Integral histograms generated for a myriad of different ``extra sample'' points.
             The rows are sorted from top to bottom by the sum of their bins
                 (That is, the sum of all Solidarity surface integrals for all bases associated with the same additional MC sample point).
         }
@@ -435,7 +439,7 @@
         produces a clear method of distinguishing samples that 
         could produce high stability combinations with the existing 12 samples.
     The aggregate sum of all Solidarity surface integrals associated with a new sample
-        can evidently be used as a scalar metric to by which to rank different prospective coupling points.
+        can evidently be used as a scalar metric by which to rank different prospective coupling points.
     The culmination of these tests is Figure \ref{fig:solidarity_performance_map}
 
     \begin{figure}[tbh]
@@ -462,3 +466,5 @@
         were selected for limited simulation at truth level.
     Based on the prelinary stability shown by these truth level simulations,
         a full MC production run was generated with its coupling values set to \kvv=1, \kl=-5, \kv=0.5.
+    This new sample, along with those generated before, as well as with the collected data and background estimation,
+        can then be used together to test the validity of different possible hypotheses.
