@@ -1,18 +1,18 @@
-\chapter{Background Modelling} \label{chapter:background}
+\chapter{Background Modeling} \label{chapter:background}
 
 \section{Data-Driven Background Estimate}
 
     Selection does not remove all non-signal events.
     Indeed, most of the events remaining in the data are very likely background.
     Since these background events cannot be effectively differentiated from signal data,
-        a technique must be used to estimate how much of the oberved data is coming from background.
+        a technique must be used to estimate how much of the observed data is coming from background.
     Specifically, the analysis employs a method to predict the kinematic shape (in \mhh)
         of the background events within the 4b Signal Region,
         without directly observing that set of events.
 
     For the \vbfproc process, the background consists almost entirely of QCD jet events.
     The usual approach of simulating the background using Monte-Carlo techniques is not feasible,
-        as such simulations are innacurate when trying to model such complex, many-jet processes. [TODO: is this the actual reason?]
+        as such simulations are inaccurate when trying to model such complex, many-jet processes. [TODO: is this the actual reason?]
     Instead, the yield from background in the SR data is predicted based on the background yield in different subsets of the data.
         
     The fundamental assumption for this data-driven background estimate
@@ -24,7 +24,7 @@
         so the 2b signal data must undergo a "reweighting" process,
         which adjusts the kinematic distribution to match that of 4b.
     This reweighting takes the form of a function $R$,
-        which for each event $i$ takes a series of kinematic variables $x_i$ as an argmuent,
+        which for each event $i$ takes a series of kinematic variables $x_i$ as an argument,
         and returns a reweighting value $r_i$ which scales that event's contribution to the kinematic distributions:
         $r_i = R(x_i)$.
     Deriving this function, and determining the appropriate inputs for it,
@@ -43,8 +43,8 @@
         \sum_{i=1}^{N} \alpha_j w_{ij} = N'
         \end{equation}
 
-    The nominal estimate $\tilde{w}$ constructed from the median of these networks will not neccesarily satisfy this same relation,
-        so it is given its own seperate normalization $\tilde \alpha$:
+    The nominal estimate $\tilde{w}$ constructed from the median of these networks will not necessarily satisfy this same relation,
+        so it is given its own separate normalization $\tilde \alpha$:
         \begin{equation}
         \sum_{i=1}^{N} \tilde \alpha \tilde w_i = N'
         \end{equation}
@@ -97,7 +97,7 @@
             The regions in which $\deta \leq 1.5$ and $\deta>1.5$ are separately displayed.
             The higher up on the chart a variable is, the more strongly correlated it is to \mhh,
                 with \mhh itself at the top with a coefficient of 1.
-            Note that most of the VBF-specific variables, such as vbf\_mjj, are very poorly correlated to \mhh and thus not preffered.
+            Note that most of the VBF-specific variables, such as vbf\_mjj, are very poorly correlated to \mhh and thus not proffered.
         }
         \label{fig:mhh_corr}
     \end{figure}
@@ -120,7 +120,7 @@
             The regions in which $\deta \leq 1.5$ and $\deta>1.5$ are separately displayed.
             Bins with more saturated (i.e.\ more blue or more red) colors indicate strong correlation between those two variables.
             All variables are of course 100\% correlated to themselves, hence the deep red line running down the diagonal.
-            The most highly preffered variables are those with correlation coefficients near 0 for as many other variables as possible.
+            The most highly preferred variables are those with correlation coefficients near 0 for as many other variables as possible.
             If a variable (i.e.\ m\_max\_dj) is selected, any other variables with strong correlations to it (i.e.\ pT\_h2)
                 are then strongly disfavored for later selection.
         }
@@ -153,7 +153,7 @@
             $\log\left(X_{Wt}\right)$, where $X_{Wt}$ is the variable used for the top veto \\
         \hline
         $\eta_i$           & \code{eta\_i}             & 
-            Average $\eta$ of the the four Higgs decay jets \\
+            Average $\eta$ of the four Higgs decay jets \\
         \hline
         Pairing Score 2    & \code{pairing\_score\_2 } & 
             This changes depending on the Higgs pairing algorithm used. \\
