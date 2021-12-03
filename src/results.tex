@@ -20,6 +20,29 @@
     I suspect that this die is not a fair die,
         and that it is actually weighted to land with the ``4'' side facing up more often than other sides.
     How can I test this?
+
+
+    basic binomial distribution (coin flip) allows obvious p-test. 
+    Show of whether or not theory is compatible with data.
+    Can show how to set basic limits in absence of enough data
+
+    Try dice example next.
+    multi-bin distributions require Joint-probability likelihood function "L"
+    Can also introduce "background" dice
+
+    L gives probability of seeing the data we have, based on the given model.
+    We need the probability that the given model is the one responsible for the data we see.
+    i.e. we have P(data|model), but we need P(model|data)
+
+    To do this, we need Baye's rule, which comes from the basic 'anding' of probabilities:
+    P(a \& b) = P(a)*P(b|a) , or P(a \& b) = P(b)*P(a|b) . Thus
+    P(a)*P(b|a) = P(b)*P(a|b) 
+    P(b|a) = P(a|b) P(b) / P(a)
+    So we need P(model|data) = P(data|model) * P(model) / P(data)
+
+    For our data we have to use the extended L, which accounts for poisson stats.
+    Basic test is to test mu*S+B for what value of mu is compatible with data
+
         
 
 
