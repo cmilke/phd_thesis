@@ -236,6 +236,85 @@ def make_lazy_mu_probability_distro(data=None, couplings=None):
     print(mu_limit)
 
 
+def get_single_mu_pval(data=None, couplings=None, mu_val=None):
+    data_vals, data_errs = data['data']
+    sig_vals, sig_errs = data['sig']
+    bgd_vals, bgd_errs = data['bgd']
+
+    def log_poisson(n,k):
+        lp = -k
+        lp[n!=0] += n[n!=0] + n[n!=0]*numpy.log(k[n!=0]/n[n!=0])
+        return lp
+
+    expectation_vals = lambda mu: mu * sig_vals + bgd_vals
+    fixed_expectation_vals = expectation_vals(mu_val)
+    loglikelihood = lambda n,mu: log_poisson(n,expectation_vals(mu)).sum()
+    test_stat = lambda L,L_max,mu_max: -2*(L-L_max) if mu_max < mu_val else 0
+
+    printa = lambda ar: print(' '.join([f'{a:.2f}' for a in ar])+'\n')
+
+    def get_max_L_mu(n):
+        mu_limit = 100
+        for i in range(3):
+            mu_array = numpy.linspace(-mu_limit,mu_limit,100)
+            prior_L = -100
+            prior_mu = 0
+            for mu in mu_array:
+                L = loglikelihood(n,mu)
+                if L < prior_L:
+                    mu_limit = mu*2
+                    max_L = prior_L
+                    max_mu = prior_mu
+                    break
+                prior_L = L
+                prior_mu = mu
+        if max_mu < 0: return loglikelihood(n,0), 0
+        else: return max_L, max_mu
+
+
+    num_toy_distros = 1000
+    toy_test_stat_values = []
+    for toy_index in range(num_toy_distros):
+        toy_distro = numpy.random.poisson(fixed_expectation_vals)
+        base_L = loglikelihood(toy_distro,mu_val)
+        max_L, max_mu = get_max_L_mu(toy_distro)
+        test_stat_val = test_stat(base_L, max_L, max_mu) 
+        toy_test_stat_values.append(test_stat_val)
+    #printa(toy_test_stat_values)
+    pdf, bins = numpy.histogram(toy_test_stat_values, bins=100, range=(min(toy_test_stat_values),max(toy_test_stat_values)))
+    pdf = pdf / pdf.sum()
+    cumulative_pdf = pdf[::-1].cumsum()[::-1]
+    observed_test_stat_value = test_stat(loglikelihood(data_vals,mu_val),*get_max_L_mu(data_vals))
+    #print(observed_test_stat_value)
+    observed_test_stat_bin = numpy.digitize(observed_test_stat_value, bins)
+    p_value = cumulative_pdf[observed_test_stat_bin]
+    return p_value
+
+
+def make_mu_probability_distro(data=None, couplings=None):
+    data_vals, data_errs = data['data']
+    sig_vals, sig_errs = data['sig']
+    bgd_vals, bgd_errs = data['bgd']
+
+    mu_values = numpy.linspace(0,1000,10)
+    p_values = []
+    for mu in mu_values:
+        pval = get_single_mu_pval(data=data, couplings=couplings, mu_val=mu)
+        p_values.append(pval)
+        print(pval)
+        print()
+    exit()
+
+    #exclusion_limit_index = numpy.argmax(cumalitive_mu_PDF < 0.05)
+    mu_limit = mu_values[exclusion_limit_index]
+
+    fig, ax = plt.subplots()
+    ax.errorbar(mu_values, p_values, color='black', ls='--')
+    plt.savefig('mu_pval_test.pdf')
+    plt.close()
+
+
+
 
 def main():
     cache_file = '.cached_analysis_info.p'
@@ -272,7 +351,8 @@ def main():
     #    print()
 
     make_data_display_plots(data=data,var_edges=var_edges)
-    make_lazy_mu_probability_distro(data=data, couplings=(1,1,1))
+    #make_lazy_mu_probability_distro(data=data, couplings=(1,1,1))
+    make_mu_probability_distro(data=data, couplings=(1,1,1))
     #derive_maximum_likelihood_mu(data=data, couplings=(1,1,1))
 
 
