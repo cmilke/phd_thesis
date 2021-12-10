@@ -10,6 +10,7 @@ import sympy
 import numpy
 import uproot
 from matplotlib import pyplot as plt
+import pyhf
 
 def load_data(var_edges):
     data_files = [
@@ -241,68 +242,108 @@ def get_single_mu_pval(data=None, couplings=None, mu_val=None):
     sig_vals, sig_errs = data['sig']
     bgd_vals, bgd_errs = data['bgd']
 
-    def log_poisson(n,k):
-        lp = -k
-        lp[n!=0] += n[n!=0] + n[n!=0]*numpy.log(k[n!=0]/n[n!=0])
+    def log_poisson(n,v):
+        lp = -v.astype(float)
+        nz = numpy.logical_and(n!=0,v!=0)
+        n,v = n[nz], v[nz]
+        lp[nz] = n - v + n*numpy.log(v/n)
         return lp
 
-    expectation_vals = lambda mu: mu * sig_vals + bgd_vals
-    fixed_expectation_vals = expectation_vals(mu_val)
-    loglikelihood = lambda n,mu: log_poisson(n,expectation_vals(mu)).sum()
-    test_stat = lambda L,L_max,mu_max: -2*(L-L_max) if mu_max < mu_val else 0
+    def log_gauss(n,v,sigma):
+        lg = -(1/2)*( (n-v)/sigma )**2 - numpy.log(sigma) - (1/2)*numpy.log(2*math.pi)
+        return lg
 
-    printa = lambda ar: print(' '.join([f'{a:.2f}' for a in ar])+'\n')
+    def expectation(mu, theta, sig, bgd):
+        expectation_vals = mu * sig_vals + theta*bgd_vals
+        expectation_vals[ expectation_vals < 0 ] = 0
+        return expectation_vals
 
-    def get_max_L_mu(n):
-        mu_limit = 100
-        for i in range(3):
-            mu_array = numpy.linspace(-mu_limit,mu_limit,100)
-            prior_L = -100
-            prior_mu = 0
-            for mu in mu_array:
-                L = loglikelihood(n,mu)
-                if L < prior_L:
-                    mu_limit = mu*2
-                    max_L = prior_L
-                    max_mu = prior_mu
-                    break
-                prior_L = L
-                prior_mu = mu
-        if max_mu < 0: return loglikelihood(n,0), 0
-        else: return max_L, max_mu
+    def loglikelihood(n, mu, theta, sigma):
+        expec_val = expectation(mu, theta, sig_vals, bgd_vals)
+        poisson = log_poisson(n,expec_val).sum()
+        gauss = log_gauss(n, expec_val, sigma).sum()
+        L = poisson+gauss
+        return L
+
+    test_stat = lambda L,L_max,mu_max: -2*(L-L_max) #if mu_max < mu_val else 0
+
+    def get_max_L_mu(s,b):
+        #print(' | '.join([f'{mu:8.1f}, {numpy.exp(loglikelihood(n,mu)):4.1f}' for mu in numpy.linspace(-1,1,10)]))
+        #print(' | '.join([f'{mu:8.1f}, {numpy.exp(loglikelihood(n,mu)):4.1f}' for mu in numpy.linspace(-10,10,10)]))
+        #print(' | '.join([f'{mu:8.1f}, {numpy.exp(loglikelihood(n,mu)):4.1f}' for mu in numpy.linspace(-100,100,10)]))
+        #print(' | '.join([f'{mu:8.1f}, {numpy.exp(loglikelihood(n,mu)):4.1f}' for mu in numpy.linspace(-1000,1000,10)]))
+        try:
+
+            maximals = scipy.optimize.minimize(lambda mu, theta: -loglikelihood(n,mu,theta,bgd_errs), [1,1])
+            print(maximals)
+            exit()
+            #max_mu = scipy.optimize.minimize(lambda mu: -numpy.exp(loglikelihood(n,mu)), 5).x[0]
+            if max_mu < 0: max_mu = 0
+            max_L = loglikelihood(n,max_mu)
+            return max_L, max_mu
+        except scipy.optimize.linesearch.LineSearchWarning:
+            return None
+
 
 
     num_toy_distros = 1000
     toy_test_stat_values = []
     for toy_index in range(num_toy_distros):
-        toy_distro = numpy.random.poisson(fixed_expectation_vals)
+        toy_sig = numpy.random.poisson(mu_val*sig_vals)
+        toy_bgd = numpy.random.poisson(bgd_vals)
+
+        max_vals = get_max_L_mu(toy_sig,toy_bgd)
         base_L = loglikelihood(toy_distro,mu_val)
-        max_L, max_mu = get_max_L_mu(toy_distro)
-        test_stat_val = test_stat(base_L, max_L, max_mu) 
+        if max_vals is None: continue
+        test_stat_val = test_stat(base_L, *max_vals)
+        #print(toy_distro, base_L, max_vals, test_stat_val)
         toy_test_stat_values.append(test_stat_val)
-    #printa(toy_test_stat_values)
-    pdf, bins = numpy.histogram(toy_test_stat_values, bins=100, range=(min(toy_test_stat_values),max(toy_test_stat_values)))
-    pdf = pdf / pdf.sum()
-    cumulative_pdf = pdf[::-1].cumsum()[::-1]
-    observed_test_stat_value = test_stat(loglikelihood(data_vals,mu_val),*get_max_L_mu(data_vals))
-    #print(observed_test_stat_value)
-    observed_test_stat_bin = numpy.digitize(observed_test_stat_value, bins)
-    p_value = cumulative_pdf[observed_test_stat_bin]
+    toy_test_stat_values.sort()
+    observed_max = get_max_L_mu(data_vals)
+    observed_test_stat_value = test_stat(loglikelihood(data_vals,mu_val), *observed_max)
+    p_value = (toy_test_stat_values > observed_test_stat_value).sum() / len(toy_test_stat_values)
     return p_value
 
 
 def make_mu_probability_distro(data=None, couplings=None):
+    data = {
+        'data': (numpy.array([9]), numpy.array([1])),
+        'sig' : (numpy.array([2]), numpy.array([1])),
+        'bgd' : (numpy.array([8]), numpy.array([5])),
+
+    }
     data_vals, data_errs = data['data']
     sig_vals, sig_errs = data['sig']
     bgd_vals, bgd_errs = data['bgd']
 
-    mu_values = numpy.linspace(0,1000,10)
+    def get_sig_pval(mu):
+        bgd_sig_pval = get_single_mu_pval(data=data, couplings=couplings, mu_val=mu)
+        bgd_only_pval = get_single_mu_pval(data=data, couplings=couplings, mu_val=0)
+        pval = 0
+        if bgd_only_pval < 1: pval = bgd_sig_pval/(1-bgd_only_pval)
+        return pval
+        
+
+    #mu_values = numpy.linspace(0,1000,10)
+    mu_values = [1,2,3,4]
     p_values = []
     for mu in mu_values:
-        pval = get_single_mu_pval(data=data, couplings=couplings, mu_val=mu)
-        p_values.append(pval)
-        print(pval)
-        print()
+        pval = get_sig_pval(mu)
+
+        model = pyhf.simplemodels.uncorrelated_background(signal=list(sig_vals), bkg=list(bgd_vals), bkg_uncertainty=list(bgd_errs))
+        pyhf_data = pyhf.tensorlib.astensor(list(data_vals)+model.config.auxdata)
+        #pyhf.infer.hypotest(mu, list(data_vals), model, init_pars=inits, par_bounds=bounds, return_expected_set=True, test_stat="qtilde",)
+        #CLs_obs, CLs_exp_band = pyhf.infer.hypotest(mu, pyhf_data, model, return_expected_set=True, test_stat="qtilde",par_bounds=[[0,500]]*(len(sig_vals)+1))
+        import warnings
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            CLs_obs, CLs_exp_band = pyhf.infer.hypotest(mu, pyhf_data, model, return_expected_set=True, test_stat="qtilde")
+        #print(CLs_obs)
+        print(pval, CLs_exp_band[2])
+
+
+
+
     exit()
 
     #exclusion_limit_index = numpy.argmax(cumalitive_mu_PDF < 0.05)
@@ -349,8 +390,10 @@ def main():
     #    print(' '.join([f'{v:7.02f}' for v in val]))
     #    print(' '.join([f'{e:7.02f}' for e in err]))
     #    print()
+    #sig_vals[sig_vals==0] = 1e-5
+    #bgd_vals[bgd_vals==0] = 1e-5
 
-    make_data_display_plots(data=data,var_edges=var_edges)
+    #make_data_display_plots(data=data,var_edges=var_edges)
     #make_lazy_mu_probability_distro(data=data, couplings=(1,1,1))
     make_mu_probability_distro(data=data, couplings=(1,1,1))
     #derive_maximum_likelihood_mu(data=data, couplings=(1,1,1))
