@@ -3,59 +3,114 @@
 %Need to discuss how we set put data, the background estimate, and the signal model together
 %    and make a claim as to the compatibility of the hypothesis with the data.
 %Largely, this means I need to finally understand how pyhf actually works and what the hell the limit framework is doing.
-\section{Statistical Mathematics}
+%
+%
+%
+%    I'm not sure I actually have to explain Baye's theorem here...
+%    it doesn't appear to be obviously used, or if it is, we're implicitly using the "Uniform" Prior
+%    Ask Steve
+%
+%    L gives probability of seeing the data we have, based on the given model.
+%    We need the probability that the given model is the one responsible for the data we see.
+%    i.e. we have P(data|model), but we need P(model|data)
+%
+%    To do this, we need Baye's rule, which comes from the basic 'anding' of probabilities:
+%    P(a \& b) = P(a)*P(b|a) , or P(a \& b) = P(b)*P(a|b) . Thus
+%    P(a)*P(b|a) = P(b)*P(a|b) 
+%    P(b|a) = P(a|b) P(b) / P(a)
+%    So we need P(model|data) = P(data|model) * P(model) / P(data)
+%
+%    For our data we have to use the extended L, which accounts for poisson stats.
+%    Basic test is to test mu*S+B for what value of mu is compatible with data
+%
+%        
+%
+%
 
-    Statistics is a powerful tool in science,
-        but one which can be very misleading if not used carefully.
-    The oft-used quote comparing lies and statistics exists for a reason;
-        both can lead to incorrect scientific conclusions.
-    But whereas a lie can be caught by a simple slip of the tongue,
-        it can take scientists years to discover a slight (intentional or not) mishandling of statistics.
-    Unfortunately, the use of statistical methods is not optional.
-    In this section, I want to explain why statistics are required for this analysis,
-        as well as describe the basic mathematics and techniques utilized to obtain results.
+%\section{Statistical Mathematics}
+%
+%    Statistics is a powerful tool in science,
+%        but one which can be very misleading if not used carefully.
+%    The oft-used quote comparing lies and statistics exists for a reason;
+%        both can lead to incorrect scientific conclusions.
+%    But whereas a lie can be caught by a simple slip of the tongue,
+%        it can take scientists years to discover a slight (intentional or not) mishandling of statistics.
+%    Unfortunately, the use of statistical methods is not optional.
+%    In this section, I want to explain why statistics are required for this analysis,
+%        as well as describe the basic mathematics and techniques utilized to obtain results.
+%
+%    To begin, let me propose a far simpler experiment than the one described in this analysis.
+%    I have a coin, which I suspect may be weighted to one side.
+%    How can I test this?
+%    basic binomial distribution (coin flip) allows obvious p-test. 
+%    Show of whether or not theory is compatible with data.
+%    ?? Can show how to set basic limits in absence of enough data
 
-    To begin, let me propose a far simpler experiment than the one described in this analysis.
-    I have a single 6-sided die.
-    I suspect that this die is not a fair die,
-        and that it is actually weighted to land with the ``4'' side facing up more often than other sides.
-    How can I test this?
 
+What is a test statistic and why do we need it?
+%    I have a single 6-sided die.
+%    I suspect that this die is not a fair die,
+%        and that it is actually weighted to land with the ``4'' side facing up more often than other sides.
+%    How can I test this?
 
-    basic binomial distribution (coin flip) allows obvious p-test. 
-    Show of whether or not theory is compatible with data.
-    Can show how to set basic limits in absence of enough data
+Description of how "test statistic" q~ is constructed:
 
-    Try dice example next.
-    multi-bin distributions require Joint-probability likelihood function "L"
-    Can also introduce "background" dice
+    Likelihood function
 
-    L gives probability of seeing the data we have, based on the given model.
-    We need the probability that the given model is the one responsible for the data we see.
-    i.e. we have P(data|model), but we need P(model|data)
-
-    To do this, we need Baye's rule, which comes from the basic 'anding' of probabilities:
-    P(a \& b) = P(a)*P(b|a) , or P(a \& b) = P(b)*P(a|b) . Thus
-    P(a)*P(b|a) = P(b)*P(a|b) 
-    P(b|a) = P(a|b) P(b) / P(a)
-    So we need P(model|data) = P(data|model) * P(model) / P(data)
-
-    For our data we have to use the extended L, which accounts for poisson stats.
-    Basic test is to test mu*S+B for what value of mu is compatible with data
+        L = product[ for each category:
+            product[for each bin: poissons]
+            * product[ nuissance params ] 
+        ]
 
         
+    lambda = L(mu, theta vary-opt) / L(mu-opt, theta-opt);
+    t = -2*ln(lambda);
+    q~ = t with edge cases;
 
+%\section{VBF \to HH \to 4b Limit-Setting Framework}
+%
+%    Discuss sources of error, assumptions, categorization, concept of mu values;
+%    basically all the complicated stuff the limit framework is doing
+%
+Discussion of how the error is calculated for the shape is a particular point here...
 
-\section{VBF \to HH \to 4b Limit-Setting Framework}
+Discuss how this formula for L specifically functions in this analysis
+    (emphasis on explaining the bits in parentheses):
 
-    Discuss sources of error, assumptions, categorization, concept of mu values;
-    basically all the complicated stuff the limit framework is doing
+        L = product[ for each category (2: eta hi and lo) 
+            product[for each bin: poissons]
+            * product[ nuissance params (4 for bgd shape error, 1 for norm error) ] 
+        ]
 
-\section{Final Interpretation}
+    
+%\section{Final Interpretation}
+%
+%    Finally, I need to reveal what our final results actually are, and what they mean.
+%    This will mostly just be plots of mu values, limit values, and my 2D exclusion plots.
+%    I can discuss the shapes and stuff here, as well as talk about any mismatches between expected and observed results.
+%    Be ready to just put in filler results, since we probably won't have unblinded by the time I get here.
+%
 
-    Finally, I need to reveal what our final results actually are, and what they mean.
-    This will mostly just be plots of mu values, limit values, and my 2D exclusion plots.
-    I can discuss the shapes and stuff here, as well as talk about any mismatches between expected and observed results.
-    Be ready to just put in filler results, since we probably won't have unblinded by the time I get here.
+Single mu vs q~ PDF constructed from monte-carlo distros
 
+C-PDF showing where mu-model resides for Psb, Pb, and finally Ps=Psb/(1-Pb)
+CLs = CLs+b/CLb explained in \cite{Barlow:2019svl} (pg. 192)
 
+In practice, the q~ CPDF distros are estimated using an asymptotic approximation method\cite{asymptotic_formulae_for_likelihood}.
+(because the MC method is way too slow)
+
+SM mu scan plot of signal p-value.
+If you do this using one of the other stats (t, or t~ or something),
+    I think you can use it to show that pure discovery of the HH process is impossible right now,
+    and therefore justify putting limits on the couplings instead.
+Should also probably dig up the "sensitivity" metric and show how bad that is here as well.
+
+multi k2v-scan mu plots
+
+1D SM k2v plot
+
+Multi-kl 1D k2v plots
+
+2D k2v/kl plot
+
+Multi-dimensional slice plots
