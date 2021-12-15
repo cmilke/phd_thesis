@@ -37,7 +37,13 @@
     In order to improve stability in the reweighting function,
         an ensemble of 100 networks is trained, and the median of their calculations is used (called the ``Nominal Estimate'').
     Each neural network instance $j$ produces a reweighting factor $w_{ij}$, and has a normalization factor $\alpha_j$ associated with it.
-    This normalization factor is calculated so the total yield of all 2b reweighted events matches that of the 4b yield in the same region.
+    This normalization factor is calculated so the total yield of all 2b reweighted events matches that of the 4b yield in the same region. 
+    % TODO: I need to emphasize that the normalization is set to match the yield of
+    % the region the NN was *trained* in. 
+    % So in going from 2b CR to 4b CR, there is some scaling factor "a"
+    % That same "a" is then applied when going from 2b SR to 4b SR
+    % Key point being that we are not artificially forcing the 
+    % 4b SR background yield to match the 4b SR data yield.
     So for $N$ total 2b events and $N'$ total 4b events:
         \begin{equation}
         \sum_{i=1}^{N} \alpha_j w_{ij} = N'
@@ -69,6 +75,8 @@
     Because the reweighting function is trained on a different kinematic region than the signal region,
         a systematic uncertainty is associated with it.
     This is calculated by training a different ensemble of NNs on yet another kinematic region (Validation).
+    % TODO you need to elaborate on the quandrant Signal scheme in order to describe
+    % precisely how the error is calculated
     The difference between the median of these validation-trained NNs and the nominal estimate
         produces a ``shape uncertainty'' for the reweighting.
     The shape uncertainty is symmetrized around the nominal estimate to produce the final systematic uncertainty

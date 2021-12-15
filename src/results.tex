@@ -1,8 +1,8 @@
+% Need to discuss how we put data, the background estimate, and the signal model together
+%     and make a claim as to the compatibility of the hypothesis with the data.
+% Largely, this means I need to finally understand how pyhf actually works and what the hell the limit framework is doing.
 \chapter{Results} \label{chapter:results}
 
-%Need to discuss how we set put data, the background estimate, and the signal model together
-%    and make a claim as to the compatibility of the hypothesis with the data.
-%Largely, this means I need to finally understand how pyhf actually works and what the hell the limit framework is doing.
 %
 %
 %
@@ -27,33 +27,67 @@
 %
 %
 
-%\section{Statistical Mathematics}
-%
-%    Statistics is a powerful tool in science,
-%        but one which can be very misleading if not used carefully.
-%    The oft-used quote comparing lies and statistics exists for a reason;
-%        both can lead to incorrect scientific conclusions.
-%    But whereas a lie can be caught by a simple slip of the tongue,
-%        it can take scientists years to discover a slight (intentional or not) mishandling of statistics.
-%    Unfortunately, the use of statistical methods is not optional.
-%    In this section, I want to explain why statistics are required for this analysis,
-%        as well as describe the basic mathematics and techniques utilized to obtain results.
-%
-%    To begin, let me propose a far simpler experiment than the one described in this analysis.
-%    I have a coin, which I suspect may be weighted to one side.
-%    How can I test this?
-%    basic binomial distribution (coin flip) allows obvious p-test. 
-%    Show of whether or not theory is compatible with data.
-%    ?? Can show how to set basic limits in absence of enough data
+\section{Statistical Mathematics}
+
+    Statistics is a powerful tool in science,
+        but one which can be very misleading if not used carefully.
+    %The oft-used quote comparing lies and statistics exists for a reason;
+    %    both can lead to incorrect scientific conclusions.
+    %But whereas a lie can be caught by a simple slip of the tongue,
+    %    it can take scientists years to discover a slight (intentional or not) mishandling of statistics.
+    Unfortunately, the use of statistical methods is not optional.
+    In this section, I want to explain why statistics are required
+        both in general and for this analysis specifically.
+    Moreover, I want to discuss the specific statistical techniques this analysis uses,
+        and conclude with what those techniques reveal in light of the data presented.
+
+    To begin, let me propose a much simpler experiment than the one described in this analysis.
+    I have a coin, which I suspect may be biased to one side.
+    How can I test this?
+    Discuss basic idea of flipping it a few times and being unsure of answer,
+        versus flipping it a gajillion times and it being really obvious.
+    But what about in between? What if I don't wanna flip it a gajillion times (or can't).
+    How many flips is ``enough''?
+    Can now justify use of p-test.
+
+    basic binomial distribution (coin flip) allows obvious p-test. 
+    Using a concrete toy example with numbers,
+    Show a binomial PDF distro for N flips, and where on that distro the "data" lies
+    Show a C-PDF, and again where the data is,
+        and explain that the "unlikeliness" can be used as a test metric, called a "p-value"
+    Show of whether or not theory is compatible with data.
+    % NOTE: From here on, try to keep the p-value concept,
+    %   as well as the PDF and C-PDF, as a central focus.
+    % It's easy to conceptualize what a p-value is,
+    % so you should keep returning to it in order to retain 
+    % a concrete basis for all the weird math you're about to do
+
+    Introduce poisson statistics with single counting variable and only signal w/ toy example.
+    Discuss difference between coin toss and radioactivity.
+    i.e. that with a coin toss, the number to tosses is entirely determined by me, and is thus fixed.
+    For decay and such, the number of events is completely random, and what is fixed is how much time (luminosity)
+        the experiment is given.
+
+    Introduce background with toy.
+    Should also probably dig up the "sensitivity" metric and show how bad that is here as well.
+    Ditch toy, pull out actual Background and Signal (SM) event yields.
+    The abysmal performance here should justify splitting the event into bins,
+        in order to identify regions of Mhh that we are more sensitive to.
+    Using multiple bins however, dramatically complicates the statistical analysis.
+    Enter the profile likelihood fit.
 
 
-What is a test statistic and why do we need it?
-%    I have a single 6-sided die.
-%    I suspect that this die is not a fair die,
-%        and that it is actually weighted to land with the ``4'' side facing up more often than other sides.
-%    How can I test this?
+% Discuss sources of error, assumptions, categorization, concept of mu values;
+% basically all the complicated stuff the limit framework is doing
+% Make the final goal to be establishing a p-value via the cumulative PDF distro,
+%   as was done for the simple coin toss example (to bring things full circle)
+\section{VBF \to HH \to 4b Limit-Setting Framework}
 
-Description of how "test statistic" q~ is constructed:
+    What is a test statistic and why do we need it?
+
+    Description of how "test statistic" q~ is constructed:
+
+    Introduce mu*S+B format.
 
     Likelihood function
 
@@ -62,52 +96,49 @@ Description of how "test statistic" q~ is constructed:
             * product[ nuissance params ] 
         ]
 
-        
-    lambda = L(mu, theta vary-opt) / L(mu-opt, theta-opt);
-    t = -2*ln(lambda);
-    q~ = t with edge cases;
 
-%\section{VBF \to HH \to 4b Limit-Setting Framework}
-%
-%    Discuss sources of error, assumptions, categorization, concept of mu values;
-%    basically all the complicated stuff the limit framework is doing
-%
-Discussion of how the error is calculated for the shape is a particular point here...
-
-Discuss how this formula for L specifically functions in this analysis
-    (emphasis on explaining the bits in parentheses):
+    Discuss how this formula for L specifically functions in this analysis
+        (emphasis on explaining the bits in parentheses):
 
         L = product[ for each category (2: eta hi and lo) 
             product[for each bin: poissons]
             * product[ nuissance params (4 for bgd shape error, 1 for norm error) ] 
         ]
+        
+    lambda = L(mu, theta vary-opt) / L(mu-opt, theta-opt);
+    t = -2*ln(lambda);
+    q~ = t with edge cases;
+
+    Single mu vs q~ PDF constructed from monte-carlo distros
+
+    C-PDF showing where mu-model resides for Psb, Pb, and finally Ps=Psb/(1-Pb)
+    CLs = CLs+b/CLb explained in \cite{Barlow:2019svl} (pg. 192)
+
+    In practice, the q~ CPDF distros are estimated using an asymptotic approximation method\cite{asymptotic_formulae_for_likelihood}.
+    (because the MC method is way too slow)
 
     
-%\section{Final Interpretation}
-%
-%    Finally, I need to reveal what our final results actually are, and what they mean.
-%    This will mostly just be plots of mu values, limit values, and my 2D exclusion plots.
-%    I can discuss the shapes and stuff here, as well as talk about any mismatches between expected and observed results.
-%    Be ready to just put in filler results, since we probably won't have unblinded by the time I get here.
-%
 
-Single mu vs q~ PDF constructed from monte-carlo distros
-
-C-PDF showing where mu-model resides for Psb, Pb, and finally Ps=Psb/(1-Pb)
-CLs = CLs+b/CLb explained in \cite{Barlow:2019svl} (pg. 192)
-
-In practice, the q~ CPDF distros are estimated using an asymptotic approximation method\cite{asymptotic_formulae_for_likelihood}.
-(because the MC method is way too slow)
+% Finally, I need to reveal what our final results actually are, and what they mean.
+% This will mostly just be plots of mu values, limit values, and my 2D exclusion plots.
+% I can discuss the shapes and stuff here, as well as talk about any mismatches between expected and observed results.
+% Be ready to just put in filler results, since we probably won't have unblinded by the time I get here.
+\section{Final Interpretation}
 
 SM mu scan plot of signal p-value.
 If you do this using one of the other stats (t, or t~ or something),
     I think you can use it to show that pure discovery of the HH process is impossible right now,
     and therefore justify putting limits on the couplings instead.
-Should also probably dig up the "sensitivity" metric and show how bad that is here as well.
 
 multi k2v-scan mu plots
 
+Segway from a coupling of mu plots into the idea that, while the SM point is a lost cause,
+    other coupling values can be safely ruled out.
+Use this to motivate the idea of performing a "coupling scan"
+    which can show which values of a coupling can be ruled out.
+
 1D SM k2v plot
+1D SM kl plot?
 
 Multi-kl 1D k2v plots
 
