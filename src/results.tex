@@ -29,13 +29,22 @@
 
 \section{Statistical Mathematics}
 
-    Statistics is a powerful tool in science,
-        but one which can be very misleading if not used carefully.
-    %The oft-used quote comparing lies and statistics exists for a reason;
-    %    both can lead to incorrect scientific conclusions.
-    %But whereas a lie can be caught by a simple slip of the tongue,
-    %    it can take scientists years to discover a slight (intentional or not) mishandling of statistics.
-    Unfortunately, the use of statistical methods is not optional.
+    I have thus far established how the analysis has collected its data,
+        how it has estimated the amount of background present in that data,
+        and the hypothesis for the HH process to be tested with that data.
+    With these assembled, the final step is to arrange them together in order to make a definitive statement
+        as to the validity or incompatibility of the hypothesis with the provided data.
+    More plainly, was the di-Higgs process detected in the data,
+        and what were the values of the $\kappa$ couplings involved in its production.
+
+    %Statistics is a powerful tool in science,
+    %    but one which can be very misleading if not used carefully.
+    %%The oft-used quote comparing lies and statistics exists for a reason;
+    %%    both can lead to incorrect scientific conclusions.
+    %%But whereas a lie can be caught by a simple slip of the tongue,
+    %%    it can take scientists years to discover a slight (intentional or not) mishandling of statistics.
+    %Unfortunately, the use of statistical methods is not optional.
+    Need some transition here...
     In this section, I want to explain why statistics are required
         both in general and for this analysis specifically.
     Moreover, I want to discuss the specific statistical techniques this analysis uses,
@@ -44,12 +53,29 @@
     To begin, let me propose a much simpler experiment than the one described in this analysis.
     I have a coin, which I suspect may be biased to one side.
     How can I test this?
-    Discuss basic idea of flipping it a few times and being unsure of answer,
-        versus flipping it a gajillion times and it being really obvious.
-    But what about in between? What if I don't wanna flip it a gajillion times (or can't).
-    How many flips is ``enough''?
-    Can now justify use of p-test.
+    A fair coin has a 50/50 chance of landing on either side.
+    This means that, were I to flip the coin a large number of times,
+        I would expect a roughly equal number of heads and tails.
+    Significant deviation from this ratio (e.g.\ 3 million heads to 1 million tails)
+        would indicate an obvious bias in the coin.
+    The conclusion becomes far less obvious however, if the coin is flipped only a few times.
+    Even if every flip comes up as heads, no meaningful conclusion can be made if the coin was only flipped e.g.\ four times.
+    The main questions raised here are then:
+        how many coin flips are needed to make a decisive statement about the coin's behaviour,
+        and what does a ``decisive'' statment even mean?
+    These are the questions that statistical methods are meant to address.
 
+    The first step to testing a hypothesis,
+        is to know precisely how \textit{likely} any particular outcome is based on that hypothesis.
+    The hypothesis for the coin flip is that the probability $p$ of any given flip being heads is 50\%.
+    For an experiment consisting of a number of flips $N$,
+        the overall probability of seeing an amount of heads $n$ is given by the binomial distribution:
+    \begin{equation}
+        P(n|p) = \tinymatrix{N\\n} p^n (1-p)^{N-n}
+    \end{equation}
+    Where $P(n|p)$ is read as ``the probability of seeing $n$ heads \textit{given} their probability $p$.''
+    With this, 
+    
     basic binomial distribution (coin flip) allows obvious p-test. 
     Using a concrete toy example with numbers,
     Show a binomial PDF distro for N flips, and where on that distro the "data" lies
@@ -62,6 +88,23 @@
     % so you should keep returning to it in order to retain 
     % a concrete basis for all the weird math you're about to do
 
+    %To begin, let me propose a much simpler experiment than the one described in this analysis.
+    %I have a small radioactive source,
+    %    which I hypothesis to emit alpha particles a rate of roughly once per minute.
+    %How can I test this?
+    %This means that, were I to wait for two years,
+    %    I would expect a roughly 1 million decays.
+    %Significant deviation from this ratio
+    %    would indicate my hypothesis was obviously wrong.
+    % (e.g.......Alright, so this is why I think I'm going to start with the coin.
+    % There's no intuitively "wrong" number of decays in a poisson experiment.
+    % By definition, they have a long tail in their distro, which permits values wildly off from the average.
+    % I'm pretty sure that in this case you expect more than, like, no particles, and probably less than, idk, a billion?
+    % Maybe? The fact that I'm wanting to pull up code to literally calculate this because I'm not sure just proves that this 
+    % is a bad example to start with. You *need* the poisson pdf and concept of a p-test to even think about this.
+    % FYI, sqrt(1 mil) = 300k, so 5 sigma would be 1.5 mil. So literally no decays wouldn't even qualify as a 5-sigma result,
+    % and you would need over 2.5 mil in 2 years to qualify for an overly exceptional one.
+    
     Introduce poisson statistics with single counting variable and only signal w/ toy example.
     Discuss difference between coin toss and radioactivity.
     i.e. that with a coin toss, the number to tosses is entirely determined by me, and is thus fixed.
