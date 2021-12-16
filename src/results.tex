@@ -27,6 +27,11 @@
 %
 %
 
+% NOTE: From here on, try to keep the p-value concept,
+%   as well as the PDF and C-PDF, as a central focus.
+% It's easy to conceptualize what a p-value is,
+% so you should keep returning to it in order to retain 
+% a concrete basis for all the weird math you're about to do
 \section{Statistical Mathematics}
 
     I have thus far established how the analysis has collected its data,
@@ -50,76 +55,186 @@
     Moreover, I want to discuss the specific statistical techniques this analysis uses,
         and conclude with what those techniques reveal in light of the data presented.
 
-    To begin, let me propose a much simpler experiment than the one described in this analysis.
-    I have a coin, which I suspect may be biased to one side.
-    How can I test this?
-    A fair coin has a 50/50 chance of landing on either side.
-    This means that, were I to flip the coin a large number of times,
-        I would expect a roughly equal number of heads and tails.
-    Significant deviation from this ratio (e.g.\ 3 million heads to 1 million tails)
-        would indicate an obvious bias in the coin.
-    The conclusion becomes far less obvious however, if the coin is flipped only a few times.
-    Even if every flip comes up as heads, no meaningful conclusion can be made if the coin was only flipped e.g.\ four times.
-    The main questions raised here are then:
-        how many coin flips are needed to make a decisive statement about the coin's behaviour,
-        and what does a ``decisive'' statment even mean?
-    These are the questions that statistical methods are meant to address.
-
-    The first step to testing a hypothesis,
-        is to know precisely how \textit{likely} any particular outcome is based on that hypothesis.
-    The hypothesis for the coin flip is that the probability $p$ of any given flip being heads is 50\%.
-    For an experiment consisting of a number of flips $N$,
-        the overall probability of seeing an amount of heads $n$ is given by the binomial distribution:
-    \begin{equation}
-        P(n|p) = \tinymatrix{N\\n} p^n (1-p)^{N-n}
-    \end{equation}
-    Where $P(n|p)$ is read as ``the probability of seeing $n$ heads \textit{given} their probability $p$.''
-    With this, 
-    
-    basic binomial distribution (coin flip) allows obvious p-test. 
-    Using a concrete toy example with numbers,
-    Show a binomial PDF distro for N flips, and where on that distro the "data" lies
-    Show a C-PDF, and again where the data is,
-        and explain that the "unlikeliness" can be used as a test metric, called a "p-value"
-    Show of whether or not theory is compatible with data.
-    % NOTE: From here on, try to keep the p-value concept,
-    %   as well as the PDF and C-PDF, as a central focus.
-    % It's easy to conceptualize what a p-value is,
-    % so you should keep returning to it in order to retain 
-    % a concrete basis for all the weird math you're about to do
-
     %To begin, let me propose a much simpler experiment than the one described in this analysis.
-    %I have a small radioactive source,
-    %    which I hypothesis to emit alpha particles a rate of roughly once per minute.
+    %I have a coin, which I suspect may be biased to one side.
     %How can I test this?
-    %This means that, were I to wait for two years,
-    %    I would expect a roughly 1 million decays.
-    %Significant deviation from this ratio
-    %    would indicate my hypothesis was obviously wrong.
-    % (e.g.......Alright, so this is why I think I'm going to start with the coin.
-    % There's no intuitively "wrong" number of decays in a poisson experiment.
-    % By definition, they have a long tail in their distro, which permits values wildly off from the average.
-    % I'm pretty sure that in this case you expect more than, like, no particles, and probably less than, idk, a billion?
-    % Maybe? The fact that I'm wanting to pull up code to literally calculate this because I'm not sure just proves that this 
-    % is a bad example to start with. You *need* the poisson pdf and concept of a p-test to even think about this.
-    % FYI, sqrt(1 mil) = 300k, so 5 sigma would be 1.5 mil. So literally no decays wouldn't even qualify as a 5-sigma result,
-    % and you would need over 2.5 mil in 2 years to qualify for an overly exceptional one.
-    
-    Introduce poisson statistics with single counting variable and only signal w/ toy example.
-    Discuss difference between coin toss and radioactivity.
-    i.e. that with a coin toss, the number to tosses is entirely determined by me, and is thus fixed.
-    For decay and such, the number of events is completely random, and what is fixed is how much time (luminosity)
-        the experiment is given.
+    %A fair coin has a 50/50 chance of landing on either side.
+    %This means that, were I to flip the coin a large number of times,
+    %    I would expect a roughly equal number of heads and tails.
+    %Significant deviation from this ratio (e.g.\ 3 million heads to 1 million tails)
+    %    would indicate an obvious bias in the coin.
+    %The conclusion becomes far less obvious however, if the coin is flipped only a few times.
+    %Even if every flip comes up as heads, no meaningful conclusion can be made if the coin was only flipped e.g.\ four times.
+    %The crucial questions raised here, which statistical methods are able to address,
+    %    are how much data is needed to make a decisive statement about a hypothesis,
+    %    and what kind of statements can be made in lieu of that data.
 
-    Introduce background with toy.
-    Should also probably dig up the "sensitivity" metric and show how bad that is here as well.
-    Ditch toy, pull out actual Background and Signal (SM) event yields.
-    The abysmal performance here should justify splitting the event into bins,
-        in order to identify regions of Mhh that we are more sensitive to.
-    Using multiple bins however, dramatically complicates the statistical analysis.
-    Enter the profile likelihood fit.
+    %The first step to testing a hypothesis,
+    %    is to know precisely how \textit{likely} any particular outcome is based on that hypothesis.
+    %The hypothesis for the coin flip is that the probability $p$ of any given flip being heads is 50\%.
+    %For an experiment consisting of a number of flips $N$,
+    %    the overall probability of seeing an amount of heads $n$ is given by the binomial distribution:
+    %\begin{equation}
+    %    P(n|p) = \tinymatrix{N\\n} p^n (1-p)^{N-n}
+    %\end{equation}
+    %Where $P(n|p)$ is read as ``the probability of seeing $n$ heads \textit{given} their probability $p$.''
+    %With this, 
+    %
+    %basic binomial distribution (coin flip) allows obvious p-test. 
+    %Using a concrete toy example with numbers,
+    %Show a binomial PDF distro for N flips, and where on that distro the "data" lies
+    %Show a C-PDF, and again where the data is,
+    %    and explain that the "unlikeliness" can be used as a test metric, called a "p-value"
+    %Show of whether or not theory is compatible with data.
+
+    % Introduce poisson statistics with single counting variable and only signal w/ toy example.
+    % Discuss difference between coin toss and radioactivity.
+    % i.e. that with a coin toss, the number to tosses is entirely determined by me, and is thus fixed.
+    % For decay and such, the number of events is completely random, and what is fixed is how much time (luminosity)
+    %     the experiment is given.
+    Like most particle physics processes [all?], the $VBF \to HH \to 4b$ process is poisonian in nature.
+    The number $n$ of diHiggs process that are observed in ATLAS can thus be modeled with a poisson distribution:
+    \begin{equation}
+        P(n|\nu) = \frac{ \nu^n e^{-\nu} }{n!}
+    \end{equation}
+    Where $\nu$ is the expected event yield for the process.
+    The compatibility of a hypothesis with data can be established by use of a p-value test.
+    For example, take the case of a simple alpha emitter,
+        which I hypothesize emits radiation at a rate of once per minute.
+    After one hour, I would expect on average 60 events.
+    running the experiment, I find that 80 events were detected.
+    Plotting the poisson distribution for $P(n|60)$ (Figure \ref{fig:poisson_toy_sig:pdf}),
+        I can see how likely an observation of 80 events is.
+
+    \begin{figure} %TODO
+        \centering
+        \begin{subfigure}{0.4\textwidth} 
+            \input{diagrams/vbf_hh_kv.tex} 
+            \caption{Toy Poisson PDF}
+            \label{fig:poisson_toy_sig:pdf}
+        \end{subfigure}
+        \begin{subfigure}{0.4\textwidth}
+            \input{diagrams/vbf_hh_kl.tex} 
+            \caption{Toy Poisson Cumalitive PDF}
+            \label{fig:poisson_toy_sig:Cpdf}
+        \end{subfigure}
+        \caption{
+            A plot of the probability distribution function (PDF)
+                and cumulative PDF for a toy Poisson experiment.
+        }
+    \end{figure}
+
+    The key tool that will be used throughout the rest of this analysis is a ``p-test'',
+        which is to find the probability that, were my hypothesis correct,
+        I would obtain data with a value \textit{at least as extreme} as what I measured\footnote{
+            There are actually several different variations of a p-test;
+            this is specifically a one-sided p-test}.
+    So the p-value for an event rate of 80 given an expected average of 60 can be found by taking:
+    \begin{equation}
+        \textrm{p-value}(n=80) = P(80|60) + P(81|60) + P(82|60) ... P(\inf|60) = \sum\limits_{m=n}^\inf P(m|60)
+    \end{equation}
+    This is best visualized using the \textit{cumalitive} probability distribution function (Figure \ref{fig:poisson_toy_sig:Cpdf}).
+    In this example, the p-value would be [TODO].
+    A typical standard for many statistical tests, and the one used in this analysis,
+        is to establish a ``Confidence Level'' (CL) in the results of an experiment at a level of 95\%. 
+    The confidence level is simply $1-p$, so a CL of 0.95 corresponds to a p-value of less than 0.05.
+    Because this toy experiment has a pvalue much larger than 0.05,
+        the conclusion would be that ``the hypothesis was compatible with the data within a CL of 95\%.''
+    [Hey Steve, assuming I should even keep my example here, I'm not sure I'm wording this precisely as needed 
+        (I know these conclusion statements are touchy with their wording;
+        should I adjust the toy numbers to make for a better example?)]
 
 
+    % Introduce background
+    % Ditch toy, pull out actual Background and Signal (SM) event yields.
+    % Should also probably dig up the "sensitivity" metric and show how bad that is here as well.
+    % CLs = CLs+b/CLb explained in \cite{Barlow:2019svl} (pg. 192)
+    % The abysmal performance here should justify splitting the event into bins,
+    %     in order to identify regions of Mhh that we are more sensitive to.
+    % Using multiple bins however, dramatically complicates the statistical analysis.
+    % Enter the profile likelihood fit.
+    Moving on from the toy example, the model being tested in this analysis involves a background event rate
+        in addition to the signal hypothesis being considered.
+    The average number of events expected is then $\nu = S + B$,
+        where $S$ and $B$ are the signal and background rate yields respectively.
+    The confidence limits in such a situation are handeled in different ways from one analysis to another,
+        but in this analysis the pvalue of the signal alone is given by
+    \begin{equation}
+        P_S = \frac{P_{S+B}}{1 - P_B}
+    \end{equation}
+    Where $P_{S+B}$ is the pvalue of the hypothesis assuming the signal is present,
+        and $P_B$ is the pvalue of the background-only hypothesis
+        (often called the ``null hypothesis,'' $H_0$).
+    The total yields of the data, Background estimate, and SM signal hypothesis are provided in Table \ref{tab:event_yield},
+        and their PDF and cumulative PDF can be seen in
+        Figures \ref{fig:poisson_sig:pdf} and \ref{fig:poisson_sig:Cpdf}.
+
+    \begin{table}[tbh]
+       \begin{center}
+           \caption{Estimated and Observed Event Yields [FIXME: put in the real numbers]}
+           \label{tab:event_yield}
+           \footnotesize
+           \begin{tabular}{|l|l|}
+           \toprule
+               Type  &	Event Yield \\
+               \midrule
+               Background Estimate  & 300000 \\
+               Signal Hypothesis (SM) & 1 \\
+               %Signal Hypothesis (\kvv=3) & 400 \\
+               Observed Data & 300000 \\
+           \bottomrule
+           \end{tabular}
+       \end{center}
+    \end{table}
+
+    \begin{figure} %TODO
+        \centering
+        \begin{subfigure}{0.4\textwidth} 
+            \input{diagrams/vbf_hh_kv.tex} 
+            \caption{Poisson PDF}
+            \label{fig:poisson_sig:pdf}
+        \end{subfigure}
+        \begin{subfigure}{0.4\textwidth}
+            \input{diagrams/vbf_hh_kl.tex} 
+            \caption{Poisson Cumalitive PDF}
+            \label{fig:poisson_sig:Cpdf}
+        \end{subfigure}
+        \caption{
+            A plot of the probability distribution function (PDF)
+                and cumulative PDF for the estimated background and simulated signal,
+                with the observed yield denoted in both.
+        }
+    \end{figure}
+
+    The pvalue of the signal based on the observed yield is .001 [FIXME],
+        which means the CL is over 99\%.
+    This indicates that that the signal is very compatible with the data,
+        but by no means indicates proof of the diHiggs process.
+    To understand why, one need only look at the CL on the background-only hypothesis.
+    Proof of the diHiggs process would necessitate an excess of events so significant that
+        the null hypothesis must be rejected (typically $P_B < 10^{-7}$, the ``$5\sigma$'' discovery limit).
+    Here though, $P_B \approx 0.5$, which is far from being able to reject the null hypothesis.
+
+    The issue of course, is that the signal is utterly dwarfed by the quantity of background events.
+    A method of circumventing this scale issue
+        is to break the event count up across a number of different
+        bins and categories dependent on kinematic observables of the events.
+    The signal and background events are expected to have their events distributed differently across such observables.
+    Thus, even though there are vastly more background events overall,
+        it is entirely possible for there to exist a region in the observable space
+        in which there are a comparable number of signal events.
+    In this analysis, the primary observable variable is the diHiggs invariant mass, \mhh.
+    Ultimately, the final test of the hypothesis will still be to create a cumulative PDF for the distribution,
+        obtain the value of the cumulative PDF for the observed data, and use that to derive a CL for the signal.
+    With multiple bins (as well as categries and uncertainties), the deriviation of the cumulative PDF becomes much more complex.
+    The following section will describe precisely how all these aspects of analysis are combined together,
+        producing a much more powerful statistical analysis.
+
+    % You should take your sig/bgd mhh plot and turn the ratio bit into a sensitivity plot, of Si/sqrt(Si+Bi)
+    % Maybe include it here? TODO?
+
+
+\FloatBarrier
 % Discuss sources of error, assumptions, categorization, concept of mu values;
 % basically all the complicated stuff the limit framework is doing
 % Make the final goal to be establishing a p-value via the cumulative PDF distro,
@@ -127,8 +242,6 @@
 \section{VBF \to HH \to 4b Limit-Setting Framework}
 
     What is a test statistic and why do we need it?
-
-    Description of how "test statistic" q~ is constructed:
 
     Introduce mu*S+B format.
 
@@ -155,13 +268,13 @@
     Single mu vs q~ PDF constructed from monte-carlo distros
 
     C-PDF showing where mu-model resides for Psb, Pb, and finally Ps=Psb/(1-Pb)
-    CLs = CLs+b/CLb explained in \cite{Barlow:2019svl} (pg. 192)
 
     In practice, the q~ CPDF distros are estimated using an asymptotic approximation method\cite{asymptotic_formulae_for_likelihood}.
     (because the MC method is way too slow)
 
     
 
+\FloatBarrier
 % Finally, I need to reveal what our final results actually are, and what they mean.
 % This will mostly just be plots of mu values, limit values, and my 2D exclusion plots.
 % I can discuss the shapes and stuff here, as well as talk about any mismatches between expected and observed results.
