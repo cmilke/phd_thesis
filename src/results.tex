@@ -232,6 +232,8 @@
 
     % You should take your sig/bgd mhh plot and turn the ratio bit into a sensitivity plot, of Si/sqrt(Si+Bi)
     % Maybe include it here? TODO?
+    % Maybe do it for k2v=3 as well, since I think that might be useless in total yield, but powerful when binned,
+    % which helps justify all this work
 
 
 \FloatBarrier
@@ -240,37 +242,105 @@
 % Make the final goal to be establishing a p-value via the cumulative PDF distro,
 %   as was done for the simple coin toss example (to bring things full circle)
 \section{VBF \to HH \to 4b Limit-Setting Framework}
+    
+    %What is a test statistic and why do we need it?
+    The statistical technique used in this analysis to obtain a cumalitive PDF of the signal and background models
+        is based on the use of a ''test statistic'' derived through a \textit{profile likelihood fit}.
+    Test statistics come in many forms, but the one used here is known as the \qtil test statistic.
+    \qtil is technically defined in a single equation,
+        but that equation involves enough parameters that it is worth breaking it down into steps first.
 
-    What is a test statistic and why do we need it?
+    % Introduce mu*S+B format.
+    % Discuss formula for L specifically in this analysis
+    %    (emphasis on explaining the bits in parentheses):
 
-    Introduce mu*S+B format.
+    %    L = product[ for each category (2: eta hi and lo) 
+    %        product[for each bin: poissons]
+    %        * product[ nuissance params (4 for bgd shape error, 1 for norm error) ] 
+    %    ]
+    %    
+    The first step to deriving \qtil, is to slightly redefine the expectation value for the number of events 
+        with a scaling factor $\mu$ applied to the signal yield.
+    $\mu$ is reffered to as the ``parameter of interest'' (PoI),
+        and allows the yield of the signal process to be adjusted to some ideal value that best fits the data.
+    As well, there are now multiple bins, each with their own expectation values,
+        so the new definition of the expectation value is
+    \begin{equation}
+        \nu_i(\mu) = \mu S_i + B_i
+    \end{equation}
+    Instead of a probability distribution function, now a ``likelihood'' function $L$ will be used,
+        which is the joint probability of the observed data $n$ in each of the bins
+        (which are in turn all poisson distributed with expectation value $\nu_i$)
+    \begin{equation}
+        L(n,\mu) = \product \limits_{i=1}^{N} P(n_i | \nu_i)
+            = \product \limits_{i=1}^{N} \frac{ (\mu S_i + B_i)^{n_i} e^{\mu S_i + B_i} }{n_i!}
+    \end{equation}
+    Where $i$ runs over all the $N$ bins.
+    Note that unlike a PDF, the sum of all outcomes from the likelihood function will \textit{not} sum to unity,
+        and so the likelihood function does not constitute a probability.
 
-    Likelihood function
+    % Discuss uncertainties and categories
+    Uncertainties present in the background estimate add another layer of complexity to the likelihood function,
+        because uncertain parameters must be fit as well as the parameter of interest.
+    The expectation value is further adjusted to be $\nu_i(\mu, \Theta) = \mu S + \Theta B$,
+        where $\Theta$ is a product of five scaling values 
+    \begin{equation}
+        \Theta = \product \limits_{a=0}^{4}  \theta^a
+    \end{equation}
+    These scaling values, called ``nuissance parameters,''
+        correspond to the four shape uncertainties $\sigma_i^a, a\element{1,2,3,4}$
+        and one normalization uncertainty $\sigma^0$ ($\sigma^0$ does not vary by bin),
+        which were described in Section \ref{sec:nn_training}
+        [\TODO: you need to go back and describe these uncertainties better now that you understand them].
+    In this analysis, the background uncertainty is modeled as a Gaussian $\script{G}$
+        with expectation value $\theta^a B_i$ and standard deviation $\sigma_i^a$.
+    Extending the likelihood function produces
+    \begin{equation} \begin{split}
+        L(n,\mu,\Theta) &= \product \limits_{i=1}^{N} P_\textrm{poiss}(n_i | \nu_i) 
+             \product \limits_{i=1}^{N} P_\textrm{gauss}(n_i | \nu_i, \sigma_i^a) 
+        \\&= \product \limits_{i=1}^{N} \frac{ (\mu S_i + \Theta B_i)^{n_i} e^{\mu S_i + \Theta B_i} }{n_i!} \times
+            \product \limits_{a=0}^5 \product \limits_{i=1}^{N} \frac{1}{\sigma_i^a \sqrt{2\pi}} e^{
+                -\frac{1}{2}\left(\frac{n_i- (\mu S_i + \Theta B_i)}{\sigma_i^a}\right)^2
+    \end{split} \end{equation}
 
-        L = product[ for each category:
-            product[for each bin: poissons]
-            * product[ nuissance params ] 
-        ]
+    Finally, in order to increase sensitivity further, events are split into two different categories
+        based on whether the \deta seperation between the reconstructed Higgs bosons is greater or less than 1.5.
+    The full likelihood function is then a product over the two categories
+    \begin{equation}
+        L(n,\mu,\Theta) &= \product \limits_{j=1}^{2}
+             \product \limits_{i=1}^{N} P_\textrm{poiss}(n_{ij} | \nu_{ij}) 
+             \product \limits_{i=1}^{N} P_\textrm{gauss}(n_{ij} | \nu_{ij}, \sigma_{i}^a) 
+    \end{equation}
 
-
-    Discuss how this formula for L specifically functions in this analysis
-        (emphasis on explaining the bits in parentheses):
-
-        L = product[ for each category (2: eta hi and lo) 
-            product[for each bin: poissons]
-            * product[ nuissance params (4 for bgd shape error, 1 for norm error) ] 
-        ]
+    % Discuss nuissance parameter fitting
+    There is only one parameter of interest ($\mu$), but there are now six parameters $L$ is a function of.
+    To address this without overfitting to the data, a maximized fit is performed across the nuissance parameters.
+    Such a fit eliminates their presence from the likelihood function,
+        but it should be noted that it does so at the cost of significantly extending the final cumulative PDF,
+        and thus reducing the overall confidence intervals.
+    To proceed, the value of $\mu$ is fixed to the desired scale (for now $\mu=1$),
+        and then $L(n,\mu,Theta)$ is maximized over the various values of the $\theta^a$.
+    The nuissance parameter values are then fixed to this maximal value $\hat\theta^a$, such that
+    \begin{equation}
+        \product \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} L(n,\mu,\Theta) |_{\Theta=\hat\Theta} = 0
+    \end{equation}
+    Resulting in a fitted $L = L(n,\mu,\hat\Theta)$.
         
-    lambda = L(mu, theta vary-opt) / L(mu-opt, theta-opt);
-    t = -2*ln(lambda);
-    q~ = t with edge cases;
+    %lambda = L(mu, theta vary-opt) / L(mu-opt, theta-opt);
+    %t = -2*ln(lambda);
 
-    Single mu vs q~ PDF constructed from monte-carlo distros
 
-    C-PDF showing where mu-model resides for Psb, Pb, and finally Ps=Psb/(1-Pb)
 
-    In practice, the q~ CPDF distros are estimated using an asymptotic approximation method\cite{asymptotic_formulae_for_likelihood}.
-    (because the MC method is way too slow)
+    %q~ = t with edge cases;
+
+
+
+    %Single mu vs q~ PDF constructed from monte-carlo distros
+
+    %C-PDF showing where mu-model resides for Psb, Pb, and finally Ps=Psb/(1-Pb)
+
+    %In practice, the q~ CPDF distros are estimated using an asymptotic approximation method\cite{asymptotic_formulae_for_likelihood}.
+    %(because the MC method is way too slow)
 
     
 
