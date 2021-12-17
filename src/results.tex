@@ -108,13 +108,13 @@
 
     \begin{figure} %TODO
         \centering
-        \begin{subfigure}{0.4\textwidth} 
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Toy Poisson PDF}
             \label{fig:poisson_toy_sig:pdf}
         \end{subfigure}
-        \begin{subfigure}{0.4\textwidth}
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Toy Poisson Cumalitive PDF}
             \label{fig:poisson_toy_sig:Cpdf}
         \end{subfigure}
@@ -124,6 +124,7 @@
         }
     \end{figure}
 
+    \FloatBarrier
     The key tool that will be used throughout the rest of this analysis is a ``p-test'',
         which is to find the probability that, were my hypothesis correct,
         I would obtain data with a value \textit{at least as extreme} as what I measured\footnote{
@@ -189,13 +190,13 @@
 
     \begin{figure} %TODO
         \centering
-        \begin{subfigure}{0.4\textwidth} 
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Poisson PDF}
             \label{fig:poisson_sig:pdf}
         \end{subfigure}
-        \begin{subfigure}{0.4\textwidth}
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Poisson Cumalitive PDF}
             \label{fig:poisson_sig:Cpdf}
         \end{subfigure}
@@ -241,7 +242,7 @@
 % basically all the complicated stuff the limit framework is doing
 % Make the final goal to be establishing a p-value via the cumulative PDF distro,
 %   as was done for the simple coin toss example (to bring things full circle)
-\section{VBF \to HH \to 4b Limit-Setting Framework}
+\section{VBF  HH  4b Limit-Setting Framework}
     
     %What is a test statistic and why do we need it?
     The statistical technique used in this analysis to obtain a cumalitive PDF of the signal and background models
@@ -272,8 +273,8 @@
         which is the joint probability of the observed data $n$ in each of the bins
         (which are in turn all poisson distributed with expectation value $\nu_i$)
     \begin{equation}
-        L(n,\mu) = \product \limits_{i=1}^{N} P(n_i | \nu_i)
-            = \product \limits_{i=1}^{N} \frac{ (\mu S_i + B_i)^{n_i} e^{\mu S_i + B_i} }{n_i!}
+        L(n,\mu) = \prod \limits_{i=1}^{N} P(n_i | \nu_i)
+            = \prod \limits_{i=1}^{N} \frac{ (\mu S_i + B_i)^{n_i} e^{\mu S_i + B_i} }{n_i!}
     \end{equation}
     Where $i$ runs over all the $N$ bins.
     Note that unlike a PDF, the sum of all outcomes from the likelihood function will \textit{not} sum to unity,
@@ -285,31 +286,32 @@
     The expectation value is further adjusted to be $\nu_i(\mu, \Theta) = \mu S + \Theta B$,
         where $\Theta$ is a product of five scaling values 
     \begin{equation}
-        \Theta = \product \limits_{a=0}^{4}  \theta^a
+        \Theta = \prod \limits_{a=0}^{4}  \theta^a
     \end{equation}
     These scaling values, called ``nuissance parameters,''
-        correspond to the four shape uncertainties $\sigma_i^a, a\element{1,2,3,4}$
+        correspond to the four shape uncertainties $\sigma_i^a, a\in{1,2,3,4}$
         and one normalization uncertainty $\sigma^0$ ($\sigma^0$ does not vary by bin),
         which were described in Section \ref{sec:nn_training}
-        [\TODO: you need to go back and describe these uncertainties better now that you understand them].
-    In this analysis, the background uncertainty is modeled as a Gaussian $\script{G}$
+        [TODO: you need to go back and describe these uncertainties better now that you understand them].
+    In this analysis, the background uncertainty is modeled as a Gaussian
         with expectation value $\theta^a B_i$ and standard deviation $\sigma_i^a$.
     Extending the likelihood function produces
     \begin{equation} \begin{split}
-        L(n,\mu,\Theta) &= \product \limits_{i=1}^{N} P_\textrm{poiss}(n_i | \nu_i) 
-             \product \limits_{i=1}^{N} P_\textrm{gauss}(n_i | \nu_i, \sigma_i^a) 
-        \\&= \product \limits_{i=1}^{N} \frac{ (\mu S_i + \Theta B_i)^{n_i} e^{\mu S_i + \Theta B_i} }{n_i!} \times
-            \product \limits_{a=0}^5 \product \limits_{i=1}^{N} \frac{1}{\sigma_i^a \sqrt{2\pi}} e^{
+        L(n,\mu,\Theta) &= \prod \limits_{i=1}^{N} P_{\textrm{poiss}}(n_i | \nu_i) 
+             \prod \limits_{a=0}^{4} P_{\textrm{gauss}}(n_i | \nu_i, \sigma_i^a) 
+        \\&= \prod \limits_{i=1}^{N} \frac{ (\mu S_i + \Theta B_i)^{n_i} e^{\mu S_i + \Theta B_i} }{n_i!} \times
+            \prod \limits_{a=0}^4 \frac{1}{\sigma_i^a \sqrt{2\pi}} e^{
                 -\frac{1}{2}\left(\frac{n_i- (\mu S_i + \Theta B_i)}{\sigma_i^a}\right)^2
+            }
     \end{split} \end{equation}
 
     Finally, in order to increase sensitivity further, events are split into two different categories
         based on whether the \deta seperation between the reconstructed Higgs bosons is greater or less than 1.5.
     The full likelihood function is then a product over the two categories
     \begin{equation}
-        L(n,\mu,\Theta) &= \product \limits_{j=1}^{2}
-             \product \limits_{i=1}^{N} P_\textrm{poiss}(n_{ij} | \nu_{ij}) 
-             \product \limits_{i=1}^{N} P_\textrm{gauss}(n_{ij} | \nu_{ij}, \sigma_{i}^a) 
+        L(n,\mu,\Theta) = \prod \limits_{j=1}^{2}
+             \prod \limits_{i=1}^{N} P_{\textrm{poiss}}(n_{ij} | \nu_{ij}) 
+             \prod \limits_{a=0}^{4} P_{\textrm{gauss}}(n_{ij} | \nu_{ij}, \sigma_{i}^a) 
     \end{equation}
 
     % Discuss nuissance parameter fitting
@@ -319,12 +321,12 @@
         but it should be noted that it does so at the cost of significantly extending the final cumulative PDF,
         and thus reducing the overall confidence intervals.
     To proceed, the value of $\mu$ is fixed to the desired scale (for now $\mu=1$),
-        and then $L(n,\mu,Theta)$ is maximized over the various values of the $\theta^a$.
-    The nuissance parameter values are then fixed to this maximal value $\hat\hat\theta^a$, such that
+        and then $L(n,\mu,\Theta)$ is maximized over the various values of the $\theta^a$.
+    The nuissance parameter values are then fixed to this maximal value $\hat{\hat\theta}^a$, such that
     \begin{equation}
-        \product \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} L(n,\mu,\Theta) |_{\Theta=\hat\hat\Theta} = 0
+        \prod \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} L(n,\mu,\Theta) |_{\Theta=\hat{\hat\Theta}} = 0
     \end{equation}
-    Resulting in a fitted $L = L(n,\mu,\hat\hat\Theta)$.
+    Resulting in a fitted $L = L(n,\mu,\hat{\hat\Theta})$.
         
     %lambda = L(mu, theta vary-opt) / L(mu-opt, theta-opt);
     As a final fitting step, the likelihood $L$ is normalized by a fully maximized value $\hat L$,
@@ -333,11 +335,11 @@
         $\hat L$ allows $\mu$ to also be a free parameter.
     It is then maximized with regard to both $\mu$ and the nuissance parameters such that
     \begin{equation}
-        \product \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} \frac{\partial}{\partial \mu} L(n,\mu,\Theta) |_{\Theta=\hat \Theta} |_{\mu=\hat \mu} = 0
+        \prod \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} \frac{\partial}{\partial \mu} L(n,\mu,\Theta) |_{\Theta=\hat \Theta} |_{\mu=\hat \mu} = 0
     \end{equation}
     A test statistic $t$ can now be constructed with $\lambda$, as
     \begin{equation}
-        t = -2 \ln{\lambda} = -2 \ln{\frac{L(\mu, \hat \hat \Theta)}{L(\hat \mu, \hat \Theta)}}
+        t = -2 \ln{\lambda} = -2 \ln{\frac{L(\mu, \hat {\hat \Theta})}{L(\hat \mu, \hat \Theta)}}
     \end{equation}
     It is worth briefly reviewing what this formula and its pieces mean before moving onto the last step.
     The likelihood $L$ is just the joint probability that every bin of the observed data would have the values they do,
@@ -351,18 +353,18 @@
         compared to the much more likely model based on the optimal value of $\mu$.
     The test statistic $t$ then has a simple interpretation:
         values of $t$ close to 0 indicate high likelihood,
-        and the higher the value (up to infinity) the more unlikely it is that the model is compatible with the data.
+        and the higher the value of $t$ (up to infinity) the more unlikely it is that the model is compatible with the data.
 
     %q~ = t with edge cases;
     At last, the desired test statistic \qtil can be derived, as a piecewise variation on $t$ \cite{asymptotic_formulae_for_likelihood}:
     \begin{equation}
-        \qtil = \[ \begin{cases}
-                -2 \ln{\frac{L(\mu, \hat \hat \Theta)}{L(0, \hat \Theta(\mu=0))}} & \hat \mu < 0,\\
-                -2 \ln{\frac{L(\mu, \hat \hat \Theta)}{L(\hat \mu, \hat \Theta)}} & 0 \leq \hat \mu < \leq \mu,\\
-                0 & \mu < \hat \mu 
-            \end{cases} \]
+        \qtil = \begin{cases}
+            -2 \ln{\frac{L(\mu, \hat {\hat \Theta})}{L(0, \hat \Theta(\mu=0))}} & \hat \mu < 0,\\
+            -2 \ln{\frac{L(\mu, \hat {\hat \Theta})}{L(\hat \mu, \hat \Theta)}} & 0 \leq \hat \mu \leq \mu,\\
+            0 & \mu < \hat \mu 
+        \end{cases}
     \end{equation}
-    The middle condition is simply $t$, with the top and bottom edge cases being the defining traits of \qil.
+    The middle condition is simply $t$, with the top and bottom edge cases being the defining traits of \qtil.
     \qtil in particular is used for this analysis because of these piece-wise conditions,
         which enforce the fact that $\mu$ should never be negative (the signal cannot remove events from the background),
         and that this analysis is only interested in establishing a lower-bound
@@ -387,13 +389,13 @@
 
     \begin{figure} %TODO
         \centering
-        \begin{subfigure}{0.4\textwidth} 
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:qtil:pdf}
         \end{subfigure}
-        \begin{subfigure}{0.4\textwidth}
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:qtil:Cpdf}
         \end{subfigure}
@@ -439,23 +441,23 @@
 
     \begin{figure} %TODO
         \centering
-        \begin{subfigure}{0.4\textwidth} 
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:mu_CL_k2v0}
         \end{subfigure}
-        \begin{subfigure}{0.4\textwidth} 
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:mu_CL_k2v1}
         \end{subfigure} \\
-        \begin{subfigure}{0.4\textwidth}
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:mu_CL_k2v1.5}
         \end{subfigure}
-        \begin{subfigure}{0.4\textwidth}
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:mu_CL_k2v3}
         \end{subfigure}
@@ -471,7 +473,7 @@
         any signal hypothesis for any value of \kvv can be tested, allowing for Figure \ref{fig:kvv_SM_scan}.
 
     \begin{figure} %TODO
-        \input{results/mu_pdf} 
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
         \caption{Values of \qtil for Simulated Distributions}
         \label{fig:kvv_SM_scan}
     \end{figure}
@@ -486,23 +488,23 @@
 
     \begin{figure} %TODO
         \centering
-        \begin{subfigure}{0.4\textwidth} 
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:kvv_scan_kl0}
         \end{subfigure}
-        \begin{subfigure}{0.4\textwidth} 
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:kvv_scan_kl1}
         \end{subfigure} \\
-        \begin{subfigure}{0.4\textwidth}
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:kvv_scan_kl2}
         \end{subfigure}
-        \begin{subfigure}{0.4\textwidth}
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:kvv_scan_kl10}
         \end{subfigure}
@@ -516,7 +518,7 @@
         as these points indicate where the regions of exclusion lie (Figure \ref{fig:kvv_kl_2Dscan}).
 
     \begin{figure} %TODO
-        \input{results/mu_pdf} 
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
         \caption{Values of \qtil for Simulated Distributions}
         \label{fig:kvv_kl_2Dscan}
     \end{figure}
@@ -529,23 +531,23 @@
 
     \begin{figure} %TODO
         \centering
-        \begin{subfigure}{0.4\textwidth} 
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:kvv_kl_2Dscan_kv0.96}
         \end{subfigure}
-        \begin{subfigure}{0.4\textwidth} 
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:kvv_kl_2Dscan_kv1}
         \end{subfigure} \\
-        \begin{subfigure}{0.4\textwidth}
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:kvv_kl_2Dscan_kv1.03}
         \end{subfigure}
-        \begin{subfigure}{0.4\textwidth}
-            \input{results/mu_pdf} 
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:kvv_kl_2Dscan_kv1.06}
         \end{subfigure}
