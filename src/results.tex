@@ -109,12 +109,12 @@
     \begin{figure} %TODO
         \centering
         \begin{subfigure}{0.4\textwidth} 
-            \input{diagrams/vbf_hh_kv.tex} 
+            \input{results/mu_pdf} 
             \caption{Toy Poisson PDF}
             \label{fig:poisson_toy_sig:pdf}
         \end{subfigure}
         \begin{subfigure}{0.4\textwidth}
-            \input{diagrams/vbf_hh_kl.tex} 
+            \input{results/mu_pdf} 
             \caption{Toy Poisson Cumalitive PDF}
             \label{fig:poisson_toy_sig:Cpdf}
         \end{subfigure}
@@ -190,12 +190,12 @@
     \begin{figure} %TODO
         \centering
         \begin{subfigure}{0.4\textwidth} 
-            \input{diagrams/vbf_hh_kv.tex} 
+            \input{results/mu_pdf} 
             \caption{Poisson PDF}
             \label{fig:poisson_sig:pdf}
         \end{subfigure}
         \begin{subfigure}{0.4\textwidth}
-            \input{diagrams/vbf_hh_kl.tex} 
+            \input{results/mu_pdf} 
             \caption{Poisson Cumalitive PDF}
             \label{fig:poisson_sig:Cpdf}
         \end{subfigure}
@@ -320,29 +320,102 @@
         and thus reducing the overall confidence intervals.
     To proceed, the value of $\mu$ is fixed to the desired scale (for now $\mu=1$),
         and then $L(n,\mu,Theta)$ is maximized over the various values of the $\theta^a$.
-    The nuissance parameter values are then fixed to this maximal value $\hat\theta^a$, such that
+    The nuissance parameter values are then fixed to this maximal value $\hat\hat\theta^a$, such that
     \begin{equation}
-        \product \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} L(n,\mu,\Theta) |_{\Theta=\hat\Theta} = 0
+        \product \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} L(n,\mu,\Theta) |_{\Theta=\hat\hat\Theta} = 0
     \end{equation}
-    Resulting in a fitted $L = L(n,\mu,\hat\Theta)$.
+    Resulting in a fitted $L = L(n,\mu,\hat\hat\Theta)$.
         
     %lambda = L(mu, theta vary-opt) / L(mu-opt, theta-opt);
-    %t = -2*ln(lambda);
-
-
+    As a final fitting step, the likelihood $L$ is normalized by a fully maximized value $\hat L$,
+        to form a quantity $\lambda = L / \hat L$.
+    $\hat L$ is formed in a similar manner to $L$, but whereas $L$ has a fixed, given value for $\mu$,
+        $\hat L$ allows $\mu$ to also be a free parameter.
+    It is then maximized with regard to both $\mu$ and the nuissance parameters such that
+    \begin{equation}
+        \product \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} \frac{\partial}{\partial \mu} L(n,\mu,\Theta) |_{\Theta=\hat \Theta} |_{\mu=\hat \mu} = 0
+    \end{equation}
+    A test statistic $t$ can now be constructed with $\lambda$, as
+    \begin{equation}
+        t = -2 \ln{\lambda} = -2 \ln{\frac{L(\mu, \hat \hat \Theta)}{L(\hat \mu, \hat \Theta)}}
+    \end{equation}
+    It is worth briefly reviewing what this formula and its pieces mean before moving onto the last step.
+    The likelihood $L$ is just the joint probability that every bin of the observed data would have the values they do,
+        based on the modeled expectation values.
+    Due to the large number of bins, $L$ will always be an extremely small number between 0 and 1.
+    By construction, $\hat L$ will always be a joint probabiliy at least as large as $L$, though still between 0 and 1.
+    Their ratio $\lambda$ represents how close $L$ is to being maximally likely for the given set of observed data and models.
+    $\lambda$ can at most be equal to 1, indicating that $L$ is nearly equal to $\hat L$,
+        which in turn indicates that the model fits the observed data as well as it can for any given value of $\mu$.
+    In turn, a value near 0 indicates that the observed data is exceedingly unlikely to have come from the model with the given $\mu$,
+        compared to the much more likely model based on the optimal value of $\mu$.
+    The test statistic $t$ then has a simple interpretation:
+        values of $t$ close to 0 indicate high likelihood,
+        and the higher the value (up to infinity) the more unlikely it is that the model is compatible with the data.
 
     %q~ = t with edge cases;
-
-
+    At last, the desired test statistic \qtil can be derived, as a piecewise variation on $t$ \cite{asymptotic_formulae_for_likelihood}:
+    \begin{equation}
+        \qtil = \[ \begin{cases}
+                -2 \ln{\frac{L(\mu, \hat \hat \Theta)}{L(0, \hat \Theta(\mu=0))}} & \hat \mu < 0,\\
+                -2 \ln{\frac{L(\mu, \hat \hat \Theta)}{L(\hat \mu, \hat \Theta)}} & 0 \leq \hat \mu < \leq \mu,\\
+                0 & \mu < \hat \mu 
+            \end{cases} \]
+    \end{equation}
+    The middle condition is simply $t$, with the top and bottom edge cases being the defining traits of \qil.
+    \qtil in particular is used for this analysis because of these piece-wise conditions,
+        which enforce the fact that $\mu$ should never be negative (the signal cannot remove events from the background),
+        and that this analysis is only interested in establishing a lower-bound
+        [TODO: might need to think about this some more to be sure you know what you're saying here].
 
     %Single mu vs q~ PDF constructed from monte-carlo distros
-
     %C-PDF showing where mu-model resides for Psb, Pb, and finally Ps=Psb/(1-Pb)
-
     %In practice, the q~ CPDF distros are estimated using an asymptotic approximation method\cite{asymptotic_formulae_for_likelihood}.
     %(because the MC method is way too slow)
+    Even with the test statistic \qtil available, its use may not be immediately obvious.
+    Recall that the goal is to produce a cumalitive probability distribution function,
+        which can be compared against to produce a p-value.
+    The solution to obtaining a distribution, is to create one using monte-carlo techniques.
+    A large number of simulated distributions can be generated, sampled from the signal and background poisson distributions.
+    For each of these simulated ``observations'' the test statistic \qtil can be derived.
+    The result is a vast number of \qtil values, which together comprise a distribution.
+    A cumulative probability distribution can be constructed with this distribution,
+        by simply taking the fraction of simulated observations which fall below some value of \qtil.
+    Figures \ref{fig:qtil:pdf} and \ref{fig:qtil:Cpdf} demonstrate how this is done,
+        as well as where the SM signal model falls with a $\mu$ value of 1.
 
-    
+    \begin{figure} %TODO
+        \centering
+        \begin{subfigure}{0.4\textwidth} 
+            \input{results/mu_pdf} 
+            \caption{Values of \qtil for Simulated Distributions}
+            \label{fig:qtil:pdf}
+        \end{subfigure}
+        \begin{subfigure}{0.4\textwidth}
+            \input{results/mu_pdf} 
+            \caption{Cumalitive PDF of \qtil Test Statistic}
+            \label{fig:qtil:Cpdf}
+        \end{subfigure}
+        \caption{
+            Plots of the values and cumalitive PDF based on \qtil,
+                with the \qtil value of the observed data highlighted.
+            These figures are for demonstration purposes only,
+                and conclusions should not be drawn from them.
+        }
+    \end{figure}
+
+    I would like to note that while I have performed the explicit simulation of the MC distributions for the sake of these figures,
+        in practice the MC approach is far too slow.
+    Indeed, these figures already took a substantial amount of time to produce, and yet are still quite unreliable and innacurate.
+    Many times more distributions would have been needed to produce a reliably stable cumulative PDF.
+    What is often done instead, and what this analysis does,
+        is to use an asymptotic approximation to the \qtil cumulative distribution function.
+    The derivation of this approximation is well beyond the scope of this thesis,
+        but is documented extensively by Cowan\cite{asymptotic_formulae_for_likelihood}.
+    \qtil itself still needs to be calculated for the observed data,
+        but the asymptotic approximation allows for rapid and accurate calculation of its p-value.
+    Now that I finally have a robust mechanism for calculating the p-value of a hypothesis,
+        the only step left to take is to use it.
 
 \FloatBarrier
 % Finally, I need to reveal what our final results actually are, and what they mean.

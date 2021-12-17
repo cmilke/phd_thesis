@@ -209,7 +209,7 @@ def roll(_biased_num, bias_amount):
 
 
 def main():
-    num_bgd_dice = 3
+    num_bgd_dice = 0
     bias_amount = 2
     predicted_bias = 2
     num_rolls = 600
