@@ -383,6 +383,7 @@
         by simply taking the fraction of simulated observations which fall below some value of \qtil.
     Figures \ref{fig:qtil:pdf} and \ref{fig:qtil:Cpdf} demonstrate how this is done,
         as well as where the SM signal model falls with a $\mu$ value of 1.
+    Lastly, a minor point to mention here is the associated error bands ... [TODO IM TIRED]
 
     \begin{figure} %TODO
         \centering
@@ -408,7 +409,7 @@
         in practice the MC approach is far too slow.
     Indeed, these figures already took a substantial amount of time to produce, and yet are still quite unreliable and innacurate.
     Many times more distributions would have been needed to produce a reliably stable cumulative PDF.
-    What is often done instead, and what this analysis does,
+    What is often done instead, and what this analysis does (via the Pyhf python framework),
         is to use an asymptotic approximation to the \qtil cumulative distribution function.
     The derivation of this approximation is well beyond the scope of this thesis,
         but is documented extensively by Cowan\cite{asymptotic_formulae_for_likelihood}.
@@ -424,23 +425,131 @@
 % Be ready to just put in filler results, since we probably won't have unblinded by the time I get here.
 \section{Final Interpretation}
 
-SM mu scan plot of signal p-value.
-If you do this using one of the other stats (t, or t~ or something),
-    I think you can use it to show that pure discovery of the HH process is impossible right now,
-    and therefore justify putting limits on the couplings instead.
+    All limits quoted in this analysis are to a CL of 95\%.
+    The CL of the SM signal hypothesis with a $\mu$ scale of 1 is only [TODO]\%
+        (not too far off from Figure \ref{fig:qtil:Cpdf}).
+    No meaningful conclusion can be drawn from such a small signal.
+    However, looking at the \kvv=3 signal model at a $\mu$ scale of 1 provides a CL of [TODO],
+        which is of far more interest and indicates that a value of \kvv=3 is incompatible with data,
+        and so can be excluded.
+    This result suggests a much more useful way of performing these tests.
+    For each signal hypothesis, a series of increasing values of $\mu$ can be tested against the observed data,
+        each with their own CL value.
+    A series of such tests can be seen in Figure \ref{fig:mu_CL_vals}.
 
-multi k2v-scan mu plots
+    \begin{figure} %TODO
+        \centering
+        \begin{subfigure}{0.4\textwidth} 
+            \input{results/mu_pdf} 
+            \caption{Values of \qtil for Simulated Distributions}
+            \label{fig:mu_CL_k2v0}
+        \end{subfigure}
+        \begin{subfigure}{0.4\textwidth} 
+            \input{results/mu_pdf} 
+            \caption{Values of \qtil for Simulated Distributions}
+            \label{fig:mu_CL_k2v1}
+        \end{subfigure} \\
+        \begin{subfigure}{0.4\textwidth}
+            \input{results/mu_pdf} 
+            \caption{Cumalitive PDF of \qtil Test Statistic}
+            \label{fig:mu_CL_k2v1.5}
+        \end{subfigure}
+        \begin{subfigure}{0.4\textwidth}
+            \input{results/mu_pdf} 
+            \caption{Cumalitive PDF of \qtil Test Statistic}
+            \label{fig:mu_CL_k2v3}
+        \end{subfigure}
+        \caption{
+            plots of some stuff
+        }\label{fig:mu_CL_vals}
+    \end{figure}
 
-Segway from a coupling of mu plots into the idea that, while the SM point is a lost cause,
-    other coupling values can be safely ruled out.
-Use this to motivate the idea of performing a "coupling scan"
-    which can show which values of a coupling can be ruled out.
+    The critical value for each of the plots in Figure \ref{fig:mu_CL_vals} is the 95\% CL $\mu$.
+    A more informative plot can be created then showing only
+        for which value of $\mu$ can the signal hypothesis be excluded.
+    Utilizing the signal model linear combination equation from Section \ref{sec:signal_combination},
+        any signal hypothesis for any value of \kvv can be tested, allowing for Figure \ref{fig:kvv_SM_scan}.
 
-1D SM k2v plot
-1D SM kl plot?
+    \begin{figure} %TODO
+        \input{results/mu_pdf} 
+        \caption{Values of \qtil for Simulated Distributions}
+        \label{fig:kvv_SM_scan}
+    \end{figure}
 
-Multi-kl 1D k2v plots
+    Figure \ref{fig:kvv_SM_scan} is arguably the single most signficant result presented in this thesis,
+        as it indicates that \kvv=0 can be excluded with a CL of 95\%.
+    This in turn provides strong evidence for the existence of the \HHVV interaction process.
+    Yet, there is still more to discuss.
 
-2D k2v/kl plot
+    The signal combination formula is able to produce a signal hypothesis with multiple coupling values adjusted at once,
+        and so a wide range of \kvv scan plots can be produced, as seen in Figure \ref{fig:kvv_multi_kl}
 
-Multi-dimensional slice plots
+    \begin{figure} %TODO
+        \centering
+        \begin{subfigure}{0.4\textwidth} 
+            \input{results/mu_pdf} 
+            \caption{Values of \qtil for Simulated Distributions}
+            \label{fig:kvv_scan_kl0}
+        \end{subfigure}
+        \begin{subfigure}{0.4\textwidth} 
+            \input{results/mu_pdf} 
+            \caption{Values of \qtil for Simulated Distributions}
+            \label{fig:kvv_scan_kl1}
+        \end{subfigure} \\
+        \begin{subfigure}{0.4\textwidth}
+            \input{results/mu_pdf} 
+            \caption{Cumalitive PDF of \qtil Test Statistic}
+            \label{fig:kvv_scan_kl2}
+        \end{subfigure}
+        \begin{subfigure}{0.4\textwidth}
+            \input{results/mu_pdf} 
+            \caption{Cumalitive PDF of \qtil Test Statistic}
+            \label{fig:kvv_scan_kl10}
+        \end{subfigure}
+        \caption{
+            plots of some stuff
+        }\label{fig:kvv_multi_kl}
+    \end{figure}
+
+    Once again, this abundance of parameter space can be collapsed by taking special note only of
+        the individual points at which the theoretical cross-section and observed 95\% CL cross-section intersect,
+        as these points indicate where the regions of exclusion lie (Figure \ref{fig:kvv_kl_2Dscan}).
+
+    \begin{figure} %TODO
+        \input{results/mu_pdf} 
+        \caption{Values of \qtil for Simulated Distributions}
+        \label{fig:kvv_kl_2Dscan}
+    \end{figure}
+
+    Finally, by utilizing the full dimensionality afforded by 6-term signal combination equation,
+        such scan plots can be produced across multiple slices of \kv.
+    \kv is already highly constrained, and Figure \ref{fig:kvv_kl_multislice}
+        reveals that within the established bounds on \kv,
+        the constraints on \kl and \kvv differ by very little.
+
+    \begin{figure} %TODO
+        \centering
+        \begin{subfigure}{0.4\textwidth} 
+            \input{results/mu_pdf} 
+            \caption{Values of \qtil for Simulated Distributions}
+            \label{fig:kvv_kl_2Dscan_kv0.96}
+        \end{subfigure}
+        \begin{subfigure}{0.4\textwidth} 
+            \input{results/mu_pdf} 
+            \caption{Values of \qtil for Simulated Distributions}
+            \label{fig:kvv_kl_2Dscan_kv1}
+        \end{subfigure} \\
+        \begin{subfigure}{0.4\textwidth}
+            \input{results/mu_pdf} 
+            \caption{Cumalitive PDF of \qtil Test Statistic}
+            \label{fig:kvv_kl_2Dscan_kv1.03}
+        \end{subfigure}
+        \begin{subfigure}{0.4\textwidth}
+            \input{results/mu_pdf} 
+            \caption{Cumalitive PDF of \qtil Test Statistic}
+            \label{fig:kvv_kl_2Dscan_kv1.06}
+        \end{subfigure}
+        \caption{
+            plots of some stuff
+        }\label{fig:kvv_kl_multislice}
+    \end{figure}
