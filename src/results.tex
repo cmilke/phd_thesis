@@ -102,19 +102,19 @@
     For example, take the case of a simple alpha emitter,
         which I hypothesize emits radiation at a rate of once per minute.
     After one hour, I would expect on average 60 events.
-    running the experiment, I find that 80 events were detected.
+    running the experiment, I find that 68 events were detected.
     Plotting the poisson distribution for $P(n|60)$ (Figure \ref{fig:poisson_toy_sig:pdf}),
-        I can see how likely an observation of 80 events is.
+        I can see how likely an observation of 68 events is.
 
-    \begin{figure} %TODO
+    \begin{figure}
         \centering
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/toy_poisson}
             \caption{Toy Poisson PDF}
             \label{fig:poisson_toy_sig:pdf}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/toy_Cpoisson}
             \caption{Toy Poisson Cumalitive PDF}
             \label{fig:poisson_toy_sig:Cpdf}
         \end{subfigure}
@@ -130,20 +130,20 @@
         I would obtain data with a value \textit{at least as extreme} as what I measured\footnote{
             There are actually several different variations of a p-test;
             this is specifically a one-sided p-test}.
-    So the p-value for an event rate of 80 given an expected average of 60 can be found by taking:
+    So the p-value for an event rate of 68 given an expected average of 60 can be found by taking:
     \begin{equation}
-        \textrm{p-value}(n=80) = P(80|60) + P(81|60) + P(82|60) ... P(\inf|60) = \sum\limits_{m=n}^\inf P(m|60)
+        \textrm{p-value}(n=68) = P(68|60) + P(69|60) + P(70|60) ... P(\infty|60) = \sum\limits_{m=n}^\infty P(m|60)
     \end{equation}
     This is best visualized using the \textit{cumalitive} probability distribution function (Figure \ref{fig:poisson_toy_sig:Cpdf}).
-    In this example, the p-value would be [TODO].
+    In this example, the p-value would be 0.17.
     A typical standard for many statistical tests, and the one used in this analysis,
         is to establish a ``Confidence Level'' (CL) in the results of an experiment at a level of 95\%. 
     The confidence level is simply $1-p$, so a CL of 0.95 corresponds to a p-value of less than 0.05.
-    Because this toy experiment has a pvalue much larger than 0.05,
+    Because this toy experiment has a pvalue larger than 0.05,
         the conclusion would be that ``the hypothesis was compatible with the data within a CL of 95\%.''
     [Hey Steve, assuming I should even keep my example here, I'm not sure I'm wording this precisely as needed 
-        (I know these conclusion statements are touchy with their wording;
-        should I adjust the toy numbers to make for a better example?)]
+        I know these conclusion statements are touchy with their wording;
+        should I adjust the toy numbers to make for a better example?]
 
 
     % Introduce background
@@ -179,10 +179,10 @@
            \toprule
                Type  &	Event Yield \\
                \midrule
-               Background Estimate  & 300000 \\
-               Signal Hypothesis (SM) & 1 \\
+               Background Estimate  & 7012 \\
+               Signal Hypothesis (SM) & 0.36 \\
                %Signal Hypothesis (\kvv=3) & 400 \\
-               Observed Data & 300000 \\
+               Observed Data & 7053 \\
            \bottomrule
            \end{tabular}
        \end{center}
@@ -191,12 +191,12 @@
     \begin{figure} %TODO
         \centering
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/total_yield_poisson}
             \caption{Poisson PDF}
             \label{fig:poisson_sig:pdf}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/total_yield_Cpoisson}
             \caption{Poisson Cumalitive PDF}
             \label{fig:poisson_sig:Cpdf}
         \end{subfigure}
@@ -207,14 +207,14 @@
         }
     \end{figure}
 
-    The pvalue of the signal based on the observed yield is .001 [FIXME],
-        which means the CL is over 99\%.
+    The pvalue of the signal based on the observed yield is 0.46 [FIXME],
+        for a CL of 54\%.
     This indicates that that the signal is very compatible with the data,
         but by no means indicates proof of the diHiggs process.
     To understand why, one need only look at the CL on the background-only hypothesis.
     Proof of the diHiggs process would necessitate an excess of events so significant that
         the null hypothesis must be rejected (typically $P_B < 10^{-7}$, the ``$5\sigma$'' discovery limit).
-    Here though, $P_B \approx 0.5$, which is far from being able to reject the null hypothesis.
+    Here though, $P_B = 0.31$, which is far from being able to reject the null hypothesis.
 
     The issue of course, is that the signal is utterly dwarfed by the quantity of background events.
     A method of circumventing this scale issue
@@ -427,11 +427,13 @@
 % Be ready to just put in filler results, since we probably won't have unblinded by the time I get here.
 \section{Final Interpretation}
 
+    [Hey steve, don't worry about the formatting of any of the plots in this section this edit round.
+    They all need to be replaced when we unblind, and we've been updating their format a lot. (these are pretty old)]
+    [FIXME: literally all the plots and numbers and conclusions here need to be updated once we unblind]
     All limits quoted in this analysis are to a CL of 95\%.
-    The CL of the SM signal hypothesis with a $\mu$ scale of 1 is only [TODO]\%
-        (not too far off from Figure \ref{fig:qtil:Cpdf}).
+    The CL of the SM signal hypothesis with a $\mu$ scale of 1 is only 50\%.
     No meaningful conclusion can be drawn from such a small signal.
-    However, looking at the \kvv=3 signal model at a $\mu$ scale of 1 provides a CL of [TODO],
+    However, looking at the \kvv=3 signal model at a $\mu$ scale of 1 provides a CL of $\approx 99\%$,
         which is of far more interest and indicates that a value of \kvv=3 is incompatible with data,
         and so can be excluded.
     This result suggests a much more useful way of performing these tests.
@@ -439,30 +441,31 @@
         each with their own CL value.
     A series of such tests can be seen in Figure \ref{fig:mu_CL_vals}.
 
-    \begin{figure} %TODO
+    \begin{figure}
         \centering
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/brazilplot_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_1-00_k2v_0-00_k1v_1-00}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:mu_CL_k2v0}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/brazilplot_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_1-00_k2v_1-00_k1v_1-00}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:mu_CL_k2v1}
         \end{subfigure} \\
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/brazilplot_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_1-00_k2v_1-50_k1v_1-00}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:mu_CL_k2v1.5}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/brazilplot_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_1-00_k2v_3-00_k1v_1-00}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:mu_CL_k2v3}
         \end{subfigure}
         \caption{
-            plots of some stuff
+            Wow the labels on these plots are super wrong. Pretty sure y is supposed to be the p-value,
+                and the red line is the 0.05 mark. I think these are fixed in the updated plots?
         }\label{fig:mu_CL_vals}
     \end{figure}
 
@@ -472,39 +475,39 @@
     Utilizing the signal model linear combination equation from Section \ref{sec:signal_combination},
         any signal hypothesis for any value of \kvv can be tested, allowing for Figure \ref{fig:kvv_SM_scan}.
 
-    \begin{figure} %TODO
-        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+    \begin{figure}
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/k2v_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_1-0_xsec.png}
         \caption{Values of \qtil for Simulated Distributions}
         \label{fig:kvv_SM_scan}
     \end{figure}
 
     Figure \ref{fig:kvv_SM_scan} is arguably the single most signficant result presented in this thesis,
-        as it indicates that \kvv=0 can be excluded with a CL of 95\%.
+        as it indicates that \kvv=0 can be excluded with a CL of 95\% [To Steve: look I can hope alright].
     This in turn provides strong evidence for the existence of the \HHVV interaction process.
     Yet, there is still more to discuss.
 
     The signal combination formula is able to produce a signal hypothesis with multiple coupling values adjusted at once,
         and so a wide range of \kvv scan plots can be produced, as seen in Figure \ref{fig:kvv_multi_kl}
 
-    \begin{figure} %TODO
+    \begin{figure}
         \centering
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/k2v_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_-4-0_xsec.png}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:kvv_scan_kl0}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/k2v_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_0-0_xsec.png}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:kvv_scan_kl1}
         \end{subfigure} \\
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/k2v_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_2-0_xsec.png}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:kvv_scan_kl2}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/k2v_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_10-0_xsec.png}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:kvv_scan_kl10}
         \end{subfigure}
@@ -518,7 +521,7 @@
         as these points indicate where the regions of exclusion lie (Figure \ref{fig:kvv_kl_2Dscan}).
 
     \begin{figure} %TODO
-        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v1_exclusion}
         \caption{Values of \qtil for Simulated Distributions}
         \label{fig:kvv_kl_2Dscan}
     \end{figure}
@@ -532,22 +535,22 @@
     \begin{figure} %TODO
         \centering
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v0-96_exclusion}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:kvv_kl_2Dscan_kv0.96}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v1_exclusion}
             \caption{Values of \qtil for Simulated Distributions}
             \label{fig:kvv_kl_2Dscan_kv1}
         \end{subfigure} \\
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v1-03_exclusion}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:kvv_kl_2Dscan_kv1.03}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v1-06_exclusion}
             \caption{Cumalitive PDF of \qtil Test Statistic}
             \label{fig:kvv_kl_2Dscan_kv1.06}
         \end{subfigure}

@@ -145,21 +145,125 @@ def load_fake_bgd(data_vals, data_errs, sig_vals, sig_errs):
 
 
 def make_data_display_plots(data=None, var_edges=None):
-    fig, (ax, rat) = plt.subplots(2, gridspec_kw={'height_ratios':(1,1)}, sharex=True)
+    fig, (ax, rat) = plt.subplots(2, gridspec_kw={'height_ratios':(2,1)}, sharex=True)
     ax.errorbar(var_edges[:-1]+0.5, data['data'][0], yerr=data['data'][1], marker='.', ls='--', color='purple', label='Data')
     ax.errorbar(var_edges[:-1]+0.5, data['bgd'][0], yerr=data['bgd'][1], marker='.', ls='--', color='blue', label='Bgd')
     ax.errorbar(var_edges[:-1]+0.5, data['sig'][0], yerr=data['sig'][1], marker='.', ls='--', color='green', label='Signal')
 
-    rat.errorbar(var_edges[:-1]+0.5, data['data'][0]-data['bgd'][0],
-        yerr = numpy.sqrt(data['data'][1]**2 + data['bgd'][1]**2),
+    sensitivity = data['sig'][0] / numpy.sqrt( data['sig'][0] + data['bgd'][0])
+    rat.errorbar(var_edges[:-1]+0.5, sensitivity,
         marker='.', ls='--', color='red')
-    rat.errorbar(var_edges[:-1]+0.5, data['sig'][0], yerr=data['sig'][1], marker='.', ls='--', color='green')
     rat.hlines(0, var_edges[0], var_edges[-1], linestyle='-', color='black')
 
     ax.legend()
 
 
     plt.savefig('data_dump.pdf')
+    plt.close()
+
+
+def make_basic_poisson_plots(data=None, prefix=''):
+    def log_poisson(n,v):
+        lp = numpy.full(len(n),-v).astype(float)
+        nz = n!=0
+        n = n[nz]
+        lp[nz] = n - v + n*numpy.log(v/n) - (1/2)*numpy.log(2*math.pi*n)
+        return lp
+    
+
+
+    signal = sum(data['sig'][0])
+    background = sum(data['bgd'][0])
+    expectation = signal+background
+    observed = int(sum(data['data'][0]))
+    print(signal, background, observed)
+    max_n = int(expectation)*2
+    poisson_inputs = numpy.arange(0,max_n,1)
+    log_poisson_values = log_poisson(poisson_inputs,expectation)
+    poisson_values = numpy.exp(log_poisson_values)
+    cumulative_poisson = poisson_values[::-1].cumsum()[::-1]
+    pvalue = cumulative_poisson[observed]
+
+
+    fig, ax = plt.subplots()
+    ax.plot(poisson_inputs, poisson_values, label='Poisson PDF')
+    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='red')
+    ax.fill_between(range(observed,max_n), 0, poisson_values[observed:], color='green', hatch='///', alpha=0.3, label=f'p-value={pvalue:.2f}')
+    plt.xlabel('Number of Events')
+    plt.ylabel('Probability')
+    plt.xlim(expectation*.9, expectation*1.1)
+    plt.ylim(0)
+    ax.legend()
+    plt.savefig(prefix+'_poisson.pdf')
+    plt.close()
+
+    fig, ax = plt.subplots()
+    ax.plot(poisson_inputs, cumulative_poisson, label='Poisson Cumulative PDF')
+    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='red')
+    ax.axhline(pvalue, ls='dotted', label=f'p-value={pvalue:.2f}', color='green')
+    plt.xlabel('Number of Events')
+    plt.ylabel('Cumulative Probability')
+    plt.xlim(expectation*.9, expectation*1.1)
+    plt.ylim(0)
+    ax.legend()
+    plt.savefig(prefix+'_Cpoisson.pdf')
+    plt.close()
+
+
+def make_sb_poisson_plots(data=None, prefix=''):
+    def log_poisson(n,v):
+        lp = numpy.full(len(n),-v).astype(float)
+        nz = n!=0
+        n = n[nz]
+        lp[nz] = n - v + n*numpy.log(v/n) - (1/2)*numpy.log(2*math.pi*n)
+        return lp
+    
+    signal = sum(data['sig'][0])
+    background = int(sum(data['bgd'][0]))
+    expectation = signal+background
+    observed = int(sum(data['data'][0]))
+    print(signal, background, observed)
+    max_n = int(expectation)*4
+    poisson_inputs = numpy.arange(0,max_n,1)
+    log_poisson_bgd_values = log_poisson(poisson_inputs,background)
+    log_poisson_bs_values = log_poisson(poisson_inputs,expectation)
+    poisson_bgd_values = numpy.exp(log_poisson_bgd_values)
+    poisson_bs_values = numpy.exp(log_poisson_bs_values)
+    cumulative_bgd_poisson = poisson_bgd_values[::-1].cumsum()[::-1]
+    cumulative_bs_poisson = poisson_bs_values[::-1].cumsum()[::-1]
+    cumulative_bgd_poisson[cumulative_bgd_poisson>1]=1
+    cumulative_bs_poisson[cumulative_bs_poisson>1]=1
+    cumulative_sig_poisson = cumulative_bs_poisson / (1 - cumulative_bgd_poisson)
+    pvalue = cumulative_sig_poisson[observed]
+    bgd_pvalue = cumulative_bgd_poisson[observed]
+
+
+    fig, ax = plt.subplots()
+    ax.plot(poisson_inputs, poisson_bgd_values, label='B PDF')
+    ax.plot(poisson_inputs, poisson_bs_values, ls='--', label='S+B PDF')
+    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='red')
+    ax.fill_between(range(observed,max_n), 0, poisson_bgd_values[observed:], color='green', hatch='///', alpha=0.3, label=f'bgd p-value={bgd_pvalue:.2f}')
+    plt.xlabel('Number of Events')
+    plt.ylabel('Probability')
+    plt.xlim(expectation*.9, expectation*1.1)
+    plt.ylim(0)
+    ax.legend()
+    plt.savefig(prefix+'_poisson.pdf')
+    plt.close()
+
+    fig, ax = plt.subplots()
+    ax.plot(poisson_inputs, cumulative_bgd_poisson, label='B C-PDF')
+    ax.plot(poisson_inputs, cumulative_bs_poisson, label='S+B C-PDF', ls='--')
+    ax.plot(poisson_inputs, cumulative_sig_poisson, label='S+B/(1-B) C-PDF', color='purple')
+    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='red')
+    ax.axhline(pvalue, ls='dotted', label=f'Signal p-value={pvalue:.2f}', color='magenta')
+    ax.axhline(bgd_pvalue, ls='dotted', label=f'Background p-value={bgd_pvalue:.2f}', color='green')
+    plt.xlabel('Number of Events')
+    plt.ylabel('Cumulative Probability')
+    plt.xlim(expectation*.9, expectation*1.1)
+    plt.ylim(0,1)
+    ax.legend()
+    plt.savefig(prefix+'_Cpoisson.pdf')
     plt.close()
 
 
@@ -246,7 +350,7 @@ def get_single_mu_pval(data=None, couplings=None, mu_val=None):
         lp = -v.astype(float)
         nz = numpy.logical_and(n!=0,v!=0)
         n,v = n[nz], v[nz]
-        lp[nz] = n - v + n*numpy.log(v/n)
+        lp[nz] = n - v + n*numpy.log(v/n) - (1/2)*numpy.log(2*math.pi*n)
         return lp
 
     def log_gauss(n,v,sigma):
@@ -306,12 +410,6 @@ def get_single_mu_pval(data=None, couplings=None, mu_val=None):
 
 
 def make_mu_probability_distro(data=None, couplings=None):
-    data = {
-        'data': (numpy.array([9]), numpy.array([1])),
-        'sig' : (numpy.array([2]), numpy.array([1])),
-        'bgd' : (numpy.array([8]), numpy.array([5])),
-
-    }
     data_vals, data_errs = data['data']
     sig_vals, sig_errs = data['sig']
     bgd_vals, bgd_errs = data['bgd']
@@ -340,8 +438,6 @@ def make_mu_probability_distro(data=None, couplings=None):
             CLs_obs, CLs_exp_band = pyhf.infer.hypotest(mu, pyhf_data, model, return_expected_set=True, test_stat="qtilde")
         #print(CLs_obs)
         print(pval, CLs_exp_band[2])
-
-
 
 
     exit()
@@ -385,6 +481,14 @@ def main():
         # Load from pickle
         data = pickle.load(open(cache_file,'rb'))
 
+    data = {
+        'data': (numpy.array([11]), numpy.array([1])),
+        'sig' : (numpy.array([3]), numpy.array([1])),
+        'bgd' : (numpy.array([8]), numpy.array([5])),
+    }
+    #make_basic_poisson_plots(data=data, prefix='toy')
+
+
     #for key, (val,err) in data.items():
     #    print(key)
     #    print(' '.join([f'{v:7.02f}' for v in val]))
@@ -393,6 +497,7 @@ def main():
     #sig_vals[sig_vals==0] = 1e-5
     #bgd_vals[bgd_vals==0] = 1e-5
 
+    #make_sb_poisson_plots(data=data, prefix='total_yield')
     #make_data_display_plots(data=data,var_edges=var_edges)
     #make_lazy_mu_probability_distro(data=data, couplings=(1,1,1))
     make_mu_probability_distro(data=data, couplings=(1,1,1))
