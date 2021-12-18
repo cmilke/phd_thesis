@@ -369,21 +369,32 @@ def get_single_mu_pval(data=None, couplings=None, mu_val=None):
         L = poisson+gauss
         return L
 
-    test_stat = lambda L,L_max,mu_max: -2*(L-L_max) #if mu_max < mu_val else 0
+    test_stat = lambda L,L_max,mu_max: -2*(L-L_max) if mu_max < mu_val else 0
 
-    def get_max_L_mu(s,b):
+
+    def get_no_nuissance_L(n,mu):
+        try:
+            minimizeable_fcn = lambda theta: -loglikelihood(n,mu,theta,bgd_errs)
+            max_theta = scipy.optimize.minimize(minimizeable_fcn, 1).x[0]
+            L = loglikelihood(n,mu,max_theta,bgd_errs)
+            return L
+        except scipy.optimize.linesearch.LineSearchWarning:
+            return None
+
+    def get_fully_maximized_L(n):
         #print(' | '.join([f'{mu:8.1f}, {numpy.exp(loglikelihood(n,mu)):4.1f}' for mu in numpy.linspace(-1,1,10)]))
         #print(' | '.join([f'{mu:8.1f}, {numpy.exp(loglikelihood(n,mu)):4.1f}' for mu in numpy.linspace(-10,10,10)]))
         #print(' | '.join([f'{mu:8.1f}, {numpy.exp(loglikelihood(n,mu)):4.1f}' for mu in numpy.linspace(-100,100,10)]))
         #print(' | '.join([f'{mu:8.1f}, {numpy.exp(loglikelihood(n,mu)):4.1f}' for mu in numpy.linspace(-1000,1000,10)]))
         try:
+            fully_minimizeable_fcn = lambda minvars: -loglikelihood(n,minvars[0],minvars[1],bgd_errs)
+            maximals = scipy.optimize.minimize(fully_minimizeable_fcn, [1,1]).x
+            max_mu = maximals[0]
+            max_theta = maximals[1]
 
-            maximals = scipy.optimize.minimize(lambda mu, theta: -loglikelihood(n,mu,theta,bgd_errs), [1,1])
-            print(maximals)
-            exit()
             #max_mu = scipy.optimize.minimize(lambda mu: -numpy.exp(loglikelihood(n,mu)), 5).x[0]
             if max_mu < 0: max_mu = 0
-            max_L = loglikelihood(n,max_mu)
+            max_L = loglikelihood(n,max_mu,max_theta,bgd_errs)
             return max_L, max_mu
         except scipy.optimize.linesearch.LineSearchWarning:
             return None
@@ -395,15 +406,16 @@ def get_single_mu_pval(data=None, couplings=None, mu_val=None):
     for toy_index in range(num_toy_distros):
         toy_sig = numpy.random.poisson(mu_val*sig_vals)
         toy_bgd = numpy.random.poisson(bgd_vals)
+        toy_distro = toy_sig+toy_bgd
 
-        max_vals = get_max_L_mu(toy_sig,toy_bgd)
-        base_L = loglikelihood(toy_distro,mu_val)
+        base_L = get_no_nuissance_L(toy_distro,mu_val)
+        max_vals = get_fully_maximized_L(toy_distro)
         if max_vals is None: continue
         test_stat_val = test_stat(base_L, *max_vals)
-        #print(toy_distro, base_L, max_vals, test_stat_val)
+        print(toy_distro, base_L, max_vals, test_stat_val)
         toy_test_stat_values.append(test_stat_val)
     toy_test_stat_values.sort()
-    observed_max = get_max_L_mu(data_vals)
+    observed_max = get_fully_maximized_L(data_vals)
     observed_test_stat_value = test_stat(loglikelihood(data_vals,mu_val), *observed_max)
     p_value = (toy_test_stat_values > observed_test_stat_value).sum() / len(toy_test_stat_values)
     return p_value
