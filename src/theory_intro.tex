@@ -9,11 +9,42 @@
     And in order to explain the importance of the Higgs Boson,
         I will need to explain the structure of the Standard Model itself.
 
-    The organization of the following sections will begin with a discussion of the purpose and fundamental layout of the Standard Model.
+    The organization of the following sections will begin with a discussion of the purpose and
+        fundamental layout of Quantum Field Theory and the Standard Model.
     Following this will be an introduction to the mathematical formalism the Standard Model is based around,
         involving Group Theory, the calculus of variations, and symmetry.
     Here I will introduce the reason for the original postulation of the Higgs, what it is, how it works, and how it fits into the Standard Model.
     Finally, the chapter will conclude with a motivation for further study into the Higgs Boson, and provide a technique to perform such study.
+    Additionally, these last sections will introduce the purpose of my particular contribution to the study,
+        and lay the groundwork for the techniques used in Chapter \ref{chapter:signal}.
+
+
+\section{Quantum Field Theory: Axioms and Conventions}
+    % What Steve WANTS: Explain natural units
+    % My plan:
+    Before the Standard Model can be meaningfully discussed,
+    Combination of SR and QM
+    SR is description of geometry of space-time
+    Encoded in Minkowski metric
+    and utilized via covariant notation
+
+    QM describes the fundamental resolution limits of the universe
+    Evident in the Heisenberg Uncertainty Principle
+    Encoded in the Canonical Commutation Relation
+
+    With the claim that space and time are equivalent, c=1
+    Likewise, h can be set to 1.
+    Natural Units: Might as well just set everything to 1.
+
+    Caveat of SR: E=mc**2 -> E=m (as cute example of natural units)
+    Combined with time/energy resolution limitations of QM,
+        allows spontaneous creation of matter over short time frames.
+    Though these temporary ``virtual'' particles must return to nothingness,
+        they are able, during their brief existence,
+        to transfer momentum in between real particles.
+    This behaviour that arises from the confluence of special relativity and quantum mechanics is
+        what forms the foundation of QFT,
+        which in turn serves as the framework for the Standard Model of Particle Physics.
 
 
 %Matter and Forces
@@ -123,7 +154,11 @@
 
     Where $\Delta t$ is again a finite time transformation,
         and I have compressed the infinite product of terms using the power series expansion of the exponential function.
-    In order to use this classical operator in quantum field theory, it must have a complex factor `$i$' associated with it,
+    In order to use this classical operator in quantum field theory it must be Hermitian\footnote{
+        All quantum mechanical observables must be represented by Hermitian operators,
+            because Hermitian operators produce \textit{real} eigenvalues \cite{Griffiths_book}.
+    },
+    which requires it to have a factor `$i$' associated with it,
     \begin{equation} \begin{split}
     x(t) \to x'(t) = e^{i\Delta t \frac{d}{dt}} x(t)
     \end{split} \end{equation}

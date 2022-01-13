@@ -12,6 +12,11 @@ import uproot
 from matplotlib import pyplot as plt
 import pyhf
 
+
+#_eta_cut = lambda ttree: ttree['dEta_hh'].array() < 1.5
+_eta_cut = lambda ttree: ttree['dEta_hh'].array() > -1
+
+
 def load_data(var_edges):
     data_files = [
         '/home/cmilke/Documents/dihiggs/background/output_dir_20-20-20_bst100_VBF_DS/data16_Xhh_45_NN_100_bootstraps.root',
@@ -28,7 +33,8 @@ def load_data(var_edges):
         pass_vbf_sel = ttree['pass_vbf_sel'].array()
         x_wt_tag = ttree['X_wt_tag'].array() > 1.5
         ntag = ttree['ntag'].array() == 3 # 3b1f region
-        valid_event = numpy.logical_and.reduce( (pass_vbf_sel, x_wt_tag, ntag) )
+        eta = _eta_cut(ttree)
+        valid_event = numpy.logical_and.reduce( (pass_vbf_sel, x_wt_tag, ntag, eta) )
 
         kinvals = ttree['m_hh'].array()[valid_event]
         weights = ttree['mc_sf'].array()[valid_event]
@@ -63,7 +69,8 @@ def load_bgd(var_edges):
         rw_pass = ttree['rw_to_3b1f'].array()
         x_wt_tag = ttree['X_wt_tag'].array() > 1.5
         ntag = ttree['ntag'].array() == 2
-        valid_event = numpy.logical_and.reduce( (pass_vbf_sel, rw_pass, x_wt_tag, ntag) )
+        eta = _eta_cut(ttree)
+        valid_event = numpy.logical_and.reduce( (pass_vbf_sel, rw_pass, x_wt_tag, ntag, eta) )
 
         kinvals = ttree['m_hh'].array()[valid_event]
         NN_weights = ttree[f'NN_d231f_weight_bstrap_med_{y}'].array()[valid_event]*med_norm
@@ -79,20 +86,21 @@ def load_bgd(var_edges):
     sys_errors = abs(alt_weights - weights)
     stat_errors = numpy.sqrt(numpy.histogram(event_var, bins=var_edges, weights=event_weights**2)[0])
     errors = numpy.sqrt( sys_errors**2 + stat_errors**2)
+    #errors = stat_errors
     return (weights, errors)
 
 
 def load_signal(var_edges):
-    signal_files = [
-        '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502970_MC16a-2015-2016_NanoNTuple.root',
-        '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502970_MC16d-2017_NanoNTuple.root',
-        '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502970_MC16e-2018_NanoNTuple.root'
-    ]
     #signal_files = [
-    #    '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502975_MC16a-2015-2016_NanoNTuple.root',
-    #    '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502975_MC16d-2017_NanoNTuple.root',
-    #    '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502975_MC16e-2018_NanoNTuple.root'
+    #    '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502970_MC16a-2015-2016_NanoNTuple.root',
+    #    '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502970_MC16d-2017_NanoNTuple.root',
+    #    '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502970_MC16e-2018_NanoNTuple.root'
     #]
+    signal_files = [
+        '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502975_MC16a-2015-2016_NanoNTuple.root',
+        '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502975_MC16d-2017_NanoNTuple.root',
+        '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502975_MC16e-2018_NanoNTuple.root'
+    ]
 
     key='m_hh'
     events = []
@@ -104,7 +112,8 @@ def load_signal(var_edges):
         pass_vbf_sel = ttree['pass_vbf_sel'].array()
         x_wt_tag = ttree['X_wt_tag'].array() > 1.5
         ntag = ttree['ntag'].array() >= 4
-        valid_event = numpy.logical_and.reduce( (pass_vbf_sel, x_wt_tag, ntag) )
+        eta = _eta_cut(ttree)
+        valid_event = numpy.logical_and.reduce( (pass_vbf_sel, x_wt_tag, ntag, eta) )
 
         kinvals = ttree['m_hh'].array()[valid_event]
         weights = ttree['mc_sf'].array()[:,0][valid_event]
@@ -150,7 +159,7 @@ def make_data_display_plots(data=None, var_edges=None):
     ax.errorbar(var_edges[:-1]+0.5, data['bgd'][0], yerr=data['bgd'][1], marker='.', ls='--', color='blue', label='Bgd')
     ax.errorbar(var_edges[:-1]+0.5, data['sig'][0], yerr=data['sig'][1], marker='.', ls='--', color='green', label='Signal')
 
-    sensitivity = data['sig'][0] / numpy.sqrt( data['sig'][0] + data['bgd'][0])
+    sensitivity = data['sig'][0] / numpy.sqrt( data['data'][1]**2 + data['bgd'][1]**2)
     rat.errorbar(var_edges[:-1]+0.5, sensitivity,
         marker='.', ls='--', color='red')
     rat.hlines(0, var_edges[0], var_edges[-1], linestyle='-', color='black')
@@ -176,7 +185,6 @@ def make_basic_poisson_plots(data=None, prefix=''):
     background = sum(data['bgd'][0])
     expectation = signal+background
     observed = int(sum(data['data'][0]))
-    print(signal, background, observed)
     max_n = int(expectation)*2
     poisson_inputs = numpy.arange(0,max_n,1)
     log_poisson_values = log_poisson(poisson_inputs,expectation)
@@ -222,7 +230,6 @@ def make_sb_poisson_plots(data=None, prefix=''):
     background = int(sum(data['bgd'][0]))
     expectation = signal+background
     observed = int(sum(data['data'][0]))
-    print(signal, background, observed)
     max_n = int(expectation)*4
     poisson_inputs = numpy.arange(0,max_n,1)
     log_poisson_bgd_values = log_poisson(poisson_inputs,background)
@@ -284,15 +291,10 @@ def derive_maximum_likelihood_mu(data=None, couplings=None):
     extended_log_likelihood_function = ellh(sum(data_vals), theoretical_events_per_bin)
     #theoretical_events_per_bin = [ theoretical_events(s, b) for s,b in zip(sig_vector, bgd_vector) ]
     #extended_log_likelihood_function = ellh(events_observed, theoretical_events_per_bin)
-    print(extended_log_likelihood_function)
-    print()
 
     ell_derivative = sympy.diff(extended_log_likelihood_function, mu)
-    print(ell_derivative)
-    print()
 
     zero = sympy.solvers.solvers.nsolve(ell_derivative, mu, 200)
-    print(zero)
 
 
 def make_lazy_mu_probability_distro(data=None, couplings=None):
@@ -338,7 +340,6 @@ def make_lazy_mu_probability_distro(data=None, couplings=None):
     ax.axvline(x=mu_limit)
     plt.savefig('mu_Cpdf.pdf')
     plt.close()
-    print(mu_limit)
 
 
 def get_single_mu_pval(data=None, couplings=None, mu_val=None):
@@ -412,7 +413,6 @@ def get_single_mu_pval(data=None, couplings=None, mu_val=None):
         max_vals = get_fully_maximized_L(toy_distro)
         if max_vals is None: continue
         test_stat_val = test_stat(base_L, *max_vals)
-        print(toy_distro, base_L, max_vals, test_stat_val)
         toy_test_stat_values.append(test_stat_val)
     toy_test_stat_values.sort()
     observed_max = get_fully_maximized_L(data_vals)
@@ -493,11 +493,11 @@ def main():
         # Load from pickle
         data = pickle.load(open(cache_file,'rb'))
 
-    data = {
-        'data': (numpy.array([11]), numpy.array([1])),
-        'sig' : (numpy.array([3]), numpy.array([1])),
-        'bgd' : (numpy.array([8]), numpy.array([5])),
-    }
+    #data = {
+    #    'data': (numpy.array([11]), numpy.array([1])),
+    #    'sig' : (numpy.array([3]), numpy.array([1])),
+    #    'bgd' : (numpy.array([8]), numpy.array([5])),
+    #}
     #make_basic_poisson_plots(data=data, prefix='toy')
 
 
@@ -510,9 +510,9 @@ def main():
     #bgd_vals[bgd_vals==0] = 1e-5
 
     #make_sb_poisson_plots(data=data, prefix='total_yield')
-    #make_data_display_plots(data=data,var_edges=var_edges)
+    make_data_display_plots(data=data,var_edges=var_edges)
     #make_lazy_mu_probability_distro(data=data, couplings=(1,1,1))
-    make_mu_probability_distro(data=data, couplings=(1,1,1))
+    #make_mu_probability_distro(data=data, couplings=(1,1,1))
     #derive_maximum_likelihood_mu(data=data, couplings=(1,1,1))
 
 
