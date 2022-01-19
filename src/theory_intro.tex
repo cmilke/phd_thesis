@@ -11,6 +11,7 @@
 
     The organization of the following sections will begin with a discussion of the purpose and
         fundamental layout of Quantum Field Theory and the Standard Model.
+    %The organization of the following sections will begin with a discussion of the purpose and layout of the Standard Model.
     Following this will be an introduction to the mathematical formalism the Standard Model is based around,
         involving Group Theory, the calculus of variations, and symmetry.
     Here I will introduce the reason for the original postulation of the Higgs, what it is, how it works, and how it fits into the Standard Model.
@@ -20,21 +21,122 @@
 
 
 \section{Quantum Field Theory: Axioms and Conventions}
-    % What Steve WANTS: Explain natural units
+    % What Steve WANTS: Explain natural units (he'll probably want covariant notation explained too...)
     % My plan:
-    Before the Standard Model can be meaningfully discussed,
-    Combination of SR and QM
-    SR is description of geometry of space-time
-    Encoded in Minkowski metric
-    and utilized via covariant notation
 
-    QM describes the fundamental resolution limits of the universe
-    Evident in the Heisenberg Uncertainty Principle
-    Encoded in the Canonical Commutation Relation
+    % Combination of SR and QM
+    Before the Standard Model can be meaningfully discussed,
+        its underlying foundation and particular conventions need to be briefly addressed.
+    The two theories that lie at the heart of the Standard Model are
+        those of special relativity and quantum mechanics.
+
+    % SR is description of geometry of space-time
+    % Encoded in Minkowski metric
+    % and utilized via covariant notation
+    Special relativity rest on the axiom that the speed of light $c$,
+        is an absolute constant that will always appear the same
+        \textit{regardless of the speed of an observer}.
+    There are many consequences to this, but the most relevant is that
+        it produces a description for the geometry of the universe.
+    Specifically, it implies that time, rather than a parameter of reality,
+        should instead be considered a dimension similar to the three spatial dimensions.
+    Moreover, a constant speed of light implies that this four-dimensional \textit{space-time} has a particular ``shape.''
+    Just as three-dimensional Euclidean distance can be measured with the equation $x^2+y^2+z^2=r^2$,
+        four-dimensional space-time (``Minkowski'') distance is measured as $(ct)^2-x^2-y^2-z^2 = \mathscr{s}^2$.
+    Basically all classical physics equations assume Euclidean space, and so fall apart in special relativity.
+    Physics calculations can be made to abide by special relativity's tenants however,
+        by subtly redefining how vector products are evaluated.
+    Instead of a vector product defined as
+    \begin{equation}
+        r^2 = \begin{pmatrix} x & y & z\end{pmatrix} \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \sum\limits_{i=1}^3 x_i x_i
+        \quad , \quad \begin{pmatrix}x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} x \\ y \\ z \end{pmatrix} 
+    \end{equation}
+
+    vector products can be defined with a specific tensor, called the ''metric tensor'' $g$,
+        which is inserted between the product's factors and encodes the shape of the particular geometry being used:
+
+    \begin{equation} \begin{split}
+        r^2 &= \begin{pmatrix} x & y & z\end{pmatrix}
+            \begin{pmatrix}
+                1 & 0 & 0 \\
+                0 & 1 & 0 \\
+                0 & 0 & 1
+            \end{pmatrix}
+            \begin{pmatrix} x \\ y \\ z \end{pmatrix} \\
+        r^2 &= \sum\limits_{i=1}^3 \sum\limits_{j=1}^3 x_i g_i^j x_j
+            = \sum\limits_{i=1}^3 x_i x^i
+    \end{split} \end{equation}
+
+    In the second line the metric tensor $g_i^j$ has been contracted with $x_j$,
+        indicated by the now superscript $x^i$.
+    This shorthand convention is called \textit{covariant} notation, and will be used extensively from now on.
+
+    For three-dimensional Euclidean space the metric tensor is just the Identity matrix.
+    Four-dimensional space-time is encoded in the Minkowski metric
+    \begin{equation}
+        \begin{pmatrix}
+            1 &  0 &  0 &  0 \\
+            0 & -1 &  0 &  0 \\
+            0 &  0 & -1 &  0 \\
+            0 &  0 &  0 & -1
+        \end{pmatrix}
+    \end{equation}
+
+    Which permits the appropriate distance equation:
+
+    \begin{equation} \begin{split}
+        s^2 &= \begin{pmatrix} ct & x & y & z\end{pmatrix} 
+            \begin{pmatrix}
+                1 &  0 &  0 &  0 \\
+                0 & -1 &  0 &  0 \\
+                0 &  0 & -1 &  0 \\
+                0 &  0 &  0 & -1
+            \end{pmatrix}
+            \begin{pmatrix} ct \\ x \\ y \\ z \end{pmatrix} \\
+        s^2 &= \sum\limits_{\mu=0}^3 \sum\limits_{\nu=0}^3 x_\mu g_\mu^\nu x_\nu
+            \quad , \quad x_0 \equiv ct \\
+        s^2 &= x_\mu g_\mu^\nu x_\nu = x_\mu x^\nu
+    \end{split} \end{equation}
+
+    Another conventional quirk has been introduced between the final two lines,
+        wherein the summations over $\mu$ and $\nu$ are made implicit by the repetition of their indices.
+    Known as ``Einstein Summation Notation,'' this convention drastically simplifies equations in Field Theory,
+        and will also be used throughout the rest of this thesis.
+
+    % QM describes the fundamental resolution limits of the universe
+    % Resolution limit (uncertainty relation)
+    % Wave-particle duality and probability states (wave function)
+    % Operator principle (hermition operators)
+    Alongside special relativity, the other underlying component of Field Theory is that of quantum mechanics.
+    A comprehensive description of quantum mechanics is less straight-forward than for special relativity,
+        and its axioms vary depending on the particular formulation used.
+    As such, the following description only seeks to summarize the key aspects of quantum mechanics
+        directly relevant to the rest of the chapter.
+    The most striking feature of quantum mechanics is of course the Heisenberg Uncertainty Principle,
+        $\Delta x \Delta p \gte h/2$, which states that there is an absolute lower bound on the
+        uncertainty of a particle's position and momentum, defined by Planck's Constant $h$.
+    Because particles cannot have well defined position and momentum, they can no longer be described as singular objects,
+        and instead these properties are described as functions that extend the particle through phase-space.
+    The precise form and scope of these functions varies depending on the application and context,
+        but in Quantum Field Theory particles are collectively described by a particle \textit{field},
+        which exists at all points in space-time, and in which individual particles are merely perturbations of.
+    Mathematically, quantum fields are 
+
+
+    
+        but in QFT they take the form of \textit{fields}, which extend across all space-time,
+        and for which individual particles are merely treated as perturbations.
+    The properties of this field can then be extracted using 
+
+
+
+
+
 
     With the claim that space and time are equivalent, c=1
     Likewise, h can be set to 1.
     Natural Units: Might as well just set everything to 1.
+    Note: c, h, spin, charge
 
     Caveat of SR: E=mc**2 -> E=m (as cute example of natural units)
     Combined with time/energy resolution limitations of QM,
