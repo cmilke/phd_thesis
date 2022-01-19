@@ -9,9 +9,7 @@
     And in order to explain the importance of the Higgs Boson,
         I will need to explain the structure of the Standard Model itself.
 
-    The organization of the following sections will begin with a discussion of the purpose and
-        fundamental layout of Quantum Field Theory and the Standard Model.
-    %The organization of the following sections will begin with a discussion of the purpose and layout of the Standard Model.
+    The organization of the following sections will begin with a discussion of the purpose and layout of the Standard Model.
     Following this will be an introduction to the mathematical formalism the Standard Model is based around,
         involving Group Theory, the calculus of variations, and symmetry.
     Here I will introduce the reason for the original postulation of the Higgs, what it is, how it works, and how it fits into the Standard Model.
@@ -19,30 +17,67 @@
     Additionally, these last sections will introduce the purpose of my particular contribution to the study,
         and lay the groundwork for the techniques used in Chapter \ref{chapter:signal}.
 
+%Matter and Forces
+%I need to discuss the elementary particles and their organization before I can really discuss the gauge fields.
+%Might as well do it here first and foremost
+\section{The Standard Model of Particle Physics}\label{sec:standard_model}
+    
+    At its core, the Standard Model of Particle Physics is a description of the behavior and interaction of matter.
+    Hence, it is necessary to discuss what this matter actually is, first and foremost.
+    All known matter can be described as a specific type of elementary particle called a fermion,
+        defined by the fact that it contains no discernible substructure and possesses an intrinsic spin of $\hbar/2$.
+    These fermions, each with a different mass, are able to interact with each other through three ``fundamental interactions''.
+    The three fundamental interactions (more commonly called ``Fundamental Forces'') are known as
+        the Electromagnetic, Weak, and Strong interactions (gravity is entirely absent in the Standard Model).
+    All the interactions have an associated ``charge'' which can be ascribed to different particles,
+        and which govern how strongly that particle can interact with similarly charged particles.
+    Indeed, the various fermions are distinct primarily because of the charges they carry.
 
-\section{Quantum Field Theory: Axioms and Conventions}
-    % What Steve WANTS: Explain natural units (he'll probably want covariant notation explained too...)
-    % My plan:
+    \begin{figure}[h!]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{theory/Standard_Model_of_Elementary_Particles}
+        \caption{I'm probably going to need to find something else since this came from wikipedia. I just wanted a placeholder}
+        \label{fig:sm_particles}
+    \end{figure}
 
-    % Combination of SR and QM
-    Before the Standard Model can be meaningfully discussed,
-        its underlying foundation and particular conventions need to be briefly addressed.
-    The two theories that lie at the heart of the Standard Model are
-        those of special relativity and quantum mechanics.
+    There are twelve distinct elementary fermions (see Figure \ref{fig:sm_particles}),
+        which are split evenly into two subgroups, called quarks and leptons.
+    Quarks have a charge of 1 [FIXME] with the Strong Interaction,
+        while leptons have a charge of 0 (and thus cannot interact via the Strong Interaction at all).
+    Both classes of particles -- quarks and leptons -- are divided into three ``generations'' of progressively heavier particles.
+    Each generation accordingly consists of two quarks and two leptons.
+    These pairs, dubbed ``doublets'', behave the same across all generations.
+    Among the leptons, every generation contains a doublet of a charged particle (electron, muon, tauon) with EM charge of $\approx −1.6$ coulombs,
+        and an uncharged neutrino with no electric charge.
+    For quarks, each doublet consists of an up-type quark (up, charm, top) with electromagnetic charge -2/3 that of the electron,
+        and a down-type quark (down, strange, bottom) with 1/3 the charge of the electron.
+    In addition to the fermions, there is also an entirely separate class of spin 1 particles, called gauge bosons,
+        which play a fundamental role in the aforementioned interactions.
+    However, an in-depth discussion of these particles will need to wait until Section \ref{sec:gauge_symmetry}.
+
+    The brilliance of the Standard Model lies in how it is able to describe the 
+        particles and interactions of nature as consequences of pure mathematical structures.
+    Before the mathematical form of particles can be discussed though,
+        I must first introduce the mathematics of the setting in which these particles exist:
+        the fabric of four-dimensional space-time.
+
+
+\FloatBarrier
+\section{Shape of the Universe: Special Relativity}
 
     % SR is description of geometry of space-time
     % Encoded in Minkowski metric
     % and utilized via covariant notation
-    Special relativity rest on the axiom that the speed of light $c$,
+    Special relativity rests on the axiom that the speed of light $c$,
         is an absolute constant that will always appear the same
         \textit{regardless of the speed of an observer}.
     There are many consequences to this, but the most relevant is that
         it produces a description for the geometry of the universe.
     Specifically, it implies that time, rather than a parameter of reality,
-        should instead be considered a dimension similar to the three spatial dimensions.
-    Moreover, a constant speed of light implies that this four-dimensional \textit{space-time} has a particular ``shape.''
-    Just as three-dimensional Euclidean distance can be measured with the equation $x^2+y^2+z^2=r^2$,
-        four-dimensional space-time (``Minkowski'') distance is measured as $(ct)^2-x^2-y^2-z^2 = \mathscr{s}^2$.
+        should instead be considered a dimension just as the three spatial dimensions.
+    Moreover, a constant speed of light implies that this four-dimensional \textit{space-time} has a particular ``shape,''
+        which can be described by how distance within it is measured.
+    Just as the familiar three-dimensional (``Euclidean'') distance can be measured with the equation $x^2+y^2+z^2=r^2$,
+        four-dimensional space-time (``Minkowskian'') distance is measured as $(ct)^2-x^2-y^2-z^2 = s^2$.
     Basically all classical physics equations assume Euclidean space, and so fall apart in special relativity.
     Physics calculations can be made to abide by special relativity's tenants however,
         by subtly redefining how vector products are evaluated.
@@ -52,7 +87,7 @@
         \quad , \quad \begin{pmatrix}x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} x \\ y \\ z \end{pmatrix} 
     \end{equation}
 
-    vector products can be defined with a specific tensor, called the ''metric tensor'' $g$,
+    vector products can be defined with a specific tensor, called the ``metric tensor'' $g$,
         which is inserted between the product's factors and encodes the shape of the particular geometry being used:
 
     \begin{equation} \begin{split}
@@ -102,108 +137,83 @@
         wherein the summations over $\mu$ and $\nu$ are made implicit by the repetition of their indices.
     Known as ``Einstein Summation Notation,'' this convention drastically simplifies equations in Field Theory,
         and will also be used throughout the rest of this thesis.
+    With the description of space-time laid out,
+        I can now provide a mathematical description for the particles that operate within it.
 
-    % QM describes the fundamental resolution limits of the universe
-    % Resolution limit (uncertainty relation)
-    % Wave-particle duality and probability states (wave function)
-    % Operator principle (hermition operators)
-    Alongside special relativity, the other underlying component of Field Theory is that of quantum mechanics.
-    A comprehensive description of quantum mechanics is less straight-forward than for special relativity,
-        and its axioms vary depending on the particular formulation used.
-    As such, the following description only seeks to summarize the key aspects of quantum mechanics
-        directly relevant to the rest of the chapter.
+
+% QM describes the fundamental resolution limits of the universe
+% Resolution limit (uncertainty relation)
+% Wave-particle duality and probability states (wave function)
+% Operator principle (hermition operators)
+\section{Describing Particles: Quantum Field Theory}
+
+    Quantum Field Theory is the mathematical framework the underlies the Standard Model,
+        which arises as the confluence of special relativity and quantum mechanics.
+    %A comprehensive description of quantum mechanics is less straight-forward than for special relativity,
+    %    and its axioms vary depending on the particular formulation used.
+    %As such, the following description only seeks to summarize the key aspects of quantum mechanics
+    %    directly relevant to the rest of the chapter.
     The most striking feature of quantum mechanics is of course the Heisenberg Uncertainty Principle,
-        $\Delta x \Delta p \gte h/2$, which states that there is an absolute lower bound on the
-        uncertainty of a particle's position and momentum, defined by Planck's Constant $h$.
+        $\Delta x \Delta p \geq \hbar/2$, which states that there is an absolute lower bound on the
+        uncertainty of a particle's position and momentum, defined by the Reduced Planck's Constant $\hbar$.
     Because particles cannot have well defined position and momentum, they can no longer be described as singular objects,
         and instead these properties are described as functions that extend the particle through phase-space.
     The precise form and scope of these functions varies depending on the application and context,
         but in Quantum Field Theory particles are collectively described by a particle \textit{field},
         which exists at all points in space-time, and in which individual particles are merely perturbations of.
-    Mathematically, quantum fields are 
+    Mathematically, quantum fields are described in the form of linear operators $\varphi(x)$,
+        which are functions of all four space-time coordinates.
+    These fields operate on \textit{particle states} $\ket{\varphi}$,
+        that correspond to the number of a particular type of particle which exists at a given place and time.
 
+    Observable properties of quantum fields (e.g. momentum, spin direction, charge)
+        are also represented as operators which operate on the fields.
+    The observable quantity of that property is then realized as the eigenvalue of the observable operator.
+    Because physically observable quantities must be real-valued,
+        quantum mechanics dictates that observable operators must be \textit{Hermitian}
+        (the eigenvalues of Hermitian operators are always real)\cite{Griffiths_book}.
+    Of these observable operators, perhaps the most fundamental is four-momentum $p^\mu$.
+    From the position-representation of the fields,
+        four-momentum takes the mathematical form
+        %\footnote{
+        %    Note that the covariant nature of this definition implies that energy is a positive derivative ($ E/c = p_0 = i \hbar \partial_0 $),
+        %        while spatial momentum is a negative derivative ($ p_i = - i \hbar \partial_i, i \in 1,2,3$)
+        %}
+    \begin{equation}
+        p^\mu \equiv i \hbar \frac{\partial}{\partial_\mu} = i \hbar \partial^\mu
+    \end{equation}
 
-    
-        but in QFT they take the form of \textit{fields}, which extend across all space-time,
-        and for which individual particles are merely treated as perturbations.
-    The properties of this field can then be extracted using 
+    Before proceeding to the final description of matter, I want to highlight another notational quirk called ``natural units.''
+    A number of physical constants have been mentioned by now, and they are beginning to get cumbersome.
+    To address this, an effective (albeit comical) solution is to simply set all of these constants to identically \textit{1}.
+    That is, I am setting the speed of light $c$ equal to the reduced Planck's constant $\hbar$,
+        equal to the electric charge of the electron, equal to the permittivity of free space $\epsilon_0$,
+        and so forth, all equal to 1:
+    \begin{equation} c=\hbar=q=\epsilon_0=1 \end{equation}
+    There is a potentially profound philosophy to be gleaned from the fact that this can be done at all
+        (e.g. for $c$ to literally be unit-less requires that space and time have the \textit{same} units of measurement),
+        but I will not delve into such deep implications.
+    I (like most textbook authors) am merely taking this to use as a convenient shorthand.
+    In this notation, $\{x_0, x_1, x_2, x_3\} \equiv \{t,x,y,z\}$,
+        $p^\mu \equiv i \partial^\mu$,
+        fermions have spin 1/2,
+        electrons have a charge of 1,
+        and the famous $E=mc^2$ equation is rendered into the tautological form $E=m$.
+    With these conventions and mathematical descriptions in place,
+        I can at last express the explicit mathematical form of fermionic matter.
 
-
-
-
-
-
-    With the claim that space and time are equivalent, c=1
-    Likewise, h can be set to 1.
-    Natural Units: Might as well just set everything to 1.
-    Note: c, h, spin, charge
-
-    Caveat of SR: E=mc**2 -> E=m (as cute example of natural units)
-    Combined with time/energy resolution limitations of QM,
-        allows spontaneous creation of matter over short time frames.
-    Though these temporary ``virtual'' particles must return to nothingness,
-        they are able, during their brief existence,
-        to transfer momentum in between real particles.
-    This behaviour that arises from the confluence of special relativity and quantum mechanics is
-        what forms the foundation of QFT,
-        which in turn serves as the framework for the Standard Model of Particle Physics.
-
-
-%Matter and Forces
-%I need to discuss the elementary particles and their organization before I can really discuss the gauge fields.
-%Might as well do it here first and foremost
-\section{The Standard Model of Particle Physics}\label{sec:standard_model}
-    
-    At its core, the Standard Model of Particle Physics is a description of the behavior and interaction of matter.
-    Hence, it is necessary to discuss what this matter actually is, first and foremost.
-    All known matter can be described as a specific type of elementary particle called a fermion,
-        defined by the fact that it contains no discernible substructure and possesses an intrinsic spin of 1/2.
-    These fermions, each with a different mass, are able to interact with each other through three ``fundamental interactions''.
-    The three fundamental interactions (more commonly called ``Fundamental Forces'') are known as
-        the Electromagnetic, Weak, and Strong interactions (gravity is entirely absent in the Standard Model).
-    All the interactions have an associated ``charge'' which can be ascribed to different particles,
-        and which govern how strongly that particle can interact with similarly charged particles.
-    Indeed, the various fermions are distinct primarily because of the charges they carry.
-
-    \begin{figure}[h!]
-        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{theory/Standard_Model_of_Elementary_Particles}
-        \caption{I'm probably going to need to find something else since this came from wikipedia. I just wanted a placeholder}
-        \label{fig:sm_particles}
-    \end{figure}
-
-    There are twelve distinct elementary fermions (see Figure \ref{fig:sm_particles}),
-        which are split evenly into two subgroups, called quarks and leptons.
-    Quarks have a charge of 1 with the Strong Interaction,
-        while leptons have a charge of 0 (and thus cannot interact via the Strong Interaction at all).
-    Both classes of particles -- quarks and leptons -- are divided into three ``generations'' of progressively heavier particles.
-    Each generation accordingly consists of two quarks and two leptons.
-    These pairs, dubbed ``doublets'', behave the same across all generations.
-    Among the quarks, every generation contains a doublet of an up-type quark (up, charm, top) with electromagnetic charge of 2/3,
-        and a down-type quark (down, strange, bottom) with EM charge of -1/3.
-    For leptons, each doublet consists of a charged particle (electron, muon, tauon) with EM charge of -1,
-        and an uncharged neutrino with EM charge of 0.
-    In addition to the fermions, there is also an entirely separate class of spin 1 particles, called gauge bosons,
-        which play a fundamental role in the aforementioned interactions.
-    However, an in-depth discussion of these particles will need to wait until Section \ref{sec:gauge_symmetry}.
-
-    Mathematically, particles are described as perturbations of an overall ``quantum field.''
-    A particle field $\varphi$ describes every particle of the same type at once,
-        and particle states $\ket{\varphi}$ correspond to the number of that kind of particle that exists at a given moment.
-    Fermions in particular are described as manifestations of ``Dirac Fields'', $\psi(x)$,
+    Fermions are described as manifestations of ``Dirac Fields'', $\psi(x)$,
         which are defined as solutions to an equation of motion known as the Dirac Equation
     \begin{equation} \begin{split}
         (\gamma^\mu p_\mu - m) \psi(x) = 0
         \\ (i\gamma^\mu \partial_\mu - m) \psi(x) = 0
     \end{split} \end{equation}
-    Wherein the second line is written using the natural units, covariant,
-        quantum mechanical definition of momentum $p_\mu \equiv i\partial_\mu$.
     The term $\gamma^\mu$ is a vector of matrices, simply called the gamma matrices.
-    The gamma matrices are a fascinating subject all their own, 
+    The derivation and implications of the gamma matrices are a fascinating subject all their own, 
         but for the purposes of this discussion it will suffice to state that
         their primary function is in allowing the 4-vector $p_\mu$ to be added to the scalar $m$.
 
-    As a final note on the topic of matter,
-        I need to mention a peculiar consequence of Quantum Field Theory, in the form of \textit{anti-matter}.
+    Additionally, a peculiar consequence of Quantum Field Theory presents itself in the form of \textit{anti-matter}.
     Anti-matter particle fields correspond to negative-energy solutions to the Dirac Equation,
         and are represented as
     \begin{equation}
@@ -212,8 +222,6 @@
     Anti-matter particles are identical to their matter components in every way,
         except that their charges are inverted.
 
-    The brilliance of the Standard Model lies in how it is able to describe the 
-        particles and interactions of nature as consequences of pure mathematical structures.
     Describing matter in mathematical form is the first step in building the Standard Model.
     The next step is to do the same with motion.
 
@@ -256,11 +264,8 @@
 
     Where $\Delta t$ is again a finite time transformation,
         and I have compressed the infinite product of terms using the power series expansion of the exponential function.
-    In order to use this classical operator in quantum field theory it must be Hermitian\footnote{
-        All quantum mechanical observables must be represented by Hermitian operators,
-            because Hermitian operators produce \textit{real} eigenvalues \cite{Griffiths_book}.
-    },
-    which requires it to have a factor `$i$' associated with it,
+    In order to use this classical operator in quantum field theory it must of course be Hermitian,
+        which requires it to have a factor `$i$' associated with it,
     \begin{equation} \begin{split}
     x(t) \to x'(t) = e^{i\Delta t \frac{d}{dt}} x(t)
     \end{split} \end{equation}
@@ -268,13 +273,14 @@
     Returning to Dirac Fields, which are functions of four-position $x_\mu$, this same transformation can be used
          with the minor adjustment of changing the total derivative to a partial derivative in time,
          $\frac{\partial}{\partial t} = \frac{\partial}{\partial x^0} = \partial_0$
+
     \begin{equation} \begin{split}
-    \psi(x) \to \psi'(x) = e^{i\Delta x^0 \partial_0} \psi(x)
+    \psi(x) \to \psi'(x) = e^{\Delta x^0 i\partial_0} \psi(x)
     \end{split} \end{equation}
 
     Meanwhile, the Dirac anti-particle field transforms with a negative sign as
     \begin{equation} \begin{split}
-        \psibar(x) \to \psibar'(x) = e^{-i\Delta x^0 \partial_0} \psibar(x)
+        \psibar(x) \to \psibar'(x) = e^{-\Delta x^0 \partial_0} \psibar(x)
     \end{split} \end{equation}
     
     The time translation operator is but one of a myriad of different transformation operators.
@@ -283,7 +289,11 @@
         \psi(x) \to \psi'(x) = e^{ q \cdot \mathcal{F}_q } \psi(x)
     \end{split} \end{equation}
     $\mathcal{F}_q$ is the transformation \textit{generator} (e.g.\ $i\partial_0$),
-        and $q$ the amount to transform by (e.g.\ $\Delta t$).
+        and $q$ the amount to transform by (e.g.\ $\Delta t$)\footnote{
+            Note that the time translation operator from before takes the same form as the quantum mechanical energy operator
+                $E = p^0 = i\partial^0$.
+            This is no coincidence, as four-momentum is the generator of space-time translations.
+         }.
 
     These transforms fall under a larger realm of mathematics known as Group Theory,
         and are in turn called ``group transformations''.
@@ -304,14 +314,13 @@
     An example of a non-Abelian group would be that of three-dimensional rotations (formally called the $SO(3)$ group),
         as applying rotations in a different order can lead to a different final orientation.
 
-    As a final point regarding Group Theory, is the absolutely crucial idea of \textit{symmetry}.
+    As a last point regarding Group Theory, is the absolutely crucial idea of \textit{symmetry}.
     If a system can be transformed under a group transformation and remain overall unchanged,
         then that system is said to be invariant, or symmetric, under that group.
 
     In a very deep sense, Group Theory and symmetry are the driving forces behind the entire Standard Model.
     Not only is the motion of the Standard Model entirely described by Group Theory,
-        but as will be seen in the coming sections,
-        its interactions are defined by Group Theory,
+        but as will be seen in the coming sections its interactions are defined by Group Theory,
         and its entire organizational structure ultimately rooted in Group Theory.
 
 
