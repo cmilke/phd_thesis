@@ -1,7 +1,7 @@
 \section{Origin of Mass: The Higgs Mechanism}\label{sec:higgs_mechanism}
 
     The derivation provided throughout the next three sections seeks to explain
-        how the Higgs Mechanism is able to preserve the theory of gauge symmetry,
+        how the Higgs Mechanism is able to preserve the theory of gauge symmetry
         and largely follows the process laid out by Peskin\cite{Peskin_book}.
     To start, introduce a massless, scalar field $\phi$.
     The equation of motion for this field will be that of the Klein-Gordon equation
@@ -94,7 +94,8 @@
 
     %TODO insert a picture of the famous "mexican hat" potential, with a note acknowledging that the real potential is actually three dimensional
 
-    Once again, I allow the scalar field to fall into its offset minimum 
+    Once again, I allow the scalar field to fall into its offset minimum $v$ --
+        hereafter refered to as the ``Vacuum Expectation Value'' (vev) --
         $v \equiv \frac{\mu}{\sqrt{\lambda}}$, as $\phi(x) \to h(x) + v$.
     Worth mentioning is that due to the added groups, there are no longer only two minima.
     Instead, there is now a continuum of equal-valued minima centered on a spherical ``valley'' a distance $v$ from $\phi=0$.
@@ -223,7 +224,7 @@
 
     As in Section \ref{sec:higgs_mechanism}, the $W$ and $Z$ fields now have additional mass terms associated with their kinetic energy terms,
         with $m_W = \frac{vg}{2}$ and $m_Z = \left(\frac{v}{2}\sqrt{g^2 + g^{\prime 2}}\right) $.
-    The photon field $A_{\mu}$ is notably absent in the final vev product, and thus remains massless.
+    The photon field $A_{\mu}$ is notably absent in the final Lagrangian, and thus remains massless.
     A similar procedure can then be followed to allow the Higgs Field to interact with fermions
         (albeit with complications arising from mass-mixing and chirality),
         which will grant mass to the Dirac fields.
@@ -293,6 +294,9 @@
             + 2v\left[ m_W W^{-\ \mu} W^+_{\mu} + \frac{m_Z}{2} (Z^0_{\mu})^2 \right] h
             + \left[ m_W W^{-\ \mu} W^+_{\mu} + \frac{m_Z}{2} (Z^0_{\mu})^2 \right] h^2
     \end{split} \end{equation}
+    [FIXME: Hey Steve, in the edit you put a `dot' after this equation.
+    Do you want it followed by a period? Why do no other equations need a period?
+    I'm not sure I know what the dot meant :-/]
 
     Often, $W$ and $Z$ field interactions are considered for the same process,
         and as such are described together simply as Vector Bosons, $V$
@@ -330,8 +334,9 @@
         and finally the Higgs four-point self-coupling.
 
     In 2012, the Higgs Boson was detected with a mass of 125 GeV, solidifying both its existence and crucial role in the Standard Model.
-    More to the point, its detection confirmed the existence of at least the Higgs kinetic energy term in the Lagrangian.
-    The various interaction terms however, are still on more tenuous grounds.
+    More to the point, its detection confirmed the existence of the Higgs kinetic energy term in the Lagrangian,
+        along with its coupling terms to fermions and vector bosons.
+    The various self-interaction terms however, are still on more tenuous grounds.
     If they exist at all, there is no guarantee that these interactions have the coupling strength indicated by Equation \ref{eq:higgsfull}.
     In order to account for this uncertainty, the Lagrangian can be rewritten with arbitrary couplings for the interactions
     \begin{equation} \begin{split} \label{eq:higgskappas}
@@ -343,11 +348,12 @@
     The new $\kappa$ terms are ratios of the coupling, as predicted by the Standard Model ($g$), to the true coupling value ($g'$).
     For example, $\kappa_V \equiv \frac{g'_V}{g_V} = \frac{g'_V}{m_h m_V \sqrt{2/\lambda}}$.
     A $\kappa$ value of 1 indicates consistency with the coupling strength predicted by the Standard Model.
-    Any value other than 1 would indicate deviation from the Standard Model, which would need to be explained with a modification to (or entirely new) theory.
+    Any value other than 1 would indicate deviation from the Standard Model,
+        which would need to be explained with a modification to the (or entirely new) theory.
     As of 2020, $\kv$ has been measured at a value of $1.05 \pm 0.04$,
         based on combined analysis of single Higgs production processes\cite{paper:higgs_combined}.
     The couplings $\kvv$, $\kl$, and $\kappa_{2\lambda}$ however, do not significantly affect the production of single Higgs processes.
-    The quartic coupling $\kappa_{2\lambda}$ is outside the scope of this paper,
+    The quartic coupling $\kappa_{2\lambda}$ is outside the scope of this thesis,
         but $\kvv$ and $\kl$ can be measured through their effect on di-Higgs production.
     Constraining the range of these values could yield key insight into the validity of the Standard Model and the nature of the Higgs Potential,
-        and will therefore be the target of the remainder of this paper.
+        and will therefore be the target of the remainder of this thesis.

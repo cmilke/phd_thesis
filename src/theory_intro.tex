@@ -35,14 +35,16 @@
 
     \begin{figure}[h!]
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{theory/Standard_Model_of_Elementary_Particles}
-        \caption{I'm probably going to need to find something else since this came from wikipedia. I just wanted a placeholder}
+        \caption{Table of the particles described by the Standard Model of Particle Physics\cite{wikimedia_sm}
+            [FIXME: Hey Steve, I'm using the "online" bibtex style for this reference, but it seems to leave out a ton of information.
+                Is that how it's supposed to be? Or do I need to use a different citation category?]}
         \label{fig:sm_particles}
     \end{figure}
 
     There are twelve distinct elementary fermions (see Figure \ref{fig:sm_particles}),
         which are split evenly into two subgroups, called quarks and leptons.
-    Quarks have a charge of 1 [FIXME] with the Strong Interaction,
-        while leptons have a charge of 0 (and thus cannot interact via the Strong Interaction at all).
+    Quarks have ``color'' charge associated with the Strong Interaction,
+        which leptons lack (and thus cannot interact via the Strong Interaction at all).
     Both classes of particles -- quarks and leptons -- are divided into three ``generations'' of progressively heavier particles.
     Each generation accordingly consists of two quarks and two leptons.
     These pairs, dubbed ``doublets'', behave the same across all generations.
@@ -214,7 +216,9 @@
         their primary function is in allowing the 4-vector $p_\mu$ to be added to the scalar $m$.
 
     Additionally, a peculiar consequence of Quantum Field Theory presents itself in the form of \textit{anti-matter}.
-    Anti-matter particle fields correspond to negative-energy solutions to the Dirac Equation,
+    Anti-matter particle fields correspond to negative-energy\footnote{
+            or \textit{time-reversed}, the Feynman-St\"uckelberg interpretation
+        } solutions to the Dirac Equation,
         and are represented as
     \begin{equation}
         \psibar(x) \equiv \gamma^0 \psi^\dag(x)
@@ -346,7 +350,7 @@
     All of the physics of the Standard Model is inscribed within the Standard Model Lagrangian.
     The construction of this Lagrangian will be the focus of most of the rest of the chapter.
     To begin then, what physics \textit{does} the Lagrangian need to encode?
-    Paraphrasing Murray Gell-Mann, ``that which is not forbidden, is \textit{mandatory}.''
+    Paraphrasing Murray Gell-Mann, ``that which is not forbidden, is \textit{mandatory}\cite{Gell-Mann_mandatory}.''
     That is to say, that any physics which is not expressly prohibited, can and will occur.
     Formulation of the Standard Model Lagrangian must therefore start with an enumeration of restrictions,
         which are given in the form of a series of groups that the Lagrangian must remain symmetric under.
@@ -385,8 +389,6 @@
         there is a glaring flaw with it: the fields it describes are all completely independent of one another.
     In its current form, the Lagrangian proposes that particles, given some initial momentum,
         will persist along the same trajectory forever, unable to affect or be affected by any other particle.
-    The Lagrangian has successfully constrained the range of allowed physics,
-        but it has done so to such a degree that the described physics are now practically static.
     Clearly, this is not a satisfactory description of the universe, full of dynamic interactions as it is.
     The resolution to this issue is, counter-intuitively, to enforce yet \textit{more} symmetry requirements.
     In doing so, the various interactions of the Standard Model will be laid bare,
@@ -398,7 +400,7 @@
     %So infinite-mass virtual particles should not break a renormalizeable lagrangian.
 
 
-\section{Transferring Motion: Gauge Symmetry} \label{sec:gauge_symmetry}
+\section{Generating Interactions: Gauge Symmetry} \label{sec:gauge_symmetry}
 
     %Describe Global U1
     Allow me to introduce another group, called $U(1)$ (Unitary Rank 1 Group).
@@ -425,7 +427,7 @@
     Demanding that the Lagrangian remain invariant under such a transformation is a much more strict condition,
         one which the current Lagrangian cannot satisfy.
     I want to show how the Lagrangian in its current form breaks when attempting to perform a $U(1)$ gauge transform,
-        and how the resolution to this issue leads directly to a fully dynamic, interacting Lagrangian.
+        and how the resolution to this issue demands the existence of a fully dynamic, interacting Lagrangian.
 
     First, apply the gauge transformation
     \begin{equation} \begin{split}
@@ -520,19 +522,19 @@
         SU(2)&: e^{i \alpha^a(x) \sigma^a / 2}, a=\{1,2,3\}
         \\SU(3)&: e^{i \xi^b(x) \mathscr{F}^b / 2}, b=\{1,2, ..., 8\}
     \end{split} \end{equation}
-    where $\sigma^a$ corresponds to the three, 2x2 Pauli Matrices
+    where $\sigma^a$ corresponds to the three, $2 \times 2$ Pauli Matrices
     \begin{equation}
         \sigma^1 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \quad
         \sigma^2 = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} \quad
         \sigma^3 = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
     \end{equation}
-    and $\mathscr{F}^b$ corresponds to the eight 3x3 Gell-Mann matrices of $SU(3)$
+    and $\mathscr{F}^b$ corresponds to the eight $3 \times 3$ Gell-Mann matrices of $SU(3)$
         (which will not be explicitly written out).
 
-    While $U(1)$ acted as one-dimensional rotation of a single complex angle $\theta$,
+    While $U(1)$ acted as a one-dimensional rotation of a single complex angle $\theta$,
         $SU(2)$ performs three orthogonal rotations $\alpha^a$ through a three-dimensional complex space,
         and $SU(3)$ performs rotations through an eight-dimensional complex space.
-    Because $SU(2)$ operates through the 2x2 Pauli Matrices, it must operate on the fermions in doublets
+    Because $SU(2)$ operates through the $2 \times 2$ Pauli Matrices, it must operate on the fermions in doublets
         (recall Section \ref{sec:standard_model}).
     \begin{equation}
         \minimatrix{u_L \\ d_L} \to e^{i \alpha^a \sigma^a / 2} \minimatrix{u_L \\ d_L}
@@ -553,11 +555,10 @@
     This would serve to complete a theory of the universe based entirely on the geometric principle of symmetry.
     The electromagnetic interaction and its photons have already been revealed as the manifestation of the $U(1)$ group. 
     Likewise, $SU(3)$ assuredly does correspond to the strong interaction, its gauge fields manifested as the Gluons.
-    All of this breaks down however with $SU(2)$, which does \textbf{not} correspond to the W and Z bosons;
-        at least, not directly.
+    All of this breaks down however with $SU(2)$, which does \textbf{not} directly correspond to the W and Z bosons.
 
     The problem is that the W and Z fields have mass.
-    Gauge fields \textit{cannot} have mass.
+    Gauge fields in this formalism \textit{cannot} have mass.
     A brief check will confirm that a Lagrangian mass term such as $m_Z^2 (Z^0)^2$
         will not remain invariant under the gauge field's own transformation.
     By all rights, the experimental measurement of the W and Z masses should have
