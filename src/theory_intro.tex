@@ -80,16 +80,18 @@
         which can be described by how distance within it is measured.
     Just as the familiar three-dimensional (``Euclidean'') distance can be measured with the equation $x^2+y^2+z^2=r^2$,
         four-dimensional space-time (``Minkowskian'') distance is measured as $(ct)^2-x^2-y^2-z^2 = s^2$.
-    Basically all classical physics equations assume Euclidean space, and so fall apart in special relativity.
-    Physics calculations can be made to abide by special relativity's tenants however,
+    Classical physics assumes Euclidean space with time as a parameter,
+        and so is unequiped to address four-dimensional space-time.
+    Minkowski space-time can be accounted for in physics however,
         by subtly redefining how vector products are evaluated.
-    Instead of a vector product defined as
+    Vector products are classicaly defined as 
     \begin{equation}
         r^2 = \begin{pmatrix} x & y & z\end{pmatrix} \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \sum\limits_{i=1}^3 x_i x_i
         \quad , \quad \begin{pmatrix}x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} x \\ y \\ z \end{pmatrix} 
     \end{equation}
 
-    vector products can be defined with a specific tensor, called the ``metric tensor'' $g$,
+    To permit vectors in arbitrary geometries,
+        vector products can be defined with a specific tensor, called the ``metric tensor'' $g$,
         which is inserted between the product's factors and encodes the shape of the particular geometry being used:
 
     \begin{equation} \begin{split}
@@ -130,9 +132,9 @@
                 0 &  0 &  0 & -1
             \end{pmatrix}
             \begin{pmatrix} ct \\ x \\ y \\ z \end{pmatrix} \\
-        s^2 &= \sum\limits_{\mu=0}^3 \sum\limits_{\nu=0}^3 x_\mu g_\mu^\nu x_\nu
+        s^2 &= \sum\limits_{\mu=0}^3 \sum\limits_{\nu=0}^3 x_\mu g^\mu_\nu x_\nu
             \quad , \quad x_0 \equiv ct \\
-        s^2 &= x_\mu g_\mu^\nu x_\nu = x_\mu x^\nu
+        s^2 &= x_\mu g^\mu_\nu x_\nu = x_\mu x^\mu = (ct)^2-x^2-y^2-z^2
     \end{split} \end{equation}
 
     Another conventional quirk has been introduced between the final two lines,
@@ -185,9 +187,9 @@
         p^\mu \equiv i \hbar \frac{\partial}{\partial_\mu} = i \hbar \partial^\mu
     \end{equation}
 
-    Before proceeding to the final description of matter, I want to highlight another notational quirk called ``natural units.''
+    Before proceeding to the final description of matter, I want to highlight one last notational convention called ``natural units.''
     A number of physical constants have been mentioned by now, and they are beginning to get cumbersome.
-    To address this, an effective (albeit comical) solution is to simply set all of these constants to identically \textit{1}.
+    To address this, an effective (albeit comical) solution is to simply set all of these constants to identically \textit{one}.
     That is, I am setting the speed of light $c$ equal to the reduced Planck's constant $\hbar$,
         equal to the electric charge of the electron, equal to the permittivity of free space $\epsilon_0$,
         and so forth, all equal to 1:
@@ -304,7 +306,7 @@
     The basic definition of a group is a set of elements which can be ``multiplied'' according to some rule,
         and which satisfies the following four conditions\cite{Cheng_book}:
     \begin{itemize}
-        \item Closure - the product of any two elements of the group are still in that group;
+        \item Closure - the product of any two elements of the group is also an element of the group;
         \item Associativity - $(a \times b)\times c = a\times(b \times c)$;
         \item Identity - there is some element in the group $I$ for which $I \times a=a$;
         \item and Inversion - every element $a$ has an inverse $a^{-1}$ such that if $b \times a = c$ then $c \times a^{-1} = b$.
@@ -314,7 +316,7 @@
     Additional classifications for groups are whether a group is discrete or continuous,
         and whether a group is ``Abelian'' (commutative) or ``non-Abelian'' (non-commutative).
     Time translations are continuous (one can translate by an infinitesimally small amount of time),
-        and Abelian (the order that the translation are applied does not matter).
+        and Abelian (the order that the translations are applied does not matter).
     An example of a non-Abelian group would be that of three-dimensional rotations (formally called the $SO(3)$ group),
         as applying rotations in a different order can lead to a different final orientation.
 
