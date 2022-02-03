@@ -74,8 +74,10 @@
         \label{fig:interaction_points}
     \end{figure}
 
-    How often exotic events are produced is critically important to testing hypothesis in physics.
-    Indeed, the rate an event is observed to occur at the LHC is the entire basis for the dismissal or success of particle physics hypothesis, as will be discussed in more detail in later chapters.
+    \FloatBarrier
+
+    How often exotic events are produced is critically important to hypothesis testing in physics.
+    Indeed, the rate an event is observed to occur at the LHC is the entire basis for the dismissal or success of particle physics hypotheses, as will be discussed in more detail in later chapters.
     Examining how this rate is determined, and the role the LHC plays in it, is therefore of utmost importance.
     The frequency with which some kind of particle interaction occurs at the LHC is a probabilistic event, determined by a number of factors.
     As an analogy, imagine somebody repeatedly throwing a ball at a window on the wall of a barn.
@@ -83,14 +85,25 @@
     Provided that the person throws the ball with some given frequency, there is then a probability of the ball hitting the window per unit time.
     Over some period of time, this would yield some expected total number of successful hits.
 
+    \input{tables/lhc/dataset_luminosity.tex}
+
     Hitting the window with a ball is analogous to particles in a particle accelerator interacting to produce some specific physics process.
-    The area of the window corresponds to the physics process's \textit{cross-section}, which is measured using a unit of area called a ``barn" (1 b = $10^{-28}$m\textsuperscript{2}, pun very much intended).
+    The area of the window corresponds to the physics process's \textit{cross-section}, which is measured using a unit of area called a ``barn" (1 b = $10^{-28}$ m\textsuperscript{2}, pun very much intended).
     Meanwhile, the other components comprising the probability of a hit per unit time
         -- the total area which can be hit and the frequency of throws --
         are all collected together into a single quantity called \textit{luminosity} (measured in units of $b^{-1}t^{-1}$). 
-    The probability of a physics process occurring per unit time is thus obtained by multiplying luminosity with the process's cross-section.
-    As noted earlier, the cross-section of an event scales with the center-of-mass energy of the interaction, hence the drive for ever-more powerful colliders.
-    The luminosity meanwhile can be improved by increasing the particle interaction rate through a number of methods.
+    The probability of a physics process occurring per unit time is then obtained by multiplying luminosity with the process's cross-section.
+    As noted earlier, the cross-section of an event scales with the center-of-mass energy of the interaction,
+        hence the drive for ever-more powerful colliders.
+    For reference, even at the LHC's 13 TeV CoM energy,
+        the \vbfhhproc process used in this thesis still only has a SM (all $\kappa$-values equal to 1) cross-section of 1.18 fb (femto-barns).
+    This is astonishingly small.
+    Even if the metaphorical barn window were reduced to a single silicon atomic nucleus,
+        its cross-section ($\approx 4 \times 10^{23}$ \ifb)
+        would still be 400 billion \textit{trillion} times larger than the VBF di-Higgs process.
+    Producing any significant number of these events thus neccesitates maximizing the LHC's integrated luminosity.
+
+    Luminosity can be improved by increasing the particle interaction rate through a number of methods.
     Continuing the analogy of the ball and barn, an obvious improvement would be to improve the thrower's aim.
     At the LHC, this corresponds to tightening the particle beam width by increasing the power of the quadrupole focusing magnets.
     One could also throw balls at a faster rate.
@@ -101,17 +114,23 @@
         (or increasing the protons per bunch).
     Finally, the overall number of collisions can be steadily increased by extending the time the machine is running, analogous to having the thrower keep throwing balls for a longer time.
     All of these specifications -- beam-spot, bunch-spacing, bunch size, and runtime -- are planned to be varied over the lifetime of the LHC in different operating configurations.
-
-    \input{tables/lhc/dataset_luminosity.tex}
+    
+    \input{tables/lhc/vbfhh_yield.tex}
 
     So far, there have been two complete ``Runs" of the LHC, with the data from those runs further subdivided by year and operational configuration.
     The data used in this thesis comes from Run 2 data using proton-proton collisions at a CoM energy of 13 TeV.
     For most of Run 2, the bunch spacing was 25 ns between bunches, though early periods (not used in this analysis) operated at a lower 50 ns bunch spacing.
     The beam spot in the main ring is XXX $\mu$m, but varies at the different interaction regions in which the beams collide.
     The relevant interaction region for this discussion is Interaction Region 1 (IR1, see figure \ref{fig:interaction_points}), the location of the ATLAS detector.
-    Here, the particle beam width is focused to XXX$\mu$m using several powerful quadrupole magnets.
+    Here, the particle beam width is focused to [TODO]$\mu$m using several powerful quadrupole magnets.
     Total runtime, as far as data is concerned, is not measured as simply the time the machine has been running, but rather the time spent collecting data.
     Data-taking takes place between the time ``stable beams" are declared by the LHC, until enough protons have been depleted from the ring that it needs to undergo another bunch injection and acceleration process.
-    This time frame is known as a \textit{fill}, and is itself further subdivided into smaller \textasciitilde 60 second time frames called \textit{luminosity blocks}, periods of data taking in which luminosity is relatively stable \cite{data_quality}.
+    This time frame is known as a \textit{fill},
+        and is itself further subdivided into smaller \textasciitilde 60 second time frames called \textit{luminosity blocks},
+        periods of data taking in which luminosity is relatively stable \cite{data_quality}.
     These various parameters taken together over the four year period of Run 2 produce the total integrated luminosity of data available for observation (see table \ref{tab:dataset_lum} ).
+    Due to occasional issues during data collection, some data is deemed unusable,
+        bringing the total available integrated luminosity for this process to 126 fb\textsuperscript{-1}.
+    Table \ref{tab:mcyields} shows the number of \vbfhhproc events expected to be produced by the LHC at IR1,
+        for various possible coupling arrangements.
     The actual process of observing and recording this data however, is a massive undertaking all its own, and is carried out by ATLAS.
