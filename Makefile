@@ -6,17 +6,28 @@ output_file = drafts/draft_$(date).pdf
 
 figure_src = $(wildcard figures/*.tex figures/*/*.tex)
 figure_list = $(figure_src:.tex=.pdf)
+partA = src/introduction.tex src/theory* src/lhc.tex src/atlas.tex src/trigger.tex
+partB = src/reconstruction.tex src/selection.tex src/background.tex src/signal_model.tex src/results.tex src/conclusion.tex
 
 # LATEX = pdflatex
 # LATEX = xelatex
 LATEX = lualatex
 
 BIBTEX = bibtex
+TODOCHECK = grep -e TODO -e FIXME
 # BIBTEX = biber
 
 default: document copy_draft
 
 all: abstract default
+
+todo: todoA todoB
+
+todoA:
+	$(TODOCHECK) $(partA)
+
+todoB:
+	$(TODOCHECK) $(partB)
 
 abstract: abstract.pdf
 
