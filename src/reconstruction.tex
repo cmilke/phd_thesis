@@ -108,12 +108,13 @@
 
             %Clusterization
             The first step in reconstructing a track is to determine where the dots to connect actually are, 
-                a process called ``clusterization''.
+                a process called ``clusterization''\cite{atlas_track_reco_performance}.
             Ionizing particles often deposit energy across several adjacent pixels on a given layer.
-            A \textit{connected component analysis} algorithm is used to group pixels together.
+            A \textit{connected component analysis} algorithm\cite{connected_component_analysis}
+                is used to group pixels together.
             Based on the pattern of energy distribution in these groups,
                 a \textit{space-point} (the ``dot'' in my metaphor) 
-                is created indicating the estimated position at which a particle crossed the detector.
+                is created indicating the estimated position at which a particle crossed the detector element.
             Several space-points can be assigned to the same pixel cluster
                 if the energy readout pattern suggests multiple particles traversed the same location.
 
@@ -129,15 +130,30 @@
 
             %Combinatorial track finding
             Once the ``dots'' are established, a series of guesses at how they should be connected are made.
-            Initial guesses at tracks, called track seeds, are formed by assembling all realistic combinations of three space-points.
+            Initial guesses at tracks, called \textit{track seeds}, are formed by assembling adjacent combinations of three space-points.
+            The number of seeds is limited by generally only allowing space-points to be part of a single track seed.
+            Further purity is ensured by forming track seeds first only from the SCT, then only from the pixel detector,
+                and only after allowing mixed-detector seeds from the remaining space-points.
             The track seeds are assigned helix parameters by assuming they travel through a uniform magnetic field,
-                allowing rapid estimates of the tracks' momentum.
-            These seeds are expanded into \textit{track candidates},
+                allowing rapid estimates of the tracks' momenta.
+            These seeds are expanded into \textit{track candidates}
                 by including more space-points across additional detectors in the ID using a \textit{Kalman filter}.
 
             %Ambiguity solving; NN clustering; Track fit
-            The last step is then to choose a final ``picture'' that looks the most valid.
-            A number of criteria are used to reject poor-quality tracks, as well as to assign scores to all remaining track candidates.
+            The last step is then to choose a final set of best-quality trajectories.
+            This is done using a number of criteria involving
+                the track's $p_T$ and $\eta$,
+                how many clusters it traversed, 
+                whether it shared pixels,
+                if the track has any ``holes''\footnote{
+                    A track hole is an absence of a space-point in detector material intersected by a track
+                    where an interaction would otherwise be expected.}
+                and its impact parameters with respect to the PV\cite{atlas_track_reco_performance}.
+            Tracks can be outright rejected depending on some of these criteria,
+                but are also assigned a score if they satisfy them.
+            Higher track scores are attained through the number and type of clusters they pass through,
+                as well as through higher track momenta.
+            Track scores are penalized by having holes or a poor helix fit ($\chi^2$ fit value).
             These scores are used to resolve ambiguities where multiple tracks are assigned to the same space-points,
                 with preference given to higher-scoring candidates.
             Neural networks are used to assist in some ambiguity solving situations,
@@ -151,8 +167,8 @@
             Once track filtering has concluded,
                 the remaining tracks can be used to identify a key piece of event information, 
                 called the \textit{Primary Vertex}.
-            When bunches collide in the IR of ATLAS, most of the collisions of a given bunch are fairly minor.
-            Events which clear the L1 trigger however, typically do so because of the presence of a hard-scatter interaction. %FIXME: really?
+            When bunches collide in the IR of ATLAS, most of the collisions of a given bunch are fairly low energy.
+            Events which clear the L1 trigger however, typically do so because of the presence of a hard-scatter interaction.
             Identifying the location along the beamline at which this hard-scatter interaction occurred is achieved via ``vertex-finding.''
             Points along $z$ from which particles originate are referred to as ``vertices''.
             They are identified in reconstruction by tracing the reconstructed tracks backwards
