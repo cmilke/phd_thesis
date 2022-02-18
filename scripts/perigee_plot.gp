@@ -50,28 +50,30 @@ splot [t=-pi:pi] z(t), x(t), y(t) title 'Track Helix' lc rgb 'dark-violet'
 replot z(t), xl, yl title 'Helix Axis' lc rgb 'dark-green'
 
 # Primary Vertex and Point of Closest Approach
-set label 1 '   PV' at 0,0,0 point pointtype 5 lc rgb 'black' textcolor rgb 'black'
-set label 2 '   PoCA' at z0,x0,y0 point pointtype 5 lc rgb 'dark-red' textcolor rgb 'dark-red'
+set label 1 'Reference     ' at 0,0,0 right offset 0.5,-1,-0.5 point pointtype 5 lc rgb 'black' textcolor rgb 'black' font ",15"
+set label 2 '   PoCA' at z0,x0,y0 point pointtype 5 lc rgb 'dark-red' textcolor rgb 'dark-red' font ",15"
 
 # d0
-set label 3 'd0   ' right at 0,3*x0/4,3*y0/4 textcolor rgb 'blue'
-set arrow 1 from 0,0,0 to 0,x0,y0 lc rgb 'blue'
+set label 3 'd0   ' right at 0,3*x0/4,3*y0/4 textcolor rgb 'blue' font ",15"
+set arrow 1 from 0,0,0 to 0,x0,y0 lc rgb 'blue' linewidth 2.5
 
 # z0
-set label 4 'z0' at z0/2,1.1*x0,1.1*y0 textcolor rgb 'orange'
-set arrow 2 from 0,x(phi),y(phi) to z0,x(phi),y(phi) lc rgb 'orange'
+set label 4 'z0' at z0/2,1.1*x0,1.1*y0 offset 0,0.5,0 textcolor rgb 'olive' font ",15"
+set arrow 2 from 0,x(phi),y(phi) to z0,x(phi),y(phi) lc rgb 'olive' linewidth 2.5
 
 # phi
-set label 5 at 0,xm(r/3,phi/2),ym(r/3,phi/2) '{/Symbol j}' font ',10' textcolor  rgb 'orchid'
+set label 5 at 0,xm(r/3,phi/2),ym(r/3,phi/2) '{/Symbol j}'  textcolor  rgb 'orchid' font ",15"
 replot 0, arcx(t), arcy(t) notitle lc rgb 'orchid'
 
 # theta
-set label 6 at zm(r/3,theta/2),xm2(r/3,theta/2),y(0) '{/Symbol q}' font ',10' textcolor rgb 'royalblue'
-set arrow 4 from z(pi/2),xl,yl to (x(0)-x(pi/2))/tan(theta)+z(pi/2),x(0),y(0) lc rgb 'royalblue'
+set label 6 at zm(r/3,theta/2),xm2(r/3,theta/2),y(0) '{/Symbol q}'  textcolor rgb 'royalblue' font ",15"
+set arrow 4 from z(pi/2),xl,yl to (x(0)-x(pi/2))/tan(theta)+z(pi/2),x(0),y(0) lc rgb 'royalblue' linewidth 2.5
 replot arcz(t), arcx2(t), y(0) notitle lc rgb 'royalblue'
 
 # r
-set label 7 at z(-pi/4),x(-pi/4),y(-pi/4) '   r=psin{/Symbol q}/qB' font ',10' textcolor rgb 'red'
-set arrow 5 from z(-pi/4),xl,yl to z(-pi/4),x(-pi/4),y(-pi/4) lc rgb 'red'
+set label 7 at z(-pi/4),x(-pi/4),y(-pi/4) '   r=psin{/Symbol q}/qB'  textcolor rgb 'red' font ",15"
+set arrow 5 from z(-pi/4),xl,yl to z(-pi/4),x(-pi/4),y(-pi/4) lc rgb 'red' linewidth 2.5
+
+set key font ",20" spacing 5
 
 pause -1

@@ -3,39 +3,39 @@
     \section{Introduction}
 
         Once a bunch-crossing event has cleared the Level 1 Trigger system, the process of event reconstruction begins.
-        An event in ATLAS is initially nothing but a collection of electrical signals emitted from the various detectors.
+        An event in ATLAS is initially nothing but a collection of electrical signals collected from the various detectors.
         Event reconstruction is when the myriad detector readings are aggregated together into meaningful patterns,
             which are interpreted as physical objects and events.
         The key objects of interest in this analysis are particle \textit{tracks} and \textit{jets}.
         As well, the way in which b-quark-initiated jets (``b-jets'') are distinguished from other jet types,
-            called \textit{flavour tagging}, plays a particularly important role.
+            called \textit{flavor tagging}, plays a particularly important role.
         Finally, special attention will be given to the fact that reconstruction occurs not once, but twice;
-            first in the High Level Trigger online running environment,
+            first in the High Level Trigger online running environment
             and again in the offline environment after events have been read out.
         The ways that reconstruction differs between these two environments plays a role
-            in later stages of the analysis, and so is worth discussing.
+            in later stages of the analysis and so is worth discussing.
 
     \FloatBarrier
     \section{Tracks} \label{sec:reco_tracks}
             
         \subsection{Track Definition}
             
-            The first point of contact for anything leaving the interaction region of ATLAS is the tracking detectors.
+            The first point of contact for anything leaving the IR of ATLAS is the tracking detectors.
             As such, the objects reconstructed from the tracking detectors will be the first point of discussion.
             Prior to encountering the ATLAS calorimeters,
-                particles exiting the Interaction Region travel along a relatively unimpeded trajectory.
+                particles exiting the IR encounter primarily low-density material (see figure \ref{cal_rad_length}).
             Thanks to the inclusion of the Solenoid Magnet field encompassing the Inner Detectors,
                 these trajectories reveal crucial information about the particles in an event.
             This is because any charged particle, with a momentum component orthogonal to a magnetic field,
                 will trace out a \textit{helical} trajectory.
             If the shape of the helix is known, then basic electrodynamics principles can be used to determine the
-                momentum and charge of the particle that formed it.
+                momentum and charge of the originating particle.
             Specifically, for a charged particle with four-momentum given as 
             \begin{equation}
             p = \minimatrix{E \\ p_T \\ \theta \\ \phi}
             \end{equation}
             the track's helical shape can reveal all components except for the energy $E$,
-                which will eventually be handled by the calorimeters.
+                which will eventually be determined from the calorimeters.
             To understand how this is achieved, one must understand how a track helix is described mathematically.
             A helix can be defined using five parameters structured in a three-dimensional parametric equation.
             There are several conventions for the form these parameters should take,
@@ -57,28 +57,35 @@
                 \item $d_0$: $|(x,y)|$-distance from the origin to the closest point on the helix, in the $x,y$ plane
                 \item $z_0$: $z$-distance between the PoCA and the origin
                 \item $\phi$: Angle in the $x,y$ plane of the PoCA
-                \item $\theta$: The angle of the helix's trajectory in the $\rho,z$ plane
                 \item $\rho$: The radius of curvature of the helix
+                \item $\theta$: The angle of the helix's trajectory in the $\rho,z$ plane
             \end{itemize}
 
-            \begin{figure}
-                \subfloat[Perigee Parameters]{
-                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_base}
-                }
-                \subfloat[Front View, $(x,y)$-Plane]{
-                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_front}
-                }\\
-                \subfloat[Top View, $(x,z)$-Plane]{
-                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_top}
-                }
+            \begin{figure}[tbh]
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_base}
                 \caption{
-                    A diagram showing a helix trajectory from multiple angles,
+                    A diagram showing a helix trajectory from an isometric perspective,
                         with the five perigee parameters highlighted.
-                    [FIXME: Perigee parameters are hard!
-                    Also I need to replace PV with just `Reference', since the PV comes later (oops).
-                    Also I should make the labels on these bigger.]
                 }
-                \label{fig:perigee_params}
+                \label{fig:perigee_params_base}
+            \end{figure}
+
+            \begin{figure}[tbh]
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_front}
+                \caption{
+                    A diagram showing a helix trajectory, looking down the beampipe (z),
+                        with the five perigee parameters highlighted.
+                }
+                \label{fig:perigee_params_front}
+            \end{figure}
+
+            \begin{figure}[tbh]
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/perigee_top}
+                \caption{
+                    A diagram showing a helix trajectory from a top-down perspective,
+                        with the five perigee parameters highlighted.
+                }
+                \label{fig:perigee_params_top}
             \end{figure}
 
             All five of the parameters are used at some stage of the analysis.
@@ -88,10 +95,10 @@
                 \rho = \frac{p_T}{qB} = \frac{|\vec{p}| \sin \theta}{qB}
             \end{equation}
             where $B$ is the magnetic field of the Inner Detector Solenoid Magnet\cite{thesis_track_sim_and_reco}.
-            Note that uncharged particles (e.g.\ photons) will not be bent, and so will have no curvature,
-                negating the ability to measure their transverse momentum in this way.
+            %Note that uncharged particles (e.g.\ photons) will not be bent, and so will have no curvature,
+            %    negating the ability to measure their transverse momentum in this way.
             The impact parameters, $d_0$ and $z_0$, are not related to momentum,
-                but will be used in later sections for the purpose of flavour tagging.
+                but will be used in later sections for the purpose of flavor tagging.
 
         \FloatBarrier
         \subsection{Track Reconstruction}
@@ -111,10 +118,11 @@
                 if the energy readout pattern suggests multiple particles traversed the same location.
 
             \begin{figure}[tbh]
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/track_reconstruction}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/trackseeding}
                 \caption{
-                    Diagram of track fitting in the ATLAS inner detector
-                    [FIXME: Steve how do I cite an indico presentation? Also is this even a good image to use?].
+                    Diagram of space-points formed in the ATLAS Pixel (Red) and SCT (Blue) subdetectors,
+                        with three-point track seeds highlighted in yellow.
+                        [TODO cite https://atlassoftwaredocs.web.cern.ch/trackingTutorial/tracksf/]
                 }
                 \label{fig:track_fit}
             \end{figure}
@@ -194,25 +202,29 @@
         In ATLAS, the jet algorithm currently in use is the \textit{\antikt} clustering algorithm\cite{anti_kt}.
         Adoption of \antikt has been motivated by its robust ability to isolate jet boundaries both from each other,
             and from the surrounding stochastic noise of the detector.
-        The \antikt algorithm has a single input parameter ``$\Delta R$'' which roughly corresponds to the ``radius''
+        The \antikt algorithm has a single input parameter ``$\Rparam$'' which roughly corresponds to the $\Delta R$ ``radius''
             of the jets that \antikt should attempt to match to.
-        %what is delta R
-        This radius is a solid angle (in $\phi$ and $\eta$) distance from the center of the topo-cluster,
-            such that $\Delta R^2 \equiv \Delta \eta^2 + \Delta \phi^2$.
-        A $\Delta R$ value of 0.4 is the standard for jets in ATLAS, and is used for this analysis.
+        Radius here refers to the solid angle distance 
+            $\Delta R^2 \equiv \Delta \eta^2 + \Delta \phi^2$.
+        An $\Rparam$-parameter value of 0.4 is the standard for jets in ATLAS, and is used for this analysis.
         This value means that \antikt will generally keep aggregating cells together until the topo-cluster's
             $\Delta R$ radius equals 0.4, and not much beyond that.
-        [NOTE: Hey Steve, do I need to describe how antikt works?
-        It's not that complicated, but it's kinda weird and unintuitive and I'm not sure if its description would add much]
+
 
         \FloatBarrier
         \subsection{Jet Calibration}
 
         Once topo-clusters have been formed, their energy and momentum must be calibrated.
         As discussed in Section \ref{sec:calorimeter}, the ATLAS calorimeters are sampling calorimeters.
-        This means that the bulk of energy deposited is lost in inactive material, and not read out.
+        This means that the bulk of energy deposited is lost in inactive material and not read out.
         Additional energy losses are incurred from inefficiencies in the clustering algorithm and from the \textit{non-compensating} nature of ATLAS calorimeters.
         That is, they do not have an intrinsic method to account for the fact that electromagnetic radiation deposits a higher fraction of its energy into the detectors than hadronic radiation\cite{cell_clustering}.
+        Instead, the energy that \textit{is} deposited in the calorimeters is scaled up by a correction factor,
+            which was determined in advance using test particles with known parameters\cite{jet_energy_measurment}.
+        These energy calibrations are done at the electromagnetic scale,
+            meaning the calibration tests and factors were derived from electromagnetic particle showers.
+        The calorimeters are less sensitive to hadronic showers,
+            and so for these the energy correction factors are further adjusted using Monte Carlo simulation results.
 
         After correcting for energy, the next step is to correct for momentum.
         Reconstructed jets are assumed to originate from the hard-scatter interaction point.
@@ -238,7 +250,7 @@
         B-jets are important because, of all the particles the Higgs can decay to,
             its branching ratio to a $\bbar$ pair is highest.
         Distinguishing b-jets from other jet types,
-            achieved through the process of \textit{flavour tagging},
+            achieved through the process of \textit{flavor tagging},
             is therefore of paramount importance in this analysis.
         Flavour Tagging in ATLAS is performed in two stages;
             first with a set of simple low-level taggers,
@@ -338,7 +350,7 @@
         \subsection{High Level Taggers}
 
             After running all of the low level taggers,
-                the final step in flavour tagging is the use of a pair of high-level machine-learning-based tagging algorithms.
+                the final step in flavor tagging is the use of a pair of high-level machine-learning-based tagging algorithms.
             There are two high level taggers, both trained and run using inputs from the various low-level taggers discussed earlier.
             MV2, the Multi-Variate tagger, is a boosted decision tree (BDT).
             DL1, the Deep Learning tagger, is a multi-layer neural network.
@@ -366,11 +378,11 @@
         This allows the HLT to reconstruct tracks much faster, but at the expense of precision and accuracy.
 
         Such accuracy loss in tracking has significant downstream consequences across all aspects of reconstruction.
-        Of note for this analysis are the effects on flavour tagging.
-        The low level flavour-taggers function on probability distributions of the parameters of the reconstructed tracks.
+        Of note for this analysis are the effects on flavor tagging.
+        The low level flavor-taggers function on probability distributions of the parameters of the reconstructed tracks.
         With the degradation in track quality of the online environment, the PDFs of the low level taggers are altered.
         Since the low-level taggers are affected, the high-level taggers are also affected.
-        To account for this, the flavour tagging algorithms undergo a \textit{retuning} procedure, 
+        To account for this, the flavor tagging algorithms undergo a \textit{retuning} procedure, 
             which adjusts how the algorithms expect tracks to look.
 
         The retuning process operates in five steps.
