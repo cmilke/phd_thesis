@@ -310,9 +310,10 @@
                         \textit{before} the PV, suggesting this track originated from a source unrelated to the PV
                         (and so is likely just noise from a pileup vertex).
                     In the right diagram, the track $p_T$ vector intersects with the jet $p_T$ vector axis
-                        \textit{after} the PV, suggesting this track originated from a secondary vertex of
-                        a particle emitted from the PV
-                        (around the area marked with a red X).
+                        \textit{inside} the jet (which originated from the PV),
+                        suggesting this track came from a secondary vertex
+                        (around the area marked with a red X)
+                        of a particle originally from the PV.
                     \cite{thesis_giacinto}.
                 }
                 \label{fig:ip3d_sign}
@@ -324,8 +325,11 @@
             The probability that a given track, $i$, would have some impact parameter significance value (based on the PDF)
                 is that track's assigned IP2D value, $t_i$.
             IP2D and IP3D are then constructed as likelihood ratios of the product of all track-values for a jet.
-            For example, the likelihood ratio of a jet being a b-jet versus a light-jet would be based on
-                the PDF of the impact parameter for b-jets ($\textrm{PDF}_b$) to that for light-jets ($\textrm{PDF}_l$)
+            For example, the likelihood ratio of a jet being a b-jet versus a light-jet\footnote{
+                    A light-jet is defined as a jet produced from the hadronization of a gluon or
+                        an up, down, or strange quark.}
+                would be based on the PDF of the impact parameter for
+                b-jets ($\textrm{PDF}_b$) to that for light-jets ($\textrm{PDF}_l$)
 
             \begin{equation}
                 R(t_1, t_2, ... t_N) \equiv \frac{\prod_{i=1}^N \textrm{PDF}_b(t_i)}{\prod_{i=1}^N \textrm{PDF}_l(t_i)}
@@ -357,9 +361,9 @@
         \FloatBarrier
         \subsection{Secondary Vertexing}
 
-            Secondary Vertexing algorithms take advantage of the fact that b-quarks are significantly longer lived than light and charm quarks,
+            Secondary Vertexing algorithms take advantage of the fact that b-hadrons are significantly longer lived than light-hadrons,
                 and thus their associated secondary vertices typically have a larger displacement from the primary vertex.
-            In ATLAS, there are two primary algorithms used to perform btagging with Secondary Vertexing.
+            In ATLAS, there are two primary algorithms used to perform b-tagging with Secondary Vertexing.
             Realistically, hadronic matter decays in multiple steps, producing a series of close vertices each emitting more particles.
             The first of the ATLAS Secondary Vertex algorithms, JetFitter, seeks to reconstruct this full multi-vertex structure of the hadronic decay.
             In contrast, SV1 (Secondary Vertex 1), works by making an approximation as to how hadronic decays behave.
@@ -392,7 +396,7 @@
             the GRID is able to devote vast amounts of time and computing power to a second, 
             more comprehensive, reconstruction of each event.
         For both the online (HLT) and offline (GRID) environments, event reconstruction is carried out by the same suite of software,
-            called \textit{Athena}.
+            called \textit{Athena}[TODO cite https://gitlab.cern.ch/atlas/athena].
         The main difference in how they operate is the time they can devote to calculations, especially in the context of tracking.
         As seen is Section \ref{sec:reco_tracks}, track reconstruction is very computationally intensive.
         There are many steps, and the fitting itself is a lengthy process.
