@@ -50,7 +50,7 @@
                 which is initially set to the beam-spot location in the IR.
             Later stages of tracking will redefine the equations with respect to different reference points as needed.
             The five parameters governing the shape of this helix,
-                called \textit{perigee parameters} (see Figure \ref{fig:perigee_params}),
+                called \textit{perigee parameters} (see Fig. \ref{fig:perigee_params}),
                 are described largely in terms of the ``Point of Closest Approach'' (PoCA),
                 the point on the helix closest to $R$ in the $x,y$ plane.
             \begin{itemize}
@@ -166,18 +166,23 @@
 
             Once track filtering has concluded,
                 the remaining tracks can be used to identify a key piece of event information, 
-                called the \textit{Primary Vertex}.
+                called the \textit{Primary Vertex} (PV).
             When bunches collide in the IR of ATLAS, most of the collisions of a given bunch are fairly low energy.
-            Events which clear the L1 trigger however, typically do so because of the presence of a hard-scatter interaction.
+            Events which clear the L1 trigger however, typically do so because of the presence of a hard-scatter interaction\footnote{
+                Characterized as an interaction involving significant momentum transfer between partons.}.
             Identifying the location along the beamline at which this hard-scatter interaction occurred is achieved via ``vertex-finding.''
-            Points along $z$ from which particles originate are referred to as ``vertices''.
+            Points along $z$ from which particles originate are referred to as ``vertices.''
             They are identified in reconstruction by tracing the reconstructed tracks backwards
                 and identifying points at which they intersect the $z$-axis.
             All tracks which intersect at the same point are associated to that vertex.
-            Most of the vertices are of little interest, and are known as Pile-up vertices.
-            The vertex assumed to be the location of the hard-scatter interaction, called the Primary Vertex (PV),
-                is identified as a vertex associated with at least two tracks,
-                and whose tracks posses the largest sum of squared momentum\cite{jet_energy_scale13TeV}.
+            Most of the vertices are of little interest, and are known as ``pile-up vertices.''
+            The PV is the vertex assumed to be the location of the hard-scatter interaction,
+                and is identified as a vertex associated with at least two tracks,
+                and whose tracks possess the largest scalar sum of squared transverse momentum\cite{jet_energy_scale13TeV}
+                [TODO cite https://twiki.cern.ch/twiki/bin/view/AtlasProtected/PrimaryVertexIdentification]
+                \begin{equation}
+                    p_T^2 \textrm{ sum}  \equiv \sum\limits_{i \in \textrm{tracks}} p_{T,i}^2
+                \end{equation}.
             Once the primary vertex is identified, the high resolution track fitting step is rerun,
                 but now with the PV set as the reference point $R$ instead of the beamspot.
 
@@ -187,7 +192,8 @@
 
         \subsection{Jet Definition}
 
-        Moving outwards from the inner tracker into the calorimeters, focus shifts from tracks to the reconstructed objects known as \textit{jets}.
+        Moving outwards from the inner tracker into the calorimeters,
+            focus shifts from tracks to the reconstructed objects known as \textit{jets}.
         Jets are an attempt to encapsulate the process of scattering within high-Z materials.
         A high energy particle encountering the heavy-metal plates in the calorimeters will be deflected,
             while releasing other particles which travel in different directions.
@@ -216,7 +222,7 @@
             making it challenging to distinguish where one cluster should begin and another should end.
         Historically, a number of different jet algorithms have been used to describe particle showers.
         In ATLAS, the jet algorithm currently in use is the \textit{\antikt} clustering algorithm\cite{anti_kt}.
-        Adoption of \antikt has been motivated by its robust ability to isolate jet boundaries both from each other,
+        Adoption of \antikt has been motivated by its robust ability to isolate jet boundaries both from each other
             and from the surrounding stochastic noise of the detector.
         The \antikt algorithm has a single input parameter ``$\Rparam$'' which roughly corresponds to the $\Delta R$ ``radius''
             of the jets that \antikt should attempt to match to.
@@ -258,7 +264,7 @@
             %are referred to as \textit{EMtopo Jets}. %I still don't really get this, and I'm not sure they're even really used, so imma skip it
 
     \FloatBarrier
-    \section{Flavour Tagging}
+    \section{Flavor Tagging}
         
         There are many kinds of particles and processes that can produce jets.
         One particular kind of jet integral to this analysis is that of b-quark-initiated jets,
@@ -268,11 +274,11 @@
         Distinguishing b-jets from other jet types,
             achieved through the process of \textit{flavor tagging},
             is therefore of paramount importance in this analysis.
-        Flavour Tagging in ATLAS is performed in two stages;
+        Flavor Tagging in ATLAS is performed in two stages;
             first with a set of simple low-level taggers,
             and then with a set of more sophisticated taggers which use the low-level tagger information as inputs.
 
-        TODO: insert table of branching fraction of higgs? Should that go here or elsewhere?
+        TODO: insert table of branching fraction of higgs in theory chapter, reference here
 
         \FloatBarrier
         \subsection{Impact Parameter Taggers}
@@ -281,7 +287,7 @@
             IP2D and IP3D are the two and three-dimensional impact parameter-based taggers.
             They take every track associated with a PFlow Jet,
                 and then use a slightly modified version of the perigee parameters discussed above in order to tag it.
-            Namely, the $d_0$ and $z_0$ parameters are given a positive or negative sign to help better emphasize key characteristics of b-jets\cite{thesis_giacinto}.
+            Namely, the $d_0$ and $z_0$ parameters are given a positive or negative sign to help better emphasize key characteristics of b-jets\cite{thesis_giacinto}:
             \begin{equation} \begin{split}
                 \textrm{sign}_{d0} &= \textrm{sign}(\sin(\phi_{\textrm{jet}} - \phi_{\textrm{track}}) \cdot d_{0,\textrm{track}}) \\
                 \textrm{sign}_{z0} &= \textrm{sign}((\eta_{\textrm{jet}} - \eta_{\textrm{track}}) \cdot z_{0,\textrm{track}})
@@ -289,7 +295,7 @@
             Physically, this sign convention is to distinguish tracks which are likely to have actually been part of the jet (with a positive sign)
                 from those likely originating from pile-up vertices (negative sign).
             [TODO: I'm not sure these equations are actually right. At the very least, I don't understand them, so I'll need to revisit this]
-            See Figure \ref{fig:ip3d_sign} for a graphical illustration of this convention.
+            See Fig. \ref{fig:ip3d_sign} for a graphical illustration of this convention.
 
             \begin{figure}
                 \subfloat[IP3D Negative Sign Convention]{
@@ -326,7 +332,7 @@
             \end{equation}
 
             These distributions are subsequently used as a discriminant to distinguish b-jets and charm-jets from light-jets
-                (see Figure \ref{fig:ip3dsig})\cite{thesis_giacinto}. %TODO: is there a non-empirical, like, physics reason for this?
+                (see Fig. \ref{fig:ip3dsig})\cite{thesis_giacinto}. %TODO: is there a non-empirical, like, physics reason for this?
 
             \begin{figure}
                 \subfloat[IP3D-$d_0$, 2016]{

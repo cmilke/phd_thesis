@@ -103,7 +103,7 @@
         which I hypothesize emits radiation at a rate of once per minute.
     After one hour, I would expect on average 60 events.
     Running the experiment, I find that 68 events were detected.
-    Plotting the Poisson distribution for $P(n|60)$ (Figure \ref{fig:poisson_toy_sig:pdf}),
+    Plotting the Poisson distribution for $P(n|60)$ (Fig. \ref{fig:poisson_toy_sig:pdf}),
         I can see how likely an observation of 68 events is.
     \begin{figure}
         \centering
@@ -133,7 +133,7 @@
     \begin{equation}
         \textrm{p-value}(n=68) = P(68|60) + P(69|60) + P(70|60) ... P(\infty|60) = \sum\limits_{m=n}^\infty P(m|60)
     \end{equation}
-    This is best visualized using the \textit{cumulative} probability distribution function (Figure \ref{fig:poisson_toy_sig:Cpdf}).
+    This is best visualized using the \textit{cumulative} probability distribution function (Fig. \ref{fig:poisson_toy_sig:Cpdf}).
     In this example, the p-value would be 0.17.
     A typical standard for many statistical tests, and the one used in this analysis,
         is to establish a ``Confidence Level'' (CL) in the results of an experiment at a level of 95\%. 
@@ -167,7 +167,7 @@
         (often called the ``null hypothesis,'' $H_0$)\cite{Barlow:2019svl}.
     The total yields of the data, Background estimate, and SM signal hypothesis are provided in Table \ref{tab:event_yield},
         and their PDF and cumulative PDF can be seen in
-        Figures \ref{fig:poisson_sig:pdf} and \ref{fig:poisson_sig:Cpdf}.
+        Fig. \ref{fig:poisson_sig:pdf} and \ref{fig:poisson_sig:Cpdf}.
 
     \begin{table}[tbh]
        \begin{center}
@@ -465,7 +465,7 @@
     This result suggests a much more useful way of performing these tests.
     For each signal hypothesis, a series of increasing values of $\mu$ can be tested against the observed data,
         each with their own CL value.
-    A series of such tests can be seen in Figure \ref{fig:mu_CL_vals}.
+    A series of such tests can be seen in Fig. \ref{fig:mu_CL_vals}.
 
     \begin{figure}
         \centering
@@ -496,11 +496,11 @@
     \end{figure}
 
     \FloatBarrier
-    The critical value for each of the plots in Figure \ref{fig:mu_CL_vals} is the 95\% CL $\mu$.
+    The critical value for each of the plots in Fig. \ref{fig:mu_CL_vals} is the 95\% CL $\mu$.
     A more general plot can be created from this by showing the CL=95\% $\mu$
         exclusion value as a function of the coupling value $\kvv$.
     Utilizing the signal model linear combination equation from Section \ref{sec:signal_combination},
-        the signal hypothesis for any value of \kvv can be tested, producing Figure \ref{fig:kvv_SM_scan}.
+        the signal hypothesis for any value of \kvv can be tested, producing Fig. \ref{fig:kvv_SM_scan}.
 
     \begin{figure}
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/k2v_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_1-0_xsec.png}
@@ -517,7 +517,7 @@
     Yet, there is still more to discuss.
 
     The signal combination formula is able to produce a signal hypothesis with multiple coupling values adjusted at once,
-        and so a wide range of \kvv scan plots can be produced, as seen in Figure \ref{fig:kvv_multi_kl}
+        and so a wide range of \kvv scan plots can be produced, as seen in Fig. \ref{fig:kvv_multi_kl}
 
     \begin{figure}
         \centering
@@ -549,7 +549,7 @@
     \FloatBarrier
     This abundance of parameter space can be collapsed by taking special note only of
         the individual points at which the theoretical cross-section and observed 95\% CL cross-section intersect,
-        as these points indicate where the regions of exclusion lie (Figure \ref{fig:kvv_kl_2Dscan}).
+        as these points indicate where the regions of exclusion lie (Fig. \ref{fig:kvv_kl_2Dscan}).
 
     \begin{figure}
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v1_exclusion}
@@ -563,7 +563,7 @@
 
     Finally, by utilizing the full dimensionality afforded by the 6-term signal combination equation,
         such scan plots can be produced across multiple slices of \kv.
-    \kv is already highly constrained, and Figure \ref{fig:kvv_kl_multislice}
+    \kv is already highly constrained, and Fig. \ref{fig:kvv_kl_multislice}
         reveals that within the established bounds on \kv,
         the constraints on \kl and \kvv differ by very little.
 

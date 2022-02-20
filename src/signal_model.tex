@@ -13,7 +13,7 @@
     Unfortunately, a direct measurement of the di-Higgs process is unlikely to occur in this study, as will be discussed in Chapter \ref{chapter:results}.
     An additional hypothesis that can be tested however,
         is related to the Higgs Boson coupling constants and their influence on di-Higgs production cross-sections
-        (recall Equation \ref{eq:tree_level_invamp}).
+        (recall Eq. \ref{eq:tree_level_invamp}).
     If the Standard Model is exactly correct, then the various $\kappa$ coupling constants,
         discussed in Section \ref{sec:higgs_boson},
         should all be identically 1.
@@ -89,7 +89,7 @@
 
     The process of combining a few samples in such a way as to model the entire parameter space of coupling constants is based on exploiting the underlying mathematics of the differential cross-section formula.
     By expanding the squared term of the sum of all Feynman diagram contributions,
-        the cross-section can be expressed as a function of its coupling values \cite{ATLAS-CONF-2019-049}, as shown in Equation \ref{eq:tree_level_invamp}.
+        the cross-section can be expressed as a function of its coupling values \cite{ATLAS-CONF-2019-049}, as shown in Eq. \ref{eq:tree_level_invamp}.
     Rewriting the expression again in terms of the cross-section as a function of the observable \mhh:
 
     \begin{equation} \begin{split} \label{eq:tree_level_invamp_simple}
@@ -125,7 +125,7 @@
 
     In theory, with infinite events, the only requirement for these samples is that they are linearly independent of each other.
     In practice, the final samples are statistically limited, and different combinations of variations yield different statistical power.
-    The 6-sample combination used in this analysis (Table \ref{tab:vbf_hh_6term_varlist} and Equation \ref{eqn:vbf_hh_6term_chosen}) has been chosen specifically for its ability to avoid mis-modeling errors.
+    The 6-sample combination used in this analysis (Table \ref{tab:vbf_hh_6term_varlist} and Eq. \ref{eqn:vbf_hh_6term_chosen}) has been chosen specifically for its ability to avoid mis-modeling errors.
 
     {\footnotesize \begin{equation}
     \label{eqn:vbf_hh_6term_chosen}
@@ -160,7 +160,7 @@
 
     Ultimately however, the final arbiter of a well constructed basis is that it produces observable distributions comparable to what would be produced through direct MC generation.
     A number of validation tests are thus performed, comparing the distributions from the combination to an already existing MC sample.
-    Displayed in Figure \ref{fig:vbf_hh_6term_validation}, the combination shows strong agreement with the MC sample.
+    Displayed in Fig. \ref{fig:vbf_hh_6term_validation}, the combination shows strong agreement with the MC sample.
 
     \begin{figure}[tbh]
         \subfloat[Validation \kv = 1.5]{
@@ -245,7 +245,7 @@
     There are 924 ways to choose 6 samples from 12, and of those 619 produce linearly solvable systems of equations.
     Of the 619, only 250 include the Standard Model MC sample.
     None of these 250 combination bases produced stable signal models across the $\kappa$-coupling space.
-    The performance of the two bases with the overall fewest number of negative bin weights is shown in Figures \ref{fig:mcnWeight_old} and \ref{fig:mcpreviews_old}.
+    The performance of the two bases with the overall fewest number of negative bin weights is shown in Fig. \ref{fig:mcnWeight_old} and \ref{fig:mcpreviews_old}.
 
     \begin{figure}[tbh]
     	\centering
@@ -280,7 +280,7 @@
     As such, I developed a novel optimization metric which could predict the performance of a particular basis,
         without the need for any MC production.
     My hypothesis for the behavior of the sample combinations is that the regions of the coupling space which perform poorly
-        (e.g.\ the top left corners of Figure \ref{fig:mcnWeight_old}),
+        (e.g.\ the top left corners of Fig. \ref{fig:mcnWeight_old}),
         do so because one or two of the samples is disproportionately represented in the combination compared to the others.
     The formula for the combination of the samples amounts to weighting each sample's yield by a coupling-dependent coefficient,
         and then adding these weighted yields together to obtain the combined yield.
@@ -340,10 +340,10 @@
         \label{fig:solidarity_heatmaps}
     \end{figure}
 
-    The map of Solidarity (Figure \ref{fig:solidarity_heatmaps}) shows a strong relationship with the prevalence of negative-weighted bins,
+    The map of Solidarity (Fig. \ref{fig:solidarity_heatmaps}) shows a strong relationship with the prevalence of negative-weighted bins,
         despite the Solidarity heatmap being calculated without the use of any MC simulation samples.
     Using the surface integral of the heatmap as was done for the negative-weight map allows a similar metric to be given to a basis as a whole.
-    Comparing this Theoretical Solidarity Integral to the corresponding Negative Weight Integral (Figure \ref{fig:nWeight_solidarity_scatter})
+    Comparing this Theoretical Solidarity Integral to the corresponding Negative Weight Integral (Fig. \ref{fig:nWeight_solidarity_scatter})
         shows a very strong correlation between the two,
         which can be exploited to predict useful sample bases before generating any MC samples.
 
@@ -367,7 +367,7 @@
     Figure \ref{fig:nWeight_solidarity_scatter} was generated using all 1307 linearly independent bases of combining 6 of the 13 available MC samples.
     Due to the strong correlation between negative-weighted bins and solidarity,
         a histogram of only the Theoretical Solidarity Surface Integral
-        (basically just the x-axis of Figure \ref{fig:nWeight_solidarity_scatter})
+        (basically just the x-axis of Fig. \ref{fig:nWeight_solidarity_scatter})
         can be used to determine the overall potential performance a set of MC samples might have.
     In order to determine which MC sample should be produced to work most effectively with the already existing 12 samples,
         I constructed such Solidarity Surface Integral histograms for a wide range of possible new samples.
@@ -383,7 +383,7 @@
         \subfloat[All Tested ``13th'' Variation Possibilities]{
             \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/projective_solidarity_all}
         }
-        \subfloat[Close-up of the top of Figure (a)]{
+        \subfloat[Close-up of the top of Fig. (a)]{
             \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{signal/projective_solidarity_dump}
         }
         \caption{
@@ -394,12 +394,12 @@
         \label{fig:solidarity_dump}
     \end{figure}
 
-    Aligning all of these histograms together as in Figure \ref{fig:solidarity_dump}
+    Aligning all of these histograms together as in Fig. \ref{fig:solidarity_dump}
         produces a clear method of distinguishing samples that 
         could produce high stability combinations with the existing 12 samples.
     The aggregate sum of all Solidarity surface integrals associated with a new sample
         can evidently be used as a scalar metric by which to rank different prospective coupling points.
-    The culmination of these tests is Figure \ref{fig:solidarity_performance_map}
+    The culmination of these tests is Fig. \ref{fig:solidarity_performance_map}
 
     \begin{figure}[tbh]
         \subfloat[\kv = 1]{
@@ -420,7 +420,7 @@
         \label{fig:solidarity_performance_map}
     \end{figure}
 
-    Using Figure \ref{fig:solidarity_performance_map} as a guide,
+    Using Fig. \ref{fig:solidarity_performance_map} as a guide,
         a number of points (mostly those corresponding to the highest aggregate performance values, $\approx 5.5$)
         were selected for limited simulation at truth level.
     Based on the preliminary stability shown by these truth level simulations,
