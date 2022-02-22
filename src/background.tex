@@ -1,26 +1,33 @@
-\chapter{Background Estimate} \label{chapter:background}
+\chapter{Background Estimation} \label{chapter:background}
 
+\FloatBarrier
 \section{Data-Driven Background Estimate}
 
-    Selection does not remove all non-signal events.
-    Indeed, most of the events remaining in the data are very likely background.
+    The basic event selection does not remove all non-signal events.
+    Indeed, based on the relative rates of QCD multijet events and the SM \vbfhhproc (see Table \ref{tab:mcyields})),
+        most of the events remaining in the data are very likely background.
+    [TODO: steve, why is it so hard to find anything that actually states what the rough event yield for multijet is?
+        Every single paper I've found just states as fact, without any citation, that multijet events are this overwhelming background,
+        without ever quantifying the statement D:< ]
     Since these background events cannot be effectively differentiated from signal data,
         a technique must be used to estimate how much of the observed data is coming from background.
     Specifically, the analysis employs a method to predict the kinematic shape (in \mhh)
         of the background events within the 4b Signal Region,
         without directly observing that set of events.
 
-    For the \vbfproc process, the background consists almost entirely of QCD jet events.
+    For the \vbfproc process, the background consists mostly of QCD multijet events,
+        with a smaller portion of \ttbar events.
     The usual approach of simulating the background using Monte-Carlo techniques is not feasible,
-        as such simulations are inaccurate when trying to model such complex, many-jet processes. [TODO: is this the actual reason?]
-    Instead, the yield from background in the SR data is predicted based on the background yield in different subsets of the data.
+        as such simulations are inaccurate when trying to model such complex many-jet processes,
+        and take far too long to generate at the necessary scale.
+    Instead, the yield from background in the SR data is predicted based on the background yield in the Control Regions of the data.
         
     The fundamental assumption for this data-driven background estimate
         is that background events with only two b-tagged jets (2b data)
         will have kinematics very similar to the background events with 4 b-tagged (4b) jets.
     Thus, the kinematic distribution of the 2b signal region can be used as an estimate of the background in the 4b signal region.
-    Unfortunately, the kinematics of the 2b and 4b data are not expected to match completely,
-        so the 2b signal data must undergo a "reweighting" process,
+    Unfortunately, observation of the Control Regions shows that the kinematics of the 2b and 4b data are not expected to match completely.
+    As such, the 2b signal data must undergo a ``reweighting'' process,
         which adjusts the kinematic distribution to match that of 4b.
     This reweighting takes the form of a function $R$,
         which for each event $i$ takes a series of kinematic variables $x_i$ as an argument,
@@ -29,6 +36,7 @@
     Deriving this function, and determining the appropriate inputs for it,
         are the challenges addressed in the following sections.
 
+\FloatBarrier
 \section{Neural Network Training and Uncertainty} \label{sec:nn_training}
 
     The reweighting function is derived using machine learning techniques.
@@ -43,7 +51,7 @@
     % That same "a" is then applied when going from 2b SR to 4b SR
     % Key point being that we are not artificially forcing the 
     % 4b SR background yield to match the 4b SR data yield.
-    So for $N$ total 2b events and $N'$ total 4b events:
+    So for $N$ total 2b events and $N'$ total 4b events, a normalization factor $\alpha_j$ is set such that:
         \begin{equation}
         \sum_{i=1}^{N} \alpha_j w_{ij} = N'
         \end{equation}
@@ -56,26 +64,36 @@
 
     \begin{figure}[!htbp]
         \subfloat[Data before reweighting]{
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/NR-MAY21-crypto-m_hh-control-no_rw-allyr-3b1f-dEtahhcat_inclusive}
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]
+                {background/crypto-mean-stdBS-m-hh-Control-Region-1-no-rw-all-4binclusive}
         }
         \subfloat[Data after reweighting]{
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/NR-MAY21-crypto-m_hh-control-NN-allyr-3b1f-dEtahhcat_inclusive}
+            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]
+                {background/crypto-mean-stdBS-m-hh-Control-Region-1-NN-all-4binclusive}
         }
         \caption{
             The \mhh kinematic distribution of the 2b VS 4b regions, before and after reweighting the 2b region.
-            [TODO: update these plots and ditch the 3b1f stuff for 4b CR1]
         }
         \label{fig:data_mhh_reweight}
     \end{figure}
 
-    The problem with this training approach, is that the 4b signal region cannot be used in the training.
+    The problem with this training approach is that the 4b signal region cannot be used in the training.
     Instead, the neural networks are trained using the CR1 data,
-        and are optimized to reweight the 2b CR data to resemble the 4b CR data.
+        and are optimized to reweight the 2b CR1 data to resemble the 4b CR1 data.
     Because the reweighting function is trained on a different kinematic region than the signal region,
-        a systematic uncertainty is associated with it.
+        there is a potential systematic uncertainty that must be assessed.
     This is calculated by training a different ensemble of NNs on Control Region 2
-    % TODO insert picture of signal quad regions
-    As seen in Fig. TODO, the signal region is split into four quadrants,
+
+    \begin{figure}[tbh]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/quadNP_viz}
+        \caption{
+            The Signal Region quadrant splitting used for calculating systematic uncertainties on the background estimate.
+            The angles of the split are set to match the angle found in Fig. \ref{fig:region_definition}.
+        }
+        \label{fig:sig_quads}
+    \end{figure}
+
+    As seen in Fig. \ref{fig:sig_quads}, the signal region is split into four quadrants,
         with the divisions angled to match those of CR1 and CR2
     The nominal reweighting is performed using the entire signal region,
         with the events binned by their \mhh value to form a nominal histogram.
@@ -87,61 +105,91 @@
     A bin-by-bin (absolute) difference between the nominal histogram and each of the alternate histograms 
         is then used to produce the four systematic ``shape'' uncertainties.
 
+    \begin{figure}[tbh]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/spider-VBF-stdev-Xhh45-m-hh-control-all-4b}
+        \caption{
+            A diagram illustrating the bootstrap uncertainty for the background estimation neural network.
+            The thin grey lines each correspond to the \mhh histogram of one of the 100 bootstrap networks.
+            Each of their bins is expressed here as a ratio of their collective average (the dashed line).
+            The standard deviation at each bin is then shown with the red lines,
+                which can be seen to do a good job at capturing the overall behaviour
+                of the individual bootstraps' deviations from the average.
+        }
+        \label{fig:spider}
+    \end{figure}
+
     In addition to the systematic shape uncertainty,
         an additional statistical ``bootstrap'' uncertainty is calculated to account for the variation of the bootstrap neural networks.
     This uncertainty is calculated by producing an \mhh histogram for each of the 100 bootstrap NNs.
     The standard deviation of each bin across all 100 bootstrap histograms is calculated,
-        and then assigned as a statistical error for that bin of the nominal histogram.
+        and then assigned as a statistical error for that bin of the nominal histogram (see Fig. \ref{fig:spider}).
 
 
+\FloatBarrier
 \section{VBF Background Reweighting Variables} \label{sec:vbf_bgdNNRW}
 
     The Neural Network used to reweight the 2b-Tagged CR1 data into the 4b Signal region
         uses a different set of variables when trained for the VBF process than it does for ggF.
     This list of variables was selected through two correlation tests,
         the first of which was determining how strongly correlated different variables are to \mhh
-        (Fig. \ref{fig:mhh_corr}).
+        (Figs. \ref{fig:mhh_corrLT1.5} and \ref{fig:mhh_corrGT1.5}).
 
-    \begin{figure}[!htbp]
-        \subfloat[$\deta \leq 1.5$]{
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-LTE1p5_hist_m_hh.pdf}
-        }
-        \subfloat[$\deta > 1.5$]{
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-GT1p5_hist_m_hh.pdf}
-        }
+    \begin{sidewaysfigure}[tbh]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-LTE1p5_hist_m_hh}
         \caption{
-            The Pearson Correlation Coefficients associated with \mhh for the 2b CR1 data.
-            The regions in which $\deta \leq 1.5$ and $\deta>1.5$ are separately displayed.
+        }
+        \label{fig:mhh_corrLT1.5}
+            The Pearson Correlation Coefficients associated with \mhh for the 2b CR1 data,
+                with $\deta \leq 1.5$.
             The higher up on the chart a variable is, the more strongly correlated it is to \mhh,
                 with \mhh itself at the top with a coefficient of 1.
-            Note that most of the VBF-specific variables, such as vbf\_mjj, are very poorly correlated to \mhh and thus not proffered.
+            Note that most of the VBF-specific variables, such as vbf\_mjj, are very poorly correlated to \mhh and thus not preferred.
+    \end{sidewaysfigure}
+
+    \begin{sidewaysfigure}[tbh]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-GT1p5_hist_m_hh}
+        \caption{
         }
-        \label{fig:mhh_corr}
-    \end{figure}
+        \label{fig:mhh_corrGT1.5}
+            The Pearson Correlation Coefficients associated with \mhh for the 2b CR1 data,
+                with $\deta > 1.5$.
+            The higher up on the chart a variable is, the more strongly correlated it is to \mhh,
+                with \mhh itself at the top with a coefficient of 1.
+            Note that most of the VBF-specific variables, such as vbf\_mjj, are very poorly correlated to \mhh and thus not preferred.
+    \end{sidewaysfigure}
 
     Based on their high correlation to \mhh in both \deta regions, 23 variables were then selected for further study.
     These 23 variables were plotted against each other in a correlation matrix,
         which displayed how strongly correlated these variables are to each other.
     A final set of seven variables was selected based (Table \ref{tab:vbf_NNRW_vars}) on which variables were \textit{least} correlated to each other,
-        in order to avoid variables carrying redundant information (Fig. \ref{fig:vbf_corr_matrix}).
+        in order to avoid variables carrying redundant information (Figs. \ref{fig:vbf_corr_matrix_LT1.5} and \ref{fig:vbf_corr_matrix_GT1.5}).
 
-    \begin{figure}[!htbp]
-        \subfloat[$\deta \leq 1.5$]{
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-LTE1p5_matrix.pdf}
-        }
-        \subfloat[$\deta > 1.5$]{
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-GT1p5_matrix.pdf}
-        }
+    \begin{figure}[tbh]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-LTE1p5_matrix}
         \caption{
-            The Pearson Correlation Coefficients matrix associated with variables in the 2b Control Region data.
-            The regions in which $\deta \leq 1.5$ and $\deta>1.5$ are separately displayed.
+            The Pearson Correlation Coefficients matrix associated with variables in the 2b Control Region data,
+                with $\deta \leq 1.5$.
             Bins with more saturated (i.e.\ more blue or more red) colors indicate strong correlation between those two variables.
             All variables are of course 100\% correlated to themselves, hence the deep red line running down the diagonal.
             The most highly preferred variables are those with correlation coefficients near 0 for as many other variables as possible.
             If a variable (i.e.\ m\_max\_dj) is selected, any other variables with strong correlations to it (i.e.\ pT\_h2)
                 are then strongly disfavored for later selection.
         }
-        \label{fig:vbf_corr_matrix}
+        \label{fig:vbf_corr_matrix_LT1.5}
+    \end{figure}
+
+    \begin{figure}[tbh]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-GT1p5_matrix}
+        \caption{
+            The Pearson Correlation Coefficients matrix associated with variables in the 2b Control Region data,
+                with $\deta > 1.5$.
+            Bins with more saturated (i.e.\ more blue or more red) colors indicate strong correlation between those two variables.
+            All variables are of course 100\% correlated to themselves, hence the deep red line running down the diagonal.
+            The most highly preferred variables are those with correlation coefficients near 0 for as many other variables as possible.
+            If a variable (i.e.\ m\_max\_dj) is selected, any other variables with strong correlations to it (i.e.\ pT\_h2)
+                are then strongly disfavored for later selection.
+        }
+        \label{fig:vbf_corr_matrix_GT1.5}
     \end{figure}
 
 
@@ -176,7 +224,7 @@
             This changes depending on the Higgs pairing algorithm used. \\
             &&The current algorithm used is minDR. \\
             &&With four jets, there are three possible pairings of the jets. \\
-            &&The pairings are ranked by the $\Delta_R$ of the leading-$p_T$ Higgs candidate. \\
-            &&Pairing Score 2 is the $\Delta-R$ of the second-smallest of these pairings. \\
+            &&The pairings are ranked by the $\Delta R$ of the leading-$p_T$ Higgs candidate. \\
+            &&Pairing Score 2 is the $\Delta R$ of the second-smallest of these pairings. \\
         \hline
     \end{tabular} \end{table}
