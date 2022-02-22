@@ -2,8 +2,8 @@
 
 \section{Introduction}
 
-    Run in parallel with the process of reconstruction, is that of event selection.
-    As discussed earlier in Chapter \ref{chapter:trigger},
+    Run in parallel with the process of reconstruction is that of event selection.
+    As discussed earlier in Chapter \ref{chapter:data},
         there are far too many events in ATLAS to record and analyze them all.
     Thus, a series of selection algorithms are used to veto the abundance of background events.
     Unfortunately, these selection algorithms are not perfect,
@@ -37,7 +37,7 @@
         the two initial-scatter (IS) light-quark jets, plus the 4 b-jets from the Higgs decay.
     All six of these jets will carry significant energy and transverse momentum.
     A hallmark of the VBF process is the wide opening angle and high invariant mass between the IS jets.
-    Such a jet pattern stands out dramatically from most of the stochastic background noise,
+    Such a jet pattern stands out dramatically from most of the stochastic background noise
         and is one of the main advantages of the VBF process.
     Additionally, while the four b-jets of the Higgs are not exclusively produced in the low-$\eta$ regions,
         so many high-$p_T$ b-jets orthogonal to the beamline is rare for background events,
@@ -55,7 +55,7 @@
     \FloatBarrier
     \section{Triggers}
         
-        The first stage of the Selection process largely occurs before reconstruction has even begun,
+        The first stage of the selection process largely occurs before reconstruction has even begun,
             in the L1, HLT, and Offline ATLAS Triggers.
         Table \ref{tab:nr-triggers-used} lists the trigger chains used in this analysis.
         An event from ATLAS is incorporated into the data used as long as it passes at least one 
@@ -69,16 +69,18 @@
         HLT\_j110\_gsc150\_boffperf\_split\_2j45\_gsc55\_bmv2c1070\_split\_L1J85\_3J30:
         \begin{itemize}
             \item HLT: Most of the following requirements are based in the High Level Trigger
-            \item j110: Requires one 110 GeV jet
-            \item gsc150: Cut on jet $p_T \geq 150$ GeV after Global Sequential Calibration (GSC) algorithm is applied
-            \item boffperf: b-jet Offline Performance algorithm
-            \item split: Using ``Split'' track reconstruction algorithm
-            \item 2j45: Find 2 jets with $p_T$ of at least 45 GeV
-            \item gsc55: Cut on jet $p_T \geq 55$ GeV after GSC algorithm is applied
+            \item j110: Requires at least one jet with energy greater than 110 GeV
+            \item gsc150: Requires at least one jet with $p_T \geq 150$ GeV after Global Sequential Calibration (GSC) algorithm is applied
+            \item boffperf: The b-jet Offline Performance algorithm has been run on all jets for this event,
+                with its results stored, though no cut is applied at this stage
+            \item split: Using ``Split Jets'', which [I can't read what you wrote :/]
+            \item 2j45: Requires at least two jets with $p_T$ of at least 45 GeV
+            \item gsc55: Cut on jet $p_T \geq 55$ GeV after jet calibration is applied
             \item bmv2c1070: passes b-jet MV2c10 algorithm at 70\% efficiency level
             \item split: (as above)
-            \item L1J85: Level 1 Trigger algorithm requiring a cluster with an energy of at least 85 GeV 
-            \item 3J30: Require at least 3 jets with a minimum $p_T$ of 30 GeV
+            \item L1J85: Requires a cluster formed in the Level-1 trigger (recal Section \ref{sec:L1})
+                with energy greater than 85 GeV
+            \item 3J30: Require at least 3 jets with a minimum $p_T$ of 30 GeV at Level-1
         \end{itemize}
         [NOTE: the other reason I need to find a reference is to make sure I've got these right]
 
@@ -96,8 +98,19 @@
 
         Upon completion of the ATLAS-wide trigger selection,
             the appropriate data samples are copied for use by this analysis.
-        The available data still contains a vast excess of background events though,
-            and so this analysis makes an additional series of selection cuts on the fully reconstructed events.
+        However, the available data still contains a vast excess of background events
+            consisting of QCD multijet, \ttbar, and single Higgs process events.
+        A ZZ \to 4b process was also considered for a potential background.
+        MC simulation shows that the ZZ production is highly forward and low-$p_T$,
+            resulting in very low acceptance through the selection criteria described below
+            and thus negligeable as a background \cite{vbf_hh_4b_resonant_2020_int}.
+        Similarly, the yield and acceptance of the single Higgs process, though substantial,
+            was found through MC simulation to be dwarfed by the QCD multijet background\cite{hh4b_2021_int_note}.
+        The only backgrounds that are therefore considered for this analysis are the
+            dominant QCD multijet background and sub-dominant \ttbar background.
+
+        To mitigate the effects from these backgrounds,
+            this analysis makes an additional series of selection cuts on the fully reconstructed events.
         These cuts focus on the topological features discussed earlier,
             selecting events based on their jet multiplicity,
             the VBF jet kinematics,
@@ -105,28 +118,32 @@
 
     \subsection{Jet Multiplicity and Categorization}
         
-        First and foremost is a check to ensure that there are enough jets to even constitute a \vbfproc event.
-        Moreover, the selection is particular about the quality and position of jets it will permit.
+        First and foremost is a check to ensure that there are enough jets to even constitute a \vbfproc event,
+            by emphasizing the quality and location of jets.
         Jets are categorized as ``Central'' if they fall within $|\eta| \leq 2.5$,
             and are ``Forward'' if they are found with $ 2.5 < |\eta| \leq 4.5 $.
         The reason for the distinction between the two is that Central jets fall within the boundaries of the ATLAS tracker system
             (see Section \ref{sec:inner_detector}).
         As the tracking system is necessary for the b-tagging algorithms,
             candidates for the Higgs' decay products are taken exclusively from Central jets.
-        Central jets are only used if they have a $p_T > 40$ GeV, and satisfy at least one of the following three conditions:
-            they pass the JVT algorithm, have $p_T > 60$ GeV, or have $2.4 < |\eta| < 2.5$.
+        To supress jets from pileup vertices, central jets are only used if they have a $p_T > 40$ GeV,
+            and satisfy at least one of the following three conditions:
+            they pass the JVT algorithm\footnote{
+                The Jet-Vertex-Tagger (JVT) algorithm is a pileup vertix suppression discriminant,
+                    derived from the $p_T$ of the jets and its constituent tracks\cite{jvt_algo}.
+            }, have $p_T > 60$ GeV, or have $2.4 < |\eta| < 2.5$.
         [TODO: I'm going to have to justify this wonky set of requirements huh?
             I haven't found a good explanation yet, so I might need to ask somebody
             (our int note just straight up skips these requirements, even though I can see them in the code)]
         Forward jets have less stringent requirements, needing only a $p_T > 30$ GeV.
 
-        After jets have been categorized and selected, an event is only used if there at least six selected jets remaining.
-        Of these, at least four must be Central jets which have been b-tagged by the trigger system.
+        After jets have been categorized and selected, an event is only used if there are at least six selected jets remaining.
+        Of these, at least four must be Central jets which have been b-tagged by the offline DL1r algorithm the 77\% working point.
         From the remaining jets (Central or Forward), there must be at least two \textit{anti}-b-tagged jets
             (i.e.\ jets that were marked as not b-jets).
 
-        The VBF jets are chosen as the pair of anti-b-tagged jets with the largest vector-sum invariant mass ($m_{jj}$) between them,
-            while the Higgs decay jets are chosen as the four highest-pt, b-tagged, Central jets.
+        The VBF jets are chosen as the pair of anti-b-tagged jets with the largest vector-sum invariant mass (\mjj) between them,
+            while the Higgs decay jets are chosen as the four highest-$p_T$, b-tagged, Central jets.
         Any other jets in the event are discarded for the purposes of the rest of the analysis.
         The remaining selection cuts are made on these two categories of jets.
         
@@ -138,7 +155,7 @@
 
         For the VBF jets, the charactistic wide-opening angle and high invariant mass is exploited here.
         The selected VBF pair must have a \deta between them of at least 3,
-            and an mjj of at least 1 TeV.
+            and an \mjj of at least 1 TeV.
         As well, the combined vector-sum-pt of all six jets
             (the four Higgs products and the two VBF jets)
             must be less than 65 GeV.
@@ -159,7 +176,6 @@
             \caption{
                 Significance value (see Chapter \ref{chapter:results})
                     for different cut values on the various VBF selection criteria\cite{vbf_hh_4b_2018_int}.
-                TODO: I might need to replace these (especially the detajj one... that or our current cuts are super wrong).
             }
             \label{fig:vbf_cuts}
         \end{figure}
@@ -173,9 +189,9 @@
         A pairing algorithm called MinDR\cite{hh4b_2021_int_note}
             is used to determine which b-quarks should be paired to each other.
         MinDR operates under the assumption that the decay products of the Higgs boson
-            should be relatively close to each other in angular space, maintaining the Higgs' high $p_T$.
+            should be relatively close to each other in angular space, consistent with the Higgs' high $p_T$.
         With four jets, which need to be split into two pairs, there are three ways to choose the pairings.
-        For each of the three pairing options, MinDR takes the pair with the leading $p_T$ as the ``leading Higgs Candidate''
+        For each of the three unique pairing options, MinDR takes the pair with the leading $p_T$ as the ``leading Higgs Candidate''
         The pairing option which is chosen is that which minimizes the $\Delta R$ between the leading Higgs Candidate decay products
             (see Fig. \ref{fig:minDR_pairing_diagram}).
         The effectiveness of this algorithm has been validated for multiple values of \kvv and \kl,
@@ -184,7 +200,13 @@
         \begin{figure}[tbh]
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/pairing}
             \caption{
-                TODO (minDR picks pair 2 btw)\cite{hh4b_2021_int_note}
+                A diagram showing how the MinDR algorithm functions.
+                For the 4 b-jets, there are three unique pairings.
+                For each pair, the candidate Higgs boson is reconstructed and its $p_T$ recorded.
+                The reconstructed Higgs with the highest $p_T$ of the two is the labeled the Leading Candidate
+                    (the red jets).
+                MinDR will selected the pairing which reduces the $\Delta R$ between the constituent jets
+                    of the leading Higgs candidate pair (which in this example would be pair \#2)\cite{hh4b_2021_int_note}.
             }
             \label{fig:minDR_pairing_diagram}
         \end{figure}
@@ -192,21 +214,32 @@
         \begin{figure}[hbt]
             \centering
             \subfloat[Pairing accuracy vs \kl]{
-                     \includegraphics[width=0.4\textwidth]{selection/pairing_accuracy_kl}
+                     \includegraphics[width=0.5\textwidth]{selection/pairing_accuracy_kl}
                 \label{fig:acc_kl_exists}
             }
             \subfloat[Pairing accuracy vs $\kappa_{2V}$]{
-                     \includegraphics[width=0.4\textwidth]{selection/pairing_accuracy_k2v}
+                     \includegraphics[width=0.5\textwidth]{selection/pairing_accuracy_k2v}
                 \label{fig:acc_k2v_exists}
             }
-            \caption{TODO \cite{hh4b_2021_int_note}}
+            \caption{Accuracy of the MinDR pairing algorithm for different values of \kv and \kvv.
+                Accuracy here is defined as the fraction of events which were paired correctly,
+                compared to all events in which the correct 4 Higgs decay b-jets were given to the algorithm.
+                Worst case accuracy (random guessing) would produce 33\% accuracy,
+                    so even at the algorithm's worst (~50\%),
+                    it still performs much better than random association.
+                The algorithm performs at it worst for $\kl \approx 2$ and $\kvv \approx 1$,
+                    for which the produced Higgs bosons are the softest.
+                For variations of the couplings (especially \kvv),
+                    the pairing accuracy is far better at 95\% \cite{hh4b_2021_int_note}.
+                %If needed, Figure 19 of the note also gives this as a function of mhh
+                }
             \label{fig:HHpairing}
         \end{figure}
                                                                                                          
-        \FloatBarrier
 
 
-    \subsection{Region Definition}
+    \FloatBarrier
+    \subsection{ Region Definition and \ttbar Removal}
         
         There are three ``regions'' which are used for the analysis.
         Control Region 1 and 2 (CR1 and CR2) are used for the Background Estimation (see Chapter \ref{chapter:background}).
@@ -214,35 +247,77 @@
 
         Which region an event falls into is based on the reconstructed masses of the leading and sub-leading Higgs.
         The Signal Region (SR) corresponds to those events for which the reconstructed Higgs masses
-            align closely with the measured value of the Higgs Boson (125 GeV), with additional room provided for error in measurment.
+            align closely with the measured value of the Higgs Boson (125 GeV),
+            with additional room provided for error in the mass measurment.
         CR1 and 2 are adjacent to the SR, designating events with kinematics very similar to the Signal Region,
             but with reconstructed Higgs masses incompatible with experimental measurment (see Fig. \ref{fig:region_definition}).
-        A quantity $X_{HH}$ governs the boundaries of these regions, and is defined as:
+        A quantity $X_{HH}$ governs the boundaries of these regions,
+            which effictively acts as a $\chi^2$ fit on the expected Higgs masses,
+            and is defined as
 
         \begin{equation}
             X_{HH} \equiv \sqrt{\left(\frac{m_{H1} - 124\textrm{GeV}}{0.1 \ m_{H1}}\right)^{2}
-                + \left(\frac{m_{H2} - 117\textrm{GeV}}{0.1 \ m_{H2}}\right)^{2}}
+                + \left(\frac{m_{H2} - 117\textrm{GeV}}{0.1 \ m_{H2}}\right)^{2}}.
             \label{eq:xhh}
         \end{equation}
-        
-        The SR is defined by $X_{hh} < 1.6$,
-            while the CR and VR are set within a ring-like shape between the Signal Region
-            and an outer bondary defined by:
+
+        The \mhh parameters 124 and 117 were chosen to match the center of the \mhh distributions
+            of the leading and subleading reconstructed Higgs bosons for
+            MC simulations of the $\kvv = 0$ signal variation
+            (note the position of the center of Fig. \ref{fig:region_definition}).
+        $X_{hh} < 1.6$ defines the SR,
+            while CR1 and CR2 are set within a ring-like shape between the SR
+            and an outer bondary defined by
         \begin{equation}
             \text{CR\ Outer\ Edge} \quad : \quad \sqrt{ \left(m_{H1} - 1.05 \cdot 124\textrm{GeV}\right)^2
                 +  \left(m_{H2} - 1.05 \cdot 117\textrm{GeV}\right)^2 } = 45\textrm{GeV}
             \label{eq:cr_out}
         \end{equation}
         
-        The split between the CR and VR is based on studies demonstrating that this split results in
+        CR1 and CR2 are divided based on studies demonstrating that this split results in
             close kinematic similarity between the two regions.
-        With the final set of data samples selected and placed into the required subsets, 
-            the process of analyzing the data can begin.
 
         \begin{figure}[tbh]
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/massplane_sig_all_4b_vbf_Xwt_1p5_k2V_0}
             \caption{
-                TODO, We use k2v=0 because we're trying to exclude it.\cite{hh4b_2021_int_note}
+                A 2D histogram of MC signal events (\kvv=0), showing how the analysis regions are defined.
+                The SR is centered on the peak of the 2D distribution and extends out to encompass nearly all events.
+                The Control Regions are defined within a ring around the SR,
+                    with CR1 and 2 split across four quadrants.
+                CR1 is split between the top and bottom quadrants,
+                    while CR2 occupies the left and right quadrants.
+                \cite{hh4b_2021_int_note}
             }
             \label{fig:region_definition}
         \end{figure}
+
+        \FloatBarrier
+        Following the region definition the one step of selection remaining is the Top veto cut, \xwt.
+        \xwt is a discriminating variable constructed in a similar manner to $X_{hh}$,
+            but for the purpose of reducing the \ttbar background.
+        It is produced first by taking all possible pairs of jets with $p_T > 40$ GeV and $|\eta| < 2.5$
+            (regardless of whether they were matched to VBF jets, or b-jets, or neither),
+            and reconstructing a W-boson from that pair.
+        Top quark candidates are formed from any remaining b-jets that were used as Higgs candidates.
+        There are many W-boson candidates, and many Top quark candidates for each possible reconstructed W-boson.
+        For each combination, the reconstructed masses of the W-boson $m_W$ and Top quark $m_t$
+            are used as inputs for the formula
+        \begin{equation}
+            \xwt \equiv \sqrt{\left(\frac{m_W - 80.4\textrm{GeV}}{0.1 \ m_W}\right)^{2}
+                + \left(\frac{m_t - 172.5\textrm{GeV}}{0.1 \ m_t}\right)^{2}}.
+            \label{eq:xwt}
+        \end{equation}
+
+        If any of the pairs is found to have an \xwt value less than 1.5, the event is vetoed. 
+        \ttbar MC has been used to measure the effectiveness of the \xwt cut,
+            and has been found to reduce the yield of this process from
+            12.2\% of the total background contribution to only 8.1\%.
+        Of course, a large number of \ttbar events still remain,
+            as does the much larger contribution from QCD multijet events.
+        The contribution of these remaining background events to the total signal yield
+            must now be estimated.
+        To do this, the analyis has turned to a data-driven approach.
+
+
+
+
