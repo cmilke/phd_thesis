@@ -4,11 +4,11 @@
 \section{Data-Driven Background Estimate}
 
     The basic event selection does not remove all non-signal events.
-    Indeed, based on the relative rates of QCD multijet events and the SM \vbfhhproc (see Table \ref{tab:mcyields})),
+    Indeed, based on the relative rates of QCD multijet events and the SM \vbfhhproc process (see Table \ref{tab:mcyields}),
         most of the events remaining in the data are very likely background.
     [TODO: steve, why is it so hard to find anything that actually states what the rough event yield for multijet is?
         Every single paper I've found just states as fact, without any citation, that multijet events are this overwhelming background,
-        without ever quantifying the statement D:< ]
+        without ever quantifying the statement D:< Got any tips? Or is this just a case of ``try harder''?]
     Since these background events cannot be effectively differentiated from signal data,
         a technique must be used to estimate how much of the observed data is coming from background.
     Specifically, the analysis employs a method to predict the kinematic shape (in \mhh)
@@ -40,17 +40,11 @@
 \section{Neural Network Training and Uncertainty} \label{sec:nn_training}
 
     The reweighting function is derived using machine learning techniques.
-    A neural network (NN) is trained to identify how to reweight 2b data such that the cumalitive kinematic distribution looks like that of 4b data.
+    A neural network (NN) is trained to identify how to reweight 2b data such that the cumulative kinematic distribution looks like that of 4b data.
     In order to improve stability in the reweighting function,
         an ensemble of 100 networks is trained, and the median of their calculations is used (called the ``Nominal Estimate'').
     Each neural network instance $j$ produces a reweighting factor $w_{ij}$, and has a normalization factor $\alpha_j$ associated with it.
     This normalization factor is calculated so the total yield of all 2b reweighted events matches that of the 4b yield in the same region. 
-    % TODO: I need to emphasize that the normalization is set to match the yield of
-    % the region the NN was *trained* in. 
-    % So in going from 2b CR to 4b CR, there is some scaling factor "a"
-    % That same "a" is then applied when going from 2b SR to 4b SR
-    % Key point being that we are not artificially forcing the 
-    % 4b SR background yield to match the 4b SR data yield.
     So for $N$ total 2b events and $N'$ total 4b events, a normalization factor $\alpha_j$ is set such that:
         \begin{equation}
         \sum_{i=1}^{N} \alpha_j w_{ij} = N'
@@ -99,7 +93,7 @@
         with the events binned by their \mhh value to form a nominal histogram.
     Four alternate histograms are then generated from events reweighted using
         \textit{both} the CR1-trained NN and the CR2-trained NN.
-    Specifically, for each of these alternate histrograms,
+    Specifically, for each of these alternate histograms,
         events from three out of the four signal region quadrants will be reweighted using the CR1 NN.
     The events from the fourth quadrant are reweighted via the CR2 NN.
     A bin-by-bin (absolute) difference between the nominal histogram and each of the alternate histograms 
@@ -109,10 +103,10 @@
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/spider-VBF-stdev-Xhh45-m-hh-control-all-4b}
         \caption{
             A diagram illustrating the bootstrap uncertainty for the background estimation neural network.
-            The thin grey lines each correspond to the \mhh histogram of one of the 100 bootstrap networks.
-            Each of their bins is expressed here as a ratio of their collective average (the dashed line).
+            The thin gray lines each correspond to the \mhh histogram of one of the 100 bootstrap networks.
+            Each of their bins is expressed here as a ratio to their collective average (the dashed line).
             The standard deviation at each bin is then shown with the red lines,
-                which can be seen to do a good job at capturing the overall behaviour
+                which can be seen to perform well in expressing the overall behavior
                 of the individual bootstraps' deviations from the average.
         }
         \label{fig:spider}
@@ -133,6 +127,9 @@
     This list of variables was selected through two correlation tests,
         the first of which was determining how strongly correlated different variables are to \mhh
         (Figs. \ref{fig:mhh_corrLT1.5} and \ref{fig:mhh_corrGT1.5}).
+    To measure how strongly related any two variables are I used the Pearson correlation coefficient,
+        which is a scalar metric of how closely the variables follow a linear correlation.
+
 
     \begin{sidewaysfigure}[tbh]
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/correlation_control2b_detahh-LTE1p5_hist_m_hh}
