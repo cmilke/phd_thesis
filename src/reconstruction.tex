@@ -394,24 +394,43 @@
 
 
         \FloatBarrier
-        \subsection{Secondary Vertexing}
+        %\subsection{Secondary Vertexing}
 
-            Secondary Vertexing algorithms take advantage of the fact that b-hadrons are significantly longer lived than light-hadrons,
-                and thus their associated secondary vertices typically have a larger displacement from the primary vertex.
-            In ATLAS, there are two primary algorithms used to perform b-tagging with Secondary Vertexing.
-            Realistically, hadronic matter decays in multiple steps, producing a series of close vertices each emitting more particles.
-            The first of the ATLAS Secondary Vertex algorithms, JetFitter, seeks to reconstruct this full multi-vertex structure of the hadronic decay.
-            In contrast, SV1 (Secondary Vertex 1), works by making an approximation as to how hadronic decays behave.
-            SV1 takes a simpler view of the decay process, and reconstructs all the resulting tracks as products of a single secondary vertex.
-            For both algorithms, several fit parameters are produced from the vertexing,
-                which are then used both as discriminant themselves,
-                as well as utilized in the next step as inputs to the more advanced taggers\cite{btagging_optimisation}.
+        %    Secondary Vertexing algorithms take advantage of the fact that b-hadrons are significantly longer lived than light-hadrons,
+        %        and thus their associated secondary vertices typically have a larger displacement from the primary vertex.
+        %    In ATLAS, there are two primary algorithms used to perform b-tagging with Secondary Vertexing.
+        %    Realistically, hadronic matter decays in multiple steps, producing a series of close vertices each emitting more particles.
+        %    The first of the ATLAS Secondary Vertex algorithms, JetFitter, seeks to reconstruct this full multi-vertex structure of the hadronic decay.
+        %    In contrast, SV1 (Secondary Vertex 1), works by making an approximation as to how hadronic decays behave.
+        %    SV1 takes a simpler view of the decay process, and reconstructs all the resulting tracks as products of a single secondary vertex.
+        %    For both algorithms, several fit parameters are produced from the vertexing,
+        %        which are then used both as discriminant themselves,
+        %        as well as utilized in the next step as inputs to the more advanced taggers\cite{btagging_optimisation}.
 
         \FloatBarrier
-        \subsection{High Level Taggers}
+        \subsection{High Level Taggers and Machine Learning Techniques}
 
             After running all of the low level taggers,
                 the final step in flavor tagging is the use of a pair of high-level machine-learning-based tagging algorithms.
+            In order to understand how these work, it is worth taking a moment to discuss what machine learning algorithms,
+                especially \textit{neural networks}, are and how they operate.
+
+            \begin{figure}[tbh] \center
+                \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/Colored_neural_network}
+                \caption{
+                    A representation of a simple single-layer neural network
+                    [TODO cite https://commons.wikimedia.org/wiki/File:Colored\_neural\_network.svg]
+                }
+                \label{fig:colored_neural_network}
+            \end{figure}
+
+            \cite{MLatLHC}
+
+
+
+
+
+
             There are two high level taggers, both trained and run using inputs from the various low-level taggers discussed earlier.
             MV2, the Multi-Variate tagger, is a boosted decision tree (BDT).
             DL1, the Deep Learning tagger, is a multi-layer neural network.
