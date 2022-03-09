@@ -20,16 +20,26 @@
         and the transition of an electron-positron pair into a muon/anti-muon pair could be written
         as $\Tbraket{\mu \bar{\mu}}{e \bar{e}}$.
 
-    The process used in this thesis to probe the Higgs' $\kappa$ values is that of Vector Boson Fusion (VBF) to two Higgs Bosons.
-    Two incoming quarks, $\ket{q_{i1} q_{i2}}$, form the initial state of this process.
+    The process used in this thesis to probe the Higgs' $\kappa$ values is that of
+        Vector Boson Fusion (VBF) to a di-Higgs pair decaying to 4b (\vbfhhproc).
+    That is, two incoming quarks, $\ket{q_{i1} q_{i2}}$, form the initial state of this process.
     These quarks each emit a vector boson (either $W^{\pm}$ or $Z^0$), 
-        which will in turn fuse into a final state of two Higgs Bosons.
+        which will in turn fuse into an intermediate state of two Higgs Bosons.
     After being deflected by the gluon ejection, the initial quarks then continue on, possibly flavor-changed if they emitted a charged $W$.
-    The final state of this process consists of two Higgs and two deflected quarks, $\bra{h_1 h_2 q_{f1} q_{f2}}$.
+    Meanwhile, the higgs bosons have a very short lifetime and will decay almost immediately into one of a number of possible particles.
+    The likelihood that the Higgs will decay into a given state is given by that state's \textit{branching ratio}.
+    As seen from Table \ref{tab:higgsbranching}, a bottom/anti-bottom quark pair is the most likely decay product of the Higgs,
+        hence its use as the final state in this analysis.
+    The final state of this process consists of two Higgs and the $b \bar{b}$ pairs.
+    However, since the Higgs' coupling to the bottom quark does not probe the couplings of interest in this thesis,
+        for this chapter I want to focus only on the intermediate state
+        consisting of two Higgs and two deflected quarks, $\bra{h_1 h_2 q_{f1} q_{f2}}$.
     I can then write the transition of this process as $\Tbraket{ h_1 h_2 q_{f1} q_{f2}}{q_{i1} q_{i2}}$.
-    It should be noted that there are other intermediate processes besides VBF
-        that could produce these same initial and final states, 
-        but these will not be considered in this analysis.
+    %It should be noted that while there are other intermediate processes besides VBF
+    %    that could produce these same initial and final states, 
+    %    but these will not be considered in this analysis.
+
+    \input{tables/theory/higgsbranching.tex}
 
     In principle, this transition process can take an indeterminate period of time.
     In the realm of high energy physics experiments though,

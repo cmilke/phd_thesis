@@ -107,7 +107,7 @@
             This trajectory can be reconstructed by effectively playing connect-the-dots.
 
             %Clusterization
-            The first step in reconstructing a track is to determine where the dots to connect actually are, 
+            The first step in reconstructing a track is to determine the points at which a track traversed detector elements,
                 a process called ``clusterization''\cite{atlas_track_reco_performance}.
             Ionizing particles often deposit energy across several adjacent pixels on a given layer.
             A \textit{connected component analysis} algorithm\cite{connected_component_analysis}
@@ -190,19 +190,41 @@
     \FloatBarrier
     \section{Jets}
 
-        \subsection{Jet Definition}
+        \subsection{Cell Clustering}
 
-        Moving outwards from the inner tracker into the calorimeters,
-            focus shifts from tracks to the reconstructed objects known as \textit{jets}.
-        Jets are an attempt to encapsulate the process of scattering within high-Z materials.
-        A high energy particle encountering the heavy-metal plates in the calorimeters will be deflected,
-            while releasing other particles which travel in different directions.
-        All these new particles will produce similar reactions, until the various particles posses too little energy to cause further scattering.
-        The overall effect appears as a roughly cone-shaped shower of particles,
-            whose ``tip'' is located somewhere near the interaction vertex.
-        This cone has an associated vector corresponding to the direction the cone opens out at.
-        Due to conservation of momentum, the momentum vector of the original particle will be roughly equal to the jet vector,
-            since the total momentum of the various scattered particles must sum back to the momentum of the initial particle.
+        Moving beyond the inner tracker and extending into the calorimeters,
+            focus shifts from tracks to the objects known as ``jets.''
+        Jets are an algorithm meant to associate related reconstructed objects in the detector elements
+            in order to produce a more comprehensive representation of the physical behaviour of the particles traversing those elements.
+        Jet reconstruction encompasses all elements of ATLAS,
+            but they begin in the calorimeter system in the form of topological clusters.
+
+        Just as the inner trackers suffer from pile-up vertices that must be filtered,
+            so too do the calorimeters suffer from pile-up tracks and electronic noise.
+        Topo-clusters are the reconstructed structure meant to address the issue of noise in the calorimeters
+            by emphasizing regions with a high energy to noise ratio.
+        As such, cell clustering is based on a ``signal-significance'' metric,
+        \begin{equation}
+            \xi^{\textrm{EM}}_{\textrm{cell}} \equiv \frac{
+                E^{\textrm{EM}}_{\textrm{cell}} }{
+                \sigma^{\textrm{EM}}_{\textrm{noise, cell}} }
+        \end{equation} ,
+            where $E^{\textrm{EM}}_{\textrm{cell}}$ is the energy of an individual cell calibrated to the electromagnetic scale.
+        $\sigma^{\textrm{EM}}_{\textrm{noise, cell}}$ is the noise factor of that cell, calculated for that particular LHC run.
+
+        Clusters start as seeds consisting of just a single high significance cell,
+            and then follow a collection algorithm described in \cite{cell_clustering} to aggregate nearby cells.
+        This collection is performed in three-dimensions, so topo-clusters can occupy multiple layers of a calorimeter.
+        The result of the collection algorithm is a ``proto-cluster''.
+        Proto-clusters themselves can often be too large to permit analysis of the particles that formed them,
+            hence the final step of ``splitting'' them.
+        Local signal-significance maxima are identified within the proto-clusters,
+            and the collected cells are split between those maxima via another algorithm
+            which weights cells per their energy and distance from the local maxima.
+        Topo-clusters are the final product of splitting.
+        By themselves, topo-clusters do not necessarily correspond to any physical process,
+            as they are not intended to capture the entire response of a particle.
+        Representing the full detector response to a particle is the role of jets.
 
         \begin{figure}[tbh]
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/ATLAS_Detector_Schematic_black_particles}
@@ -212,12 +234,22 @@
             \label{fig:atlas_shower}
         \end{figure}
 
-        Though jets are meant to represent a physical phenomenon,
-            it should be emphasized that jets themselves \textit{are not physical objects}.
-        Rather, jets are an algorithm.
-        Specifically, jets are an algorithm used to cluster different cells in a calorimeter together,
-            based on the energy deposited in each cell.
-        The general goal is to have each complete ``topological cluster'' (topo-cluster) correspond to one particle.
+
+        \subsection{Jet Definition}
+            
+        Jets are a somewhat nebulous concept in particle physics.
+        They are used represent a range of physical phenomenon,
+            from scattering within calorimeters to the process of hadronic showering.
+        %Jets are an attempt to encapsulate the process of scattering within high-Z materials.
+        %A high energy particle encountering the heavy-metal plates in the calorimeters will be deflected,
+        %    while releasing other particles which travel in different directions.
+        %All these new particles will produce similar reactions, until the various particles posses too little energy to cause further scattering.
+        %The overall effect appears as a roughly cone-shaped shower of particles,
+        %    whose ``tip'' is located somewhere near the interaction vertex.
+        %This cone has an associated vector corresponding to the direction the cone opens out at.
+        %Due to conservation of momentum, the momentum vector of the original particle will be roughly equal to the jet vector,
+        %    since the total momentum of the various scattered particles must sum back to the momentum of the initial particle.
+        The general goal is to have each jet correspond to one particle.
         In practice however, particles frequently overlap in their energy deposition,
             making it challenging to distinguish where one cluster should begin and another should end.
         Historically, a number of different jet algorithms have been used to describe particle showers.
@@ -236,7 +268,7 @@
         \FloatBarrier
         \subsection{Jet Calibration}
 
-        Once topo-clusters have been formed, their energy and momentum must be calibrated.
+        Once jets have been formed, their energy and momentum must be calibrated.
         As discussed in Section \ref{sec:calorimeter}, the ATLAS calorimeters are sampling calorimeters.
         This means that the bulk of energy deposited is lost in inactive material and not read out.
         Additional energy losses are incurred from inefficiencies in the clustering algorithm and from the \textit{non-compensating} nature of ATLAS calorimeters.
@@ -253,10 +285,14 @@
         Thus, the momentum vectors associated with the jets and their topo-clusters are adjusted to point away from the PV.
 
         The final step in the jet reconstruction process is the track-matching algorithm.
-        To improve the performance of reconstructing hadronic jets
-            the various jet vectors are each matched to a corresponding track that the jet likely started from.
-        This algorithm, called \textit{Particle Flow}, treats the jets as extensions of the reconstructed particles,
-            matching jets to tracks based on both location and energy projections.
+        To improve the performance of reconstructing jet energy,
+            track momentum is used to replace the measured energy of topo-clusters in jets where possible.
+        This is done via an algorithm called \textit{Particle Flow},
+            which first identifies tracks which can be associated with a jet.
+        Particle Flow then attempts to match these associated tracks to individual topo-clusters.
+        If such a match can be made, the energy of the topo-cluster is replaced with the reconstructed momentum of the matched track.
+        This is done because track momentum can be more reliably measured in ATLAS than cluster energy,
+            and with such relativistic particles their momentum is effectively equivalent to their energy.
         The resulting jet-track combination objects are known as \textit{PFlow Jets},
             which are then used for the rest of the reconstruction process\cite{pflow}.
 
@@ -270,7 +306,7 @@
         One particular kind of jet integral to this analysis is that of b-quark-initiated jets,
             more simply known as b-jets.
         B-jets are important because, of all the particles the Higgs can decay to,
-            its branching ratio to a $\bbar$ pair is highest.
+            its branching ratio to a $\bbar$ pair is highest (Table \ref{tab:higgsbranching}.
         Distinguishing b-jets from other jet types,
             achieved through the process of \textit{flavor tagging},
             is therefore of paramount importance in this analysis.
@@ -278,7 +314,6 @@
             first with a set of simple low-level taggers,
             and then with a set of more sophisticated taggers which use the low-level tagger information as inputs.
 
-        TODO: insert table of branching fraction of higgs in theory chapter, reference here
 
         \FloatBarrier
         \subsection{Impact Parameter Taggers}
