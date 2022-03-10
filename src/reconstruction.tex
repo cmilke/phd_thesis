@@ -411,35 +411,11 @@
         \subsection{High Level Taggers and Machine Learning Techniques}
 
             After running all of the low level taggers,
-                the final step in flavor tagging is the use of a pair of high-level machine-learning-based tagging algorithms.
+                the final step in flavor tagging is the use of a pair of high-level machine-learning-based tagging algorithms
+                called DL1 (Deep Learning 1) and MV2 (MultiVariate tagger 2)
+                \cite{bjet_id_and_performance} \cite{btagging_optimisation}.
             In order to understand how these work, it is worth taking a moment to discuss what machine learning algorithms,
-                especially \textit{neural networks}, are and how they operate.
-
-            \begin{figure}[tbh] \center
-                \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/Colored_neural_network}
-                \caption{
-                    A representation of a simple single-layer neural network
-                    [TODO cite https://commons.wikimedia.org/wiki/File:Colored\_neural\_network.svg]
-                }
-                \label{fig:colored_neural_network}
-            \end{figure}
-
-            \cite{MLatLHC}
-
-            Ml is a thing.
-
-            with like perceptrons and stuff.
-
-            something about auto-generating a multi-variable equation.
-
-            The output of the equation is some sort of number that distinguishes something usually.
-
-            The equation is basically like a vector for the inputs, run through a matrix
-                (which is the ``network'' of connections between layers, see Fig. \ref{fig:nn_matrix}).
-            
-            But, since a linear equation (which is all you can get from matrix stuff) is super limited,
-                some sort of non-linear equation is applied to the output of the layer.
-
+                especially \textit{neural networks} are and how they operate.
 
             \begin{figure}[tbh] \center
                 \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/nn_matrix}
@@ -450,16 +426,72 @@
                 \label{fig:nn_matrix}
             \end{figure}
 
+            A neural network at its core is a multivariable formula meant to provide some sort of discriminating metric\cite{MLatLHC}.
+            For DL1 the input variables are a wide array (Table \ref{tab:DL1_vars})
+                of kinematic variables for a particular jet.
+            The output metric is a number specifing the tagger's confidence that a jet is
+                a light, charm, or bottom jet.
+            What make neural networks so powerful is how the discriminating formula is generated.
+            Neural networks are arranged as a network connecting the input variables to the output metrics. 
+            As seen in Fig. \ref{fig:nn_matrix} this network is actually a matrix of weights,
+                which is multiplied by the input layer to produce an output vector.
+            Each component of the output vector is then run through some non-linear function (e.g.\ a Relu function)
+                to grant the final output a more dynamic range of values than a linear function could provide.
+            The key to the construction of a neural network is in how this weight matrix is established.
+            At first the weights are random, and the network produces similarly random output that is of no use.
+            However, the network undergoes an iterative training procedure, in which the weights are slightly adjusted
+                and retested against a known sample of training data.
+            Adjustments which lead to slightly better performance and maintained and improved upon
+                with successive cycles of the training while negative adjustments are discarded.
+            After enough cycles the network should ideally be tuned to provide very powerful seperating power.
+            Of course, a trivial network such as that in Fig. \ref{fig:nn_matrix} is very limited,
+                and actual neural networks typically use ``hidden layers'' between the input and output (Fig. \ref{fig:colored_neural_network}),
+                with each layer corresponding to another weight matrix to be trained.
+
+            \begin{figure}[tbh] \center
+                \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/Colored_neural_network}
+                \caption{
+                    A representation of a simple single-layer neural network
+                    [TODO cite https://commons.wikimedia.org/wiki/File:Colored\_neural\_network.svg]
+                }
+                \label{fig:colored_neural_network}
+            \end{figure}
+
+            Deep neural networks, like DL1, are those with multiple hidden layers.
+            The ``hyperparameters'' for DL1 are shown in Table \ref{tab:DL1_hyperparams}.
+            DL1 is actually not the tagger used for this analysis, but is only the base for what is used, DL1r.
+            DL1r is a \textit{recurrent} variation of DL1, which grants the network access to the space-time sequential
+                ordering of the tracks comprising the jet in question.
+            B-hadrons must neccesarily decay and so produce secondary vertices.
+            DL1r's ability to assess the ordering of tracks allows to identify these secondary vertices and their origin,
+                permitting more robust identification of b-jets.
+
+        
+            \begin{figure}[tbh] \center
+                \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{tables/reconstruction/DL1_hyperparams}
+                \caption{
+                    Hyperparameters of the DL1 neural network\cite{bjet_id_and_performance}.
+                    DL1 is trained via the python library Keras.
+                }
+                \label{tab:DL1_hyperparams}
+            \end{figure}
+
+            As a final note it is also worth mentioning the MV2 tagger.
+            MV2 is a ``boosted decision tree'', which is a more primitive style of machine learning.
+            Decision trees undergo a similar test-and-adjust iterative training procedure to neural networks.
+            However, whereas neural networks are based on a matrix arrangement,
+                decision trees consist of a branching sequence of cut values that are tuned.
+            Boosted decision trees like MV2 differ only in that their ouput is produced as an aggregate of a large number of
+                separately trained trees.
 
 
-
-            There are two high level taggers, both trained and run using inputs from the various low-level taggers discussed earlier.
-            MV2, the Multi-Variate tagger, is a boosted decision tree (BDT).
-            DL1, the Deep Learning tagger, is a multi-layer neural network.
-            In the case of this analysis, a recurrent neural network version of DL1, called DL1r, is used instead.
-            \cite{bjet_id_and_performance}
-            \cite{btagging_optimisation}
-            [NOTE: This feels way too short, but I'm not sure what else to say about them... Steve?]
+            \begin{figure}[tbh] \center
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{tables/reconstruction/DL1_vars}
+                \caption{
+                    Variables used as input to DL1 and MV2 \cite{bjet_id_and_performance}.
+                }
+                \label{tab:DL1_vars}
+            \end{figure}
 
     \FloatBarrier
     \section{Online vs Offline Reconstruction}
