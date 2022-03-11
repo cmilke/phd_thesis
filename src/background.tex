@@ -4,16 +4,25 @@
 \section{Data-Driven Background Estimate}
 
     The basic event selection does not remove all non-signal events.
-    Indeed, based on the relative rates of QCD multijet events and the SM \vbfhhproc process (see Table \ref{tab:mcyields}),
+    Indeed, based on the relative rates of QCD multijet events (Fig. \ref{} and the SM \vbfhhproc process (1.18 fb, see Table \ref{tab:mcyields}),
         most of the events remaining in the data are very likely background.
-    [TODO: steve, why is it so hard to find anything that actually states what the rough event yield for multijet is?
-        Every single paper I've found just states as fact, without any citation, that multijet events are this overwhelming background,
-        without ever quantifying the statement D:< Got any tips? Or is this just a case of ``try harder''?]
     Since these background events cannot be effectively differentiated from signal data,
         a technique must be used to estimate how much of the observed data is coming from background.
     Specifically, the analysis employs a method to predict the kinematic shape (in \mhh)
         of the background events within the 4b Signal Region,
         without directly observing that set of events.
+
+    \begin{figure}[tbh]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/lhc_rates}
+        \caption{
+            Production cross-section of various final state in ATLAS\cite{atlas_sm_summary}.
+            Note the $~3 \times 10^5$ pb cross-section of diject events,
+                and $~1 \times 10^3$ pb cross-section of \ttbar events.
+            Though the 6-jet events that act as a background in this analysis,
+                I should probably just find a better plot... TODO
+        }
+        \label{fig:lhc_rates}
+    \end{figure}
 
     For the \vbfproc process, the background consists mostly of QCD multijet events,
         with a smaller portion of \ttbar events.
@@ -39,8 +48,9 @@
 \FloatBarrier
 \section{Neural Network Training and Uncertainty} \label{sec:nn_training}
 
-    The reweighting function is derived using machine learning techniques.
-    A neural network (NN) is trained to identify how to reweight 2b data such that the cumulative kinematic distribution looks like that of 4b data.
+    The reweighting function is derived using machine learning techniques (refer back to Section \ref{sec:ml_techniques}).
+    A neural network (NN) is trained via the Keras python library to identify how to reweight 2b data
+        such that the cumulative kinematic distribution looks like that of 4b data.
     In order to improve stability in the reweighting function,
         an ensemble of 100 networks is trained, and the median of their calculations is used (called the ``Nominal Estimate'').
     Each neural network instance $j$ produces a reweighting factor $w_{ij}$, and has a normalization factor $\alpha_j$ associated with it.

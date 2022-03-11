@@ -136,9 +136,6 @@
                 The Jet-Vertex-Tagger (JVT) algorithm is a pileup vertex suppression discriminant,
                     derived from the $p_T$ of the jets and its constituent tracks\cite{jvt_algo}.
             }, have $p_T > 60$ GeV, or have $2.4 < |\eta| < 2.5$.
-        [TODO: I'm going to have to justify this wonky set of requirements huh?
-            I haven't found a good explanation yet, so I might need to ask somebody
-            (our int note just straight up skips these requirements, even though I can see them in the code)]
         Forward jets have less stringent requirements, needing only a $p_T > 30$ GeV.
 
         After jets have been categorized and selected, an event is only used if there are at least six selected jets remaining.
@@ -165,7 +162,9 @@
             must be less than 65 GeV.
         The maximum sum-$p_T$ requirement follows from the fact that the initial incoming beamline particles have
             zero transverse momentum, and so the output of their interaction should as well.
-        These specific values for the cuts are based on the significance values shown in Fig. \ref{fig:vbf_cuts}).
+        These specific values for the cuts are based on the significance values
+            (defined as the ratio of the number of signal events to the square root of the number of background events)
+            shown in Fig. \ref{fig:vbf_cuts}).
 
         \begin{figure}[tbh]
             \subfloat[$m_{jj}$ Cut Significance]{
@@ -178,8 +177,12 @@
                 \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{selection/vecsum_pt}
             }
             \caption{
-                Significance value (see Chapter \ref{chapter:results})
-                    for different cut values on the various VBF selection criteria\cite{vbf_hh_4b_2018_int}.
+                Significance value for different cut values on the various VBF selection criteria\cite{vbf_hh_4b_2018_int}.
+                The goal is to maximize signficance while avoiding ``edges'' where significance rapidly falls off.
+                The selection cuts chosen for this analysis can be seen to occupy roughly the middle
+                    of the highest points of these plots.
+                For example, the peak at $\Delta \eta_{jj} = 5$ is avoided due to its proximity
+                    to the sudden drop in significance immediately to its right.
             }
             \label{fig:vbf_cuts}
         \end{figure}

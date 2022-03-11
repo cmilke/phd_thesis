@@ -408,7 +408,7 @@
         %        as well as utilized in the next step as inputs to the more advanced taggers\cite{btagging_optimisation}.
 
         \FloatBarrier
-        \subsection{High Level Taggers and Machine Learning Techniques}
+        \subsection{High Level Taggers and Machine Learning Techniques}\label{sec:ml_techniques}
 
             After running all of the low level taggers,
                 the final step in flavor tagging is the use of a pair of high-level machine-learning-based tagging algorithms
@@ -437,7 +437,17 @@
                 which is multiplied by the input layer to produce an output vector.
             Each component of the output vector is then run through some non-linear function (e.g.\ a Relu function)
                 to grant the final output a more dynamic range of values than a linear function could provide.
-            The key to the construction of a neural network is in how this weight matrix is established.
+
+            \begin{figure}[tbh] \center
+                \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/Colored_neural_network}
+                \caption{
+                    A representation of a simple single-layer neural network
+                    [TODO cite https://commons.wikimedia.org/wiki/File:Colored\_neural\_network.svg]
+                }
+                \label{fig:colored_neural_network}
+            \end{figure}
+
+            The key to the construction of a neural network is in how the weight matrix is established.
             At first the weights are random, and the network produces similarly random output that is of no use.
             However, the network undergoes an iterative training procedure, in which the weights are slightly adjusted
                 and retested against a known sample of training data.
@@ -448,14 +458,24 @@
                 and actual neural networks typically use ``hidden layers'' between the input and output (Fig. \ref{fig:colored_neural_network}),
                 with each layer corresponding to another weight matrix to be trained.
 
-            \begin{figure}[tbh] \center
-                \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/Colored_neural_network}
-                \caption{
-                    A representation of a simple single-layer neural network
-                    [TODO cite https://commons.wikimedia.org/wiki/File:Colored\_neural\_network.svg]
+            \begin{figure}
+                \subfloat[Flavor Tagging Performance Against Light Jets]{
+                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/dl1_performance_ljet}
                 }
-                \label{fig:colored_neural_network}
+                \subfloat[Flavor Tagging Performance Against Charm Jets]{
+                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/dl1_performance_cjet}
+                }
+                \caption{
+                    Plots of the various flavor taggers ability to correctly identify b-jets (efficiency, x-axis)
+                        vs their ability to correctly reject light and charm jets (purity, y-axis).
+                    An efficiency score of 0.6 means 60\% of b-jets are correctly identified,
+                        and a score of 1 indicates that all b-jets are accepted.
+                    A light-jet rejection score of $10^3$ indicates 1 in every 1000 light jets is incorrectly identified as a b-jet,
+                        and a rejection score of 1 means that all light-jets are incorrectly accepted as b-jets\cite{bjet_id_and_performance}.
+                }
+                \label{fig:ip3d_sign}
             \end{figure}
+
 
             Deep neural networks, like DL1, are those with multiple hidden layers.
             The ``hyperparameters'' for DL1 are shown in Table \ref{tab:DL1_hyperparams}.

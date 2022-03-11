@@ -1,3 +1,5 @@
+%\input{src/introduction/thesis_tutorial.tex}
+
 \chapter{Introduction}\label{chapter:introduction}
 
 %The basic structure of every lab report you've ever done is: 
@@ -16,38 +18,42 @@
 %    results (...)
 %    conclusion
 
-The Higgs Boson was proposed as a fundamental particle in 1964,
+The Higgs Boson was proposed as a fundamental particle in 1964
     and has been a driving factor in particle physics research ever since.
 Though it was jointly discovered in 2012 by the ATLAS and CMS collaborations,
     there are still a number of properties of the Higgs which have yet to be measured.
-Chief among these are two of the Higgs' self-coupling constants, \kl and \kvv,
+Chief among these are two of the Higgs' self-coupling constants
     which determine how strongly the Higgs interacts with both itself and with vector bosons.
+The unkown quality of these constants is represented in this analysis by a set of scaling factors, \kl and \kvv,
+    which scale the coupling constants from their expected Standard Model value.
 This analysis performs a search for the rare,
-    as-yet unseen diHiggs interaction in order to set tighter constraints on these coupling values.
-The search utilizes the Vector Boson Fusion production mechanism of the diHiggs process,
-    identifying the process in the 4b final state.
+    as-yet unseen di-Higgs interaction in order to set tighter constraints on these scaling values.
+The search utilizes the Vector Boson Fusion (VBF) production mechanism of the di-Higgs process,
+    wherein two incoming quarks emit a pair of vector bosons that fuse into some intermediate state
+    as the intial quarks continue along deflected trajectories.
+The di-Higgs system is identified in its four bottom quark ($b \bar b b \bar b$) final state,
+    producing a total 6-jet final state.
 This is performed using 126 $\textit{fb}^{-1}$ of data from Run 2 of ATLAS.
 
 This thesis will begin by first explaining the importance of the Higgs Boson to the field of particle physics,
-    as well as the relevance of the aforementioned \kl and \kvv coupling constants.
+    as well as the relevance of the aforementioned \kl and \kvv scaling factors.
 I will then describe the physical effects of these constants,
     and how those effects can be exploited in order to make measurements of them.
 These topics comprise Chapter \ref{chapter:theory}.
 Following from the theoretical discussion,
     I will discus the experimental equipment and setup used to perform these measurements across three chapters.
-Chapter \ref{chapter:lhc} discusses the Large Hadron Collider, the machine which generates the conditions necessary to produce the diHiggs process.
+Chapter \ref{chapter:lhc} discusses the Large Hadron Collider, the machine that generates the conditions necessary to produce the di-Higgs process.
 Actual observation of the process once generated is carried out by the ATLAS particle detector array and its Trigger system,
     described in Chapters \ref{chapter:atlas} and \ref{chapter:data}.
 The reconstruction process, described in Chapter \ref{chapter:reconstruction},
-    entails how data observed by ATLAS is analyzed in order to determine which physics processes occurred during the myriad observed interactions.
+    entails how data observed by ATLAS are analyzed in order to determine which physics processes occurred during the myriad observed interactions.
 Background processes are removed from the data set using a selection procedure explained in Chapter \ref{chapter:selection},
-    and the contribution of the remaining background events is estimated using a data-driven technique cataloged in Chapter \ref{chapter:background}. 
-The background estimation process makes use of a neural network reweighting procedure, which I personally configured and ran the training for.
+    and the contribution of the remaining background events is estimated using a data-driven technique explained in Chapter \ref{chapter:background}. 
+The background estimation process makes use of a neural network reweighting procedure, which I personally configured and trained.
 My primary contribution to the analysis however, comes in the form of the signal model that constitutes the hypothesis for the behavior of the Higgs Boson.
-The signal model makes use of a Monte-Carlo sample combination technique, which I developed and optimized in the context of the \vbfproc process.
+The signal model makes use of a Monte-Carlo sample combination technique that I developed and optimized in the context of the \vbfproc process.
 This is elaborated upon in Chapter \ref{chapter:signal}.
 Finally, in Chapter \ref{chapter:results}, this hypothesis and the background estimate are compared against the data observed from ATLAS,
-    in order to make constraints on the diHiggs self-coupling constants.
+    in order to make constraints on the di-Higgs self-coupling constants.
 
 
-%\input{src/introduction/thesis_tutorial.tex}
