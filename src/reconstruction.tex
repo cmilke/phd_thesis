@@ -12,8 +12,7 @@
         Finally, special attention will be given to the fact that reconstruction occurs not once, but twice;
             first in the High Level Trigger online running environment
             and again in the offline environment after events have been read out.
-        The ways that reconstruction differs between these two environments plays a role
-            in later stages of the analysis and so is worth discussing.
+        Though the two iterations are very similar, it is worth discussing how they differ.
 
     \FloatBarrier
     \section{Tracks} \label{sec:reco_tracks}
@@ -23,10 +22,10 @@
             The first point of contact for anything leaving the IR of ATLAS is the tracking detectors.
             As such, the objects reconstructed from the tracking detectors will be the first point of discussion.
             Prior to encountering the ATLAS calorimeters,
-                particles exiting the IR encounter primarily low-density material (see figure \ref{cal_rad_length}).
+                particles exiting the IR encounter primarily low-density material (see figure \ref{fig:cal_rad_length}).
             Thanks to the inclusion of the Solenoid Magnet field encompassing the Inner Detectors,
                 these trajectories reveal crucial information about the particles in an event.
-            This is because any charged particle, with a momentum component orthogonal to a magnetic field,
+            This is because any charged particle with a momentum component orthogonal to a magnetic field
                 will trace out a \textit{helical} trajectory.
             If the shape of the helix is known, then basic electrodynamics principles can be used to determine the
                 momentum and charge of the originating particle.
@@ -39,18 +38,19 @@
             To understand how this is achieved, one must understand how a track helix is described mathematically.
             A helix can be defined using five parameters structured in a three-dimensional parametric equation.
             There are several conventions for the form these parameters should take,
-                but in ATLAS a helix is described\cite{thesis_giacinto} by a set of equations parameterised by an angle $\alpha$ as:
+                but in ATLAS a helix is described by a set of equations parameterised by an angle $\alpha$ as\cite{thesis_giacinto}:
             \begin{equation} \begin{split}
             x(\alpha) &= x_R + d_0 \cos(\phi) + \rho \left[ \cos(\alpha) - \cos(\phi) \right] \\
             y(\alpha) &= y_R + d_0 \sin(\phi) + \rho \left[ \sin(\alpha) - \sin(\phi) \right] \\
             z(\alpha) &= z_R + z_0 - \rho \cot(\theta) (\alpha - \phi)
             \end{split} \end{equation}
+            %FIXME: you used 'r' in the figures, but rho in the equations. Fix one of them
 
             The helix is described relative to a reference point $R$,
                 which is initially set to the beam-spot location in the IR.
             Later stages of tracking will redefine the equations with respect to different reference points as needed.
             The five parameters governing the shape of this helix,
-                called \textit{perigee parameters} (see Fig. \ref{fig:perigee_params}),
+                called \textit{perigee parameters} (see Figs. \ref{fig:perigee_params_base}-\ref{fig:perigee_params_top}),
                 are described largely in terms of the ``Point of Closest Approach'' (PoCA),
                 the point on the helix closest to $R$ in the $x,y$ plane.
             \begin{itemize}
@@ -156,7 +156,8 @@
             Track scores are penalized by having holes or a poor helix fit ($\chi^2$ fit value).
             These scores are used to resolve ambiguities where multiple tracks are assigned to the same space-points,
                 with preference given to higher-scoring candidates.
-            Neural networks are used to assist in some ambiguity solving situations,
+            Neural networks (see Section \ref{sec:ml_techniques})
+                are used to assist in some ambiguity solving situations,
                 as well as to help identify clusters with multiple valid tracks.
             Once ambiguities have been resolved and all malformed track candidates removed,
                 the remaining tracks are refit using all available information at high-resolution\cite{atlas_track_reco_performance}.
@@ -181,8 +182,8 @@
                 and whose tracks possess the largest scalar sum of squared transverse momentum\cite{jet_energy_scale13TeV}
                 [TODO cite https://twiki.cern.ch/twiki/bin/view/AtlasProtected/PrimaryVertexIdentification]
                 \begin{equation}
-                    p_T^2 \textrm{ sum}  \equiv \sum\limits_{i \in \textrm{tracks}} p_{T,i}^2
-                \end{equation}.
+                    p_T^2 \textrm{ sum}  \equiv \sum\limits_{i \in \textrm{tracks}} p_{T,i}^2 \quad.
+                \end{equation}
             Once the primary vertex is identified, the high resolution track fitting step is rerun,
                 but now with the PV set as the reference point $R$ instead of the beamspot.
 
@@ -195,9 +196,9 @@
         Moving beyond the inner tracker and extending into the calorimeters,
             focus shifts from tracks to the objects known as ``jets.''
         Jets are an algorithm meant to associate related reconstructed objects in the detector elements
-            in order to produce a more comprehensive representation of the physical behaviour of the particles traversing those elements.
+            in order to produce a more comprehensive representation of the physical behavior of the particles traversing those elements.
         Jet reconstruction encompasses all elements of ATLAS,
-            but they begin in the calorimeter system in the form of topological clusters.
+            but they begin in the calorimeter system in the form of ``topological clusters.''
 
         Just as the inner trackers suffer from pile-up vertices that must be filtered,
             so too do the calorimeters suffer from pile-up tracks and electronic noise.
@@ -207,8 +208,8 @@
         \begin{equation}
             \xi^{\textrm{EM}}_{\textrm{cell}} \equiv \frac{
                 E^{\textrm{EM}}_{\textrm{cell}} }{
-                \sigma^{\textrm{EM}}_{\textrm{noise, cell}} }
-        \end{equation} ,
+                \sigma^{\textrm{EM}}_{\textrm{noise, cell}} } \quad,
+        \end{equation}
             where $E^{\textrm{EM}}_{\textrm{cell}}$ is the energy of an individual cell calibrated to the electromagnetic scale.
         $\sigma^{\textrm{EM}}_{\textrm{noise, cell}}$ is the noise factor of that cell, calculated for that particular LHC run.
 
@@ -279,7 +280,6 @@
             meaning the calibration tests and factors were derived from electromagnetic particle showers.
         The calorimeters are less sensitive to hadronic showers,
             and so for these the energy correction factors are further adjusted using Monte Carlo simulation results.
-
         After correcting for energy, the next step is to correct for momentum.
         Reconstructed jets are assumed to originate from the hard-scatter interaction point.
         Thus, the momentum vectors associated with the jets and their topo-clusters are adjusted to point away from the PV.
@@ -306,7 +306,7 @@
         One particular kind of jet integral to this analysis is that of b-quark-initiated jets,
             more simply known as b-jets.
         B-jets are important because, of all the particles the Higgs can decay to,
-            its branching ratio to a $\bbar$ pair is highest (Table \ref{tab:higgsbranching}.
+            its branching ratio to a $\bbar$ pair is highest (Table \ref{tab:higgsbranching}).
         Distinguishing b-jets from other jet types,
             achieved through the process of \textit{flavor tagging},
             is therefore of paramount importance in this analysis.
@@ -427,12 +427,11 @@
             \end{figure}
 
             A neural network at its core is a multivariable formula meant to provide some sort of discriminating metric\cite{MLatLHC}.
-            For DL1 the input variables are a wide array (Table \ref{tab:DL1_vars})
-                of kinematic variables for a particular jet.
-            The output metric is a number specifing the tagger's confidence that a jet is
+            For DL1 the input variables are a wide array of kinematic variables for a particular jet (Table \ref{tab:DL1_vars}).
+            The output metric is a number specifying the tagger's confidence that a jet is
                 a light, charm, or bottom jet.
             What make neural networks so powerful is how the discriminating formula is generated.
-            Neural networks are arranged as a network connecting the input variables to the output metrics. 
+            Neural networks are arranged as a function (network) connecting the input variables to the output metrics. 
             As seen in Fig. \ref{fig:nn_matrix} this network is actually a matrix of weights,
                 which is multiplied by the input layer to produce an output vector.
             Each component of the output vector is then run through some non-linear function (e.g.\ a Relu function)
@@ -453,7 +452,7 @@
                 and retested against a known sample of training data.
             Adjustments which lead to slightly better performance and maintained and improved upon
                 with successive cycles of the training while negative adjustments are discarded.
-            After enough cycles the network should ideally be tuned to provide very powerful seperating power.
+            After enough cycles the network should ideally be tuned to provide very powerful separating power.
             Of course, a trivial network such as that in Fig. \ref{fig:nn_matrix} is very limited,
                 and actual neural networks typically use ``hidden layers'' between the input and output (Fig. \ref{fig:colored_neural_network}),
                 with each layer corresponding to another weight matrix to be trained.
@@ -482,8 +481,8 @@
             DL1 is actually not the tagger used for this analysis, but is only the base for what is used, DL1r.
             DL1r is a \textit{recurrent} variation of DL1, which grants the network access to the space-time sequential
                 ordering of the tracks comprising the jet in question.
-            B-hadrons must neccesarily decay and so produce secondary vertices.
-            DL1r's ability to assess the ordering of tracks allows to identify these secondary vertices and their origin,
+            B-hadrons must necessarily decay and so produce secondary vertices.
+            DL1r's ability to assess the ordering of tracks allows it to identify these secondary vertices and their origin,
                 permitting more robust identification of b-jets.
 
         
@@ -501,7 +500,7 @@
             Decision trees undergo a similar test-and-adjust iterative training procedure to neural networks.
             However, whereas neural networks are based on a matrix arrangement,
                 decision trees consist of a branching sequence of cut values that are tuned.
-            Boosted decision trees like MV2 differ only in that their ouput is produced as an aggregate of a large number of
+            Boosted decision trees like MV2 differ only in that their output is produced as an aggregate of a large number of
                 separately trained trees.
 
 
