@@ -1,7 +1,5 @@
-\chapter{Signal and Background Modeling}
-
-
 \section{I'll figure this out later I just wanna jot this down for myself first}
+
     Here's my more formal attempt at writing down what I do in the 2/3D interpolation
 
     Overall goal is to measure cross-section of an interaction: ``$\Xsec$".
@@ -16,45 +14,54 @@
     It is useful then to instead look at the number of events with particles existing in a particular region of phase $\mathscr{E} (q) \equiv \xsec (q) \times L$, where ``$\xsec$" is the differential cross-section.
 
     The total cross-section is related to the differential cross-section by the relation \\
-    $\xsec (q) = d \Xsec / d \Omega$, which can be rearanged for cross-section by integrating over the solid angle $\Omega$: \\
-    $\Xsec = \int \xsec  (q) d \Omega$.
+    $\xsec (q) = d \Xsec / d q$, which can be rearanged for cross-section by integrating over phase space $q$: \\
+    $\Xsec = \int \xsec (q) d q$.
 
     Relating this back to the event counts, we have\\
-    $\frac{1}{L} T = \int \frac{1}{L} \mathscr{E} (q) d\Omega $ \\
-    $T = \int \mathscr{E} (q) d\Omega $.
+    $\frac{1}{L} T = \int \frac{1}{L} \mathscr{E} (q) dq $ \\
+    $T = \int \mathscr{E} (q) dq $.
 
     In order to bring this in line with the fact that we cannot simulate an infinite number of events, let's decompose the integral into an infinite sum:\\
-    $T = \lim\limits_{N\to\infty} \sum\limits_{n=0}^{N} \mathscr{E}(q_n) \Delta q $.
+    $T = \lim\limits_{N\to\infty} \sum\limits_{n=0}^{N} \mathscr{E}(q_n) dq = \lim\limits_{N\to\infty} \sum\limits_{n=0}^{N} \mathscr{E}(q_n) \Delta q / N $.
 
     This total is equivalent to the theoretical value only if the number of events is infinite (and thus able to represent all of phase space).
     With a finite number of events, the theoretical total is reduced to an approximation $\tau$, where\\
-    $\tau = \sum\limits_{n=0}^{N} \mathscr{E}(q_n) \Delta q $.
+    $\tau = \sum\limits_{n=0}^{N} \mathscr{E}(q_n) \Delta q / N $.
 
     The relative space any one event takes in phase space is accounted for in monte-carlo by giving events weights, so this can be rewritten as\\
-    $\tau = \sum\limits_{n=0}^{N} w(q_n) = \sum\limits_{n=0}^{N} w_n $. 
+    $\tau = \sum\limits_{n=0}^{N} w(q_n) = \sum\limits_{n=0}^{N} w_n \quad,\quad w(q_n) \equiv \mathscr{E}(q_n) \Delta q / N $.
 
     Final analysis of events does not count all events, but rather looks at the distribution of event counts as a function of some specific element of phase space.
-    In this analysis, that element is the di-Higgs invariant mass $M_{HH}$, and so the event count per bin in $M_{HH}$ can be written as\\
+    In this analysis, that element is the di-Higgs invariant mass \mhh, and so the event count per bin $m$ in \mhh can be written as\\
     $\tau_m = \sum\limits_{n=0}^{N} w_{nm} $. 
 
-    The effects of performing reconstruction and selection can be represented by a multiplicative factor ``$z_n$" corresponding to the probability an event with phase-space parameters $q_n$ will survive selection.
-    What remains is the reconstructed number of events\\
-    $\psi_m = \sum\limits_{n=0}^{N} z_n * w_{nm} $.
+    The effects of performing reconstruction and selection can be represented by a multiplicative factor ``$z(q)$" corresponding to the probability an event with phase-space parameters $q$ will survive selection.
+    What remains is the reconstructed event yield\\
+    $U(q) = \int z(q) \mathscr{E}(q) dq $.
+
+    Which can be returned to the discrete, finite-event case as\\
+    $\mu = \sum\limits_{n=0}^{N} z_n * w_{nm} $.
+
+    Note that in the infinite, continuous case, $z(q)$ is purely binary (in continuous phase-space an event either passes selection or not),
+        but becomes a probability $z_n$ when regions of phase-space are aggregated together into the same bin.
 
 
 \section{Sample Interpolation}
+
     Simulating, reconstructing, and performing selection on stuff is hard.
     We need to check all points in $\kappa$ space though.
     To address this we can exploit the underlying field-theory mechanics to reverse-engineer a general equation for the number of events expected for any value of the $\kappa$ couplings.
-    First, the influence of the couplings can be related to the cross-section through the interaction amplitude ``$\amp$", where
+    First, the influence of the couplings can be related to the cross-section through the interaction amplitude ``$\amp$", where\\
     $\amp(q,\kvv,\kl,\kv) =  \kv \kl \matel_s(q) + \kv^2 \matel_t(q) + \kvv \matel_X(q) $
 
     The differential cross-section is just the absolute square of the amplitude,\\
-    $\xsec(q,\kvv,\kl,\kv) = |\amp(q,\kvv,\kl,\kv)|^2 = 
-     \kv^2 \kl^2 \matel_s^2(q) + \kv^4 \matel_t^2(q) + \kvv^2 \matel_X^2(q) 
-    + \kv^3 \kl (\matel_s^*(q) \matel_t(q) + \matel_t^*(q) \matel_s(q)) 
-    + \kv \kl \kvv (\matel_s^*(q) \matel_X(q) + \matel_X^*(q) \matel_s(q) ) 
-    + \kv^2 \kvv (\matel_t^*(q) \matel_X(q) + \matel_X^*(q) \matel_t(q) )$
+    \begin{equation}\begin{split}
+        \xsec(q,\kvv,\kl,\kv) = |\amp(q,\kvv,\kl,\kv)|^2 &= 
+          \kv^2 \kl^2 \matel_s^2(q) + \kv^4 \matel_t^2(q) + \kvv^2 \matel_X^2(q) \\
+        &+ \kv^3 \kl (\matel_s^*(q) \matel_t(q) + \matel_t^*(q) \matel_s(q)) \\
+        &+ \kv \kl \kvv (\matel_s^*(q) \matel_X(q) + \matel_X^*(q) \matel_s(q) ) \\
+        &+ \kv^2 \kvv (\matel_t^*(q) \matel_X(q) + \matel_X^*(q) \matel_t(q) )
+    \end{split} \end{equation}
 
     And the abundance of matrix element cross terms can be absorbed into simple coefficients $a_i(q)$\\
     $\xsec(q,\kvv,\kl,\kv) = \kv^2 \kl^2 a_1(q) + \kv^4 a_2(q) + \kvv^2 a_3(q) + \kv^3 \kl a_4(q) + \kv \kl \kvv a_5(q) + \kv^2 \kvv a_6(q) $
@@ -73,23 +80,63 @@
     or, adopting Einstein notation, as
     $\xsec(q,\kappa) = a_i(q) f_i(\kappa) $.
 
-    From here we can write this in terms of observabed events binned in $M_{HH}$ in the same way as before:
-    $T_m(\kappa) = a_{mi} f_i(\kappa) $.
+    From here we can write this in terms of observed events\\ 
+    $T(\kappa) = \int \xsec(q,\kappa) dq \times L = \int a_i(q) f_i(\kappa) dq \times L $.
 
-    To get the number of expected events for any values of the couplings, we only need to find the reconstructed forms of $a_{mi}$.
-    By running simulations for 6 different, linearly independent variations of $T$, we can obtain the six equations needed to solve for six variables:\\
-    $T_m(\kappa_j) = a_{mi} f_i(\kappa_j) $, for j = 1-6. \\
-    $T_m(\kappa_j) \to  T_{mj} $, $f_i(\kappa_j) \to F_{ij}) $, \\
-    $T_{mj} = a_{mi} F_{ij}$
+    And in terms of post-selection events as\\
+    $U(\kappa) = \int z(q) \xsec(q,\kappa) dq \times L = \int z(q) a_i(q) f_i(\kappa) dq \times L $.
+
+    To get the number of expected events for any values of the couplings, we only need to find the reconstructed forms of $a(q)_{i}$.
+    By running simulations for 6 different, linearly independent variations of $\xsec$, we can obtain the six equations needed to solve for six variables:\\
+    $\xsec(q, \kappa_j) = a(q)_{i} f_i(\kappa_j) $, for $j \in {1-6}$. \\
+    $\xsec(q, \kappa_j) \to  \xsec_j(q) $, $f_i(\kappa_j) \to F_{ij} $, \\
+    $\xsec_{j}(q) = a(q)_{i} F_{ij}$
 
     Solving for $a$ is just a matter of inverting the matrix $F_{ij}$ \\
-    $T_{mj} \times F_{ij}^{-1}= a_{mi} F_{ij} \times F_{ij}^{-1}$ \\
-    $a_{mi} = T_{mj} F_{ij}^{-1}$ \\
-    $a_{mi} = T_{mj} G_{ji}$, with $G_{ji} \equiv F_{ij}^{-1}$ \\
+    $\xsec_{j}(q) \times F_{ij}^{-1}= a(q)_{i} F_{ij} \times F_{ij}^{-1}$ \\
+    $a_{i}(q) = \xsec_{j}(q) F_{ij}^{-1}$ \\
+    $a_{i}(q) = \xsec_{j}(q) G_{ji}$, with $G_{ji} \equiv F_{ij}^{-1}$ \\
 
-    The expected number of events for an arbitrary value of the couplings can then be written as\\
-    $T'_m(\kappa) = a_{mi} f_i(\kappa) $, with the primed ``$T'$" now denoting a linearly inerpolated event count\\
-    $T'_m(\kappa) = T_{mj} G_{ji} f_i(\kappa) $.
+    With the primed ``$\xsec'$" now denoting a linearly combined cross-section,
+        the cross-section for an arbitrary value of the couplings can then be written as
+    \begin{equation} \begin{split}
+        \xsec'(q, \kappa) &= a_i(q) f_i(\kappa) \\
+        \xsec'(q, \kappa) &= \xsec_{j}(q) G_{ji} f_i(\kappa) \\
+        \xsec'(q, \kappa) &=  G_{ji} f_i(\kappa) \xsec_{j}(q) \\
+        \xsec'(q, \kappa) &=  g_j(\kappa) \xsec_{j}(q) \quad, g_j(\kappa) \equiv G_{ji} f_i(\kappa)
+    \end{split} \end{equation}
+
+    Rewriting this in terms of events:
+    \begin{equation} \begin{split}
+        T'(\kappa) &= \int \xsec'(q,\kappa) dq \times L \\
+        T'(\kappa) &= \boxed{\int g_j(\kappa) \xsec_{j}(q) dq \times L = g_j(\kappa) \int \xsec_{j}(q) dq \times L} \\
+        T'(\kappa) &= g_j(\kappa) \Xsec_j \times L = g_j(\kappa) T_j \\
+        T'(\kappa) &= g_j(\kappa) T_j
+    \end{split} \end{equation}
+
+    Note: the boxed section is the key to why this whole combination system works at the event-level as we use it.
+    The core reason this can be done is that the $g_j(\kappa)$ coefficient
+        \textit{is independant of phase space},
+        and thus can be pulled out of the phase space integral.
+
+
+    This can be repeated for post-selection phase-space:
+    \begin{equation} \begin{split}
+        U'(\kappa) &= \int z(q) \xsec'(q,\kappa) dq \times L = \int z(q) g_j(\kappa) \xsec_{j}(q) dq \times L \\
+        U'(\kappa) &= g_j(\kappa) \int z(q) \xsec_{j}(q) dq \times L = g_j(\kappa) U_j
+    \end{split} \end{equation}
+
+    And performed approximately for the discrete, finite case:
+    \begin{equation} \begin{split}
+        U'(\kappa) &= g_j(\kappa) \int z(q) \xsec_{j}(q) dq \times L \\
+        U'(\kappa) &= g_j(\kappa) \lim\limits_{N\to\infty} \sum\limits_{n=0}^{N} z(q) \xsec_{j}(q) dq \times L \\
+        U'(\kappa) &= g_j(\kappa) \lim\limits_{N\to\infty} \sum\limits_{n=0}^{N} z(q_n) \xsec_{j}(q_n) \Delta q_n / N \times L \\
+        U'(\kappa) \approx \mu' &= g_j(\kappa) \sum\limits_{n=0}^{N} z_n \xsec_{j,n} \Delta q_n / N \times L \\
+        \mu' &= g_j(\kappa) \sum\limits_{n=0}^{N} z_n w_{j,n} \times L \\
+        \mu' &= g_j(\kappa) \mu_j
+    \end{split} \end{equation}
+
+
 
     %Since an observed event count is a collection of many individual events, this can be re-written in terms of individual event weights:\\
     %$T_m(\kappa) = G_{ji} f_i(\kappa) T_{mj}$,\\
