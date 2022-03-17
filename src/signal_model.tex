@@ -22,6 +22,51 @@
     The same could be done to obtain predicted event yields for various alternative values of the scale-factor.
     However, testing a hypothesis using a single number presents a challenge, as many different unrelated factors can affect the event yield.
 
+
+    \begin{figure}[tbh]
+        \centering
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_HH_m}
+            \captionsetup{justification=centering} \caption{Truth-level display of \mhh for various values of the scaling factors}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_jj_M}
+            \captionsetup{justification=centering} \caption{Truth-level display of \mjj for various values of the scaling factors}
+        \end{subfigure}
+        \caption{
+            Invariant mass between the Higgs pair and VBF initial scatter jets, respectively.
+        }
+        \label{fig:lhe_truth1}
+    \end{figure}
+
+    \begin{figure}[tbh]
+        \centering
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_H1_pt}
+            \captionsetup{justification=centering} \caption{
+                Truth-level display of the transverse momentum of the leading-$p_T$ Higgs boson
+                    for various values of the scaling factors
+            }
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_H2_pt}
+            \captionsetup{justification=centering} \caption{
+                Truth-level display of the transverse momentum of the sub-leading-$p_T$ Higgs boson
+                    for various values of the scaling factors
+            }
+        \end{subfigure} \\
+
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_HH_dEta}
+            \captionsetup{justification=centering} \caption{
+                Truth-level display of the pseudo-rapidity gap between the Higgs pair
+                    for various values of the scaling factors
+            }
+        \end{subfigure} \\
+        \caption{}
+        \label{fig:lhe_truth2}
+    \end{figure}
+
     Instead, a more robust hypothesis can be constructed by choosing an observable quantity distinct to the process in question.
     Here, the observable used is the invariant mass of the di-Higgs system (\mhh).
     The advantage of using \mhh is that the probability density function (PDF) for the \mhh of an event
@@ -97,11 +142,11 @@
     By expanding the squared term of the sum of all Feynman diagram contributions,
         the cross-section can be expressed as a function of its scale-factor values \cite{ATLAS-CONF-2019-049},
         as shown in Eqn. \ref{eq:tree_level_invamp}.
-    Rewriting the expression again in terms of the cross-section as a function of the observable \mhh:
+    Rewriting the expression again in terms of the differential cross-section as a function of the observable \mhh:
 
     \begin{equation} \begin{split} \label{eq:tree_level_invamp_simple}
-        \dXsecM &\propto |\invAmp|^2 = |  \kv^2 M_t + \kv \kl M_s + \kvv M_x |^2 \\
-        &\propto \kv^2 \kl^2 a_1 + \kv^4 a_2 + \kvv^2 a_3 + \kv^3 \kl a_4 + \kv \kl \kvv a_5 + \kv^2 \kvv a_6
+        \xsec &\equiv \dXsecM \propto |\invAmp|^2 = |  \kv^2 M_t + \kv \kl M_s + \kvv M_x |^2 \\
+        \xsec &= \kv^2 \kl^2 a_1 + \kv^4 a_2 + \kvv^2 a_3 + \kv^3 \kl a_4 + \kv \kl \kvv a_5 + \kv^2 \kvv a_6
     \end{split} \end{equation}
 
     The $a_i$ matrix element expansion values have a dependence on \mhh, which is not trivially derivable as an analytic function.
@@ -110,7 +155,7 @@
     This is done using six different cross-section values (for the same \mhh) for six different scaling values.
 
     \newcommand{\crossterm}[1]{
-        \dxsecMN{#1} &= \fkv{#1}^2 \fkl{#1}^2 a_1
+        \xsec_{#1} &= \fkv{#1}^2 \fkl{#1}^2 a_1
             + \fkv{#1}^4 a_2
             + \fkvv{#1}^2 a_3
             + \fkv{#1}^3 \fkl{#1} a_4
@@ -131,7 +176,7 @@
         by rewriting the differential cross-sections and $a_i$ terms as vectors,
 
     \begin{equation}
-        \vec{\xsec} = \minimatrix{ \dxsecMN{1} \\ \dxsecMN{2} \\ \dxsecMN{3} \\ \dxsecMN{4} \\ \dxsecMN{5} \\ \dxsecMN{6} }
+        \vec{\xsec} = \minimatrix{ \xsec_{1} \\ \xsec_{2} \\ \xsec_{3} \\ \xsec_{4} \\ \xsec_{5} \\ \xsec_{6} }
         \qquad,\qquad
         \vec{a} = \minimatrix{ a_1 \\ a_2 \\ a_3 \\ a_4 \\ a_5 \\ a_6 }
         \qquad.
@@ -156,24 +201,27 @@
 
     Equation \ref{eq:allsixxsecs} can then be written in the much simpler form
     \begin{equation}
-        \vec{\xsec} = F \; \vec{a}
+        \vec{\xsec} = F \bullet \vec{a}
         \quad .
     \end{equation}
 
     The $a_i$ terms can then be trivially solved for through an inversion of $F$
-    \begin{equation}
-        \vec{a} = F^{-1} \; \vec{\xsec}
-        \quad ,
+    \begin{equation} \label{eq:amp_solution}
+        \vec{a} = F^{-1} \bullet \vec{\xsec}
+        \quad .
     \end{equation}
 
-    \newcommand{\combterm}[1]{ g_{#1} \frac{d\sigma_{#1}}{d \mhh} }
+    %\newcommand{\combterm}[1]{ g_{#1} \frac{d\sigma_{#1}}{d \mhh} }
+    \newcommand{\combterm}[1]{ g_{#1} \xsec_{#1} }
 
-        producing a final expression for the differenctial cross-section in the form
-    \begin{equation} \begin{split}
-        \dXsecM &= \vec{f}(\kvv,\kl,\kv) \; F^{-1} \; \vec{\xsec} \\
-        \dXsecM &= \vec{g}(\kvv,\kl,\kv) \bullet \vec{\xsec}
-            \quad,\quad \vec{g} \equiv \vec{f}(\kvv,\kl,\kv) \; F^{-1} \\
-        \dXsecM &= 
+    Substituting \ref{eq:amp_solution} back into \ref{eq:tree_level_invamp_simple} produces
+        a final expression for deriving a combined differential cross-section $\xsec'$ of the form
+    \begin{equation} \label{eq:combination_general} \begin{split}
+        \xsec'(\kvv,\kl,\kv) &= \vec{f}(\kvv,\kl,\kv) \bullet \vec{a}
+            = \vec{f}(\kvv,\kl,\kv) \bullet F^{-1} \bullet \vec{\xsec} \\
+        \xsec'(\kvv,\kl,\kv) &= \vec{g}(\kvv,\kl,\kv) \bullet \vec{\xsec}
+            \quad,\quad \vec{g} \equiv \vec{f}(\kvv,\kl,\kv) \bullet F^{-1} \\
+        \xsec'(\kvv,\kl,\kv) &= 
             \combterm{1} +
             \combterm{2} +
             \combterm{3} +
@@ -183,8 +231,10 @@
         \quad .
     \end{split} \end{equation}
 
-    In practice, the cross-section values of these six \textit{basis} samples are represented by their yields from MC simulation,
-        binned by their \mhh, which are added together after being multiplied by their respective combination coefficient $g_i$
+    In practice, the differential cross-section values $\xsec_i$ of these six \textit{basis} samples
+        are represented by their yields from MC simulation,
+        binned by their \mhh values,
+        which are added together after being multiplied by their respective combination coefficient $g_i$.
     Due to the complexities of the kinematics of the VBF process,
         the samples used in the combination must have already been run through the full reconstruction and selection process detailed in Section \ref{sec:mcsim}.
     The signal distribution modeling is thus performed by directly combining the reconstructed \mhh distributions of post-selection signal samples.
@@ -212,13 +262,13 @@
     {\footnotesize \begin{equation}
     \label{eqn:vbf_hh_6term_chosen}
     \begin{split}
-        \frac{d\sigma}{d\mhh}(\kvv, \kl, \kv) =
-            \left(\frac{68 \kappa_{2V}^{2}}{135} - 4 \kappa_{2V} \kappa_{V}^{2} + \frac{20 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{27} + \frac{772 \kappa_{V}^{4}}{135} - \frac{56 \kappa_{V}^{3} \kappa_{\lambda}}{27} + \frac{\kappa_{V}^{2} \kappa_{\lambda}^{2}}{9}\right) \times \frac{d\sigma}{d\mhh}{\left(1,1,1 \right)} \\
-            + \left(- \frac{4 \kappa_{2V}^{2}}{5} + 4 \kappa_{2V} \kappa_{V}^{2} - \frac{16 \kappa_{V}^{4}}{5}\right) \times \frac{d\sigma}{d\mhh}{\left(\frac{3}{2},1,1 \right)} \\
-            + \left(\frac{11 \kappa_{2V}^{2}}{60} + \frac{\kappa_{2V} \kappa_{V}^{2}}{3} - \frac{19 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{24} - \frac{53 \kappa_{V}^{4}}{30} + \frac{13 \kappa_{V}^{3} \kappa_{\lambda}}{6} - \frac{\kappa_{V}^{2} \kappa_{\lambda}^{2}}{8}\right) \times \frac{d\sigma}{d\mhh}{\left(1,2,1 \right)} \\
-            + \left(- \frac{11 \kappa_{2V}^{2}}{540} + \frac{11 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{216} + \frac{13 \kappa_{V}^{4}}{270} - \frac{5 \kappa_{V}^{3} \kappa_{\lambda}}{54} + \frac{\kappa_{V}^{2} \kappa_{\lambda}^{2}}{72}\right) \times \frac{d\sigma}{d\mhh}{\left(1,10,1 \right)}  \\
-            + \left(\frac{88 \kappa_{2V}^{2}}{45} - \frac{16 \kappa_{2V} \kappa_{V}^{2}}{3} + \frac{4 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{9} + \frac{152 \kappa_{V}^{4}}{45} - \frac{4 \kappa_{V}^{3} \kappa_{\lambda}}{9}\right) \times \frac{d\sigma}{d\mhh}{\left(1,1,\frac{1}{2} \right)} \\
-            + \left(\frac{8 \kappa_{2V}^{2}}{45} - \frac{4 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{9} - \frac{8 \kappa_{V}^{4}}{45} + \frac{4 \kappa_{V}^{3} \kappa_{\lambda}}{9}\right) \times \frac{d\sigma}{d\mhh}{\left(1,-5,\frac{1}{2} \right)}
+        \xsec'(\kvv, \kl, \kv) =
+            \left(\frac{68 \kappa_{2V}^{2}}{135} - 4 \kappa_{2V} \kappa_{V}^{2} + \frac{20 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{27} + \frac{772 \kappa_{V}^{4}}{135} - \frac{56 \kappa_{V}^{3} \kappa_{\lambda}}{27} + \frac{\kappa_{V}^{2} \kappa_{\lambda}^{2}}{9}\right) \times \xsec{\left(1,1,1 \right)} \\
+            + \left(- \frac{4 \kappa_{2V}^{2}}{5} + 4 \kappa_{2V} \kappa_{V}^{2} - \frac{16 \kappa_{V}^{4}}{5}\right) \times \xsec{\left(\frac{3}{2},1,1 \right)} \\
+            + \left(\frac{11 \kappa_{2V}^{2}}{60} + \frac{\kappa_{2V} \kappa_{V}^{2}}{3} - \frac{19 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{24} - \frac{53 \kappa_{V}^{4}}{30} + \frac{13 \kappa_{V}^{3} \kappa_{\lambda}}{6} - \frac{\kappa_{V}^{2} \kappa_{\lambda}^{2}}{8}\right) \times \xsec{\left(1,2,1 \right)} \\
+            + \left(- \frac{11 \kappa_{2V}^{2}}{540} + \frac{11 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{216} + \frac{13 \kappa_{V}^{4}}{270} - \frac{5 \kappa_{V}^{3} \kappa_{\lambda}}{54} + \frac{\kappa_{V}^{2} \kappa_{\lambda}^{2}}{72}\right) \times \xsec{\left(1,10,1 \right)}  \\
+            + \left(\frac{88 \kappa_{2V}^{2}}{45} - \frac{16 \kappa_{2V} \kappa_{V}^{2}}{3} + \frac{4 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{9} + \frac{152 \kappa_{V}^{4}}{45} - \frac{4 \kappa_{V}^{3} \kappa_{\lambda}}{9}\right) \times \xsec{\left(1,1,\frac{1}{2} \right)} \\
+            + \left(\frac{8 \kappa_{2V}^{2}}{45} - \frac{4 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{9} - \frac{8 \kappa_{V}^{4}}{45} + \frac{4 \kappa_{V}^{3} \kappa_{\lambda}}{9}\right) \times \xsec{\left(1,-5,\frac{1}{2} \right)}
     \end{split}
     \end{equation}}
 
@@ -393,45 +443,50 @@
     My hypothesis for the behavior of the sample combinations is that the regions of the scale factor space which perform poorly
         (e.g.\ the top left corners of Fig. \ref{fig:mcnWeight_old}),
         do so because one or two of the samples is disproportionately represented in the combination compared to the others.
-    The formula for the combination of the samples amounts to weighting each sample's yield by a scale-factor-dependent coefficient,
-        and then adding these weighted yields together to obtain the combined yield.
-    Different samples can have yields which are orders of magnitude apart from each other
-        (e.g.\ the 1.18 fb yield of the SM point VS the 67 fb yield of the \kl=10 sample).
-    As well, the scale-factor-based coefficients can vary dramatically across the scale-factor space.
-    The product of the sample yield and the scale-factor coefficient (the \textit{weighted yield})
+    The formula for the combination of the samples (c.f.\ Eqn. \ref{eq:combination_general}) amounts to
+        weighting each sample's differential cross-section $\xsec_i$ by a $\kappa$-factor-dependent coefficient $g_i(\kvv,\kl,\kv)$,
+        and then adding these weighted cross-sections together to obtain the combined differential cross-section.
+    Different samples can have cross-sections which are orders of magnitude apart from each other
+        (e.g.\ the 1.18 fb cross-section of the SM point VS the 67 fb cross-section of the \kl=10 sample).
+    As well, the $\kappa$-factor-based coefficients $g_i$ can vary dramatically across the $\kappa$ space.
+    The product of the sample cross-section and the scale-factor coefficient (the \textit{weighted cross-section})
         can therefore fluctuate a great deal across the scale-factor space.
-    For many regions of the scale-factor space, it can happen that one or two of the samples' weighted yields vastly outweigh the others.
-    In such cases, the combined yield is then based almost entirely on these one or two over-represented samples,
+    For many regions of the $\kappa$ space, it can happen that one or two of the samples' weighted cross-sections vastly outweigh the others.
+    In such cases, the combined cross-section is then based almost entirely on these one or two over-represented samples,
         making the combination much more susceptible to statistical deficiencies.
-    I propose that this ``closeness'' of the weighted yields can be used as an effective metric of performance,
+    I propose that this ``closeness'' of the weighted cross-sections can be used as an effective metric of performance,
         and one which does not depend on the generation of MC.
 
     Here I define a metric to quantify this behavior.
-    Due to the nature of the weighted yields,
-        the metric will be dependent both on the basis samples' yields ($\sigma_i$),
-        and on the scale-factor coefficient ($c_i(\kvv,\kl,\kv)$) of the specific point in the scale-factor space to be modeled.
+    Due to the nature of the weighted cross-sections,
+        the metric will be dependent both on the basis samples' cross-section ($\sigma_i$),
+        and on the scale-factor coefficient ($g_i(\kvv,\kl,\kv)$) of the specific point in the scale-factor space to be modeled\footnote{
+            Note that I have switched from a binned differential cross-section, to here working with the total cross-section.
+            This is possible because the $g_i$ terms are independent of phase-space,
+                and therefore do not affect the phase-space integration of differential cross-section.
+        }.
     As well, I want to explicitly note the occurrence of \textit{negative} coefficients in the combination sum.
     My claim is that negative coefficients are \textit{not} intrinsically detrimental to the combination.
     Rather, they merely reflect the behavior inherent to calculating cross-sections,
         in that some Feynman diagrams invariably cancel with others.
-    Thus, I will be looking at the ``closeness'' of the \textit{absolute values} of the weighted yields,
+    Thus, I will be looking at the ``closeness'' of the \textit{absolute values} of the weighted cross-sections,
         specifically ensuring that bases are \textbf{not} penalized for large cancellations between terms.
     The resulting metric, which I call \textit{Solidarity}, effectively measures how well the basis samples work together at a given point.
 
     \begin{equation}
-    \textrm{\textbf{Solidarity}: }S \equiv \frac{ \sum\limits_{i=1}^6 c_i\sigma_i }{ \textrm{Stdev}(|c_i\sigma_i|) }
+    \textrm{\textbf{Solidarity}: }S \equiv \frac{ \sum\limits_{i=1}^6 g_i\sigma_i }{ \textrm{Stdev}(|g_i\sigma_i|) }
     \end{equation}
 
-    That is, first take the standard deviation of the absolute values of the $c_i\sigma_i$ weighted yields.
-    Normalize this by the combined yield at that point (i.e.\ the sum of the weighted yields).
+    That is, first take the standard deviation of the absolute values of the $ g_i \sigma_i $ weighted cross-sections.
+    Normalize this by the combined cross-section at that point (i.e.\ the sum of the weighted cross-sections).
     Then take the \textit{reciprocal} of this normalized standard deviation,
         such that $S$ increases as the absolute standard deviation gets smaller.
     The advantage of Solidarity as a metric
-        is that the yield value can be represented by the pure theoretical cross-section.
+        is that the cross-section value can be represented by the pure theoretical cross-section.
     So long as the process of reconstruction and selection does not significantly alter the ratios of the various samples' total event yields,
         Solidarity can be used to gauge the performance of a basis without the need for any MC production.
 
-    As the metric is calculated on a per-scale-factor basis,
+    As the metric is calculated on a per-$\kappa$ basis,
         a heatmap akin to the negative weight heatmap can be generated in a similar manner.
 
     \begin{figure}[tbh]
@@ -531,7 +586,7 @@
         could produce high stability combinations with the existing 12 samples.
     The aggregate sum of all Solidarity surface integrals associated with a new sample
         can evidently be used as a scalar metric by which to rank different prospective scale-factor points.
-    The culmination of these tests is Fig. \ref{fig:solidarity_performance_map}
+    The culmination of these tests is Fig. \ref{fig:solidarity_performance_map}.
 
     \begin{figure}[tbh]
         \begin{subfigure}{0.5\textwidth}
@@ -551,6 +606,8 @@
             The color of a particular (\kvv,\kl) point indicates the overall
                 benefit to adding an MC sample with that set of scale-factor
                 to the existing set of 12 MC samples.
+            Colors closer to yellow (the upper end of the scale) denote samples that would improve combination performance,
+                while colors closer to purple (the lower end of the scale) denote samples that would be of little to no use if added.
         }
         \label{fig:solidarity_performance_map}
     \end{figure}
