@@ -81,7 +81,7 @@
         as to the validity or incompatibility of the hypothesis with the provided data.
     More plainly, the questions for this chapter are:
         was the di-Higgs process detected in the data,
-        and what were the values of the $\kappa$ couplings involved in its production?
+        and what were the values of the $\kappa$ scale factors involved in its production?
     To answer these questions, I must turn to the field of statistical analysis.
     In this chapter, I want to explain why statistics is required for this analysis,
         discuss the specific statistical techniques this analysis uses,
@@ -92,14 +92,18 @@
     % i.e. that with a coin toss, the number to tosses is entirely determined by me, and is thus fixed.
     % For decay and such, the number of events is completely random, and what is fixed is how much time (luminosity)
     %     the experiment is given.
-    Like most particle physics processes [all?], the $VBF \to HH \to 4b$ process is poisonian in nature.
+    Like most particle physics processes, the $VBF \to HH \to 4b$ process results in a need to count outcomes,
+        a fundamentally Poissonian situation.
     The number $n$ of di-Higgs process that are observed in ATLAS can then be modeled with a Poisson distribution\cite{cranmer2015practical}:
     \begin{equation}
         P(n|\nu) = \frac{ \nu^n e^{-\nu} }{n!}
     \end{equation}
-    Where $\nu$ is the expected event yield for the process.
+    This function $P(n|\nu)$ can be read as ``the probability $P$ of obtaining $n$ events \textit{given} the parameter $\nu$.''
+    That is, for a process which is expected on average to produce $\nu$ number of events,
+        this function gives the probability that such a process would produce $n$ events.
+
     The compatibility of a hypothesis with data can be established by use of a ``p-value test.''
-    As an example, take the case of a simple alpha emitter,
+    As an example, take the case of a simple alpha particle emitter with an unknown emission rate
         which I hypothesize emits radiation at a rate of once per minute.
     After one hour, I would expect on average 60 events.
     Running the experiment, I find that 68 events were detected.
@@ -125,7 +129,7 @@
 
     \FloatBarrier
     A ``p-test'' is the key tool that will be used throughout the rest of the analysis.
-    Its function is to find the probability that, were my hypothesis correct,
+    Its goal is to find the probability that, were my hypothesis correct,
         I would obtain data with a value \textit{at least as extreme} as what I measured\footnote{
             There are actually several different variations of a p-test;
             this is specifically a one-sided p-test}.
@@ -140,9 +144,6 @@
     The confidence level is simply $1-p$, so a CL of 0.95 corresponds to a p-value of less than 0.05.
     Because this toy experiment has a p-value larger than 0.05,
         the conclusion would be that ``the hypothesis was compatible with the data within a CL of 95\%.''
-    [Hey Steve, assuming I should even keep my example here, I'm not sure I'm wording this precisely as needed 
-        I know these conclusion statements are touchy with their wording;
-        should I adjust the toy numbers to make for a better example?]
 
 
     % Introduce background
@@ -498,7 +499,7 @@
     \FloatBarrier
     The critical value for each of the plots in Fig. \ref{fig:mu_CL_vals} is the 95\% CL $\mu$.
     A more general plot can be created from this by showing the CL=95\% $\mu$
-        exclusion value as a function of the coupling value $\kvv$.
+        exclusion value as a function of the scale factor value $\kvv$.
     Utilizing the signal model linear combination equation from Section \ref{sec:signal_combination},
         the signal hypothesis for any value of \kvv can be tested, producing Fig. \ref{fig:kvv_SM_scan}.
 
@@ -516,7 +517,7 @@
     This in turn provides strong evidence for the existence of the \HHVV interaction process.
     Yet, there is still more to discuss.
 
-    The signal combination formula is able to produce a signal hypothesis with multiple coupling values adjusted at once,
+    The signal combination formula is able to produce a signal hypothesis with multiple scale factor values adjusted at once,
         and so a wide range of \kvv scan plots can be produced, as seen in Fig. \ref{fig:kvv_multi_kl}
 
     \begin{figure}
@@ -542,7 +543,7 @@
             \label{fig:kvv_scan_kl10}
         \end{subfigure}
         \caption{
-            A collection of \kvv exclusion scan plots, with the \kl coupling set to alternate values.
+            A collection of \kvv exclusion scan plots, with the \kl scale factor set to alternate values.
         }\label{fig:kvv_multi_kl}
     \end{figure}
 
@@ -554,7 +555,7 @@
     \begin{figure}
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v1_exclusion}
         \caption{Two-dimensional \kvv/\kl exclusion plot, for \kv=1.
-            Signal hypothesis model corresponding to couplings that lie
+            Signal hypothesis model corresponding to scale factors that lie
                 \textit{outside} the ellipsoidal region are incompatible with the observed data to a CL of 95\%,
                 and thus can be excluded.
             }
