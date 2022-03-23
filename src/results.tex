@@ -163,6 +163,12 @@
     \begin{equation}
         P_S = \frac{P_{S+B}}{1 - P_B}
     \end{equation}
+    % TODO: for example, in the case where the oberved number of events is far larger than the background estimate,
+    %   such that the background is entirely unable to account for the observation,
+    %   P_B will be approximately 1, and 1-P_B will approach 0.
+    %   This will in turn scale P_{S+B} up dramatically,
+    %   emphasizing that since the background is unable to describe the observation,
+    %   the signal must be present to account for the difference.
     Where $P_{S+B}$ is the p-value of the hypothesis assuming the signal is present,
         and $P_B$ is the p-value of the background-only hypothesis
         (often called the ``null hypothesis,'' $H_0$)\cite{Barlow:2019svl}.
@@ -172,17 +178,17 @@
 
     \begin{table}[tbh]
        \begin{center}
-           \caption{Estimated and Observed Event Yields [FIXME: put in the real data once you have it]}
+           \caption{Estimated and Observed Event Yields}
            \label{tab:event_yield}
            \footnotesize
            \begin{tabular}{|l|l|}
            \toprule
                Type  &	Event Yield \\
                \midrule
-               Background Estimate  & 7012 \\
                Signal Hypothesis (SM) & 0.36 \\
-               %Signal Hypothesis (\kvv=3) & 400 \\
-               Observed Data & 7053 \\
+               Signal Hypothesis (\kvv=3) & 52.7 \\
+               Background Estimate  & 493.6 \\
+               Observed Data & 495 \\
            \bottomrule
            \end{tabular}
        \end{center}

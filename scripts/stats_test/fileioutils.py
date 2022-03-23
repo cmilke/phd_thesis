@@ -257,16 +257,16 @@ def load_signal(var_edges, pickle_load=False):
 
 
 def load_ggF_bgd(var_edges):
-    signal_files = [ # SM
-        '/home/cmilke/Downloads/large_datasets/nano_ntuples/ggF_may21/600463_mc16a/hh_600463_mc16a.root',
-        '/home/cmilke/Downloads/large_datasets/nano_ntuples/ggF_may21/600463_mc16d/hh_600463_mc16d.root',
-        '/home/cmilke/Downloads/large_datasets/nano_ntuples/ggF_may21/600463_mc16e/hh_600463_mc16e.root'
-    ]
-    #signal_files = [ # k2v=3
-    #    '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502975_MC16a-2015-2016_NanoNTuple.root',
-    #    '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502975_MC16d-2017_NanoNTuple.root',
-    #    '/home/cmilke/Documents/dihiggs/nano_ntuples/2021_aug_test/VBF_nonres2021_502975_MC16e-2018_NanoNTuple.root'
+    #signal_files = [ # SM
+    #    '/home/cmilke/Downloads/large_datasets/nano_ntuples/ggF_may21/600463_mc16a/hh_600463_mc16a.root',
+    #    '/home/cmilke/Downloads/large_datasets/nano_ntuples/ggF_may21/600463_mc16d/hh_600463_mc16d.root',
+    #    '/home/cmilke/Downloads/large_datasets/nano_ntuples/ggF_may21/600463_mc16e/hh_600463_mc16e.root'
     #]
+    signal_files = [ # kl 10
+        '/home/cmilke/Downloads/large_datasets/nano_ntuples/ggF_may21/600464_mc16a/hh_600464_mc16a.root',
+        '/home/cmilke/Downloads/large_datasets/nano_ntuples/ggF_may21/600464_mc16d/hh_600464_mc16d.root',
+        '/home/cmilke/Downloads/large_datasets/nano_ntuples/ggF_may21/600464_mc16e/hh_600464_mc16e.root'
+    ]
 
     key='m_hh'
     events = []

@@ -12,10 +12,20 @@ from matplotlib import pyplot as plt
 import fileioutils
 from fileioutils import _k2v, _kl, _kv
 
+_coupling_labels = {
+    'k2v': r'$\kappa_{2V}$',
+    'kl':  r'$\kappa_{\lambda}$',
+    'kv':  r'$\kappa_{V}$'
+}
+
+_kappa_title = ', '.join(_coupling_labels.values())
+
 
 def name_couplings(couplings):
     return '_'.join([f'{c:.2f}' for c in couplings]).replace('.','p')
 
+def title_couplings(couplings):
+    return ', '.join([f'{c}' for c in couplings])
 
 def log_poisson(n,v):
     lp = numpy.full(len(n),-v).astype(float)
@@ -86,32 +96,36 @@ def make_sb_poisson_plots(results=None, prefix='', couplings=None):
     bgd_pvalue = cumulative_bgd_poisson[observed]
     bs_pvalue = cumulative_bs_poisson[observed]
 
+    coupling_title = _kappa_title + ' = ' + title_couplings(couplings)
+
     fig, ax = plt.subplots()
-    ax.plot(poisson_inputs, poisson_bgd_values, label='B PDF')
-    ax.plot(poisson_inputs, poisson_bs_values, ls='--', label='S+B PDF')
+    ax.plot(poisson_inputs, poisson_bgd_values, label='Background PDF', color='blue')
+    ax.plot(poisson_inputs, poisson_bs_values, ls='--', label='S+B PDF', color='green')
     ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='red')
     ax.fill_between(range(0,observed+1), 0, poisson_bgd_values[:observed+1], color='blue', hatch='///', alpha=0.3, label=f'bgd p-value={bgd_pvalue:.2f}')
-    ax.fill_between(range(0,observed+1), 0, poisson_bs_values[:observed+1], color='red', hatch='///', alpha=0.3, label=f'S+B p-value={bs_pvalue:.2f}')
+    ax.fill_between(range(0,observed+1), 0, poisson_bs_values[:observed+1], color='green', hatch='/', alpha=0.3, label=f'S+B p-value={bs_pvalue:.2f}')
     plt.xlabel('Number of Events')
-    plt.ylabel('Probability')
+    plt.ylabel('Poisson Probability')
     plt.xlim(expectation*.5, expectation*1.5)
     plt.ylim(0)
     ax.legend()
+    plt.title('Poisson Distributions\nfor '+coupling_title)
     plt.savefig('out/'+prefix+'_poisson_'+name_couplings(couplings)+'.pdf')
     plt.close()
 
     fig, ax = plt.subplots()
-    ax.plot(poisson_inputs, cumulative_bgd_poisson, label='B C-PDF')
-    ax.plot(poisson_inputs, cumulative_bs_poisson, label='S+B C-PDF', ls='--')
-    ax.plot(poisson_inputs, cumulative_sig_poisson, label='S+B/(1-B) C-PDF', color='purple')
+    ax.plot(poisson_inputs, cumulative_bgd_poisson, label='Bgd Cumulative PDF')
+    ax.plot(poisson_inputs, cumulative_bs_poisson, label='S+B Cumulative PDF', ls='--')
+    ax.plot(poisson_inputs, cumulative_sig_poisson, label='Signal Cumulative PDF', color='purple')
     ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='red')
-    ax.axhline(bgd_pvalue, ls='dotted', label=f'Background p-value={bgd_pvalue:.2f}', color='green')
-    ax.axhline(sig_pvalue, ls='dotted', label=f'Signal p-value={sig_pvalue:.2f}', color='magenta')
+    ax.axhline(bgd_pvalue, ls='dotted', label=f'Bgd p-value={bgd_pvalue:.2f}', color='blue')
+    ax.axhline(sig_pvalue, ls='dotted', label=f'Signal p-value={sig_pvalue:.2f}', color='purple')
     plt.xlabel('Number of Events')
-    plt.ylabel('Cumulative Probability')
+    plt.ylabel('Cumulative Poisson Probability')
     plt.xlim(expectation*.5, expectation*1.5)
     plt.ylim(0,1)
-    ax.legend()
+    ax.legend(fontsize=8)
+    plt.title('Cumulative Poisson Distributions\nfor '+coupling_title)
     plt.savefig('out/'+prefix+'_Cpoisson_'+name_couplings(couplings)+'.pdf')
     plt.close()
 
@@ -152,15 +166,28 @@ def make_lazy_mu_probability_distro(results=None, couplings=None):
     sig_yield = sum(results['sig'](couplings)[0])
     bgd_yield = sum(results['bgd'][0])
 
+    sigmaV = lambda y,hilo: y+hilo*math.sqrt(y)
     mu_values, pvalues = get_mu_pvalue_relation((sig_yield, bgd_yield, data_yield))
+    exp_mus, exp_pvalues = get_mu_pvalue_relation((sig_yield, bgd_yield, int(bgd_yield)))
+    #s1hi_mus, sigma1hi_pvalues = get_mu_pvalue_relation((sigmaV(sig_yield,1), sigmaV(bgd_yield,1), int(sigmaV(bgd_yield,1))))
+    #s2hi_mus, sigma2hi_pvalues = get_mu_pvalue_relation((sigmaV(sig_yield,2), sigmaV(bgd_yield,2), int(sigmaV(bgd_yield,2))))
+    #s1lo_mus, sigma1lo_pvalues = get_mu_pvalue_relation((sigmaV(sig_yield,-1), sigmaV(bgd_yield,-1), int(sigmaV(bgd_yield,-1))))
     exclusion_limit_index = numpy.argmax(pvalues < 0.05)
     mu_limit = mu_values[exclusion_limit_index]
 
+    coupling_title = _kappa_title + ' = ' + title_couplings(couplings)
     fig, ax = plt.subplots()
-    ax.errorbar(mu_values, pvalues, color='black', ls='--')
+    ax.plot(mu_values, pvalues, color='black', ls='-', label='Observed')
+    ax.plot(exp_mus, exp_pvalues, color='black', ls='--', label='Expected')
+    #ax.plot(s1hi_mus, sigma1hi_pvalues, color='green', ls='--', label='$\pm 1 \sigma$')
+    #ax.plot(s2hi_mus, sigma2hi_pvalues, color='yellow', ls='--', label='$\pm 1 \sigma$')
+    #ax.plot(s1lo_mus, sigma1lo_pvalues, color='blue', ls='--', label='')
     ax.hlines(0.05, mu_values[0], mu_values[-1], color='red', ls='dotted', label='p-value = 0.05')
     ax.axvline(x=mu_limit, label=r'$\mu=$'f'{mu_limit:.2f}' )
     ax.legend()
+    plt.ylabel('Signal p-value')
+    plt.xlabel(r'Signal Scaling Coefficient $\mu$')
+    plt.title(r'p-value vs $\mu$''\nfor '+coupling_title)
     plt.savefig('out/'+'mu_pvalue_'+name_couplings(couplings)+'.pdf')
     plt.close()
 
@@ -318,24 +345,24 @@ def main():
     print('Data Loaded')
 
     #print('Signal')
-    #print(results['sig'][0].sum(), results['sig'][1].sum())
+    #print(signal((3,1,1))[0].sum(), signal((3,1,1))[1].sum())
     #print()
-    #print('ggF Bgd')
-    #print(results['ggfB'][0].sum(), results['ggfB'][1].sum())
-    #print()
+    ##print('ggF Bgd')
+    ##print(ggfB_vals.sum(), ggfB_vals.sum())
+    ##print()
     #print('Bgd')
     #print(results['bgd'][0].sum(), results['bgd'][1].sum())
     #print()
     #print('Data')
     #print(results['data'][0].sum(), results['data'][1].sum())
 
-    #make_data_display_plots(results=results,var_edges=var_edges)
     #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
-    #make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
+    #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
+    make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
+    make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
     #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False)
-    make_multidimensional_limit_plots(results=results)
-
-
+    #make_multidimensional_limit_plots(results=results)
+    #make_data_display_plots(results=results,var_edges=var_edges)
 
 
 main()
