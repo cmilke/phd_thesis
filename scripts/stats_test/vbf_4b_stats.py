@@ -53,19 +53,24 @@ def get_mu_kappa_expression(bgd_yield, data_yield):
     return mu_kappa_expression
     
 
-def make_data_display_plots(data=None, var_edges=None):
+def make_data_display_plots(results=None, var_edges=None, couplings=None):
     fig, (ax, rat) = plt.subplots(2, gridspec_kw={'height_ratios':(2,1)}, sharex=True)
-    ax.errorbar(var_edges[:-1]+0.5, data['data'][0], yerr=data['data'][1], marker='.', ls='--', color='purple', label='Data')
-    ax.errorbar(var_edges[:-1]+0.5, data['bgd'][0], yerr=data['bgd'][1], marker='.', ls='--', color='blue', label='Bgd')
-    ax.errorbar(var_edges[:-1]+0.5, data['sig'][0], yerr=data['sig'][1], marker='.', ls='--', color='green', label='Signal')
+    ax.errorbar(var_edges[:-1]+0.5, results['data'][0], yerr=results['data'][1], marker='.', ls='--', color='purple', label='Data')
+    ax.errorbar(var_edges[:-1]+0.5, results['bgd'][0], yerr=results['bgd'][1], marker='.', ls='--', color='blue', label='Bgd')
+    ax.errorbar(var_edges[:-1]+0.5, results['sig'](couplings)[0], yerr=results['sig'](couplings)[1], marker='.', ls='--', color='green', label='Signal')
 
-    sensitivity = data['sig'][0] / numpy.sqrt( data['data'][1]**2 + data['bgd'][1]**2)
-    rat.errorbar(var_edges[:-1]+0.5, sensitivity,
-        marker='.', ls='--', color='red')
+    sensitivity = results['sig'](couplings)[0] / numpy.sqrt( results['data'][1]**2 + results['bgd'][1]**2)
+    rat.errorbar(var_edges[:-1]+0.5, sensitivity, marker='.', ls='--', color='red')
     rat.hlines(0, var_edges[0], var_edges[-1], linestyle='-', color='black')
 
     ax.legend()
-
+    ax.set_ylabel('Yield of Events with Given 'r'$m_{HH}$')
+    rat.set_xlabel('DiHiggs Invariant Mass of Event')
+    rat.set_ylabel('Significance')
+    #plt.xlim(expectation*.5, expectation*1.5)
+    #plt.ylim(0,1)
+    coupling_title = _kappa_title + ' = ' + title_couplings(couplings)
+    fig.suptitle(r'$m_{HH}$ Distribution'' for '+coupling_title)
 
     plt.savefig('out/'+'data_dump_'+name_couplings(couplings)+'.pdf')
     plt.close()
@@ -185,31 +190,24 @@ def make_lazy_mu_probability_distro(results=None, couplings=None):
     ax.hlines(0.05, mu_values[0], mu_values[-1], color='red', ls='dotted', label='p-value = 0.05')
     ax.axvline(x=mu_limit, label=r'$\mu=$'f'{mu_limit:.2f}' )
     ax.legend()
+    ax.grid()
     plt.ylabel('Signal p-value')
     plt.xlabel(r'Signal Scaling Coefficient $\mu$')
     plt.title(r'p-value vs $\mu$''\nfor '+coupling_title)
     plt.savefig('out/'+'mu_pvalue_'+name_couplings(couplings)+'.pdf')
     plt.close()
 
+def mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
+        results, observed=True, slow_form=False):
 
-def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
-    data_yield = int(sum(results['data'][0]))
     bgd_yield = sum(results['bgd'][0])
-
-    if scan_coupling == 'k2v':
-        plot_xvals = numpy.linspace(-2,4,13)
-        if not slow_form: plot_xvals = numpy.linspace(-2,4,6*10+1)
-        coupling_list = [ (k2v,1,1) for k2v in plot_xvals ]
-    else: return
-
-    xsec_fn = fileioutils.get_theory_combination_function()
-    theory_xsec = numpy.array([ xsec_fn(c) for c in coupling_list ])
+    data_yield = int(sum(results['data'][0])) if observed else int(bgd_yield)
 
     mu_limit_list = []
     if slow_form:
         for couplings in coupling_list:
-            print(f'Deriving: {couplings}...', end='')
             sig_yield = sum(results['sig'](couplings)[0])
+            print(f'Deriving: {couplings}...', end='')
             mu_values, pvalues = get_mu_pvalue_relation((sig_yield, bgd_yield, data_yield))
             exclusion_limit_index = numpy.argmax(pvalues < 0.05)
             mu_limit = mu_values[exclusion_limit_index]
@@ -220,9 +218,11 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
         import warnings
         warnings.filterwarnings('ignore')
         for x in plot_xvals:
-            print(f'Deriving: {x}...', end='')
+            print(f'Deriving: {x:.2f}...', end='')
             if scan_coupling == 'k2v':
                 mu_expression = mu_kappa_expression.subs([(_k2v,x),(_kl,1),(_kv,1)]) - 0.05
+            elif scan_coupling == 'kl':
+                mu_expression = mu_kappa_expression.subs([(_k2v,1),(_kl,x),(_kv,1)]) - 0.05
             mu_function = sympy.lambdify( ['u'], mu_expression, "numpy")
             mu_vals = numpy.linspace(0,100,1001)
             rough_mu = mu_function(mu_vals)
@@ -231,23 +231,53 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
             mu_limit_list.append(mu_limit)
             print(f'mu = {mu_limit:.2f}')
     mu_limit_array = numpy.array(mu_limit_list)
-    for k2v, pval in zip(plot_xvals, mu_limit_array):
-        print(f'{k2v:.2f}, {pval:.2f}')
+    return mu_limit_array
+
+
+def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
+    if scan_coupling == 'k2v':
+        plot_xvals = numpy.linspace(-2,4,13)
+        if not slow_form: plot_xvals = numpy.linspace(-2,4,6*10+1)
+        coupling_list = [ (k2v,1,1) for k2v in plot_xvals ]
+    elif scan_coupling == 'kl':
+        plot_xvals = numpy.linspace(-20,20,21)
+        if not slow_form: plot_xvals = numpy.linspace(-20,20,40*10+1)
+        coupling_list = [ (1,kl,1) for kl in plot_xvals ]
+    else: return
+
+    xsec_fn = fileioutils.get_theory_combination_function()
+    theory_xsec = numpy.array([ xsec_fn(c) for c in coupling_list ])
+
+    mu_limit_array = mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
+        results, slow_form=slow_form)
+
+    exp_mu_limit_array = mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
+        results, observed=False, slow_form=slow_form)
 
     slow = 'slow_' if slow_form else 'fast_'
     fig, ax = plt.subplots()
     ax.plot(plot_xvals, mu_limit_array, color='black', ls='-', label='Observed Limit')
+    ax.plot(plot_xvals, exp_mu_limit_array, color='black', ls='--', label='Expected Limit')
     ax.set_yscale('log')
     ax.axhline(1, color='red', ls='-', label=r'$\mu=1$')
     ax.legend()
+    ax.grid()
+    plt.xlabel(_coupling_labels[scan_coupling])
+    plt.ylabel(r'$\mu$ Value Required for 95% Confidence')
+    plt.title(_coupling_labels[scan_coupling] + r' $\mu$ Limit Scan')
     plt.savefig('out/'+'mu_limits_'+slow+scan_coupling+'.pdf')
     plt.close()
 
     fig, ax = plt.subplots()
     ax.plot(plot_xvals, mu_limit_array*theory_xsec, color='black', ls='-', label='Observed Limit')
+    ax.plot(plot_xvals, exp_mu_limit_array*theory_xsec, color='black', ls='--', label='Expected Limit')
     ax.set_yscale('log')
     ax.plot(plot_xvals, theory_xsec, color='red', ls='-', label='Theory cross-section')
     ax.set_ylim(1,1e4)
+    ax.grid()
+    plt.xlabel(_coupling_labels[scan_coupling])
+    plt.ylabel(r'Cross-section at 95% Confidence')
+    plt.title(_coupling_labels[scan_coupling] + r' Cross-section Limit Scan')
     ax.legend()
     plt.savefig('out/'+'xsec_limits_'+slow+scan_coupling+'.pdf')
     plt.close()
@@ -264,9 +294,9 @@ def make_multidimensional_limit_plots(results=None):
     kv_slices  = numpy.linspace(*kv_bounds, 13)
 
     coupling_parameters = {
-        'k2v': [k2v_bounds, k2v_slices, 'k2v'],
-        'kl':  [kl_bounds, kl_slices, 'kl'],
-        'kv':  [kv_bounds, kv_slices, 'kv']
+        'k2v': [k2v_bounds, k2v_slices],
+        'kl':  [kl_bounds, kl_slices],
+        'kv':  [kv_bounds, kv_slices]
     }
     limit_resolution = 100
 
@@ -274,18 +304,19 @@ def make_multidimensional_limit_plots(results=None):
     data_yield = int(sum(results['data'][0]))
     bgd_yield = sum(results['bgd'][0])
     kappa_expression = get_mu_kappa_expression( bgd_yield, data_yield).subs('u',1)
+    #kappa_exp_expression = get_mu_kappa_expression( bgd_yield, int(bgd_yield)).subs('u',1)
     kappa_function = sympy.lambdify( [_k2v,_kl,_kv], kappa_expression, "numpy")
-
+    #kappa_exp_function = sympy.lambdify( [_k2v,_kl,_kv], kappa_expression, "numpy")
 
     kappas = list(coupling_parameters)
     print('Generating multi-dimensional pvalues...')
     for si, key in enumerate(kappas):
-        sbounds, srange, stitle = coupling_parameters[key]
+        sbounds, srange = coupling_parameters[key]
         for kslice in srange:
             print('    '+key+' = '+str(kslice))
             (xi, xkey), (yi, ykey) = [ (i,k) for i,k in enumerate(kappas) if k != key ]
-            xbounds, _, xtitle = coupling_parameters[xkey]
-            ybounds, _, ytitle = coupling_parameters[ykey]
+            xbounds, _ = coupling_parameters[xkey]
+            ybounds, _ = coupling_parameters[ykey]
 
             xrange = numpy.linspace(*xbounds,limit_resolution)
             yrange = numpy.linspace(*ybounds,limit_resolution)
@@ -294,17 +325,18 @@ def make_multidimensional_limit_plots(results=None):
             kappa_grid[si] = kslice
             kappa_grid[xi] = xy_grid[0]
             kappa_grid[yi] = xy_grid[1]
-            #print(kappa_function(*kappa_matrix))
             import warnings
             warnings.filterwarnings('ignore')
             pvalue_grid = kappa_function(*kappa_grid)
+            #pvalue_exp_grid = kappa_exp_function(*kappa_grid)
 
             fig, ax = plt.subplots()
             ax.contour(xy_grid[0], xy_grid[1], pvalue_grid, levels=[0.05], antialiased=True)
+            #ax.contour(xy_grid[0], xy_grid[1], pvalue_exp_grid, levels=[0.05], antialiased=True)
             plt.grid()
-            plt.title(stitle)
-            plt.xlabel(xtitle)
-            plt.ylabel(ytitle)
+            plt.title('Limit Boundaries for ' +_coupling_labels[key]+ f' = {kslice:.2f}')
+            plt.xlabel(_coupling_labels[xkey])
+            plt.ylabel(_coupling_labels[ykey])
             plt.savefig('out/3D/limit_slice_'+key+'_'+str(kslice).replace('.','p')+'.pdf')
             plt.close()
     
@@ -358,11 +390,16 @@ def main():
 
     #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
     #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
-    make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
-    make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
+    #make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
+    #make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
     #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False)
+    #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False)
     #make_multidimensional_limit_plots(results=results)
-    #make_data_display_plots(results=results,var_edges=var_edges)
+    make_data_display_plots(results=results,var_edges=var_edges, couplings=(-1,1,1))
+    make_data_display_plots(results=results,var_edges=var_edges, couplings=(1,1,1))
+    make_data_display_plots(results=results,var_edges=var_edges, couplings=(2,1,1))
+    make_data_display_plots(results=results,var_edges=var_edges, couplings=(3,1,1))
+    make_data_display_plots(results=results,var_edges=var_edges, couplings=(1,10,1))
 
 
 main()
