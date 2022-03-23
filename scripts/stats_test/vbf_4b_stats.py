@@ -173,7 +173,7 @@ def make_lazy_mu_probability_distro(results=None, couplings=None):
 
     sigmaV = lambda y,hilo: y+hilo*math.sqrt(y)
     mu_values, pvalues = get_mu_pvalue_relation((sig_yield, bgd_yield, data_yield))
-    exp_mus, exp_pvalues = get_mu_pvalue_relation((sig_yield, bgd_yield, int(bgd_yield)))
+    #exp_mus, exp_pvalues = get_mu_pvalue_relation((sig_yield, bgd_yield, int(bgd_yield)))
     #s1hi_mus, sigma1hi_pvalues = get_mu_pvalue_relation((sigmaV(sig_yield,1), sigmaV(bgd_yield,1), int(sigmaV(bgd_yield,1))))
     #s2hi_mus, sigma2hi_pvalues = get_mu_pvalue_relation((sigmaV(sig_yield,2), sigmaV(bgd_yield,2), int(sigmaV(bgd_yield,2))))
     #s1lo_mus, sigma1lo_pvalues = get_mu_pvalue_relation((sigmaV(sig_yield,-1), sigmaV(bgd_yield,-1), int(sigmaV(bgd_yield,-1))))
@@ -183,7 +183,7 @@ def make_lazy_mu_probability_distro(results=None, couplings=None):
     coupling_title = _kappa_title + ' = ' + title_couplings(couplings)
     fig, ax = plt.subplots()
     ax.plot(mu_values, pvalues, color='black', ls='-', label='Observed')
-    ax.plot(exp_mus, exp_pvalues, color='black', ls='--', label='Expected')
+    #ax.plot(exp_mus, exp_pvalues, color='black', ls='--', label='Expected')
     #ax.plot(s1hi_mus, sigma1hi_pvalues, color='green', ls='--', label='$\pm 1 \sigma$')
     #ax.plot(s2hi_mus, sigma2hi_pvalues, color='yellow', ls='--', label='$\pm 1 \sigma$')
     #ax.plot(s1lo_mus, sigma1lo_pvalues, color='blue', ls='--', label='')
@@ -251,13 +251,13 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
     mu_limit_array = mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
         results, slow_form=slow_form)
 
-    exp_mu_limit_array = mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
-        results, observed=False, slow_form=slow_form)
+    #exp_mu_limit_array = mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
+        #results, observed=False, slow_form=slow_form)
 
     slow = 'slow_' if slow_form else 'fast_'
     fig, ax = plt.subplots()
     ax.plot(plot_xvals, mu_limit_array, color='black', ls='-', label='Observed Limit')
-    ax.plot(plot_xvals, exp_mu_limit_array, color='black', ls='--', label='Expected Limit')
+    #ax.plot(plot_xvals, exp_mu_limit_array, color='black', ls='--', label='Expected Limit')
     ax.set_yscale('log')
     ax.axhline(1, color='red', ls='-', label=r'$\mu=1$')
     ax.legend()
@@ -270,7 +270,7 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
 
     fig, ax = plt.subplots()
     ax.plot(plot_xvals, mu_limit_array*theory_xsec, color='black', ls='-', label='Observed Limit')
-    ax.plot(plot_xvals, exp_mu_limit_array*theory_xsec, color='black', ls='--', label='Expected Limit')
+    #ax.plot(plot_xvals, exp_mu_limit_array*theory_xsec, color='black', ls='--', label='Expected Limit')
     ax.set_yscale('log')
     ax.plot(plot_xvals, theory_xsec, color='red', ls='-', label='Theory cross-section')
     ax.set_ylim(1,1e4)
@@ -390,16 +390,16 @@ def main():
 
     #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
     #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
-    #make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
-    #make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
-    #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False)
-    #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False)
-    #make_multidimensional_limit_plots(results=results)
-    make_data_display_plots(results=results,var_edges=var_edges, couplings=(-1,1,1))
-    make_data_display_plots(results=results,var_edges=var_edges, couplings=(1,1,1))
-    make_data_display_plots(results=results,var_edges=var_edges, couplings=(2,1,1))
-    make_data_display_plots(results=results,var_edges=var_edges, couplings=(3,1,1))
-    make_data_display_plots(results=results,var_edges=var_edges, couplings=(1,10,1))
+    make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
+    make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
+    make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False)
+    make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False)
+    make_multidimensional_limit_plots(results=results)
+    #make_data_display_plots(results=results,var_edges=var_edges, couplings=(-1,1,1))
+    #make_data_display_plots(results=results,var_edges=var_edges, couplings=(1,1,1))
+    #make_data_display_plots(results=results,var_edges=var_edges, couplings=(2,1,1))
+    #make_data_display_plots(results=results,var_edges=var_edges, couplings=(3,1,1))
+    #make_data_display_plots(results=results,var_edges=var_edges, couplings=(1,10,1))
 
 
 main()

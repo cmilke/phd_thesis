@@ -106,9 +106,9 @@
     As an example, take the case of a simple alpha particle emitter with an unknown emission rate
         which I hypothesize emits radiation at a rate of once per minute.
     After one hour, I would expect on average 60 events.
-    Running the experiment, I find that 68 events were detected.
+    Running the experiment, I find that 52 events were detected.
     Plotting the Poisson distribution for $P(n|60)$ (Fig. \ref{fig:poisson_toy_sig:pdf}),
-        I can see how likely an observation of 68 events is.
+        I can see how likely an observation of 52 events is.
     \begin{figure}
         \centering
         \begin{subfigure}{0.48\textwidth} 
@@ -133,9 +133,9 @@
         I would obtain data with a value \textit{at least as extreme} as what I measured\footnote{
             There are actually several different variations of a p-test;
             this is specifically a one-sided p-test}.
-    So the p-value for an event rate of 68, given an expected average of 60, can be found by taking:
+    So the p-value for an event rate of 52, given an expected average of 60, can be found by taking:
     \begin{equation}
-        \textrm{p-value}(n=68) = P(68|60) + P(69|60) + P(70|60) ... P(\infty|60) = \sum\limits_{m=n}^\infty P(m|60)
+        \textrm{p-value}(N=52) = P(0|60) + P(1|60) + ... + P(51|60) ... P(52|60) = \sum\limits_{n=0}^N P(n|60)
     \end{equation}
     This is best visualized using the \textit{cumulative} probability distribution function (Fig. \ref{fig:poisson_toy_sig:Cpdf}).
     In this example, the p-value would be 0.17.
@@ -163,18 +163,16 @@
     \begin{equation}
         P_S = \frac{P_{S+B}}{1 - P_B}
     \end{equation}
-    % TODO: for example, in the case where the oberved number of events is far larger than the background estimate,
-    %   such that the background is entirely unable to account for the observation,
-    %   P_B will be approximately 1, and 1-P_B will approach 0.
-    %   This will in turn scale P_{S+B} up dramatically,
-    %   emphasizing that since the background is unable to describe the observation,
-    %   the signal must be present to account for the difference.
     Where $P_{S+B}$ is the p-value of the hypothesis assuming the signal is present,
         and $P_B$ is the p-value of the background-only hypothesis
         (often called the ``null hypothesis,'' $H_0$)\cite{Barlow:2019svl}.
-    The total yields of the data, Background estimate, and SM signal hypothesis are provided in Table \ref{tab:event_yield},
-        and their PDF and cumulative PDF can be seen in
-        Fig. \ref{fig:poisson_sig:pdf} and \ref{fig:poisson_sig:Cpdf}.
+    $P_S$ then provides a probability which is relative to the ability of the null hypothesis to explain the observed effects by itself.
+    For example, in the case where the oberved number of events is far larger than the background estimate,
+        such that the background is entirely unable to account for the observation,
+        $P_B$ will be approximately 1, and $1-P_B$ will approach 0.
+    This will in turn scale $P_{S+B}$ up dramatically,
+        emphasizing that since the background is unable to describe the observation
+        the signal is more likely to be present to account for the difference.
 
     \begin{table}[tbh]
        \begin{center}
@@ -194,6 +192,26 @@
        \end{center}
     \end{table}
 
+    The total yields of the data, Background estimate, and the SM and \kvv=3 signal hypotheses are provided in Table \ref{tab:event_yield},
+        and their PDF and cumulative PDFs can be seen in Fig. \ref{fig:poisson_sig:pdf} and \ref{fig:poisson_sig:Cpdf}.
+    Proof of the di-Higgs process would necessitate an excess of events so significant that
+        the null hypothesis must be rejected (typically $P_B < 10^{-7}$, the ``$5\sigma$'' discovery limit).
+    Here though, the background estimate almost completely overlaps with the observed data,
+        resulting in a $P_B = 0.55$.
+    This means the null hypothesis is highly compatible with the data and cannot be rejected.
+    Since the null hypothesis cannot be rejected (and thus the di-Higgs process cannot be directly measured)
+        the next best thing that can be done is to instead reject variations of the signal hypothesis.
+    Setting \kvv to three times the SM value has a drastic effect on the hypothesized signal yield,
+        which would have been significant in the observed data were this the true value.
+    The complete lack of any noticeable deviation from the background-only hypothesis (Fig. TODO)
+        thus results in the low signal p-value of 0.03.
+    As this falls below the 0.05 cutoff, I can state with 95\% confidence that \kvv=3 (with \kl and \kv equal to 1)
+        can be excluded from the realm of realistic scenarios.
+    On the other hand, the SM signal has a p-value which exceeds 1.
+    This is mostly a quirk of how the signal p-value is defined,
+        but indicates that the signal hypothesis is highly compatible with the observed data,
+        in this case because the signal is so tiny as to practically be a rounding error.
+
     \begin{figure}
         \centering
         \begin{subfigure}{0.48\textwidth} 
@@ -210,18 +228,81 @@
             A plot of the probability distribution function (PDF)
                 and cumulative PDF for the estimated background and simulated signal,
                 with the observed yield denoted in both.
+                TODO insert kvv=3 plots
         }
     \end{figure}
 
-    The p-value of the signal based on the observed yield is 0.46,
-        for a CL of 54\%.
-    This indicates that the signal is very compatible with the data,
-        but by no means indicates proof for the di-Higgs process.
-    To understand why, one need only look at the CL on the background-only hypothesis.
-    Proof of the di-Higgs process would necessitate an excess of events so significant that
-        the null hypothesis must be rejected (typically $P_B < 10^{-7}$, the ``$5\sigma$'' discovery limit).
-    Here though, $P_B = 0.31$, which means the null hypothesis is \textit{also} highly compatible with the data,
-        and cannot be rejected.
+    A useful technique for visualizing the compatibility of a signal hypothesis with data is to use a ``$\mu$ scan.''
+    With this technique the expectation value is subtly adjusted to be $\nu = \mu S + B$,
+        where $\mu$ now acts a scaling factor to the signal yield.
+    The p-tests shown above can then be repeated for a variety of values of $\mu$,
+        with the critical $\mu$ value identified as that which produces a signal p-value of 0.05.
+    Figures TODO show such a test for \kvv set to 1 and 3.
+    In a sense, what these figures state is how much the proposed signal would have to be scaled in order to be realistically perceivable.
+    For \kvv = 1, this means that the signal would need to be scaled by a factor of 134 before it would make a noteworthy impact against the background.
+    In contrast, the plot for \kvv = 3 highlighting a $\mu$ of 0.91 indicates
+        that the signal would have to be \textit{reduced} to 91\% of its yield before it could be considered as reasonably compatible with data.
+    It is easy to see how this technique could be extended to arbitrary values of the $\kappa$ factors
+        in order to find the precise point at which the hypothesis can be excluded.
+    Utilizing the signal model linear combination equation from Section \ref{sec:signal_combination},
+        the signal hypothesis for any value of \kvv can be tested, producing Fig. TODO.
+    A similar plot can be produced by scanning across the values of \kl (Fig. TODO).
+    An alternate visualization of these scan plots can be produced by multiplying $\mu$ by
+        the theoretical cross-section predicted for a given set of $\kappa$ factors.
+    Shown in Figs TODO, these scans indicate how far the \vbfproc cross-section would have to deviated from
+        the theoretical value in order to remain compatible with the observed data.
+
+    Of course, the linear combination equation is not constrained to variations in only one $\kappa$ factor at a time.
+    Noting that the points of greatest interest are those which define the boundary between excluded and non-excluded
+        values of the $\kappa$ factors, a two-dimensional plot can be produced defining the ``exclusion zone.''
+    $\mu$ at this point is superfluous as the only relevant piece of information is the p-value
+        associated with a particular set of the $\kappa$ factors.
+    This can be taken advantage of by redefining the poisson expectation value again,
+        replacing $S$ with the full signal yield linear combination equation (Eq. \ref{eqn:vbf_hh_6term_chosen}).
+    Using the shorthand form from Eq. \ref{eq:combination_general}, the poisson expectation takes the form
+    \begin{equation} \begin{\split}
+        \nu(\kvv,\kl,\kv) &= S(\kvv,\kl,\kv) + B
+        \nu(\kvv,\kl,\kv) &= \vec{g}(\kvv,\kl,\kv) \bullet \vec{S} + B
+        \quad .
+    \end{split} \end{equation}
+
+    The two-dimensional $\kappa$ limits can be seen in Figs TODO,
+        which span the entire three-dimensional parameter space of the $\kappa$ factors.
+
+
+        
+
+
+
+
+\FloatBarrier
+% Discuss sources of error, assumptions, categorization, concept of mu values;
+% basically all the complicated stuff the limit framework is doing
+% Make the final goal to be establishing a p-value via the cumulative PDF distro,
+%   as was done for the simple coin toss example (to bring things full circle)
+\section{VBF HH 4b Limit-Setting Framework}
+
+    Although a wealth of information can be obtained from event yields alone,
+        far more statistical power can be wrought by making full use of
+        the kinematic information of individual events.
+    %The issue of course, is that the signal is utterly dwarfed by the quantity of background events.
+    %A method of circumventing this scale issue
+        %is to break the event count up across a number of different
+    By splitting the event count up across a number of different
+        bins and categories dependent on kinematic observables of the events,
+
+    The signal and background events are expected to have their events distributed differently across such observables.
+    Thus, even though there are vastly more background events overall,
+        it is entirely possible for there to exist a region in the observable space
+        in which there are a comparable number of signal events.
+    In this analysis, the primary observable variable is the di-Higgs invariant mass, \mhh.
+    Ultimately, the final test of the hypothesis will still be to create a cumulative PDF distribution,
+        obtain the p-value of the cumulative PDF for the observed data, and use that to derive a CL for the signal.
+    With multiple bins (as well as categories and uncertainties) however,
+        the derivation of the cumulative PDF becomes much more complex.
+    The following section will describe precisely how all these aspects of the analysis are combined together,
+        producing a much more powerful statistical analysis.
+
 
     \begin{figure}
         \centering
@@ -244,30 +325,6 @@
         }
     \end{figure}
 
-
-    The issue of course, is that the signal is utterly dwarfed by the quantity of background events.
-    A method of circumventing this scale issue
-        is to break the event count up across a number of different
-        bins and categories dependent on kinematic observables of the events.
-    The signal and background events are expected to have their events distributed differently across such observables.
-    Thus, even though there are vastly more background events overall,
-        it is entirely possible for there to exist a region in the observable space
-        in which there are a comparable number of signal events.
-    In this analysis, the primary observable variable is the di-Higgs invariant mass, \mhh.
-    Ultimately, the final test of the hypothesis will still be to create a cumulative PDF distribution,
-        obtain the p-value of the cumulative PDF for the observed data, and use that to derive a CL for the signal.
-    With multiple bins (as well as categories and uncertainties) however,
-        the derivation of the cumulative PDF becomes much more complex.
-    The following section will describe precisely how all these aspects of the analysis are combined together,
-        producing a much more powerful statistical analysis.
-
-
-\FloatBarrier
-% Discuss sources of error, assumptions, categorization, concept of mu values;
-% basically all the complicated stuff the limit framework is doing
-% Make the final goal to be establishing a p-value via the cumulative PDF distro,
-%   as was done for the simple coin toss example (to bring things full circle)
-\section{VBF HH 4b Limit-Setting Framework}
     
     %What is a test statistic and why do we need it?
     The statistical technique used here to obtain a cumulative PDF
