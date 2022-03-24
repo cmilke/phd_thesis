@@ -7,6 +7,7 @@ import scipy
 import scipy.stats
 import sympy
 import numpy
+import pickle
 from matplotlib import pyplot as plt
 
 import fileioutils
@@ -285,13 +286,20 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
 
 
 def make_multidimensional_limit_plots(results=None):
-    k2v_bounds = (-4,15)
+    #k2v_bounds = (-4,15)
+    #kl_bounds  = (-50,50)
+    #kv_bounds  = (-6,6)
+    k2v_bounds = (-2.5,14)
     kl_bounds  = (-50,50)
-    kv_bounds  = (-6,6)
+    kv_bounds  = (-3.5,3.5)
 
-    k2v_slices = numpy.linspace(*k2v_bounds, 20)
-    kl_slices  = [-50, -40, -30, -20, -10, 0, 1, 10, 20, 30, 40, 50]
-    kv_slices  = numpy.linspace(*kv_bounds, 13)
+    k2v_slices  = numpy.linspace(*k2v_bounds, int((k2v_bounds[1]-k2v_bounds[0])*2)+1)
+    #kl_slices  = [-50, -40, -30, -20, -10, 0, 1, 10, 20, 30, 40, 50]
+    kl_slices  = numpy.linspace(*kl_bounds, 26)
+    kv_slices  = numpy.linspace(*kv_bounds, int((kv_bounds[1]-kv_bounds[0])*2)+1)
+    #k2v_slices = numpy.linspace(*k2v_bounds, 11)
+    #kl_slices  = [-50, -30, -10, 0, 10, 30, 50]
+    #kv_slices  = numpy.linspace(*kv_bounds, 7)
 
     coupling_parameters = {
         'k2v': [k2v_bounds, k2v_slices],
@@ -310,6 +318,7 @@ def make_multidimensional_limit_plots(results=None):
 
     kappas = list(coupling_parameters)
     print('Generating multi-dimensional pvalues...')
+    shell_points = ([], [], [])
     for si, key in enumerate(kappas):
         sbounds, srange = coupling_parameters[key]
         for kslice in srange:
@@ -331,17 +340,62 @@ def make_multidimensional_limit_plots(results=None):
             #pvalue_exp_grid = kappa_exp_function(*kappa_grid)
 
             fig, ax = plt.subplots()
-            ax.contour(xy_grid[0], xy_grid[1], pvalue_grid, levels=[0.05], antialiased=True)
+            contour_group = ax.contour(xy_grid[0], xy_grid[1], pvalue_grid, levels=[0.05], antialiased=True)
             #ax.contour(xy_grid[0], xy_grid[1], pvalue_exp_grid, levels=[0.05], antialiased=True)
+
+            for path in contour_group.collections[0].get_paths():
+                for x, y in path.vertices:
+                    shell_points[si].append(kslice)
+                    shell_points[xi].append(x)
+                    shell_points[yi].append(y)
+
             plt.grid()
             plt.title('Limit Boundaries for ' +_coupling_labels[key]+ f' = {kslice:.2f}')
             plt.xlabel(_coupling_labels[xkey])
             plt.ylabel(_coupling_labels[ykey])
             plt.savefig('out/3D/limit_slice_'+key+'_'+str(kslice).replace('.','p')+'.pdf')
             plt.close()
+
+    return shell_points
     
 
+def make_full_3D_render(shell_points):
+    numpy.savetxt('mesh_dump.dat', numpy.array(shell_points).transpose())
+    shell_points = [ [x,y,z] for x,y,z in zip(*shell_points) ]
+    shell_points.sort(key=lambda p: p[2])
+    shell_points = numpy.array(shell_points)
 
+    import inspect
+    import pymesh
+    print('\n'.join([str(i) for i in inspect.getmembers(pymesh)]))
+    tri_form = pymesh.triangle()
+    tri_form.points = shell_points
+    tri_form.run()
+    mesh = tri_form.mesh
+    mesh.save_mesh('limit_mesh.stl')
+
+
+
+    #from stl import mesh
+    #triangulation = None
+    #resolution = 5
+    #for zsplit in numpy.array_split(shell_points, 5):
+    #    vertices = zsplit
+    #    if triangulation is None:
+    #        triangulation = scipy.spatial.Delaunay(vertices, incremental=True)
+    #    else:
+    #        triangulation.add_points(vertices, restart=False)
+    #triangulation.close()
+
+    #vertices = triangulation.points
+    ##triangulation = scipy.spatial.Delaunay(vertices)
+    #faces = triangulation.convex_hull
+    #limit_mesh = mesh.Mesh(numpy.zeros(faces.shape[0], dtype=mesh.Mesh.dtype))
+    #for i, f in enumerate(faces):
+    #    for j in range(3):
+    #            limit_mesh.vectors[i][j] = vertices[f[j],:]
+    ##limit_mesh.save(f'limit_mesh_{si}.stl')
+    #limit_mesh.save(f'limit_mesh.stl')
 
 
 
@@ -390,11 +444,18 @@ def main():
 
     #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
     #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
-    make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
-    make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
-    make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False)
-    make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False)
-    make_multidimensional_limit_plots(results=results)
+
+    #make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
+    #make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
+
+    #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False)
+    #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False)
+
+    #shell_points = make_multidimensional_limit_plots(results=results)
+    #pickle.dump(shell_points, open('.shell_points.p','wb'))
+    shell_points = pickle.load(open('.shell_points.p','rb'))
+    make_full_3D_render(shell_points)
+
     #make_data_display_plots(results=results,var_edges=var_edges, couplings=(-1,1,1))
     #make_data_display_plots(results=results,var_edges=var_edges, couplings=(1,1,1))
     #make_data_display_plots(results=results,var_edges=var_edges, couplings=(2,1,1))

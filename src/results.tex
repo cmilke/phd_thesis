@@ -192,8 +192,8 @@
        \end{center}
     \end{table}
 
-    The total yields of the data, Background estimate, and the SM and \kvv=3 signal hypotheses are provided in Table \ref{tab:event_yield},
-        and their PDF and cumulative PDFs can be seen in Fig. \ref{fig:poisson_sig:pdf} and \ref{fig:poisson_sig:Cpdf}.
+    The total yields of the data, background estimate, and the SM and \kvv=3 signal hypotheses are provided in Table \ref{tab:event_yield},
+        and their PDF and cumulative PDFs can be seen in Fig. \ref{fig:poisson_sig_kvv1_pdf} and \ref{fig:poisson_sig_kvv1_Cpdf}.
     Proof of the di-Higgs process would necessitate an excess of events so significant that
         the null hypothesis must be rejected (typically $P_B < 10^{-7}$, the ``$5\sigma$'' discovery limit).
     Here though, the background estimate almost completely overlaps with the observed data,
@@ -203,8 +203,8 @@
         the next best thing that can be done is to instead reject variations of the signal hypothesis.
     Setting \kvv to three times the SM value has a drastic effect on the hypothesized signal yield,
         which would have been significant in the observed data were this the true value.
-    The complete lack of any noticeable deviation from the background-only hypothesis (Fig. TODO)
-        thus results in the low signal p-value of 0.03.
+    The complete lack of any noticeable deviation from the background-only hypothesis (Fig. \ref{fig:poisson_sig_kvv3_pdf})
+        thus results in the low signal p-value of 0.03 (Fig. \ref{fig:poisson_sig_kvv3_Cpdf}).
     As this falls below the 0.05 cutoff, I can state with 95\% confidence that \kvv=3 (with \kl and \kv equal to 1)
         can be excluded from the realm of realistic scenarios.
     On the other hand, the SM signal has a p-value which exceeds 1.
@@ -215,14 +215,24 @@
     \begin{figure}
         \centering
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/total_yield_poisson}
-            \caption{Poisson PDF}
-            \label{fig:poisson_sig:pdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/total_yield_poisson_1p00_1p00_1p00}
+            \caption{}%Poisson PDF for \kvv = 1}
+            \label{fig:poisson_sig_kvv1_pdf}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/total_yield_Cpoisson}
-            \caption{Poisson Cumulative PDF}
-            \label{fig:poisson_sig:Cpdf}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/total_yield_Cpoisson_1p00_1p00_1p00}
+            \caption{}%Poisson Cumulative PDF for \kvv = 1}
+            \label{fig:poisson_sig_kvv1_Cpdf}
+        \end{subfigure}\\
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/total_yield_poisson_3p00_1p00_1p00}
+            \caption{}%Poisson PDF for \kvv = 3}
+            \label{fig:poisson_sig_kvv3_pdf}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/total_yield_Cpoisson_3p00_1p00_1p00}
+            \caption{}%Poisson Cumulative PDF for \kvv = 3}
+            \label{fig:poisson_sig_kvv3_Cpdf}
         \end{subfigure}
         \caption{
             A plot of the probability distribution function (PDF)
@@ -237,20 +247,66 @@
         where $\mu$ now acts a scaling factor to the signal yield.
     The p-tests shown above can then be repeated for a variety of values of $\mu$,
         with the critical $\mu$ value identified as that which produces a signal p-value of 0.05.
-    Figures TODO show such a test for \kvv set to 1 and 3.
+    Figures \ref{fig:muscan_kvv1} and \ref{fig:muscan_kvv3} show such a test for \kvv set to 1 and 3.
     In a sense, what these figures state is how much the proposed signal would have to be scaled in order to be realistically perceivable.
     For \kvv = 1, this means that the signal would need to be scaled by a factor of 134 before it would make a noteworthy impact against the background.
     In contrast, the plot for \kvv = 3 highlighting a $\mu$ of 0.91 indicates
         that the signal would have to be \textit{reduced} to 91\% of its yield before it could be considered as reasonably compatible with data.
+
+    \begin{figure}
+        \centering
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pvalue_1p00_1p00_1p00}
+            \caption{}%$\mu$ Scan Plot for \kvv = 1}
+            \label{fig:muscan_kvv1}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pvalue_3p00_1p00_1p00}
+            \caption{}%$\mu$ Scan Plot for \kvv = 3}
+            \label{fig:muscan_kvv3}
+        \end{subfigure}
+        \caption{
+                TODO
+        }
+    \end{figure}
+
+
     It is easy to see how this technique could be extended to arbitrary values of the $\kappa$ factors
         in order to find the precise point at which the hypothesis can be excluded.
     Utilizing the signal model linear combination equation from Section \ref{sec:signal_combination},
-        the signal hypothesis for any value of \kvv can be tested, producing Fig. TODO.
-    A similar plot can be produced by scanning across the values of \kl (Fig. TODO).
+        the signal hypothesis for any value of \kvv can be tested, producing Fig. \ref{fig:mulimits_kvv}.
+    A similar plot can be produced by scanning across the values of \kl (Fig. \ref{fig:mulimits_kl}).
     An alternate visualization of these scan plots can be produced by multiplying $\mu$ by
         the theoretical cross-section predicted for a given set of $\kappa$ factors.
-    Shown in Figs TODO, these scans indicate how far the \vbfproc cross-section would have to deviated from
+    Shown in Figs. \ref{fig:xseclimits_kvv} and \ref{fig:xseclimits_kl}, these scans indicate how far the \vbfproc cross-section would have to deviated from
         the theoretical value in order to remain compatible with the observed data.
+
+    \begin{figure}
+        \centering
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_limits_fast_k2v}
+            \caption{}%$\mu$ Scan Plot for \kvv = 1}
+            \label{fig:mulimits_kvv}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_limits_fast_kl}
+            \caption{}%$\mu$ Scan Plot for \kvv = 3}
+            \label{fig:mulimits_kl}
+        \end{subfigure}\\
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/xsec_limits_fast_k2v}
+            \caption{}%$\mu$ Scan Plot for \kvv = 1}
+            \label{fig:xseclimits_kvv}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/xsec_limits_fast_kl}
+            \caption{}%$\mu$ Scan Plot for \kvv = 3}
+            \label{fig:xseclimits_kl}
+        \end{subfigure}
+        \caption{
+                TODO
+        }
+    \end{figure}
 
     Of course, the linear combination equation is not constrained to variations in only one $\kappa$ factor at a time.
     Noting that the points of greatest interest are those which define the boundary between excluded and non-excluded
@@ -260,18 +316,36 @@
     This can be taken advantage of by redefining the poisson expectation value again,
         replacing $S$ with the full signal yield linear combination equation (Eq. \ref{eqn:vbf_hh_6term_chosen}).
     Using the shorthand form from Eq. \ref{eq:combination_general}, the poisson expectation takes the form
-    \begin{equation} \begin{\split}
-        \nu(\kvv,\kl,\kv) &= S(\kvv,\kl,\kv) + B
+    \begin{equation} \begin{split}
+        \nu(\kvv,\kl,\kv) &= S(\kvv,\kl,\kv) + B \\
         \nu(\kvv,\kl,\kv) &= \vec{g}(\kvv,\kl,\kv) \bullet \vec{S} + B
         \quad .
     \end{split} \end{equation}
 
-    The two-dimensional $\kappa$ limits can be seen in Figs TODO,
+    The two-dimensional $\kappa$ limits can be seen in Figs \ref{fig:limit_slice_kv_1p0}-\ref{fig:limit_slice_k2v_1p0},
         which span the entire three-dimensional parameter space of the $\kappa$ factors.
 
-
-        
-
+    \begin{figure}
+        \centering
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/limit_slice_kv_1p0}
+            \caption{}%$\mu$ Scan Plot for \kvv = 1}
+            \label{fig:limit_slice_kv_1p0}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/limit_slice_kl_1}
+            \caption{}%$\mu$ Scan Plot for \kvv = 3}
+            \label{fig:limit_slice_kl_1p0}
+        \end{subfigure}\\
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/limit_slice_k2v_1p0}
+            \caption{}%$\mu$ Scan Plot for \kvv = 1}
+            \label{fig:limit_slice_k2v_1p0}
+        \end{subfigure}
+        \caption{
+                TODO
+        }
+    \end{figure}
 
 
 
@@ -343,11 +417,7 @@
     %    ]
     %    
     The first step to deriving \qtil is to slightly redefine the expectation value for the number of events 
-        with a scaling factor $\mu$ applied to the signal yield.
-    $\mu$ is referred to as the ``Parameter of Interest'' (PoI),
-        and allows the yield of the signal process to be adjusted to some ideal value that best fits the data.
-    As well, since there are now multiple bins $i$ (each with their own expectation values)
-        the new definition of the expectation value is
+        in terms of individual bins $i$:
     \begin{equation}
         \nu_i(\mu) = \mu S_i + B_i
     \end{equation}
@@ -407,12 +477,6 @@
         \prod \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} L(n,\mu,\Theta) |_{\Theta=\hat{\hat\Theta}} = 0
     \end{equation}
     Resulting in a fitted $L = L(n,\mu,\hat{\hat\Theta})$.
-    [TODO: I still don't know how the stat errors get factored into all this...
-        are they treated the same way as the nuissance params,
-        or are they somehow intrinsic to the poisson distribution?
-    Stat error for poisson is just sqrt(expectation),
-        so maybe the stat error is automatic?
-    Or is there some deeply unpleasant error propogation going on under the pyhf hood?]
         
     %lambda = L(mu, theta vary-opt) / L(mu-opt, theta-opt);
     As a final fitting step, the likelihood $L$ is normalized to a fully maximized value $\hat L$,
@@ -453,8 +517,7 @@
     The middle condition is simply $t$, with the top and bottom edge cases being the defining traits of \qtil.
     \qtil in particular is used for this analysis because of these piece-wise conditions,
         which enforce the fact that $\mu$ should never be negative (the signal cannot remove events from the background),
-        and that this analysis is only interested in establishing a lower-bound
-        [TODO: might need to think about this some more to be sure you know what you're saying here].
+        and that this analysis is only interested in establishing a lower-bound.
 
     %Single mu vs q~ PDF constructed from monte-carlo distros
     %C-PDF showing where mu-model resides for Psb, Pb, and finally Ps=Psb/(1-Pb)
@@ -470,193 +533,59 @@
     The result is a collection of \qtil values, which together comprise a distribution.
     A cumulative probability distribution can be constructed with this distribution,
         by simply taking the fraction of simulated observations which fall below some value of the observed \qtil.
-    Figures \ref{fig:qtil:pdf} and \ref{fig:qtil:Cpdf} demonstrate how this is done,
-        as well as where the SM signal model falls with a $\mu$ value of 1.
-
-    \begin{figure}
-        \centering
-        \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
-            \caption{Values of \qtil for Simulated Distributions}
-            \label{fig:qtil:pdf}
-        \end{subfigure}
-        \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pdf}
-            \caption{Cumulative PDF of \qtil Test Statistic}
-            \label{fig:qtil:Cpdf}
-        \end{subfigure}
-        \caption{
-            [TODO: replace the placeholders with the real thing.]
-            [Steve, so these will be by far the most involved plots here,
-                because I'm trying to generate them by reverse engineering the entire limit framework and pyhf.
-            If I can finish them, it's a nice proof to myself that I understand how everything is actually done.
-            But I may not have enough time to finish this,
-                in which case I'll probably just scrap these figures and the references to them.]
-            Plots of the values and cumulative PDF based on \qtil,
-                with the \qtil value of the observed data highlighted.
-            Note the ``error bands'' which provide extended regions of higher confidence.
-            These are produced via the formula [TODO: how do I still not know how these are made?!].
-        }
-    \end{figure}
-
-    I would like to note that while I have performed the explicit simulation of the MC distributions for the sake of these figures,
-        in practice the MC approach is far too slow.
-    What is often done instead, and what this analysis in particular does (via the Pyhf python framework),
-        is to use an asymptotic approximation to the \qtil cumulative distribution function.
-    The derivation of this approximation is well beyond the scope of this thesis,
-        but is documented extensively by Cowan\cite{asymptotic_formulae_for_likelihood}.
-    \qtil itself still needs to be calculated for the observed data,
-        but the asymptotic approximation allows for rapid and accurate calculation of its p-value.
+    For this analysis, the RooFit statistical framework is used to construct the test statistic and perform the
+        Monte Carlo-based distribution calculation.
     Now that I finally have a robust mechanism for calculating the p-value of the di-Higgs signal hypothesis,
         the only step remaining is to use it.
 
-\FloatBarrier
-% Finally, I need to reveal what our final results actually are, and what they mean.
-% This will mostly just be plots of mu values, limit values, and my 2D exclusion plots.
-% I can discuss the shapes and stuff here, as well as talk about any mismatches between expected and observed results.
-% Be ready to just put in filler results, since we probably won't have unblinded by the time I get here.
-\section{Final Interpretation}
 
-    [Hey steve, for this first edit round, don't worry about the formatting of any of the plots in this section.
-    They all need to be replaced when we unblind, and we've been updating their format a lot. (these are pretty old)]
-    [FIXME: literally all the plots and numbers and conclusions here need to be updated once we unblind]
-    All limits quoted in this analysis are to a CL of 95\%.
-    The CL of the SM signal hypothesis with a $\mu$ scale of 1,
-        even with the extensive profile likelihood fit technique, is still only 50\% [FIME].
-    No meaningful conclusion can be drawn from such a small signal.
-    However, looking at the \kvv=3 signal model at a $\mu$ scale of 1 provides a CL of $\approx 99\%$,
-        which indicates that a value of \kvv=3 is incompatible with data, and so can be excluded.
-    This result suggests a much more useful way of performing these tests.
-    For each signal hypothesis, a series of increasing values of $\mu$ can be tested against the observed data,
-        each with their own CL value.
-    A series of such tests can be seen in Fig. \ref{fig:mu_CL_vals}.
 
     \begin{figure}
         \centering
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/brazilplot_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_1-00_k2v_0-00_k1v_1-00}
-            \caption{Values of \qtil for Simulated Distributions}
-            \label{fig:mu_CL_k2v0}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_limits_fast_k2v}
+            \caption{}%$\mu$ Scan Plot for \kvv = 1}
+            \label{fig:mulimits_kvv}
         \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_limits_fast_kl}
+            \caption{}%$\mu$ Scan Plot for \kvv = 3}
+            \label{fig:mulimits_kl}
+        \end{subfigure}\\
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/brazilplot_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_1-00_k2v_1-00_k1v_1-00}
-            \caption{Values of \qtil for Simulated Distributions}
-            \label{fig:mu_CL_k2v1}
-        \end{subfigure} \\
-        \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/brazilplot_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_1-00_k2v_1-50_k1v_1-00}
-            \caption{Cumulative PDF of \qtil Test Statistic}
-            \label{fig:mu_CL_k2v1.5}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/xsec_limits_fast_k2v}
+            \caption{}%$\mu$ Scan Plot for \kvv = 1}
+            \label{fig:xseclimits_kvv}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/brazilplot_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_1-00_k2v_3-00_k1v_1-00}
-            \caption{Cumulative PDF of \qtil Test Statistic}
-            \label{fig:mu_CL_k2v3}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/xsec_limits_fast_kl}
+            \caption{}%$\mu$ Scan Plot for \kvv = 3}
+            \label{fig:xseclimits_kl}
         \end{subfigure}
         \caption{
-            [Wow the labels on these plots are super wrong. Pretty sure y is supposed to be the p-value,
-                and the red line is the 0.05 mark. I think these are fixed in the updated plots?]
-        }\label{fig:mu_CL_vals}
+                TODO
+        }
     \end{figure}
 
-    \FloatBarrier
-    The critical value for each of the plots in Fig. \ref{fig:mu_CL_vals} is the 95\% CL $\mu$.
-    A more general plot can be created from this by showing the CL=95\% $\mu$
-        exclusion value as a function of the scale factor value $\kvv$.
-    Utilizing the signal model linear combination equation from Section \ref{sec:signal_combination},
-        the signal hypothesis for any value of \kvv can be tested, producing Fig. \ref{fig:kvv_SM_scan}.
-
-    \begin{figure}
-        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/k2v_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_1-0_xsec.png}
-        \caption{DiHiggs signal \kvv exclusion plot.
-            The red line indicates the theoretical cross-section of the di-Higgs interaction as a function of \kvv.
-            The dashed line is formed as the product of the theoretical cross-section value
-                and the 95\% CL value of $\mu$ for that \kvv signal}
-        \label{fig:kvv_SM_scan}
-    \end{figure}
-
-    Figure \ref{fig:kvv_SM_scan} is arguably the single most significant result presented in this thesis,
-        as it indicates that \kvv=0 can be excluded with a CL of 95\% [To Steve: look I can hope alright].
-    This in turn provides strong evidence for the existence of the \HHVV interaction process.
-    Yet, there is still more to discuss.
-
-    The signal combination formula is able to produce a signal hypothesis with multiple scale factor values adjusted at once,
-        and so a wide range of \kvv scan plots can be produced, as seen in Fig. \ref{fig:kvv_multi_kl}
 
     \begin{figure}
         \centering
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/k2v_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_-4-0_xsec.png}
-            \caption{\kvv Exclusion, \kl=-4}
-            \label{fig:kvv_scan_kl0}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/limit_slice_kv_1p0}
+            \caption{}%$\mu$ Scan Plot for \kvv = 1}
+            \label{fig:limit_slice_kv_1p0}
         \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/limit_slice_kl_1}
+            \caption{}%$\mu$ Scan Plot for \kvv = 3}
+            \label{fig:limit_slice_kl_1p0}
+        \end{subfigure}\\
         \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/k2v_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_0-0_xsec.png}
-            \caption{\kvv Exclusion, \kl=0}
-            \label{fig:kvv_scan_kl1}
-        \end{subfigure} \\
-        \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/k2v_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_2-0_xsec.png}
-            \caption{\kvv Exclusion, \kl=2}
-            \label{fig:kvv_scan_kl2}
-        \end{subfigure}
-        \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/k2v_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_kl_10-0_xsec.png}
-            \caption{\kvv Exclusion, \kl=10}
-            \label{fig:kvv_scan_kl10}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/limit_slice_k2v_1p0}
+            \caption{}%$\mu$ Scan Plot for \kvv = 1}
+            \label{fig:limit_slice_k2v_1p0}
         \end{subfigure}
         \caption{
-            A collection of \kvv exclusion scan plots, with the \kl scale factor set to alternate values.
-        }\label{fig:kvv_multi_kl}
-    \end{figure}
-
-    \FloatBarrier
-    This abundance of parameter space can be collapsed by taking special note only of
-        the individual points at which the theoretical cross-section and observed 95\% CL cross-section intersect,
-        as these points indicate where the regions of exclusion lie (Fig. \ref{fig:kvv_kl_2Dscan}).
-
-    \begin{figure}
-        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v1_exclusion}
-        \caption{Two-dimensional \kvv/\kl exclusion plot, for \kv=1.
-            Signal hypothesis model corresponding to scale factors that lie
-                \textit{outside} the ellipsoidal region are incompatible with the observed data to a CL of 95\%,
-                and thus can be excluded.
-            }
-        \label{fig:kvv_kl_2Dscan}
-    \end{figure}
-
-    Finally, by utilizing the full dimensionality afforded by the 6-term signal combination equation,
-        such scan plots can be produced across multiple slices of \kv.
-    \kv is already highly constrained, and Fig. \ref{fig:kvv_kl_multislice}
-        reveals that within the established bounds on \kv,
-        the constraints on \kl and \kvv differ by very little.
-
-    \begin{figure}
-        \centering
-        \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v0-96_exclusion}
-            \caption{\kvv/\kl Exclusion, \kv=0.96}
-            \label{fig:kvv_kl_2Dscan_kv0.96}
-        \end{subfigure}
-        \begin{subfigure}{0.48\textwidth} 
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v1_exclusion}
-            \caption{\kvv/\kl Exclusion, \kv=1.00}
-            \label{fig:kvv_kl_2Dscan_kv1}
-        \end{subfigure} \\
-        \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v1-03_exclusion}
-            \caption{\kvv/\kl Exclusion, \kv=1.03}
-            \label{fig:kvv_kl_2Dscan_kv1.03}
-        \end{subfigure}
-        \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_full_3D_scan_NEO2021_samps_vbf_pd_161718_k1v1-06_exclusion}
-            \caption{\kvv/\kl Exclusion, \kv=1.06}
-            \label{fig:kvv_kl_2Dscan_kv1.06}
-        \end{subfigure}
-        \caption{Two-dimensional \kvv/\kl exclusion plot, for multiple values of \kv.
-            Recall that \kv has been measured as $1.05 \pm 0.04$,
-                hence the heavy restriction in its range here.
-            Within this range, the \kvv/\kl limits do deviate slightly from their \kv=1 values,
-                but not by a dramatic amount.
-        }\label{fig:kvv_kl_multislice}
+                TODO
+        }
     \end{figure}
