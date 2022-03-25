@@ -54,7 +54,7 @@ def get_mu_kappa_expression(bgd_yield, data_yield):
     return mu_kappa_expression
     
 
-def make_data_display_plots(results=None, var_edges=None, couplings=None):
+def make_data_display_plots(results=None, var_edges=None, couplings=None, var_key='m_hh', var_title=r'$m_{HH}$'):
     fig, (ax, rat) = plt.subplots(2, gridspec_kw={'height_ratios':(2,1)}, sharex=True)
     ax.errorbar(var_edges[:-1]+0.5, results['data'][0], yerr=results['data'][1], marker='.', ls='--', color='purple', label='Data')
     ax.errorbar(var_edges[:-1]+0.5, results['bgd'][0], yerr=results['bgd'][1], marker='.', ls='--', color='blue', label='Bgd')
@@ -65,15 +65,15 @@ def make_data_display_plots(results=None, var_edges=None, couplings=None):
     rat.hlines(0, var_edges[0], var_edges[-1], linestyle='-', color='black')
 
     ax.legend()
-    ax.set_ylabel('Yield of Events with Given 'r'$m_{HH}$')
-    rat.set_xlabel('DiHiggs Invariant Mass of Event')
+    ax.set_ylabel('Yield of Events with Given '+var_title)
+    rat.set_xlabel(var_title+' of Event')
     rat.set_ylabel('Significance')
     #plt.xlim(expectation*.5, expectation*1.5)
     #plt.ylim(0,1)
     coupling_title = _kappa_title + ' = ' + title_couplings(couplings)
-    fig.suptitle(r'$m_{HH}$ Distribution'' for '+coupling_title)
+    fig.suptitle(var_title+' Distribution'' for '+coupling_title)
 
-    plt.savefig('out/'+'data_dump_'+name_couplings(couplings)+'.pdf')
+    plt.savefig('out/'+'data_dump_'+var_key+'_'+name_couplings(couplings)+'.pdf')
     plt.close()
 
 
@@ -402,22 +402,25 @@ def make_full_3D_render(shell_points):
 
 def main():
     pickle_load = len(sys.argv) > 1
-    var_edges = numpy.linspace(200, 1400, 30)
+    #var_edges = numpy.linspace(200, 1400, 30)
+    #var_key = 'm_hh'
+    var_edges = numpy.linspace(0, 4, 20)
+    var_key = 'dEta_hh'
 
     ###################
     # LOAD EVERYTHING #
     ###################
     # Load Signal
-    signal = fileioutils.load_signal(var_edges, pickle_load=pickle_load)
+    signal = fileioutils.load_signal(var_edges, pickle_load=pickle_load, var_key=var_key)
 
     # Load ggF Background
     #ggfB_vals, ggfB_errs = fileioutils.load_ggF_bgd(var_edges)
 
     # Load Data
-    data_vals, data_errs = fileioutils.load_data(var_edges, pickle_load=pickle_load)
+    data_vals, data_errs = fileioutils.load_data(var_edges, pickle_load=pickle_load, var_key=var_key)
 
     # Load Background
-    bgd_vals, bgd_errs = fileioutils.load_bgd(var_edges, pickle_load=pickle_load)
+    bgd_vals, bgd_errs = fileioutils.load_bgd(var_edges, pickle_load=pickle_load, var_key=var_key)
 
     results = {
         'data': (data_vals, data_errs),
@@ -453,14 +456,14 @@ def main():
 
     #shell_points = make_multidimensional_limit_plots(results=results)
     #pickle.dump(shell_points, open('.shell_points.p','wb'))
-    shell_points = pickle.load(open('.shell_points.p','rb'))
-    make_full_3D_render(shell_points)
+    #shell_points = pickle.load(open('.shell_points.p','rb'))
+    #make_full_3D_render(shell_points)
 
-    #make_data_display_plots(results=results,var_edges=var_edges, couplings=(-1,1,1))
-    #make_data_display_plots(results=results,var_edges=var_edges, couplings=(1,1,1))
-    #make_data_display_plots(results=results,var_edges=var_edges, couplings=(2,1,1))
-    #make_data_display_plots(results=results,var_edges=var_edges, couplings=(3,1,1))
-    #make_data_display_plots(results=results,var_edges=var_edges, couplings=(1,10,1))
+    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(-1,1,1))
+    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,1,1))
+    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(2,1,1))
+    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(3,1,1))
+    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,10,1))
 
 
 main()

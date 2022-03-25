@@ -71,7 +71,7 @@ def get_theory_combination_function():
 
 
 
-def load_data(var_edges, pickle_load=False):
+def load_data(var_edges, var_key='m_hh', pickle_load=False):
     cache_file = '.pickled_data.p'
     if pickle_load: return pickle.load(open(cache_file,'rb'))
 
@@ -80,7 +80,6 @@ def load_data(var_edges, pickle_load=False):
         '/home/cmilke/Downloads/large_datasets/unblinded_data/data17_NN_100_bootstraps.root',
         '/home/cmilke/Downloads/large_datasets/unblinded_data/data18_NN_100_bootstraps.root'
     ]
-    key='m_hh'
     events = []
     for f in data_files:
         tree_name = 'sig'
@@ -93,7 +92,7 @@ def load_data(var_edges, pickle_load=False):
         eta = _eta_cut(ttree)
         valid_event = numpy.logical_and.reduce( (pass_vbf_sel, x_wt_tag, ntag, eta) )
 
-        kinvals = ttree['m_hh'].array()[valid_event]
+        kinvals = ttree[var_key].array()[valid_event]
         weights = ttree['mc_sf'].array()[valid_event]
         lumi_weights = weights
 
@@ -109,7 +108,7 @@ def load_data(var_edges, pickle_load=False):
     return data
 
 
-def load_bgd(var_edges, pickle_load=False):
+def load_bgd(var_edges, var_key='m_hh', pickle_load=False):
     cache_file = '.pickled_bgd.p'
     if pickle_load: return pickle.load(open(cache_file,'rb'))
 
@@ -118,7 +117,6 @@ def load_bgd(var_edges, pickle_load=False):
         (17, '/home/cmilke/Downloads/large_datasets/unblinded_data/data17_NN_100_bootstraps.root'),
         (18, '/home/cmilke/Downloads/large_datasets/unblinded_data/data18_NN_100_bootstraps.root')
     ]
-    key='m_hh'
     events = []
     for y,f in data_files:
         tree_name = 'sig'
@@ -134,7 +132,7 @@ def load_bgd(var_edges, pickle_load=False):
         eta = _eta_cut(ttree)
         valid_event = numpy.logical_and.reduce( (pass_vbf_sel, rw_pass, x_wt_tag, ntag, eta) )
 
-        kinvals = ttree['m_hh'].array()[valid_event]
+        kinvals = ttree[var_key].array()[valid_event]
         NN_weights = ttree[f'NN_d24_weight_bstrap_med_{y}'].array()[valid_event]*med_norm
         VR_weights = ttree[f'NN_d24_weight_VRderiv_bstrap_med_{y}'].array()[valid_event]*med_norm
 
@@ -169,7 +167,7 @@ def read_coupling_file(coupling_file=None):
     return data_files
 
 
-def extract_ntuple_events(ntuple, key=None, tree_name=None):
+def extract_ntuple_events(ntuple, var_key='m_hh'):
     #tree_name = 'sig_highPtcat'
     tree_name = 'sig'
 
@@ -181,21 +179,14 @@ def extract_ntuple_events(ntuple, key=None, tree_name=None):
     #print(ntuple, DSID)
     ttree = rootfile[tree_name]
 
-    #if tree_name == 'sig':
-    #if True:
-    if False:
-        kinvals = ttree['m_hh'].array()
-        weights = ttree['mc_sf'].array()[:,0]
-        run_number = ttree['run_number'].array()
-    else: # Selections
-        pass_vbf_sel = ttree['pass_vbf_sel'].array()
-        x_wt_tag = ttree['X_wt_tag'].array() > 1.5
-        ntag = ttree['ntag'].array() >= 4
-        valid_event = numpy.logical_and.reduce( (pass_vbf_sel, x_wt_tag, ntag) )
+    pass_vbf_sel = ttree['pass_vbf_sel'].array()
+    x_wt_tag = ttree['X_wt_tag'].array() > 1.5
+    ntag = ttree['ntag'].array() >= 4
+    valid_event = numpy.logical_and.reduce( (pass_vbf_sel, x_wt_tag, ntag) )
 
-        kinvals = ttree['m_hh'].array()[valid_event]
-        weights = ttree['mc_sf'].array()[:,0][valid_event]
-        run_number = ttree['run_number'].array()[valid_event]
+    kinvals = ttree[var_key].array()[valid_event]
+    weights = ttree['mc_sf'].array()[:,0][valid_event]
+    run_number = ttree['run_number'].array()[valid_event]
 
     mc2015 = ( run_number < 296939 ) * 3.2
     mc2016 = ( numpy.logical_and(296939 < run_number, run_number < 320000) ) * 24.6
@@ -208,12 +199,12 @@ def extract_ntuple_events(ntuple, key=None, tree_name=None):
     return events
 
 
-def get_events(parameter_list, data_files, reco=True):
+def get_events(parameter_list, data_files, var_key='m_hh', reco=True):
     events_list = []
     for couplings in parameter_list:
         new_events = []
         for f in data_files[couplings]:
-            new_events.append( extract_ntuple_events(f,key='m_hh') )
+            new_events.append( extract_ntuple_events(f,var_key=var_key) )
         events = numpy.concatenate(new_events, axis=1)
         events_list.append(events)
     return events_list
@@ -234,22 +225,22 @@ def reco_reweight(reweight_vector_function, coupling_parameters, base_weights, b
     return linearly_combined_weights, linearly_combined_errors
 
 
-def load_signal_basis(var_edges, pickle_load=False):
+def load_signal_basis(var_edges, var_key='m_hh', pickle_load=False):
     base_couplings = [ (1.0, 1.0, 1.0), (1.5, 1.0, 1.0), (1.0, 2.0, 1.0), (1.0, 10.0, 1.0), (1.0, 1.0, 0.5), (1.0, -5.0, 0.5) ]
     cache_file = '.pickled_sig.p'
     if pickle_load: 
         return pickle.load(open(cache_file,'rb'))
     else:
         data_files = read_coupling_file('/home/cmilke/Documents/dihiggs/coupling_scan/basis_files/nnt_coupling_file_2021Aug_test.dat')
-        basis_events = get_events(base_couplings, data_files)
+        basis_events = get_events(base_couplings, data_files, var_key=var_key)
         basis_data = [ retrieve_reco_weights(var_edges, events) for events in basis_events ]
         basis_collection = (base_couplings, *list(zip(*basis_data)))
         pickle.dump(basis_collection, open(cache_file,'wb'))
         return basis_collection
 
 
-def load_signal(var_edges, pickle_load=False):
-    base_couplings, basis_weights, basis_errors = load_signal_basis(var_edges, pickle_load=pickle_load)
+def load_signal(var_edges, var_key='m_hh', pickle_load=False):
+    base_couplings, basis_weights, basis_errors = load_signal_basis(var_edges, var_key=var_key, pickle_load=pickle_load)
     reweight_vector_function = get_amplitude_function(base_couplings, form='vector', base_equations=full_scan_terms)
     signal = lambda couplings: reco_reweight(reweight_vector_function, couplings, basis_weights, basis_errors)
     return signal
