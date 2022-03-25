@@ -3,31 +3,31 @@
 \section{Introduction}
 
     The amount of data output by the ATLAS detector is immense and overwhelming.
-    Reading out every single bunch crossing would require phenomenal bandwidth and would take centuries to process.
-    To counteract this overabundance of data, ATLAS relies on an on-site bunch crossing filtering system to drastically reduce its throughput.
+    Reading out every single bunch crossing would require phenomenal bandwidth and would take far too long to process.
+    To counteract this overabundance of data, ATLAS relies on an on-site bunch crossing filtering system to drastically reduce the throughput.
     Known as the ATLAS trigger system, this critical piece of infrastructure constitutes the last step of data taking,
         and the first step of physics analysis.
         
     Having such a system in place is not by itself sufficient however,
         without guidance as to how it and its output should be utilized.
-    Throwing out bunch crossings without reason will remove events of interest as often as irrelevant events.
+    Throwing out bunch crossings without reason will remove events of interest as well as irrelevant events.
     In order to make informed decisions as to how filtering should be done,
         data is not only collected from ATLAS, but is generated through Monte Carlo simulation processes.
     These simulated data samples provide insight into how different physics processes may present in ATLAS,
-        allowing for greater efficiency in what data is kept, and what is removed.
+        allowing for greater efficiency in what data is kept and what is removed.
 
 
 \section{Trigger System}
 
     The trigger system is a series of hardware and software level algorithms designed to quickly identify bunch crossing ``events'' which may be of interest to physics analysis, while discarding the rest.
-    Referred to as ``online'' analysis, these algorithms perform event selection live, in parallel to the ATLAS machine running and taking data.
+    Referred to as ``online'' analysis, these algorithms perform event selection live, in parallel to the ATLAS detector observing collisions.
     The trigger system processes all ATLAS events immediately after readout, ultimately reducing the 40 MHz bunch crossing rate to a data output rate of 1 kHz.
-    The data which survives this rapid selection is read out to disk and distributed to individual research teams for more sophisticated ``offline'' analysis later.
+    The data that survive this rapid selection are read out to disk and distributed to individual research teams for more sophisticated ``offline'' analysis later.
     
-    Triggering is achieved by running events through two sequential trigger systems.
+    Triggering is achieved by running events through two sequential algorithmic systems.
     All events first go through the hardware-based Level 1 Trigger (L1) before being run through the more sophisticated (and slower) software-based High Level Trigger (HLT).
-    Both of these triggers involve a plethora of different measurements on various aspects of the events, such as total transverse energy, transverse momentum, jet multiplicity, and opening angles between jets.
-    All of these measurements are factored into whether or not an event passes the trigger selection.
+    Both of these systems involve a plethora of different measurements on various aspects of the events, such as total transverse energy, transverse momentum, jet multiplicity, and opening angles between jets.
+    All of these measurements are used, alone or in combination, to decide whether or not an event passes the trigger selection.
 
     Each of the various kinematic properties checked by the triggers have multiple threshold values that can determine a ``pass.''
     For example, a jet $p_T$ trigger can have thresholds at 30, 45, or 55 GeV, among others.
@@ -35,8 +35,10 @@
     A bunch crossing is ultimately accepted and read out to disk for further analysis offline if it is able to pass all the conditions of a trigger chain.
     There are hundreds of different trigger chains, each permitting different combinations of kinematics.
     An event is read out if it passes any one of these trigger chains, and is labeled in data with all the trigger chains it passes.
-    The trigger chains used in ATLAS were decided upon before the beginning of the Run 2 data taking period, based on input from various analysis teams.
-    This predefined list of trigger chains comprise what is known as the ``trigger menu'', and ultimately defines what kinds of physics processes ATLAS analyses have access to.
+    The trigger chains used in ATLAS were largely decided upon before the beginning of the Run 2 data taking period\footnote{
+        Some trigger chains were introduced later, as the trigger menu can evolve mid-run
+        }, based on input from various analysis teams.
+    This defined list of trigger chains comprise what is known as the ``trigger menu,'' and ultimately determines what kinds of physics processes ATLAS analyses have available.
     The following sections describe broadly how the two levels of the trigger system work, and later chapters will focus on which trigger menu items are used in the di-Higgs analysis specifically .
 
     \begin{figure}[h]
@@ -48,20 +50,23 @@
 
     \subsection{Level 1 Trigger}\label{sec:L1}
 
-        One bunch-crossing every 25 ns is a blistering pace to operate at.
+        One bunch-crossing every 25 ns is a blistering operational pace.
         The first layer of the trigger system, L1, therefore must run entirely through hardware-level gate logic.
-        The goal of this system is to reduce the event rate from the raw 40 MHz bunch-crossing rate, down to a more manageable rate of 100 kHz \cite{trigger_run2}.
-        To reduce latency as much as possible, all the electronics comprising L1 are located as close as possible to ATLAS itself, specifically in the USA15 underground chamber \cite{trigger_tdr} (see figure \ref{fig:facilities}).
-        As yet another consequence of the high frequency L1 must operate at, it exclusively uses information from the ATLAS calorimeters and Muon Trigger Chamber for its decisions.
+        The goal of this system is to reduce the event rate from the raw 40 MHz bunch-crossing rate,
+            down to a more computationally manageable rate of 100 kHz \cite{trigger_run2}.
+        To reduce latency as much as possible, all the electronics comprising L1 are located as close as possible to ATLAS itself, specifically in the USA15 underground chamber \cite{trigger_tdr} (see Fig. \ref{fig:facilities}).
+        An additional consequence of the high L1 operating frequency
+            is that it must exclusively use information from the ATLAS calorimeters and Muon Trigger Chamber for its decisions.
         %(utilizes detector buffer memory to keep up).
 
-        The Muon Trigger aspect of L1 is based entirely on the trigger-dedicated Muon Trigger Chamber, described in section \ref{sec:muon-trigger_chamber}.
-        Its purpose is to make trigger decisions primarily based on muon $p_T$ and track multiplicity in the Trigger Chamber \cite{trigger_run1}.
+        The Muon Trigger aspect of L1 is based entirely on the dedicated Muon Trigger Chambers, described in section \ref{sec:muon-trigger_chamber}.
+        Their purpose is to make trigger decisions primarily based on muon $p_T$ and track multiplicity\cite{trigger_run1}.
         In the calorimeter-based trigger, the selection algorithm first requires a reduction in data resolution.
-        The full granularity of the ATLAS calorimeters is too complex to analyze in the 25 ns L1 has to process each bunch-crossing.
-        Instead, the various sensors of the calorimeters are clustered together into ``trigger towers'',
+        The full granularity of the ATLAS calorimeters is too high to analyze in the 25 ns L1 has to process each bunch-crossing
+            [TODO figure out Steve's edit to this :-/].
+        Instead, the various sensors of the calorimeters are clustered together into ``trigger towers,''
             each with a resolution of $0.1 \times 0.1$ in $\Delta \eta \times \Delta \phi$.
-        The way towers are clustered and used varies between the different L1 calorimeter trigger modules: the CPM, JEM, and CMX.
+        The way towers are clustered and used varies between the three different L1 calorimeter trigger modules.
 
         \begin{figure}[h]
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{trigger/trigger_towers}
@@ -70,27 +75,35 @@
         \end{figure}
 
 
-        The Cluster Processor Module (CPM) exclusively uses the Barrel Calorimeters to function, and is primarily meant for rapid identification of electrons/photons and taus/hadrons.
+        The Cluster Processor Module (CPM) exclusively uses the Barrel Calorimeters to function
+            and is primarily meant for rapid identification of electrons/photons and taus/hadrons.
         For either case, the CPM's first step is to check all possible $4 \times 4$ ``windows'' of trigger towers, identifying windows containing an isolated ``Region of Interest'' (RoI).
         Here, an RoI is defined as a $2 \times 2$ cluster of towers with an $E_T$ sum that is a relative maximum compared to surrounding towers.
-        This $2 \times 2$ RoI is the center of the $4 \times 4$ window (see figure \ref{fig:trigger_towers}).
+        This $2 \times 2$ RoI is the center of the $4 \times 4$ window (see Fig. \ref{fig:trigger_towers}).
         Windows are considered as passing the CPM trigger if the RoI satisfies an isolation requirement, meaning that the 12 towers surrounding that core fall \textit{below} a predefined $E_T$ ``isolation threshold'' value.
         Electrons and photons are then separated from taus and hadrons by the fact that the latter group penetrates into the HCal barrel, while the former group stays highly contained to the ECal.
 
         Expanding out, the Jet/Energy Processing Module (JEM, or sometimes JEP) makes use of the calorimeter barrels and endcaps, as well as the FCAL, though it does not distinguish between the ECal and HCal.
-        The JEM further reduces the granularity under consideration, with a basic unit of data collection being $2 \times 2$ collections of trigger towers called ``jet elements'', resulting in a minimum resolution of $0.2 \times 0.2$ in $\Delta \eta \times \Delta \phi$.
+        The JEM further reduces the granularity under consideration, with a basic unit of data collection being $2 \times 2$ collections of trigger towers called ``jet elements,'' resulting in a minimum resolution of $0.2 \times 0.2$ in $\Delta \eta \times \Delta \phi$.
         Like the CPM, the JEM runs its trigger conditions on windows of multiple jet elements that must be based around a $2 \times 2$ RoI core (which is a local $E_T$ maximum).
         Unlike the CPM, these windows can vary in size.
-        Primarily, the JEM is intended to perform hit multiplicity counting as well as assist the Extended Cluster Merger Modules (CMX) in carrying out the final jet multiplicity and $E_T$ sums \cite{L1_calo_run1}\cite{trigger_run2}.
+        Primarily, the JEM is intended to perform hit multiplicity counting
+            as well as assist the Extended Cluster Merger Modules (CMX) in carrying out the final jet multiplicity
+            and $E_T$ sums \cite{L1_calo_run1}\cite{trigger_run2}.
         When these conditions, alongside those performed in the Muon trigger, are completed, the event is passed along to the HLT.
 
 
 \FloatBarrier
     \subsection{High Level Trigger}
+        \begin{figure}[h]
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{trigger/trigger_flow}
+            \caption{Flow chart of information through the ATLAS trigger system\cite{trigger_run2}.}
+            \label{fig:trigger_flow}
+        \end{figure}
 
         After the L1 Trigger has reduced the event rate to 100 kHz, the software-based High Level Trigger is used to further reduce the event rate to the final output of \textasciitilde 1 kHz.
-        Located in the SCX1 building (figure \ref{fig:facilities}) at the surface of P1 (again to minimize latency), the HLT uses data from all detector elements to completely reconstruct the event as it occurred in ATLAS, and performs its selections based on this reconstructed event.
-        Different physics processes and particles, known as physics ``signatures'', are reconstructed in different ways, and have different triggers based around them. 
+        Located in the SCX1 building (Fig. \ref{fig:facilities}) at the surface of P1 (again to minimize latency), the HLT uses data from all detector elements to completely reconstruct the event as it occurred in ATLAS, and performs its selections based on this reconstructed event.
+        Different physics processes and particles, known as physics ``signatures,'' are reconstructed in different ways, and have different triggers based around them. 
         The main signatures used in ATLAS are: minimum bias signatures, electron/photons (Egamma), muons, jets, taus, missing transverse energy (MET), b-jets (as in jets from bottom quarks), and B-physics (as in B-hadrons).
         The process of reconstruction and the trigger algorithms applied to these reconstructed signatures are based on offline software algorithms which have been repurposed for online use.
         These offline algorithms are quite technical in nature, and are discussed further in Chapter \ref{chapter:reconstruction}.
@@ -99,17 +112,19 @@
         \begin{figure}[h]
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{trigger/data_delivered}
             \caption{Amount of data collected, in terms of integrated luminosity,
-                through the Run2 data taking period\cite{data_quality}
-                [TODO Steve this plot doesn't make any sense.
-                This seems to imply that the trigger hardly throws away any events.
-                Is that right?]}
+                through the Run2 data taking period\cite{data_quality}.
+                ``LHC Delivered'' refers to the amount of luminosity present during stable beams.
+                ``ATLAS Recorded'' is luminosity that the ATLAS decector was active and recording for.
+                ``Good for Physics'' describes all the luminosity that was actually able to be passed to offline storage,
+                    as opposed to thrown out because of malfunctions or issues in ATLAS at the time.
+            }
             \label{fig:data_delivered}
         \end{figure}
 
-        Over its three operational years, Run 2 has collected a total of 139 \ifb of data which has passed the online triggers
-            (see figure \ref{fig:data_delivered}).
+        Over its three operational years, Run 2 has resulted in a total of 139 \ifb of data which has passed the online triggers
+            (see Fig. \ref{fig:data_delivered}).
         Due to an inefficiency in the vertex reconstruction present during 2016,
-            only 125.9 \ifb of that data are actually used in this analysis.
+            only 125.9 \ifb of that data are actually used in my analysis.
         Of that data, only a tiny portion is expected to be the actual di-Higgs signal event,
             which means further selection criteria will need to be applied.
         Understanding how the signal contribution is determined, and how these selections are optimized,
@@ -135,10 +150,10 @@
     \subsection{MadGraph}
 
     Madgraph is technically a meta-code, a program that creates a program,
-        with the created program designed to simulate physics in the manner described by Madgraph.
-    To do this, Madgraph needs a theory model, which consists of a lagrangian of the desired physics
+        with the created program designed to simulate physics in a prescribed manner.
+    To do this, Madgraph needs a theory model, which consists of a Lagrangian of the desired physics
         alongside input parameters such as coupling values and particle masses.
-    The feynman rules are derived from the given lagrangian,
+    The Feynman rules are derived from the given Lagrangian,
         which are in turn used to create the process's matrix elements (see Section \ref{sec:feyn_rules}).
     Feynman rules alone are sufficient to then produce tree-level calculations automatically.
     For NLO calculations, additional counterterms must be supplied by hand
@@ -151,12 +166,10 @@
         and a weight is assigned to each corresponding to its probability as calculated from the matrix element computation.
     The final collection of events is then output for use by later stages of the simulation process.
 
-    %[cite TODO good christ the madgraph docs are garbage and now I have to cite a WEB FORUM post by some student who was ALSO commenting on how aweful the documentation for this stuff is... https://answers.launchpad.net/mg5amcnlo/+question/291534]
-
     \subsection{Pythia8}
 
     The final particles produced by MadGraph are often short-lived and unstable,
-        and so require further simulation of their breakdown and decay.
+        and so require further simulation of their evolution.
     Pythia8 is the software responsible for this phase of the simulation. 
     By default, Pythia8 is entirely self-contained, and can generate physics processes entirely on its own.
     However, the processes available to it are limited,
@@ -166,19 +179,19 @@
     The partonic stage addresses what happens to the parts of the proton \textit{not} involved in the immediate interaction (beam remnants),
         initial and final-state radiation of the final state particles, and inter-parton interactions.
     Following this is the hadronization stage, wherein final-state (but unstable)
-        hadronic particles are extended through a cycle of decay, annihilation, and creation
+        hadronic particles are extended through a cycle of radiation, decay, annihilation, and creation
         until a shower of stable hadronic matter remains.
     These steps are not fixed in Pythia's framework,
         and individual particles can transfer back and forth between these three stages
         as necessary to reach the stable state of the event as would be observed through a detector
         \cite{pythia}.
-    The observation through a detector aspect then consitutes the final step of event simulation,
+    The emulation of the detector's response to these particles then consitutes the final step of event simulation,
         which is handled by Geant4.
 
     \subsection{Geant4}
 
     Geant4 is a robust particle simulation framework,
-        which seeks to provide a comprehensive simulation of how particles behave as they propagate through physical materials.
+        that seeks to provide a comprehensive simulation of how particles behave as they propagate through physical materials.
     The entire geometry of the material in question is specified in the Geant4 framework in terms of
         its specific shape, location, and material properties.
     For this analysis, that means a replica of the entire ATLAS detector,
@@ -202,9 +215,9 @@
 
     Geant4 additionally simulates the response of materials to these particle interactions,
         allowing energy and charge readouts to be simulated as they would be found within detector elements.
-    The last step is to digitize these material responses to emulate the pixels and channels of a real detector.
+    The last step is to digitize these material responses to emulate the of electrical signals of a real detector.
     All of the event response information, as well as an abundance of \textit{truth} information related to the simulated particles,
-        is exported to a data format identical in nature to that produced by the ATLAS trigger system.
+        is exported to a data format identical in format to that produced by the ATLAS trigger system.
     This simulated data can then be processed in the same manner as real data,
         allowing critical studies to be performed that in turn produce
         a far better understanding of the physics underlying the data.

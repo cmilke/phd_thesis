@@ -5,13 +5,13 @@
         Once a bunch-crossing event has cleared the Level 1 Trigger system, the process of event reconstruction begins.
         An event in ATLAS is initially nothing but a collection of electrical signals collected from the various detectors.
         Event reconstruction is when the myriad detector readings are aggregated together into meaningful patterns,
-            which are interpreted as physical objects and events.
+            which are interpreted as physical objects and physics processes.
         The key objects of interest in this analysis are particle \textit{tracks} and \textit{jets}.
         As well, the way in which b-quark-initiated jets (``b-jets'') are distinguished from other jet types,
-            called \textit{flavor tagging}, plays a particularly important role.
+            a process called \textit{flavor tagging}, plays a particularly important role.
         Finally, special attention will be given to the fact that reconstruction occurs not once, but twice;
             first in the High Level Trigger online running environment
-            and again in the offline environment after events have been read out.
+            and again in the offline environment after events have been moved to permanent storage.
         Though the two iterations are very similar, it is worth discussing how they differ.
 
     \FloatBarrier
@@ -22,7 +22,7 @@
             The first point of contact for anything leaving the IR of ATLAS is the tracking detectors.
             As such, the objects reconstructed from the tracking detectors will be the first point of discussion.
             Prior to encountering the ATLAS calorimeters,
-                particles exiting the IR encounter primarily low-density material (see figure \ref{fig:cal_rad_length}).
+                particles exiting the IR pass through primarily low-density material (see figure \ref{fig:cal_rad_length}).
             Thanks to the inclusion of the Solenoid Magnet field encompassing the Inner Detectors,
                 these trajectories reveal crucial information about the particles in an event.
             This is because any charged particle with a momentum component orthogonal to a magnetic field
@@ -94,7 +94,10 @@
             \begin{equation}
                 \rho = \frac{p_T}{qB} = \frac{|\vec{p}| \sin \theta}{qB}
             \end{equation}
-            where $B$ is the magnetic field of the Inner Detector Solenoid Magnet\cite{thesis_track_sim_and_reco}.
+            where $B$ is the magnetic field\footnote{
+                    Note that this equation only really works for a perfectly uniform axial field.
+                    In practice the calculations are performed using a magnetic field vector map.
+                } of the Inner Detector Solenoid Magnet\cite{thesis_track_sim_and_reco}.
             %Note that uncharged particles (e.g.\ photons) will not be bent, and so will have no curvature,
             %    negating the ability to measure their transverse momentum in this way.
             The impact parameters, $d_0$ and $z_0$, are not related to momentum,
@@ -103,7 +106,7 @@
         \FloatBarrier
         \subsection{Track Reconstruction}
 
-            As particles pass through the inner detector subsystems, they trace out a path of ionized detector elements.
+            As particles pass through the inner detector subsystems, they trace out a path in ionized detector elements.
             This trajectory can be reconstructed by effectively playing connect-the-dots.
 
             %Clusterization
@@ -122,15 +125,18 @@
                 \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/trackseeding}
                 \caption{
                     Diagram of space-points formed in the ATLAS Pixel (Red) and SCT (Blue) subdetectors,
-                        with three-point track seeds highlighted in yellow.
-                        [TODO cite https://atlassoftwaredocs.web.cern.ch/trackingTutorial/tracksf/]
+                        with track seeds highlighted in yellow
+                        [TODO cite https://atlassoftwaredocs.web.cern.ch/trackingTutorial/tracksf/].
+                    Track seeds are formed using ``adjacent'' space-points, in the sense that they
+                        occur in sequential detector layers at roughly the same solid angle.
                 }
                 \label{fig:track_fit}
             \end{figure}
 
             %Combinatorial track finding
             Once the ``dots'' are established, a series of guesses at how they should be connected are made.
-            Initial guesses at tracks, called \textit{track seeds}, are formed by assembling adjacent combinations of three space-points.
+            Initial guesses at tracks, called \textit{track seeds},
+                are formed by assembling adjacent (see Fig. \ref{fig:track_fit}) combinations of three space-points.
             The number of seeds is limited by generally only allowing space-points to be part of a single track seed.
             Further purity is ensured by forming track seeds first only from the SCT, then only from the pixel detector,
                 and only after allowing mixed-detector seeds from the remaining space-points.
@@ -166,7 +172,7 @@
         \subsection{Primary Vertexing}
 
             Once track filtering has concluded,
-                the remaining tracks can be used to identify a key piece of event information, 
+                the resultant tracks can be used to identify a key piece of event information, 
                 called the \textit{Primary Vertex} (PV).
             When bunches collide in the IR of ATLAS, most of the collisions of a given bunch are fairly low energy.
             Events which clear the L1 trigger however, typically do so because of the presence of a hard-scatter interaction\footnote{
@@ -178,7 +184,7 @@
             All tracks which intersect at the same point are associated to that vertex.
             Most of the vertices are of little interest, and are known as ``pile-up vertices.''
             The PV is the vertex assumed to be the location of the hard-scatter interaction,
-                and is identified as a vertex associated with at least two tracks,
+                and is identified as a vertex associated with at least two tracks
                 and whose tracks possess the largest scalar sum of squared transverse momentum\cite{jet_energy_scale13TeV}
                 [TODO cite https://twiki.cern.ch/twiki/bin/view/AtlasProtected/PrimaryVertexIdentification]
                 \begin{equation}
@@ -198,25 +204,26 @@
         Jets are an algorithm meant to associate related reconstructed objects in the detector elements
             in order to produce a more comprehensive representation of the physical behavior of the particles traversing those elements.
         Jet reconstruction encompasses all elements of ATLAS,
-            but they begin in the calorimeter system in the form of ``topological clusters.''
+            but it begins in the calorimeter system in the form of ``topological clusters.''
 
         Just as the inner trackers suffer from pile-up vertices that must be filtered,
-            so too do the calorimeters suffer from pile-up tracks and electronic noise.
+            so too do the calorimeters suffer from pile-up energy deposits and electronic noise.
         Topo-clusters are the reconstructed structure meant to address the issue of noise in the calorimeters
-            by emphasizing regions with a high energy to noise ratio.
+            by emphasizing regions with a high energy-to-noise ratio.
         As such, cell clustering is based on a ``signal-significance'' metric,
         \begin{equation}
             \xi^{\textrm{EM}}_{\textrm{cell}} \equiv \frac{
                 E^{\textrm{EM}}_{\textrm{cell}} }{
                 \sigma^{\textrm{EM}}_{\textrm{noise, cell}} } \quad,
         \end{equation}
-            where $E^{\textrm{EM}}_{\textrm{cell}}$ is the energy of an individual cell calibrated to the electromagnetic scale.
+            where $E^{\textrm{EM}}_{\textrm{cell}}$ is the energy of an individual cell calibrated to the electromagnetic scale
+            (see Section \ref{sec:jet_calibration}).
         $\sigma^{\textrm{EM}}_{\textrm{noise, cell}}$ is the noise factor of that cell, calculated for that particular LHC run.
 
-        Clusters start as seeds consisting of just a single high significance cell,
+        Clusters start as seeds consisting of just a single high significance cell
             and then follow a collection algorithm described in \cite{cell_clustering} to aggregate nearby cells.
         This collection is performed in three-dimensions, so topo-clusters can occupy multiple layers of a calorimeter.
-        The result of the collection algorithm is a ``proto-cluster''.
+        The result of the collection algorithm is a ``proto-cluster.''
         Proto-clusters themselves can often be too large to permit analysis of the particles that formed them,
             hence the final step of ``splitting'' them.
         Local signal-significance maxima are identified within the proto-clusters,
@@ -224,7 +231,8 @@
             which weights cells per their energy and distance from the local maxima.
         Topo-clusters are the final product of splitting.
         By themselves, topo-clusters do not necessarily correspond to any physical process,
-            as they are not intended to capture the entire response of a particle.
+            as they are not necessarily intended to capture the entire response of a particle
+            (although they often do).
         Representing the full detector response to a particle is the role of jets.
 
         \begin{figure}[tbh]
@@ -255,19 +263,19 @@
             making it challenging to distinguish where one particle should begin and another should end.
         Historically, a number of different jet algorithms have been used to describe particle showers.
         In ATLAS, the jet algorithm currently in use is the \textit{\antikt} clustering algorithm\cite{anti_kt}.
-        Adoption of \antikt has been motivated by its robust ability to isolate jet boundaries both from each other
+        Adoption of \antikt has been motivated by its robust ability to isolate jet boundaries both between jets
             and from the surrounding stochastic noise of the detector.
         The \antikt algorithm has a single input parameter ``$\Rparam$'' which roughly corresponds to the $\Delta R$ ``radius''
             of the jets that \antikt should attempt to match to.
         Radius here refers to the solid angle distance 
             $\Delta R^2 \equiv \Delta \eta^2 + \Delta \phi^2$.
         An $\Rparam$-parameter value of 0.4 is the standard for jets in ATLAS, and is used for this analysis.
-        This value means that \antikt will generally keep aggregating cells together until the topo-cluster's
+        This value means that \antikt will generally keep aggregating cells together until the jet cluster's
             $\Delta R$ radius equals 0.4, and not much beyond that.
 
 
         \FloatBarrier
-        \subsection{Jet Calibration}
+        \subsection{Jet Calibration} \label{sec:jet_calibration}
 
         Once jets have been formed, their energy and momentum must be calibrated.
         As discussed in Section \ref{sec:calorimeter}, the ATLAS calorimeters are sampling calorimeters.
@@ -288,7 +296,7 @@
         To improve the performance of reconstructing jet energy,
             track momentum is used to replace the measured energy of topo-clusters in jets where possible.
         This is done via an algorithm called \textit{Particle Flow},
-            which first identifies tracks which can be associated with a jet.
+            which first identifies tracks that can be associated with a jet.
         Particle Flow then attempts to match these associated tracks to individual topo-clusters.
         If such a match can be made, the energy of the topo-cluster is replaced with the reconstructed momentum of the matched track.
         This is done because track momentum can be more reliably measured in ATLAS than cluster energy,
@@ -427,8 +435,8 @@
             \end{figure}
 
             A neural network at its core is a multivariable formula meant to provide some sort of discriminating metric\cite{MLatLHC}.
-            For DL1 the input variables are a wide array of kinematic variables for a particular jet (Table \ref{tab:DL1_vars}).
-            The output metric is a number specifying the tagger's confidence that a jet is
+            For DL1 the inputs are a wide array of kinematic variables for a particular jet (Table \ref{tab:DL1_vars}).
+            The output is a set of numbers specifying the tagger's confidence that a jet is
                 a light, charm, or bottom jet.
             What make neural networks so powerful is how the discriminating formula is generated.
             Neural networks are arranged as a function (network) connecting the input variables to the output metrics. 
@@ -496,7 +504,7 @@
             \end{figure}
 
             As a final note it is also worth mentioning the MV2 tagger.
-            MV2 is a ``boosted decision tree'', which is a more primitive style of machine learning.
+            MV2 is a ``boosted decision tree,'' which is a more primitive style of machine learning.
             Decision trees undergo a similar test-and-adjust iterative training procedure to neural networks.
             However, whereas neural networks are based on a matrix arrangement,
                 decision trees consist of a branching sequence of cut values that are tuned.
