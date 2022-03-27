@@ -26,9 +26,6 @@
         \label{fig:event_display}
     \end{figure}
 
-    %TODO also don't forget all the truth-level validation plots you have just LAYING AROUND ALREADY
-    % that you can dump in here as a demonstration of probably any point you want to make
-    
     Figure \ref{fig:event_display} is an ``event display'' of what a VBF \to 4b event is expected to look like,
         based on Monte-Carlo simulation (see Chapter \ref{chapter:signal}).
     It demonstrates the key features these selection algorithms use to differentiate signal from background.
@@ -56,7 +53,7 @@
     \section{Triggers}
         
         The first stage of the selection process largely occurs before reconstruction has even begun,
-            in the L1, HLT, and Offline ATLAS Triggers.
+            in the L1 and HLT systems as well as Offline reconstruction.
         Table \ref{tab:nr-triggers-used} lists the trigger chains used in this analysis.
         An event from ATLAS is incorporated into the data used as long as it passes at least one 
             of the listed chains associated with its year.
@@ -72,9 +69,10 @@
                 \begin{itemize}
                 \item j110: Requires at least one jet with $E_T$ greater than 110 GeV
                 \item gsc150: Requires at least one jet with $p_T \geq 150$ GeV after Global Sequential Calibration (GSC) algorithm is applied
-                \item boffperf: The b-jet Offline Performance algorithm has been run on all jets for this event,
+                \item boffperf: The b-jet Offline Performance flavor tagging algorithm has been run on all jets for this event,
                     with its results stored, though no cut is applied at this stage
                 \item split: Using ``Split Jets'', which run the PV algorithms on a superROI
+                    that is then split back into individual jet ROIs.
                 \item 2j45: Requires at least two jets with $p_T$ of at least 45 GeV
                 \item gsc55: Cut on jet $p_T \geq 55$ GeV after jet calibration is applied
                 \item bmv2c1070: passes b-jet MV2c10 algorithm at 70\% efficiency level
@@ -84,7 +82,7 @@
                 using only the L1 reconstruction (see Section \ref{sec:L1})
                 \begin{itemize}
                 \item J85: Requires a cluster with energy greater than 85 GeV
-                \item 3J30: Require at least 3 jets with a minimum $p_T$ of 30 GeV at Level-1
+                \item 3J30: Require at least 3 jets with a minimum $E_T$ of 30 GeV at Level-1
             \end{itemize}
         \end{itemize}
 
@@ -103,12 +101,12 @@
         Upon completion of the ATLAS-wide trigger selection,
             the appropriate data samples are copied for use by this analysis.
         However, the available data still contains a vast excess of background events
-            consisting of QCD multijet, \ttbar, and single Higgs process events.
-        A ZZ \to 4b process was also considered for a potential background.
+            consisting of QCD multijet, \ttbar, gluon-gluon fusion (ggf), and single Higgs process events.
+        A ZZ \to 4b process was also considered as a potential background.
         MC simulation shows that the ZZ production is highly forward and low-$p_T$,
             resulting in very low acceptance through the selection criteria described below
             and thus negligible as a background \cite{vbf_hh_4b_resonant_2020_int}.
-        Similarly, the yield and acceptance of the single Higgs process, though substantial,
+        Similarly, the yield and acceptance of the ggf and single Higgs processes, though substantial,
             was found through MC simulation to be dwarfed by the QCD multijet background\cite{hh4b_2021_int_note}.
         The only backgrounds that are therefore considered for this analysis are the
             dominant QCD multijet background and sub-dominant \ttbar background.
@@ -141,7 +139,7 @@
         After jets have been categorized and selected, an event is only used if there are at least six selected jets remaining.
         Of these, at least four must be Central jets which have been b-tagged by the offline DL1r algorithm the 77\% working point.
         From the remaining jets (Central or Forward), there must be at least two \textit{anti}-b-tagged jets
-            (i.e.\ jets that were marked as not b-jets).
+            (i.e.\ jets that were marked as failing the b-tagging requirement).
 
         The VBF jets are chosen as the pair of anti-b-tagged jets with the largest vector-sum invariant mass (\mjj) between them,
             while the Higgs decay jets are chosen as the four highest-$p_T$, b-tagged, Central jets.
@@ -155,16 +153,22 @@
     \subsection{VBF Topology}
 
         For the VBF jets, the characteristic wide-opening angle and high invariant mass is exploited here.
-        The selected VBF pair must have a \deta between them of at least 3,
-            and an \mjj of at least 1 TeV.
+        The selected VBF pair must have $\deta < 3$ and $\mjj \geq 1 \textrm{GeV}$.
         As well, the combined vector-sum-pt of all six jets
             (the four Higgs products and the two VBF jets)
-            must be less than 65 GeV.
+            must be less than 65 GeV:
+        \begin{equation}
+            \vec{p}_{\textrm{sum}, p_T} \leq 65 \textrm{GeV} \quad;\quad
+            \vec{p}_{\textrm{sum}} \equiv
+            \vec{p}_{b1} + \vec{p}_{b2} + 
+            \vec{p}_{b3} + \vec{p}_{b4} +
+            \vec{p}_{j1} + \vec{p}_{j2} 
+        \end{equation}
         The maximum sum-$p_T$ requirement follows from the fact that the initial incoming beamline particles have
             zero transverse momentum, and so the output of their interaction should as well.
         These specific values for the cuts are based on the significance values
             (defined as the ratio of the number of signal events to the square root of the number of background events)
-            shown in Fig. \ref{fig:vbf_cuts}).
+            shown in Fig. \ref{fig:vbf_cuts}.
 
         \begin{figure}[tbh]
             \subfloat[$m_{jj}$ Cut Significance]{
@@ -194,13 +198,13 @@
         What is detected within ATLAS and reconstructed by Athena are not Higgs Bosons, but rather their decay products.
         To reconstruct the two Higgs Bosons, the four reconstructed b-quarks must be combined together, two b's to each Higgs.
         A pairing algorithm called MinDR\cite{hh4b_2021_int_note}
-            is used to determine which b-quarks should be paired to each other.
+            is used to determine the optimal pairing.
         MinDR operates under the assumption that the decay products of the Higgs boson
-            should be relatively close to each other in angular space, consistent with the Higgs' high $p_T$.
+            should be relatively close to each other in angular space, consistent with the Higgs's high $p_T$.
         With four jets, which need to be split into two pairs, there are three ways to choose the pairings.
-        For each of the three unique pairing options, MinDR takes the pair with the leading $p_T$ as the ``leading Higgs Candidate''
-        The pairing option which is chosen is that which minimizes the $\Delta R$ between the leading Higgs Candidate decay products
-            (see Fig. \ref{fig:minDR_pairing_diagram}).
+        For each of the three unique pairing options, MinDR takes the pair with the leading $p_T$ as the ``leading Higgs Candidate.''
+        The pairing option that minimizes the $\Delta R$ between the leading Higgs Candidate decay products
+            (see Fig. \ref{fig:minDR_pairing_diagram}) is chosen.
         The effectiveness of this algorithm has been validated for multiple values of \kvv and \kl,
             as shown in Fig. \ref{fig:HHpairing}.
 
@@ -234,7 +238,7 @@
                 Worst case accuracy (random guessing) would produce 33\% accuracy,
                     so even at the algorithm's worst (~50\%),
                     it still performs much better than random association.
-                The algorithm performs at it worst for $\kl \approx 2$ and $\kvv \approx 1$,
+                The algorithm has its lowest performance for $\kl \approx 2$ and $\kvv \approx 1$,
                     for which the produced Higgs bosons are the softest.
                 For variations of the couplings (especially \kvv),
                     the pairing accuracy is far better at 95\% \cite{hh4b_2021_int_note}.
@@ -248,9 +252,9 @@
     \FloatBarrier
     \subsection{ Region Definition and \ttbar Removal}
         
-        There are three ``regions'' which are used for the analysis.
+        There are three ``regions'' that are used for the analysis.
         Control Region 1 and 2 (CR1 and CR2) are used for the Background Estimation (see Chapter \ref{chapter:background}).
-        The ``Signal'' Region is the set of data which will be used to search for the di-Higgs signal.
+        The ``Signal'' Region is the set of data which will be used to search for the di-Higgs process.
 
         Which region an event falls into is based on the reconstructed masses of the leading and sub-leading Higgs.
         The Signal Region (SR) corresponds to those events for which the reconstructed Higgs masses
@@ -281,7 +285,7 @@
             \label{eq:cr_out}
         \end{equation}
         
-        CR1 and CR2 are divided based on studies demonstrating that this split results in
+        CR1 and CR2 are divided based on studies demonstrating that this choice results in
             close kinematic similarity between the two regions.
 
         \begin{figure}[tbh]
