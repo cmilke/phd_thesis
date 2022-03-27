@@ -418,7 +418,7 @@
         \FloatBarrier
         \subsection{High Level Taggers and Machine Learning Techniques}\label{sec:ml_techniques}
 
-            After running all of the low level taggers,
+            After running all of the low-level taggers,
                 the final step in flavor tagging is the use of a pair of high-level machine-learning-based tagging algorithms
                 called DL1 (Deep Learning 1) and MV2 (MultiVariate tagger 2)
                 \cite{bjet_id_and_performance} \cite{btagging_optimisation}.
@@ -442,8 +442,9 @@
             Neural networks are arranged as a function (network) connecting the input variables to the output metrics. 
             As seen in Fig. \ref{fig:nn_matrix} this network is actually a matrix of weights,
                 which is multiplied by the input layer to produce an output vector.
-            Each component of the output vector is then run through some non-linear function (e.g.\ a Relu function)
-                to grant the final output a more dynamic range of values than a linear function could provide.
+            Each component of the output vector is then run through some non-linear ``activation'' function\footnote{
+                    For example, a sigmoid function, defined as $S(x) = \frac{1}{1+e^{-x}}$.
+                } to grant the final output a more dynamic range of values than a linear function could provide.
 
             \begin{figure}[tbh] \center
                 \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/Colored_neural_network}
@@ -458,12 +459,13 @@
             At first the weights are random, and the network produces similarly random output that is of no use.
             However, the network undergoes an iterative training procedure, in which the weights are slightly adjusted
                 and retested against a known sample of training data.
-            Adjustments which lead to slightly better performance and maintained and improved upon
-                with successive cycles of the training while negative adjustments are discarded.
-            After enough cycles the network should ideally be tuned to provide very powerful separating power.
+            Adjustments which lead to slightly better performance are maintained and improved upon
+                with successive cycles (each cycle is reffered to as an ``epoch'')
+                of the training while negative adjustments are discarded.
+            After enough cycles the network should ideally be tuned to provide very powerful classification.
             Of course, a trivial network such as that in Fig. \ref{fig:nn_matrix} is very limited,
                 and actual neural networks typically use ``hidden layers'' between the input and output (Fig. \ref{fig:colored_neural_network}),
-                with each layer corresponding to another weight matrix to be trained.
+                with each layer corresponding to another weight matrix to be tuned by training.
 
             \begin{figure}
                 \subfloat[Flavor Tagging Performance Against Light Jets]{
@@ -474,7 +476,7 @@
                 }
                 \caption{
                     Plots of the various flavor taggers ability to correctly identify b-jets (efficiency, x-axis)
-                        vs their ability to correctly reject light and charm jets (purity, y-axis).
+                        vs. their ability to correctly reject light and charm jets (purity, y-axis).
                     An efficiency score of 0.6 means 60\% of b-jets are correctly identified,
                         and a score of 1 indicates that all b-jets are accepted.
                     A light-jet rejection score of $10^3$ indicates 1 in every 1000 light jets is incorrectly identified as a b-jet,
@@ -499,6 +501,14 @@
                 \caption{
                     Hyperparameters of the DL1 neural network\cite{bjet_id_and_performance}.
                     DL1 is trained via the python library Keras.
+                    Input variables, hidden layers, nodes, and epochs have already been discussed.
+                    ``Maxout layers'' are layers in the network in which the nodes, rather than a function of their inputs,
+                        are simply the maximum of the input values.
+                    The ``learning rate'' controls how much the network weights are ajusted after each epoch.
+                    Too low and the network will take excessively long to train,
+                        but too high and the network may adjust beyond the optimal solution.
+                    A ``minibatch'' is where the network training data sample is split into multiple batches and an epoch is trained over each seperately.
+                    The overall adjustments from the epoch are determined by combining the adjustments determined from each batch.
                 }
                 \label{tab:DL1_hyperparams}
             \end{figure}
@@ -525,8 +535,8 @@
 
         Reconstruction is actually performed for an event twice.
         It is first done rapidly, using coarse measurements and calculations,
-            for the purpose of allowing the aforementioned HLT to trigger events for readout.
-        These events which pass the trigger are passed off to a massive global computer cluster, called the CERN GRID.
+            for the purpose of allowing the HLT to trigger events for readout.
+        These events which pass the trigger are then sent to a massive global computer cluster, called the CERN GRID.
         No longer bound by the stringent time constraints of the online running environment,
             the GRID is able to devote vast amounts of time and computing power to a second, 
             more comprehensive, reconstruction of each event.
@@ -540,8 +550,8 @@
 
         Such accuracy loss in tracking has significant downstream consequences across all aspects of reconstruction.
         Of note for this analysis are the effects on flavor tagging.
-        The low level flavor-taggers function on probability distributions of the parameters of the reconstructed tracks.
-        With the degradation in track quality of the online environment, the PDFs of the low level taggers are altered.
+        The low-level flavor-taggers function on probability distributions of the parameters of the reconstructed tracks.
+        With the degradation in track quality of the online environment, the PDFs of the low-level taggers are altered.
         Since the low-level taggers are affected, the high-level taggers are also affected.
         To account for this, the flavor tagging algorithms undergo a \textit{retuning} procedure, 
             which adjusts how the algorithms expect tracks to look.
@@ -550,16 +560,17 @@
         %Step1.1 - Run HLT reco on MC files;
         First, the HLT-tuned Athena framework is run on a large sample of simulation-based data,
             which emulates the reconstruction behavior of Athena in the online environment.
-        %Step1.2 - Return low level taggers on MC HLT reco;
+        %Step1.2 - Return low-level taggers on MC HLT reco;
         Based on this simulated reconstruction, the distributions used by the low-level taggers
-            (e.g.\ $d0$-significance) are recorded and turned into PDFs.
+            (e.g.\ $d_0$-significance) are recorded and turned into PDFs.
         This constitutes the retuning of the low-level taggers.
-        %Step2   - Rerun HLT reco on MC, now with retuned low level tagging info;
+        %Step2   - Rerun HLT reco on MC, now with retuned low-level tagging info;
         With the low-level taggers retuned, the Athena reconstruction is run again,
             this time recording the output of the low-level taggers themselves.
-        %Step3.1 - Perform BDT training for MV2 on HLT MC reco w/ low level tags;
+        %Step3.1 - Perform BDT training for MV2 on HLT MC reco w/ low-level tags;
         The low-level tagger output is now fed as input to the training frameworks for the high-level taggers.
-        For MV2, this is ROOT's TMVA, and for DL1 this is the python package Keras.
+        For MV2, this is ROOT's TMVA [TODO cite https://root.cern/manual/tmva/],
+            and for DL1 this is the python package Keras [TODO cite https://keras.io/].
         %Step3.2 - Convert training output to usable histograms;
         Once training is complete, the output machine-learning structure is converted into a form usable by Athena,
             and the full retuning is completed.
@@ -570,7 +581,9 @@
         \begin{figure}[tbh]
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/mv2_on-off_performance}
             \caption{
-                Comparison of the performance of MV2c10 and low level taggers VS offline performance\cite{Gupta:2271945}.
+                Comparison of the performance of MV2c10 and low-level taggers VS offline performance\cite{Gupta:2271945}.
+                Note hat the online performance (with its lower quality tracks) is able to perform within $\approx 20\%$
+                    of its offline conterpart, a remarkable improvement from the the state of MV2 earlier in Run 2.
             }
             \label{fig:mv2_performance}
         \end{figure}

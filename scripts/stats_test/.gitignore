@@ -1,0 +1,4 @@
+*.stl
+*.ply
+*.dat
+__pycache__
