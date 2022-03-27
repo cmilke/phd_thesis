@@ -11,7 +11,7 @@
         is directly proportional to its differential cross-section.
     Here I will provide a general outline for how the Lagrangian of Eqn. \ref{eq:higgskappas} can be related to a measurable cross-section.
 
-    In quantum mechanics, probabilities are measured as the absolute square of amplitudes of wave functions, $\left|\braket{\psi}\right|^2$.
+    In quantum mechanics, probabilities are defined as the absolute square of amplitudes of wave functions, $\left|\braket{\psi}\right|^2$.
     The probability of a transition between different states of a wavefunction are similarly represented
         as the absolute square of the original state, $\psi_i$, \textit{in the basis of} the final state $\psi_f$,
         written $ |\Tbraket{\psi_f}{\psi_i}|^2$.
@@ -20,28 +20,30 @@
         and the transition of an electron-positron pair into a muon/anti-muon pair could be written
         as $\Tbraket{\mu \bar{\mu}}{e \bar{e}}$.
 
-    The process used in this thesis to probe the Higgs' $\kappa$ values is that of
+    The process used in this thesis to probe the Higgs's $\kappa$ values is that of
         Vector Boson Fusion (VBF) to a di-Higgs pair decaying to 4b (\vbfhhproc).
-    That is, two incoming quarks, $\ket{q_{i1} q_{i2}}$, form the initial state of this process.
+    That is, two incoming quarks, $\ket{q_1 q_2}$, form the initial state of this process.
     These quarks each emit a vector boson (either $W^{\pm}$ or $Z^0$), 
         which will in turn fuse into an intermediate state of two Higgs Bosons.
-    After being deflected by the gluon ejection, the initial quarks then continue on, possibly flavor-changed if they emitted a charged $W$.
-    Meanwhile, the higgs bosons have a very short lifetime and will decay almost immediately into one of a number of possible particles.
+    After being deflected by the weak boson ejection, the quarks then continue on,
+        possibly having been flavor-changed if they emitted a charged $W$.
+    Meanwhile, the Higgs bosons have a very short lifetime and will decay almost immediately into one of a number of possible particles.
     The likelihood that the Higgs will decay into a given state is given by that state's \textit{branching ratio}.
     As seen from Table \ref{tab:higgsbranching}, a bottom/anti-bottom quark pair is the most likely decay product of the Higgs,
         hence its use as the final state in this analysis.
     The final state of this process consists of two Higgs and the $b \bar{b}$ pairs.
     However, since the Higgs' coupling to the bottom quark does not probe the couplings of interest in this thesis,
         for this chapter I want to focus only on the intermediate state
-        consisting of two Higgs and two deflected quarks, $\bra{h_1 h_2 q_{f1} q_{f2}}$.
-    I can then write the transition of this process as $\Tbraket{ h_1 h_2 q_{f1} q_{f2}}{q_{i1} q_{i2}}$.
+        consisting of two Higgs and two deflected quarks,
+            $\bra{h_1 h_2 q_3 q_4}$.
+    I can then write the transition of this process as $\Tbraket{ h_1 h_2 q_3 q_4}{q_1 q_2}$.
     %It should be noted that while there are other intermediate processes besides VBF
     %    that could produce these same initial and final states, 
     %    but these will not be considered in this analysis.
 
     \input{tables/theory/higgsbranching.tex}
 
-    In principle, this transition process can take an indeterminate period of time.
+    In principle, this transition process can take a finite period of time.
     In the realm of high energy physics experiments though,
         the interacting particles are moving so fast that the interaction period can be thought of as occurring at a single instant in time.
     Given this context, the initial state occurs in the (comparatively) distant past, $t_i$, and the final state in the equally distant future, $t_f$.
@@ -50,20 +52,20 @@
     Using the Hamiltonian $H \equiv i\partial_0$ as the time translation operator,
         I can relate the initial state at $t_0$ to its time $\Delta t$ units in the future, $t_i$, by the transformation
     \begin{equation}
-        \ket{q_{i1} q_{i2} (t_i)} = e^{i\Delta tH}\ket{q_{i1} q_{i2} (t_0)}
+        \ket{q_{1} q_{2} (t_i)} = e^{i\Delta tH}\ket{q_{1} q_{2} (t_0)}
     \end{equation}
     The same can be done to transform the final state backwards in time
     \begin{equation}
-        \bra{h_1 h_2 q_{f1} q_{f2} (t_f)}
-        = \bra{h_1 h_2 q_{f1} q_{f2} (t_0)} (e^{i(-\Delta t)H})^\dag
-        = \bra{h_1 h_2 q_{f1} q_{f2} (t_0)} e^{i\Delta tH}
+        \bra{h_1 h_2 q_{3} q_{4} (t_f)}
+        = \bra{h_1 h_2 q_{3} q_{4} (t_0)} (e^{i(-\Delta t)H})^\dag
+        = \bra{h_1 h_2 q_{3} q_{4} (t_0)} e^{i\Delta tH}
     \end{equation}
     Putting both of these together yields
     \begin{equation} \begin{split} \label{eq:transition_amplitude}
-        \Tbraket{ h_1 h_2 q_{f1} q_{f2} (t_f)}{q_{i1} q_{i2} (t_i)}
-        &= \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{e^{i\Delta tH} e^{i\Delta tH}}{q_{i1} q_{i2} (t_0)}
-        \\&= \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{e^{i2\Delta tH}}{q_{i1} q_{i2} (t_0)}
-        \\&= \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{1 + iT}{q_{i1} q_{i2} (t_0)}
+        \Tbraket{ h_1 h_2 q_{3} q_{4} (t_f)}{q_{1} q_{2} (t_i)}
+        &= \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{e^{i\Delta tH} e^{i\Delta tH}}{q_{1} q_{2} (t_0)}
+        \\&= \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{e^{2\Delta tH}}{q_{1} q_{2} (t_0)}
+        \\&= \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{1 + iT}{q_{1} q_{2} (t_0)}
     \end{split} \end{equation}
 
     In the last step, the exponential operator is expanded as an infinite series of terms,
@@ -72,15 +74,15 @@
     The sum of the remaining terms, represented as $iT$, is the part relevant for calculating the interaction probability,
         with the entire transition amplitude referred to as the \textit{invariant amplitude}, $\invAmp$.
     \begin{equation}
-        i\invAmp \equiv \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{iT}{q_{i1} q_{i2} (t_0)}
+        i\invAmp \equiv \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{iT}{q_{1} q_{2} (t_0)}
     \end{equation}
 
     As stated above, the differential cross-section, $\dXsec$,
         of a process is proportional to its probability $\mathcal{P}$,
         which in turn can be related to the invariant amplitude
     \begin{equation} \begin{split}
-        \dXsec &\propto \mathcal{P}( q_{i1} q_{i2} \rightarrow q_{f1} q_{f2} h_1 h_2 ) 
-            = \left| \TbraketA{ h_1 h_2 q_{f1} q_{f2} (t_0)}{iT}{q_{i1} q_{i2} (t_0)} \right|^2 
+        \dXsec &\propto \mathcal{P}( q_{1} q_{2} \rightarrow q_{3} q_{4} h_1 h_2 ) 
+            = \left| \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{iT}{q_{1} q_{2} (t_0)} \right|^2 
             = |i \invAmp|^2 
         \\\dXsec &= \Gamma(p_1, p_2, ...) |\invAmp|^2
     \end{split} \end{equation}
@@ -109,7 +111,7 @@
 
     This final step may seem impossible, given that an infinite number of intermediate particles can be inserted between any two states.
     Recall from the structure of $\invAmp$, that $iT$ is not one term, but in fact an infinite series expansion of the Hamiltonian operator.
-    For most situations, each of these terms will contribute less to the overall calculation.
+    For most situations, each higher order of the terms will contribute less to the overall calculation.
     Eventually, the higher-order terms will contribute so little that they can be safely ignored.
     This property is directly reflected in the Feynman Diagrams, in the form of \textit{loops}.
     Any loop in a diagram indicates that the diagram is a higher order term of the expansion.
@@ -124,7 +126,7 @@
 
     \begin{figure}
     \centering
-    \begin{subfigure}[$M_t$]{0.32\textwidth} 
+    \begin{subfigure}{0.32\textwidth} 
         \input{diagrams/vbf_hh_kv.tex} 
         \caption{$M_t$}
         \label{fig:tree_level_vbfhh:kv}

@@ -24,9 +24,10 @@
     
     At its core, the Standard Model of Particle Physics is a description of the behavior and interaction of matter.
     Hence, it is necessary to discuss what this matter actually is, first and foremost.
-    All known matter can be described as a specific type of elementary particle called a fermion,
-        defined by the fact that it contains no discernible substructure and possesses an intrinsic spin of $\hbar/2$.
-    These fermions, each with a different mass, are able to interact with each other through three ``fundamental interactions.''
+    All known matter can be described as being composed of a specific type of elementary particle called a fermion,
+        defined by the fact that it contains no discernible substructure (it is ``fundamental'')
+        and possesses an intrinsic spin of $\hbar/2$.
+    These fundamental fermions, each with a different mass, are able to interact with each other through three ``fundamental interactions.''
     The three fundamental interactions (more commonly called ``Fundamental Forces'') are known as
         the Electromagnetic, Weak, and Strong interactions (gravity is entirely absent in the Standard Model).
     All the interactions have an associated ``charge'' which can be ascribed to different particles,
@@ -47,19 +48,20 @@
         which leptons lack (and thus cannot interact via the Strong Interaction at all).
     Both classes of particles -- quarks and leptons -- are divided into three ``generations'' of progressively heavier particles.
     Each generation accordingly consists of two quarks and two leptons.
-    These pairs, dubbed ``doublets,'' behave the same across all generations.
-    Among the leptons, every generation contains a doublet of a charged particle (electron, muon, tauon) with EM charge of $\approx −1.6$ coulombs,
+    These pairs, called ``doublets,'' behave the same across all generations.
+    Among the leptons, every generation contains a doublet of a charged particle (electron, muon, tauon)
+        with EM charge of $\approx −1.6 \times 10^{-19}$ coulombs,
         and an uncharged neutrino with no electric charge.
     For quarks, each doublet consists of an up-type quark (up, charm, top) with electromagnetic charge -2/3 that of the electron,
         and a down-type quark (down, strange, bottom) with 1/3 the charge of the electron.
-    In addition to the fermions, there is also an entirely separate class of spin 1 particles, called gauge bosons,
+    In addition to the fermions, there is also an entirely separate class of spin-1 particles, called gauge bosons,
         which play a fundamental role in the aforementioned interactions.
     However, an in-depth discussion of these particles will need to wait until Section \ref{sec:gauge_symmetry}.
 
     The brilliance of the Standard Model lies in how it is able to describe the 
         particles and interactions of nature as consequences of pure mathematical structures.
     Before the mathematical form of particles can be discussed though,
-        I must first introduce the mathematics of the setting in which these particles exist:
+        I must first introduce the setting in which these particles exist:
         the fabric of four-dimensional space-time.
 
 
@@ -69,7 +71,11 @@
     % SR is description of geometry of space-time
     % Encoded in Minkowski metric
     % and utilized via covariant notation
-    Special relativity rests on the axiom that the speed of light $c$,
+    Special relativity rests on the postulate\footnote{
+            This is actually the second of the two postulates of special relativity.
+            The first is that the laws of physics are invariant to changes in reference frames,
+                but this is merely a subset of the Poincare symmetry described in Section \ref{sec:symmetry}.
+        } that the speed of light $c$,
         is an absolute constant that will always appear the same
         \textit{regardless of the speed of an observer}.
     There are many consequences to this, but the most relevant is that
@@ -81,10 +87,10 @@
     Just as the familiar three-dimensional (``Euclidean'') distance can be measured with the equation $x^2+y^2+z^2=r^2$,
         four-dimensional space-time (``Minkowskian'') distance is measured as $(ct)^2-x^2-y^2-z^2 = s^2$.
     Classical physics assumes Euclidean space with time as a parameter,
-        and so is unequiped to address four-dimensional space-time.
+        and so is unequipped to address four-dimensional space-time.
     Minkowski space-time can be accounted for in physics however,
         by subtly redefining how vector products are evaluated.
-    Vector products are classicaly defined as 
+    Vector products are classically defined as 
     \begin{equation}
         r^2 = \begin{pmatrix} x & y & z\end{pmatrix} \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \sum\limits_{i=1}^3 x_i x_i
         \quad , \quad \begin{pmatrix}x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} x \\ y \\ z \end{pmatrix} 
@@ -139,7 +145,7 @@
 
     Another conventional quirk has been introduced between the final two lines,
         wherein the summations over $\mu$ and $\nu$ are made implicit by the repetition of their indices.
-    Known as ``Einstein Summation Notation,'' this convention drastically simplifies equations in Field Theory,
+    Known as ``Einstein Summation Notation,'' this convention drastically simplifies equations in Field Theory
         and will also be used throughout the rest of this thesis.
     With the description of space-time laid out,
         I can now provide a mathematical description for the particles that operate within it.
@@ -159,12 +165,16 @@
     %    directly relevant to the rest of the chapter.
     The most striking feature of quantum mechanics is of course the Heisenberg Uncertainty Principle,
         $\Delta x \Delta p \geq \hbar/2$, which states that there is an absolute lower bound on the
-        uncertainty of a particle's position and momentum, defined by the Reduced Planck's Constant $\hbar$.
-    Because particles cannot have well defined position and momentum, they can no longer be described as singular objects,
-        and instead these properties are described as functions that extend the particle through phase-space.
+        product of the uncertainty of a particle's position and momentum,
+        defined by the Reduced Planck's Constant $\hbar$.
+    Because particles cannot have both well defined position and momentum,
+        they can no longer be described as singular objects,
+        and instead these properties are described as functions that extend the particle through 
+        ``phase-space'' -- its range of possible positions and momenta.
     The precise form and scope of these functions varies depending on the application and context,
         but in Quantum Field Theory particles are collectively described by a particle \textit{field},
-        which exists at all points in space-time, and in which individual particles are merely perturbations of.
+        which exists at all points in space-time;
+        individual particles are merely perturbations of the field.
     Mathematically, quantum fields are described in the form of linear operators $\varphi(x)$,
         which are functions of all four space-time coordinates.
     These fields operate on \textit{particle states} $\ket{\varphi}$,
@@ -185,6 +195,7 @@
         %}
     \begin{equation}
         p^\mu \equiv i \hbar \frac{\partial}{\partial_\mu} = i \hbar \partial^\mu
+        \quad.
     \end{equation}
 
     Before proceeding to the final description of matter, I want to highlight one last notational convention called ``natural units.''
@@ -219,11 +230,12 @@
 
     Additionally, a peculiar consequence of Quantum Field Theory presents itself in the form of \textit{anti-matter}.
     Anti-matter particle fields correspond to negative-energy\footnote{
-            or \textit{time-reversed}, the Feynman-St\"uckelberg interpretation
+            or \textit{time-reversed}, the Feynman-St\"uckelberg interpretation of the same states
         } solutions to the Dirac Equation,
         and are represented as
     \begin{equation}
         \psibar(x) \equiv \gamma^0 \psi^\dag(x)
+        \quad.
     \end{equation}
     Anti-matter particles are identical to their matter components in every way,
         except that their charges are inverted.
@@ -235,37 +247,41 @@
 \section{Generating Motion: Group Theory and Transformations} \label{sec:group_theory}
 
     An object described by mathematical functions can be ``moved'' using the concept of \textit{transformations}.
-    This is accomplished by operating on the function $f$ with a transformation operator $U$ as.
+    This is accomplished by operating on the function $f$ with a transformation operator $U$ as
     \begin{equation}
-    f \to f' = U f
+        f \to f' = U f
+        \quad.
     \end{equation}
 
     To see how such an operator works in practice,
         I can start with a simple expression for the position of some object as a function of time, $x(t)$.
     Assuming the object travels with a constant velocity,
-        its position can be transformed into a time $\Delta t$ in the future by
+        its position can be transformed into a time that is an amount $\Delta t$ in the future by
     \begin{equation}
-    x(t) \to x'(t) = x(t) + v \Delta t
+        x(t) \to x'(t) = x(t) + v \Delta t
+        \quad.
     \end{equation}
     Recognizing that $v$ is just $\frac{d}{dt} x(t)$, this can be rewritten as
     \begin{equation}
-    x(t) \to x'(t) = x(t) + \Delta t \frac{d}{dt} x(t) = \left(1+\Delta t \frac{d}{dt}\right) x(t)
+        x(t) \to x'(t) = x(t) + \Delta t \frac{d}{dt} x(t) = \left(1+\Delta t \frac{d}{dt}\right) x(t)
+        \quad.
     \end{equation}
 
     This term $\left(1+\Delta t \frac{d}{dt}\right)$ is the classical time-translation operator.
-    Notice the assumption of constant velocity though.
+    Notice however the assumption of constant velocity.
     If velocity were not constant, this operator would be invalid,
-        except in the specific case for which $\Delta t$ is an infinitesimal $\delta t$.
+        except in the specific case for which $\Delta t$ is an infinitesimal $\delta t$:
     \begin{equation}
-    x(t) \to x'(t) = \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right) x(t)
+        x(t) \to x'(t) = \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right) x(t)
     \end{equation}
 
     To produce a more general finite operator I can apply the infinitesimal operator an infinite number of times
     \begin{equation} \begin{split}
-    x(t) \to x'(t) &= \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)...\ x(t)
-    \\x(t) \to x'(t) &= \lim_{N \to \infty} \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)^N x(t)
-    \\x(t) \to x'(t) &= \lim_{N \to \infty} \left(1+\frac{\Delta t}{N} \frac{d}{dt}\right)^N x(t)
-    \\x(t) \to x'(t) &= e^{\Delta t \frac{d}{dt}} x(t)
+        x(t) \to x'(t) &= \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)\left(1+\delta t \frac{d}{dt}\right)...\ x(t)
+        \\x(t) \to x'(t) &= \lim_{N \to \infty} \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)^N x(t)
+        \\x(t) \to x'(t) &= \lim_{N \to \infty} \left(1+\frac{\Delta t}{N} \frac{d}{dt}\right)^N x(t)
+        \\x(t) \to x'(t) &= e^{\Delta t \frac{d}{dt}} x(t)
+        \quad.
     \end{split} \end{equation}
 
     Where $\Delta t$ is again a finite time transformation,
@@ -273,7 +289,8 @@
     In order to use this classical operator in quantum field theory it must of course be Hermitian,
         which requires it to have a factor `$i$' associated with it,
     \begin{equation} \begin{split}
-    x(t) \to x'(t) = e^{i\Delta t \frac{d}{dt}} x(t)
+        x(t) \to x'(t) = e^{i\Delta t \frac{d}{dt}} x(t)
+        \quad.
     \end{split} \end{equation}
 
     Returning to Dirac Fields, which are functions of four-position $x_\mu$, this same transformation can be used
@@ -282,17 +299,20 @@
 
     \begin{equation} \begin{split}
     \psi(x) \to \psi'(x) = e^{\Delta x^0 i\partial_0} \psi(x)
+    \quad.
     \end{split} \end{equation}
 
     Meanwhile, the Dirac anti-particle field transforms with a negative sign as
     \begin{equation} \begin{split}
-        \psibar(x) \to \psibar'(x) = e^{-\Delta x^0 \partial_0} \psibar(x)
+    \psibar(x) \to \psibar'(x) = e^{-\Delta x^0 \partial_0} \psibar(x)
+    \quad.
     \end{split} \end{equation}
     
     The time translation operator is but one of a myriad of different transformation operators.
     However, all of the transformation operators used here take a similar form to this, appearing as
     \begin{equation} \begin{split}
         \psi(x) \to \psi'(x) = e^{ q \cdot \mathcal{F}_q } \psi(x)
+        \quad.
     \end{split} \end{equation}
     $\mathcal{F}_q$ is the transformation \textit{generator} (e.g.\ $i\partial_0$),
         and $q$ the amount to transform by (e.g.\ $\Delta t$)\footnote{
@@ -325,12 +345,12 @@
         then that system is said to be invariant, or symmetric, under that group.
 
     In a very deep sense, Group Theory and symmetry are the driving forces behind the entire Standard Model.
-    Not only is the motion of the Standard Model entirely described by Group Theory,
+    Not only is motion in the Standard Model entirely described by Group Theory,
         but as will be seen in the coming sections its interactions are defined by Group Theory,
-        and its entire organizational structure ultimately rooted in Group Theory.
+        and its entire organizational structure is ultimately rooted in Group Theory.
 
 
-\section{Restricting Motion: The Lagrangian and Symmetry}
+\section{Restricting Motion: The Lagrangian and Symmetry}\label{sec:symmetry}
     
     The Dirac Equation describes the equation of motion of a single field,
         but what is required is a way to describe the interactions of \textit{many} fields.
@@ -341,6 +361,7 @@
     One can then find the ``path'' of this Lagrangian which minimizes the ``Action,'' $\mathscr{A}$
     \begin{equation} %TODO: double check this!!
         \mathscr{A} = \int \Lag d^4 x
+        \quad.
     \end{equation}
 
     This minimization is performed using the four-dimensional Euler-Lagrange equations
@@ -355,7 +376,7 @@
     Paraphrasing Murray Gell-Mann, ``that which is not forbidden, is \textit{mandatory}\cite{Gell-Mann_mandatory}.''
     That is to say, that any physics which is not expressly prohibited, can and will occur.
     Formulation of the Standard Model Lagrangian must therefore start with an enumeration of restrictions,
-        which are given in the form of a series of groups that the Lagrangian must remain symmetric under.
+        which are given in the form of a series of groups under which the Lagrangian must remain symmetric.
     Specifically, the Lagrangian must remain symmetric under ten transformations,
         collectively referred to as the Poincare Group.
     Four of these transformations correspond to the space-time translations,
@@ -373,9 +394,10 @@
             \left( e^{-i\Delta x^0 \partial_0} \psibar \right) (\gamma^\mu p_\mu - m) \left( e^{i\Delta x^0 \partial_0}\psi \right)
         \\  = e^{-i\Delta x^0 \partial_0 + i \Delta x^0 \partial_0} \psibar (\gamma^\mu p_\mu - m) \psi
         \\  = \psibar (\gamma^\mu p_\mu - m) \psi
+        \quad.
     \end{split} \end{equation}
 
-    Applying the Euler-Lagrange equations to this equation will separately return the Dirac Equation
+    \noindent Applying the Euler-Lagrange equations to this equation will separately return the Dirac Equation
         for the fermion and anti-fermion fields, as it should.
 
     Given that there are many different kinds of fermions, the Lagrangian can be expanded to include all of them
@@ -406,7 +428,7 @@
 
     %Describe Global U1
     Allow me to introduce another group, called $U(1)$ (Unitary Rank 1 Group).
-    This group corresponds to the phase of a field, and the transformation takes the form
+    This group corresponds to phase shifts of a field, and the transformation takes the form
     \begin{equation}
         \psi(x) \to \psi'(x) = e^{i\theta} \psi(x)
     \end{equation}
@@ -563,7 +585,7 @@
     Gauge fields in this formalism \textit{cannot} have mass.
     A brief check will confirm that a Lagrangian mass term such as $m_Z^2 (Z^0)^2$
         will not remain invariant under the gauge field's own transformation.
-    By all rights, the experimental measurement of the W and Z masses should have
+    By all rights, the presence of the W and Z masses should have
         ended the idea of gauge symmetry as a principle of nature altogether.
     Instead, a theory was proposed which would allow gauge symmetry to persist,
         but only under the condition that an entirely new field, unlike any previously observed, must exist.
