@@ -6,7 +6,7 @@
     The basic event selection does not remove all non-signal events.
     Indeed, based on the relative rates of QCD multijet events (Fig. \ref{fig:lhc_rates}) and the SM \vbfhhproc process (1.18 fb, see Table \ref{tab:mcyields}),
         most of the events remaining in the data are very likely background.
-    Since these background events cannot be effectively differentiated from signal data,
+    Since these background events cannot be effectively differentiated from the signal,
         a technique must be used to estimate how much of the observed data is coming from background.
     Specifically, the analysis employs a method to predict the kinematic shape (in \mhh)
         of the background events within the 4b Signal Region,
@@ -37,7 +37,7 @@
         is that background events with only two b-tagged jets (2b data)
         will have kinematics very similar to the background events with 4 b-tagged (4b) jets.
     Thus, the kinematic distribution of the 2b signal region can be used as an estimate of the background in the 4b signal region.
-    Unfortunately, observation of the Control Regions shows that the kinematics of the 2b and 4b data cannot be expected to match completely.
+    Unfortunately, observation of the Control Regions shows that the kinematics of the 2b and 4b data do not match as well as hypothesized.
     As such, the 2b signal data must undergo a ``reweighting'' process,
         which adjusts the kinematic distribution to match that of 4b.
     This reweighting takes the form of a function $R$,
@@ -54,8 +54,9 @@
     A neural network (NN) is trained via the Keras python library to identify how to reweight 2b data
         such that the cumulative kinematic distribution looks like that of 4b data.
     In order to improve stability in the reweighting function,
-        an ensemble of 100 networks is trained, and the median of their calculations is used (called the ``Nominal Estimate'').
-    Each neural network instance $j$ produces a reweighting factor $w_{ij}$, and has a normalization factor $\alpha_j$ associated with it.
+        an ensemble of 100 networks (referred to as the ``bootstrap networks'') is trained,
+        and the median of their calculations is used (called the ``Nominal Estimate'').
+    Each neural network instance $j$ produces a reweighting factor $w_{ij}$ and has a normalization factor $\alpha_j$ associated with it.
     This normalization factor is calculated so the total yield of all 2b reweighted events matches that of the 4b yield in the same region. 
     So for $N$ total 2b events and $N'$ total 4b events, a normalization factor $\alpha_j$ is set such that:
         \begin{equation}
@@ -78,17 +79,17 @@
                 {background/crypto-mean-stdBS-m-hh-Control-Region-1-NN-all-4binclusive}
         }
         \caption{
-            The \mhh kinematic distribution of the 2b VS 4b regions, before and after reweighting the 2b region.
+            The \mhh kinematic distribution of the 2b vs 4b regions, before and after reweighting the 2b region.
         }
         \label{fig:data_mhh_reweight}
     \end{figure}
 
     The problem with this training approach is that the 4b signal region cannot be used in the training.
-    Instead, the neural networks are trained using the CR1 data,
+    Instead, the neural networks are trained using the CR1 data
         and are optimized to reweight the 2b CR1 data to resemble the 4b CR1 data.
     Because the reweighting function is trained on a different kinematic region than the signal region,
         there is a potential systematic uncertainty that must be assessed.
-    This is calculated by training a different ensemble of NNs on Control Region 2
+    This is calculated by training a different ensemble of NNs on CR2.
 
     \begin{figure}[tbh]
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/quadNP_viz}
@@ -100,7 +101,7 @@
     \end{figure}
 
     As seen in Fig. \ref{fig:sig_quads}, the signal region is split into four quadrants,
-        with the divisions angled to match those of CR1 and CR2
+        with the divisions angled to match those of CR1 and CR2.
     The nominal reweighting is performed using the entire signal region,
         with the events binned by their \mhh value to form a nominal histogram.
     Four alternate histograms are then generated from events reweighted using
@@ -139,8 +140,8 @@
     This list of variables was selected through two correlation tests,
         the first of which was determining how strongly correlated different variables are to \mhh
         (Figs. \ref{fig:mhh_corrLT1.5} and \ref{fig:mhh_corrGT1.5}).
-    To measure how strongly related any two variables are I used the Pearson correlation coefficient,
-        which is a scalar metric of how closely the variables follow a linear correlation.
+    I used the Pearson correlation coefficient as a measure of the relationship of different variables.
+    This coefficient is a scalar metric of how closely the variables follow a linear correlation.
 
 
     \begin{sidewaysfigure}[tbh]
@@ -169,7 +170,7 @@
 
     Based on their high correlation to \mhh in both \deta regions, 23 variables were then selected for further study.
     These 23 variables were plotted against each other in a correlation matrix,
-        which displayed how strongly correlated these variables are to each other.
+        which displayed the dependence of each variable on the others.
     A final set of seven variables was selected based (Table \ref{tab:vbf_NNRW_vars}) on which variables were \textit{least} correlated to each other,
         in order to avoid variables carrying redundant information (Figs. \ref{fig:vbf_corr_matrix_LT1.5} and \ref{fig:vbf_corr_matrix_GT1.5}).
     The culmination of this work is a neural network well suited to modelling the background process of the analysis.
