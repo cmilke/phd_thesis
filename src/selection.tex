@@ -95,8 +95,8 @@
         %Trigger bucketing strategy? What are the chances I can just not deal with this?
 
 
-    \FloatBarrier
-    \section{Analysis Cuts} \label{sec:analysis_cuts}
+\FloatBarrier
+\section{Analysis Cuts} \label{sec:analysis_cuts}
 
         Upon completion of the ATLAS-wide trigger selection,
             the appropriate data samples are copied for use by this analysis.
@@ -118,6 +118,79 @@
             the VBF jet kinematics,
             and the angular clustering of the Higgs decay products.
 
+        \begin{figure}[tbh]
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv-5.0}
+                \caption{}
+            \end{subfigure}
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv1.0}
+                \caption{}
+            \end{subfigure}\\
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv5.0}
+                \caption{}
+            \end{subfigure}
+            \caption{
+                Acceptance $\times$ Efficiency across the \kvv/\kl space for multiple values of \kv.
+                These figures (and those that follow) indicate what fraction of signal events are expected (based on MC studies)
+                    to both pass through ATLAS such that they are reconstructed (acceptance)
+                    and subsequently remain after the various steps of selection (efficiency).
+                Although the reconstruction and selection process is overall very punishing -- 
+                    leaving roughly only one in every thousand signal events --
+                    no particular variations of the signal model (i.e.\ no specific inputs of the $\kappa$ values)
+                    are dramatically favored over any others;
+                    all values visible across these plots lie within the same order of magnitude.
+            }
+            \label{fig:accXeff_kv}
+        \end{figure}
+
+        \begin{figure}[tbh]
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl-15.0}
+                \caption{}
+            \end{subfigure}
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl1.0}
+                \caption{}
+            \end{subfigure}\\
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl21.0}
+                \caption{}
+            \end{subfigure}
+            \caption{
+                Acceptance $\times$ Efficiency across the \kvv/\kv space for multiple values of \kl.
+            }
+            \label{fig:accXeff_kl}
+        \end{figure}
+
+        \begin{figure}[tbh]
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v-3.0}
+                \caption{}
+            \end{subfigure}
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v0.0}
+                \caption{}
+            \end{subfigure}\\
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v1.0}
+                \caption{}
+            \end{subfigure}
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v5.0}
+                \caption{}
+            \end{subfigure}
+            \caption{
+                Acceptance $\times$ Efficiency across the \kl/\kv space for multiple values of \kvv.
+            }
+            \label{fig:accXeff_kvv}
+        \end{figure}
+
+            
+
+
+    \FloatBarrier
     \subsection{Jet Multiplicity and Categorization}
         
         First and foremost is a check to ensure that there are enough jets to even constitute a \vbfproc event,
@@ -146,9 +219,6 @@
         Any other jets in the event are discarded for the purposes of the rest of the analysis.
         The remaining selection cuts are made on these two categories of jets.
         
-        %TODO: I should probably provide a source that justifies the mjj thing, since it's common practice
-        % Maybe pull up one of the papers Ariel had you read?
-
 
     \subsection{VBF Topology}
 
@@ -172,15 +242,18 @@
             shown in Fig. \ref{fig:vbf_cuts}.
 
         \begin{figure}[tbh]
-            \subfloat[$m_{jj}$ Cut Significance]{
-                \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{selection/mjj_significance}
-            }
-            \subfloat[$\deta_{jj}$ Cut Significance]{
-                \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{selection/detajj_significance}
-            }\\
-            \subfloat[6-Jet Vector-Sum $p_{T}$ Cut Significance]{
-                \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{selection/vecsum_pt}
-            }
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/mjj_significance}
+                \caption{$m_{jj}$ Cut Significance}
+            \end{subfigure}
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/detajj_significance}
+                \caption{$\deta_{jj}$ Cut Significance}
+            \end{subfigure}\\
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/vecsum_pt}
+                \caption{6-Jet Vector-Sum $p_{T}$ Cut Significance}
+            \end{subfigure}
             \caption{
                 Significance value for different cut values on the various VBF selection criteria\cite{vbf_hh_4b_2018_int}.
                 The goal is to maximize significance while avoiding ``edges'' where significance rapidly falls off.
@@ -191,9 +264,9 @@
             }
             \label{fig:vbf_cuts}
         \end{figure}
-        \FloatBarrier
 
 
+    \FloatBarrier
     \subsection{B-Quark Pairing}
 
         What is detected within ATLAS and reconstructed by Athena are not Higgs Bosons, but rather their decay products.
