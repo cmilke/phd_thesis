@@ -1,6 +1,7 @@
 \chapter{ATLAS} \label{chapter:atlas}
 
 \section{Introduction}
+
     % Intro
     Production of new physics and particles is of little use without the ability to observe said physics.
     Herein lies the purpose of ATLAS.
@@ -23,7 +24,14 @@
 
     \begin{figure}
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{atlas/atlas_coords}
-        \caption{Illustration of the cylindrical coordinate system used in ATLAS \cite{Schott:1699952}}
+        \caption{
+            Illustration of the coordinate system used in ATLAS\cite{Schott:1699952}.
+            The system is a hybrid between cylindrical (with radius exending from the $z$-axis)
+                and spherical (with both $\theta$ and $\phi$ angles in use).
+            Of special note is the \textit{pseudo-rapidity} coordinate $\eta \equiv -\ln[\tan(\theta/2)]$.
+            Pseudo-rapidity is a relativistic approximation to the Lorentz \textit{rapidity} angle $y \equiv \tanh^{-1}(v/c)$,
+                and is often used in place of $\theta$ because differences in pseudo-rapidity ($\Delta \eta$) are Lorentz invariant.
+        }
         \label{fig:atlas_coords}
     \end{figure}
 
@@ -32,9 +40,9 @@
     Each of these subsystems has a very different design and objective, but they are all constructed with roughly the same overall cylindrical geometry.
     The reason for this design is simple kinematics.
     The LHC particle beams cross with no initial transverse momentum, which means particles are ejected without preference in the radial angle $\phi$.
-    Furthermore, the extremely high longitudinal momentum of the beams results in many particles continuing along a highly ``forward" (parallel to the beampipe) trajectory.
+    Furthermore, the extremely high longitudinal momentum of the beams results in many particles continuing along a highly ``forward'' (parallel to the beampipe) trajectory.
     These two properties lead naturally to a radially symmetric detector which is elongated in the forward direction; a cylinder centered on the beam axis.
-    To accommodate this geometry, the various sub-detectors of ATLAS are generally split into two distinct parts, called ``barrels" and ``endcaps".
+    To accommodate this geometry, the various sub-detectors of ATLAS are generally split into two distinct parts, called ``barrels'' and ``endcaps''.
     The barrels are a series of radially symmetric cylindrical shells, concentric about the beampipes, meant to detect particles moving primarily in the transverse direction.
     In turn, the endcaps are a series of flat, circular plates, stacked one behind the next along the beampipes,
         intended to detect more low-angle particles.
@@ -46,13 +54,15 @@
     Moving out from the interaction region, the subsystems can be classified as belonging to the Inner Detector, the Calorimeter System, and the Muon Spectrometer.
     The first of these, located as close in $r$ and $z$ as possible, is the Inner Detector system.
     The Inner Detector is designed to provide momentum measurement, vertexing, and electron identification.
-    It must be located so close to the interaction region in order to permit detection of short lived particles like b-quarks and tau leptons \cite{id_tdr}.
+    It must be located so close to the interaction region in order to permit identification
+        of short lived particles like b-quarks and tau leptons \cite{id_tdr}.
     Following immediately behind (endcap) and around (barrel) the Inner Detector is the collection of sensors comprising the Calorimetry system.
     These sensors are purpose-built to measure the energy of incoming particles and also provide supplementary tracking information for particle trajectories.
     Their location between the IR and Muon System is based on the fact that calorimeters function by absorbing all of a particle's energy, thereby stopping them.
     Since their function necessarily stops particles, they must be placed outside the range of the tracking system, as otherwise the trackers would never see particles.
     The Muon system however functions best when only muons traverse it, and so the calorimeters are intentionally placed between the IR and the Muon Spectrometer in order to shield the Muon system from unwanted hadrons.
-    Finally, at the outer edge of ATLAS, is the Muon Spectrometer, which has been built to measure the momentum of muons leaving the detector volume.
+    Thus, at the outer edge of ATLAS, is the Muon Spectrometer,
+        which has been built to measure the momentum and trajectories of muons leaving the detector volume.
 
 % Then split off into sections for the individual subsystems
 \section{Inner Detector} \label{sec:inner_detector}
@@ -63,10 +73,12 @@
     
     The Inner Detector system is intended to provide measurement of particles' momentum, provide vertex information, and help in identifying electrons.
     The way it achieves these goals is primarily through a series of very high resolution tracking sensors, which are used to trace out the paths that particles traverse as they leave the IR. 
-    Momentum and charge measurement is facilitated by using a solenoid magnet to encompass the entire Inner Detector with a 2T axial magnetic field.
+    Momentum and charge measurement is facilitated by using a solenoid magnet that encompasses the entire Inner Detector with a 2T axial magnetic field.
     This field bends the high-momentum charged particles into a helical trajectory, allowing their momentum, mass, and charge to be determined from the shape of the particle's path.
-    The entire ID system, consisting of three independent detectors, measures 5.3 m in length and 2.5 m in diameter, and is able to provide accurate tracking within $|\eta| < 2.5$ \cite{id_tdr}.
-    From the innermost to outermost, the sub-detectors are the Pixel Detector, the Semiconductor Tracker (SCT), and the Transition Radiation Tracker (TRT).
+    The entire ID system, consisting of three independent subdetectors, measures 5.3 m in length and 2.5 m in diameter,
+        and is able to provide accurate tracking within $|\eta| < 2.5$ \cite{id_tdr}.
+    From the innermost to outermost, the sub-detectors are the Pixel Detector, the Semiconductor Tracker (SCT),
+        and the Transition Radiation Tracker (TRT).
     The Pixel Detector and SCT together are responsible for high resolution tracking of particle trajectories.
     Further from the IR, the TRT provides more particle tracking capability at lower resolution (but higher statistics), as well the ability to help distinguish electrons. 
 
@@ -80,14 +92,16 @@
 
 
     \subsection{Pixel Detector and Semiconductor Tracker}
+
         % purpose
         As the very first detector elements that any particles leaving the interaction region will encounter, the Pixel Detector and SCT face a precarious dilemma.
-        On the one hand, they must be able to accurately track the path of all ionizing particles emerging from the IR at high resolution (see Table \ref{tab:ID_resolution}).
+        On the one hand, they must be able to accurately track the path of all ionizing particles
+            emerging from the IR with high resolution (see Table \ref{tab:ID_resolution}).
         On the other hand, any disturbance they introduce to particle trajectories will distort the measurement of every other detector in ATLAS.
         Add to this that these detectors face the highest radiation flux of any system simply by their proximity to the IR, forcing usage of very radiation-hard material design.
         For these reasons, the Pixel Detector and SCT use top-of-the-line silicon semiconductor diode technology, which can be made both extremely thin and sensitive. 
         This means that particles only deposit a small fraction of their energy into the detector material, and yet that small deposition is enough to accurately record their passage.
-        With three layers of the Pixel Detector and four of the SCT, any particle leaving the IR crosses at least seven detector layers, yet continues on with a mostly unchanged trajectory.
+        With four layers of the Pixel Detector and four of the SCT, any particle leaving the IR crosses at least seven detector layers, yet continues on with a mostly unchanged trajectory.
 
         \input{tables/atlas/ID_resolution.tex}
 
@@ -95,12 +109,12 @@
         These particular detectors are made using silicon.
         Silicon has four valence electrons, so a pure silicon crystal lattice will have its valence band perfectly filled, leading to a very stable structure.
         A pure semiconductor crystal lattice (in this case, silicon) can have impurities intentionally introduced to it through the process of doping.
-        Doping the lattice with an element possessing only three valence electrons (e.g. Boron) will result in a number of gaps in the valence band (called ``holes").
+        Doping the lattice with an element possessing only three valence electrons (e.g. Boron) will result in a number of gaps in the valence band (called ``holes'').
         In such a situation, known as p-type doping, the lattice will accept additional electrons to fill these holes, which will lead to an excess of negatively charged ions.
         Conversely, an element with five valence electrons can be introduced for doping, leading to an excess of electrons in the valence band.
         Known as n-type doping, such an excess results in a lattice with a propensity for shedding these excess valence electrons, which in turn leads to an excess of positive ions.
         A p-n junction can be produced by taking a single silicon wafer and n-type doping one half, while p-type doping the other.
-        The junction where the separately doped halves meet will then see a transfer of excess valence electrons moving from the n-type side to fill the holes of the p-type side, as illustrated in figure \ref{fig:pn_junction}
+        The junction where the separately doped halves meet will then see a transfer of excess valence electrons moving from the n-type side to fill the holes of the p-type side, as illustrated in Fig. \ref{fig:pn_junction}.
 
         \begin{figure}
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{atlas/pn_junction}
@@ -108,16 +122,17 @@
             \label{fig:pn_junction}
         \end{figure}
 
-        As the excess ``donor" electrons migrate to fill the ``acceptor" holes, the area around the junction has its valence band filled, creating an area called the ``depletion zone".
+        As the excess ``donor'' electrons migrate to fill the ``acceptor'' holes, the area around the junction has its valence band filled, creating an area called the ``depletion zone''.
         Though the depletion zone has a filled valence band, it has done so at the cost of ionization; an excess of electrons now populates the p-type side, with an equal number of positive ions remaining on the n-type side.
         The depletion zone grows larger until the migration of holes and electrons is balanced by the electric potential created through this ionization.
         When equilibrium is achieved, the lattice is left with an electric potential which monotonically decreases from the n-type to the p-type side, and which spans the full width of the depletion zone (refer again to figure \ref{fig:pn_junction}).
         If a voltage is applied across the semiconductor, the width and potential difference of the depletion region can be altered.
-        If the voltage is applied with the positive end of the difference at the p-type side, then the semiconductor is said to be ``forward biased", and the depletion region will become smaller (and with a high enough voltage can be eliminated entirely).
-        If the positive end of the voltage difference is applied to the n-type side though, the semiconductor becomes ``reverse biased", and the depletion region and potential difference across the junction will grow larger \cite{wiley_radiation_detection}.
+        If the voltage is applied with the positive end of the difference at the p-type side, then the semiconductor is said to be ``forward biased'', and the depletion region will become smaller (and with a high enough voltage can be eliminated entirely).
+        If the positive end of the voltage difference is applied to the n-type side though, the semiconductor becomes ``reverse biased'', and the depletion region and potential difference across the junction will grow larger \cite{wiley_radiation_detection}.
         In this reverse-biased state, the electric potential of the p-n junction becomes very effective at rapidly sweeping excess ions from the depletion region off to the edges of the semiconductor wafer, and it is this mechanism which the ATLAS semiconductor detectors exploit in order to detect particles.
 
-        Ionizing radiation is any particle that interacts electromagnetically, which means either photons or any particle with electric charge.
+        Ionizing radiation is any particle that interacts electromagnetically and that is capable of removing electrons from atoms,
+            which means either photons or any particle with electric charge.
         When ionizing radiation passes through an element of the Pixel Detector or SCT, it will momentarily separate electrons from their nuclei in the silicon lattice.
         Normally, such separated ions would just recombine in a matter of moments.
         Because of the electric potential in the depletion region though, these ions are further separated, and swiftly arrive at opposite ends of the semiconductor wafer.
@@ -125,17 +140,18 @@
         The electric current through these semiconductor detectors is closely monitored, and these spikes are used to identify the passage of a particle through the semiconductors.
 
     \subsection{Transition Radiation Tracker (TRT)}
+
             While the Pixel Detector and SCT focus on quality over quantity in their tracking, the TRT serves to take the opposite approach.
             The TRT has a resolution much lower than that of either the Pixel or SCT (table \ref{tab:ID_resolution}).
             But where the Pixel and SCT combined only manage about seven recorded hits per particle, the TRT achieves around 36.
             High statistics then are able to offset the TRT's lower resolution per hit, overall achieving a similar uncertainty on its track measurements.
             Such measurement needs to be accomplished under the same restrictions faced by the earlier trackers though.
             Namely, that it must obtain these measurements while causing minimal deviation in particle trajectory and also tolerating heavy radiation exposure over time.
-            These challenges and goals are addressed in the TRT's composition, using a detector technology known as ``proportional drift tubes".
+            These challenges and goals are addressed in the TRT's composition, using a detector technology known as ``proportional drift tubes''.
 
-            Proportional drift tubes, often referred to as ``straws", function in a similar way to semiconductor diode detectors, but using a gas instead of a doped semiconductor.
+            Proportional drift tubes, often referred to as ``straws'', function in a similar way to semiconductor diode detectors, but using a gas instead of a doped semiconductor.
             The primary component of a drift tube is a cylinder filled with a gas mixture.
-            In the TRT, these cylinders are 4 mm in diameter, filled with a mixture of 70\% Xenon, 27\% CO\textsubscript{2}, and 3\% O\textsuperscript{2}.
+            In the TRT, these cylinders are 4 mm in diameter, filled with a mixture of 70\% Xenon, 27\% CO\textsubscript{2}, and 3\% O\textsubscript{2}.
             Ions are produced in this mixture when ionizing radiation passes through it.
             As in the semiconductor diode detectors, these ions are collected by applying an electric field through the ionization medium in order to sweep ions away into external circuitry for readout.
             In a drift tube this is accomplished by maintaining an electric potential between the tube wall and a conductive wire running through the cylinder axis \cite{drift_chambers}.
@@ -154,7 +170,8 @@
                     \caption{ID Barrel}
                     \label{fig:inner_detector_barrel_measurements}
                 \end{subfigure}
-                \caption{Visualization of the Inner Detector modules with corresponding measurements \cite{atlas_tdr}}
+                \caption{Visualization of the Inner Detector modules with corresponding measurements \cite{atlas_tdr} \cite{sensor_damage}.
+                    The Insertable B-Layer (IBL), added during Run 2, is not visible in the Endcap figure.}
                 \label{fig:inner_detector_measurements}
             \end{figure}
 
@@ -171,6 +188,7 @@
 
 
 \section{Calorimetry} \label{sec:calorimeter}
+
     The ATLAS Calorimeter system is designed to measure the energy of particles emerging from the Interaction Region.
     The entire collection of sub-detectors extends from the immediate outer edge of the Inner Detector region, out to a radius of 4.25 m, and longitudinally out to 6.12 m.
     Together the various systems achieve complete measurement coverage out to $|\eta| < 4.9$.
@@ -197,10 +215,15 @@
     Surrounding the ECal are the Hadronic Calorimeter (HCal) systems.
     These detectors, as their name suggests, detect hadrons, such as neutrons or pions.
     Not only are these particles heavier, but many of them are electrically neutral and can therefore only be stopped through repeated nuclear interactions \cite{energy_measurement}.
-    Consequently, the HCal systems must be much thicker than the ECal systems(see figure \ref{fig:cal_rad_length}).
+    Consequently, the HCal systems must be much thicker than the ECal systems (see Fig. \ref{fig:cal_rad_length}).
     \begin{figure}
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{atlas/cal_rad_length}
-        \caption{Histogram of interaction lengths $X_0$ as a function of $\eta$ for the different sub-detectors \cite{atlas_tdr}}
+        \caption{
+            Histogram of interaction lengths $X_0$ as a function of $\eta$ for the different sub-detectors \cite{atlas_tdr}.
+            The unlabeled tan region at the bottom corresponds to all material leading up to the first ECal layer.
+            The cyan region at the top corresponds to additional material between the outer edge of the calorimeter subsystems
+                leading up to the first layer of the Muon Spectrometer.
+        }
         \label{fig:cal_rad_length}
     \end{figure}
     Additionally, they serve the role of preventing hadrons from escaping into the Muon Spectrometer.
@@ -209,12 +232,13 @@
     It is constructed very close to the beampipe, and serves to extend the calorimetric measurement coverage out to an $|\eta|$ of 4.9.
 
     \subsection{Electromagnetic Calorimeters}
+
         Light, electromagnetically interacting particles, namely electrons/positrons and photons, are much more easily stopped than heavy or neutral particles.
         As these kinds of particles are the first to be stopped, the calorimeter responsible for measuring their energy, the Electromagnetic Calorimeter (ECal) is the closest to the IR.
         Furthermore, the lesser amount of material required for this detector permits higher resolution in its construction.
         In $\eta$, this resolution increase is a strict numerical change of 0.025 for ECal versus 0.1 for HCal (see Table \ref{tab:cal_specs}).
         In $\phi$ though, the resolution is increased using a more creative geometry.
-        Rather than simple flat plates, the active and inactive materials of the ECal are arranged in a unique ``accordion" design, in order to provide complete coverage in $\phi$.
+        Rather than simple flat plates, the active and inactive materials of the ECal are arranged in a unique ``accordion'' design, in order to provide complete coverage in $\phi$.
         Additionally, while the ECal is unable to stop hadrons, it can still make measurements of such particles as they pass through it.
         Hence the ECal's secondary purpose of assisting the HCal with preliminary hadronic energy measurement.
 
@@ -223,12 +247,14 @@
         The material of choice for this situation has accordingly been chosen as liquid argon (LAr) \cite{Lar_cal_tdr}.
         These liquid argon calorimeters, used in the ECal and elsewhere, detect ionization from incident particles via capacitive coupling to electrodes placed outside the active LAr medium.
 
-        Finally, the main layers of the ECal are augmented by a ``Presampler" placed in front of the ECal.
+        Finally, the main layers of the ECal are augmented by a ``Presampler'' placed in front of the ECal.
         An excess of support structure material exists in front of the ECal which absorbs a non-negligible amount of energy from traversing particles.
         The Presampler then acts to measure some the particles' energy before passing through this support material, so that this loss can be accounted for.
 
     \subsection{Hadronic Calorimeter}
-        With lighter electromagnetic radiation already measured by the ECal, the Hadronic Calorimeter (HCal) has the task of measuring the energy of the particles (mostly hadrons) that remain.
+
+        With electromagnetic interactions already measured by the ECal,
+            the Hadronic Calorimeter (HCal) has the task of measuring the energy of the particles (mostly hadrons) that remain.
         The more massive, often neutral, nature of these particles requires significantly more material to properly contain.
         As the Muon Spectrometer is dependent on observation of \textit{only} muons, the HCal's containment of hadrons is crucial not only to its own energy measurements, but also for the measurements the Muon system will make.
         The endcap portion of the HCal, known as the Hadronic Endcap Calorimeter (HEC), uses liquid argon for the active material, like the ECal, but uses copper plates for the inactive material.
@@ -239,12 +265,13 @@
         The scintillating tiles used in the Tile Calorimeter operate on different ionization detection principles than the other sensor technologies discussed so far.
         The key to scintillating materials is that they respond to ionizing radiation not by ion release, but by fluorescence.
         That is, when ionizing radiation crosses through the scintillation material, the atoms of the material momentarily enter an excited state.
-        The excited material atoms promptly return to their base energy state, and release the excess energy in the form of ``scintillation light" photons.
+        The excited material atoms promptly return to their base energy state, and release the excess energy in the form of ``scintillation light'' photons.
         Ideally, this fluorescent response is related to the energy of the incident radiation through as linear a response as possible \cite{wiley_radiation_detection}.
         In the Tile Calorimeter, the scintillating material used is polystyrene, and the energy itself is measured by transferring the light to optical fibres located at the edge of the tile modules.
         These optical fibres direct the light to photomultiplier tubes (PMTs), which in turn convert the light to electrical signals to be read out \cite{tcal_tdr}.
 
     \subsection{Forward Calorimeter}
+
         The Forward Calorimeter (FCal) is the final sub-system of the ATLAS Calorimetry system, and acts to extend calorimetry coverage to the very forward detector region, out to $|\eta| < 4.9$.
         It is a single cylindrical block, but is divided into three sections, one behind the other.
         The innermost of these sections acts as an extension to the ECal, and the other two serve as forward HCal detectors.
@@ -255,11 +282,13 @@
 
 
 \section{Muon Spectrometer} \label{sec:muon}
+
     Far from the interaction region, beyond all other sub-systems, lies the Muon Spectrometer.
     Muons interact electromagnetically and carry charge, as electrons, but their much higher mass vastly suppresses their differential energy deposition \cite{wiley_radiation_detection}.
     As well, they do not interact through the strong force, and so are completely unaffected by nuclear interactions.
     For these reasons, muons pass almost unfazed through the entire ATLAS Calorimetry system.
-    Moreover, their large mass and high momentum means they are barely deflected by the Inner Detector's solenoid magnet, leaving the details of their momentum unknown.
+    Moreover, their large mass and high momentum means they are barely deflected by the Inner Detector's solenoid magnet,
+        leaving the details of their momentum poorly resolved.
     It thus falls to the Muon Spectrometer to provide this critical information of muon momentum, which all the other sensors are unable to deliver.
 
     The Muon Spectrometer system is immense.
@@ -269,7 +298,7 @@
     %Its distance from the interaction point ameliorates this issue though, as it permits the Muon detectors to operate at much lower spatial resultions than the inner detectors, while still retaining similar anngular resolution.
     To achieve this goal, the Muon system is split into two primary sections, the Precision Track Chambers and the Trigger Chambers.
     The Precision Track Chambers are primarily responsible for providing tracking of muons leaving the ATLAS detector volume in order to determine their momentum.
-    Past the Precision Track Chamber are the Trigger Chambers, which are primarily designed for providing rapid information of muon track multiplicity and energy range, used in large part by the trigger system.
+    Past the Precision Track Chamber are the Trigger Chambers, which are primarily designed for providing rapid information of muon track multiplicity and energy range, used in large part by the trigger system (Section \ref{sec:trigger}).
 
     \begin{figure}
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{atlas/muon_xsec}
@@ -278,6 +307,7 @@
     \end{figure}
 
     \subsection{Precision Track Chambers}
+
         The Precision Track Chambers are designed to provide high resolution measurements of track position and momentum for muons escaping the ATLAS detector. 
         As was done earlier in the Inner Detector system, this is achieved by applying a powerful magnetic field to the detector region in order to bend the muon tracks.
         Where the Inner Detector used a relatively small solenoid magnet for this purpose, the Muon system uses a much larger set of three air-core toroid magnets.
@@ -295,6 +325,7 @@
         These chambers can read both coordinates of a track simultaneously, preventing the ambiguities that can occur if more than one track is present in the same chamber \cite{atlas_tdr}.
 
     \subsection{Trigger Chambers}\label{sec:muon-trigger_chamber}
+
         The last set of sensors in the ATLAS detector, the Trigger Chambers of the Muon system act to augment the information obtained from the Precision Track Chambers, as well as provide additional rapid information for the trigger system.
         It provides coverage in the range $|\eta| < 2.4$, only slightly less than that of the Track Chambers.
         The barrel and end-cap use two different technologies, Resistive Plate Chambers (RPCs) in the barrel, and Thin Gap Chambers (TGCs) in the endcaps.
@@ -304,3 +335,10 @@
         The TGCs are multi-wire drift tube chambers with very small gaps between the anode wires and the cathode strips; indeed, the anode-cathode gaps are 1.4 mm are smaller than the anode-anode gaps of 1.8 mm.
 
     \input{tables/atlas/muon_specs.tex}
+
+
+        
+% Readout electronics???
+% All the electrical signals from the detectors have to be collected
+% need like digital-to-analogue converters and amplifiers and buffers and clock cycles and stuff
+% something something and then there are too many signals so you need something to process stuff quick. enter trigger

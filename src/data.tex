@@ -17,12 +17,18 @@
         allowing for greater efficiency in what data is kept and what is removed.
 
 
-\section{Trigger System}
+\section{Trigger System} \label{sec:trigger}
 
     The trigger system is a series of hardware and software level algorithms designed to quickly identify bunch crossing ``events'' which may be of interest to physics analysis, while discarding the rest.
     Referred to as ``online'' analysis, these algorithms perform event selection live, in parallel to the ATLAS detector observing collisions.
     The trigger system processes all ATLAS events immediately after readout, ultimately reducing the 40 MHz bunch crossing rate to a data output rate of 1 kHz.
     The data that survive this rapid selection are read out to disk and distributed to individual research teams for more sophisticated ``offline'' analysis later.
+
+    \begin{figure}[h]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{trigger/trigger_flow}
+        \caption{Flow chart of information through the ATLAS trigger system\cite{trigger_run2}.}
+        \label{fig:trigger_flow}
+    \end{figure}
     
     Triggering is achieved by running events through two sequential algorithmic systems.
     All events first go through the hardware-based Level 1 Trigger (L1) before being run through the more sophisticated (and slower) software-based High Level Trigger (HLT).
@@ -95,11 +101,6 @@
 
 \FloatBarrier
     \subsection{High Level Trigger}
-        \begin{figure}[h]
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{trigger/trigger_flow}
-            \caption{Flow chart of information through the ATLAS trigger system\cite{trigger_run2}.}
-            \label{fig:trigger_flow}
-        \end{figure}
 
         After the L1 Trigger has reduced the event rate to 100 kHz, the software-based High Level Trigger is used to further reduce the event rate to the final output of \textasciitilde 1 kHz.
         Located in the SCX1 building (Fig. \ref{fig:facilities}) at the surface of P1 (again to minimize latency), the HLT uses data from all detector elements to completely reconstruct the event as it occurred in ATLAS, and performs its selections based on this reconstructed event.
