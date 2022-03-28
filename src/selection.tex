@@ -60,7 +60,7 @@
         These triggers have been chosen based on any features that lend themselves to the VBF \to 4b process.
         Notably, the utilized triggers heavily emphasize high jet multiplicity and an abundance of b-jets.
         To understand how, it is necessary to understand the nomenclature of the trigger chains.
-        A full reference can be found in [TODO cite https://twiki.cern.ch/twiki/bin/view/Atlas/TriggerNamingRun2],
+        A full reference can be found in \cite{trigger_naming},
             but a brief example of how to read the chains is provided here:
 
         HLT\_j110\_gsc150\_boffperf\_split\_2j45\_gsc55\_bmv2c1070\_split\_L1J85\_3J30:
@@ -71,7 +71,7 @@
                 \item gsc150: Requires at least one jet with $p_T \geq 150$ GeV after Global Sequential Calibration (GSC) algorithm is applied
                 \item boffperf: The b-jet Offline Performance flavor tagging algorithm has been run on all jets for this event,
                     with its results stored, though no cut is applied at this stage
-                \item split: Using ``Split Jets'', which run the PV algorithms on a superROI
+                \item split: Using ``Split Jets,'' which run the PV algorithms on a superROI
                     that is then split back into individual jet ROIs.
                 \item 2j45: Requires at least two jets with $p_T$ of at least 45 GeV
                 \item gsc55: Cut on jet $p_T \geq 55$ GeV after jet calibration is applied
@@ -163,6 +163,7 @@
             \vec{p}_{b1} + \vec{p}_{b2} + 
             \vec{p}_{b3} + \vec{p}_{b4} +
             \vec{p}_{j1} + \vec{p}_{j2} 
+            \quad.
         \end{equation}
         The maximum sum-$p_T$ requirement follows from the fact that the initial incoming beamline particles have
             zero transverse momentum, and so the output of their interaction should as well.
@@ -265,11 +266,10 @@
         A quantity $X_{HH}$ governs the boundaries of these regions,
             which effectively acts as a $\chi^2$ fit on the expected Higgs masses,
             and is defined as
-
-        \begin{equation}
+        \begin{equation} \label{eq:xhh}
             X_{HH} \equiv \sqrt{\left(\frac{m_{H1} - 124\textrm{GeV}}{0.1 \ m_{H1}}\right)^{2}
                 + \left(\frac{m_{H2} - 117\textrm{GeV}}{0.1 \ m_{H2}}\right)^{2}} \quad.
-            \label{eq:xhh}
+            \quad.
         \end{equation}
 
         The \mhh parameters 124 and 117 were chosen to match the center of the \mhh distributions
@@ -279,10 +279,10 @@
         $X_{hh} < 1.6$ defines the SR,
             while CR1 and CR2 are set within a ring-like shape between the SR
             and an outer boundary defined by
-        \begin{equation}
+        \begin{equation} \label{eq:cr_out}
             \text{CR\ Outer\ Edge} \quad : \quad \sqrt{ \left(m_{H1} - 1.05 \cdot 124\textrm{GeV}\right)^2
                 +  \left(m_{H2} - 1.05 \cdot 117\textrm{GeV}\right)^2 } = 45\textrm{GeV}
-            \label{eq:cr_out}
+            \quad.
         \end{equation}
         
         CR1 and CR2 are divided based on studies demonstrating that this choice results in
@@ -313,10 +313,10 @@
         There are many W-boson candidates, and many Top quark candidates for each possible reconstructed W-boson.
         For each combination, the reconstructed masses of the W-boson $m_W$ and Top quark $m_t$
             are used as inputs for the formula
-        \begin{equation}
+        \begin{equation} \label{eq:xwt}
             \xwt \equiv \sqrt{\left(\frac{m_W - 80.4\textrm{GeV}}{0.1 \ m_W}\right)^{2}
-                + \left(\frac{m_t - 172.5\textrm{GeV}}{0.1 \ m_t}\right)^{2}}.
-            \label{eq:xwt}
+                + \left(\frac{m_t - 172.5\textrm{GeV}}{0.1 \ m_t}\right)^{2}}
+            \quad.
         \end{equation}
 
         If any of the pairs is found to have an \xwt value less than 1.5, the event is vetoed. 

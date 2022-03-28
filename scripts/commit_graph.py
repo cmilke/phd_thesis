@@ -19,6 +19,7 @@ for commit in gitlog.split('commit'):
     numdel = 0 if infolist[5] is None else int(infolist[5])
     if commitID == '5fa901dbe1d4a47c83853ad91f95d296d0662fcd': continue
     if commitID == 'b5d606c59faf07736f83d7af84c134775d15c50e' : continue
+    if commitID == 'b04717c92bbc9b300ae13a1b7c36bf7995c80865' : continue
     datelist.append(date)
     insertions.append(numins)
     deletions.append(-numdel)

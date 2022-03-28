@@ -36,9 +36,9 @@
 
     \begin{figure}[h!]
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{theory/Standard_Model_of_Elementary_Particles}
-        \caption{Table of the particles described by the Standard Model of Particle Physics\cite{wikimedia_sm}
-            [FIXME: Hey Steve, I'm using the "online" bibtex style for this reference, but it seems to leave out a ton of information.
-                Is that how it's supposed to be? Or do I need to use a different citation category?]}
+        \caption{
+            Table of the particles described by the Standard Model of Particle Physics\cite{wikimedia_sm}
+        }
         \label{fig:sm_particles}
     \end{figure}
 
@@ -94,6 +94,7 @@
     \begin{equation}
         r^2 = \begin{pmatrix} x & y & z\end{pmatrix} \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \sum\limits_{i=1}^3 x_i x_i
         \quad , \quad \begin{pmatrix}x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} x \\ y \\ z \end{pmatrix} 
+        \quad.
     \end{equation}
 
     To permit vectors in arbitrary geometries,
@@ -110,6 +111,7 @@
             \begin{pmatrix} x \\ y \\ z \end{pmatrix} \\
         r^2 &= \sum\limits_{i=1}^3 \sum\limits_{j=1}^3 x_i g^i_j x_j
             = \sum\limits_{i=1}^3 x_i x^i
+        \quad.
     \end{split} \end{equation}
 
     In the second line the metric tensor $g^i_j$ has been contracted with $x_j$,
@@ -125,9 +127,10 @@
             0 &  0 & -1 &  0 \\
             0 &  0 &  0 & -1
         \end{pmatrix}
+        \quad.
     \end{equation}
 
-    Which permits the appropriate distance equation:
+    which permits the appropriate distance equation:
 
     \begin{equation} \begin{split}
         s^2 &= \begin{pmatrix} ct & x & y & z\end{pmatrix} 
@@ -141,6 +144,7 @@
         s^2 &= \sum\limits_{\mu=0}^3 \sum\limits_{\nu=0}^3 x_\mu g^\mu_\nu x_\nu
             \quad , \quad x_0 \equiv ct \\
         s^2 &= x_\mu g^\mu_\nu x_\nu = x_\mu x^\mu = (ct)^2-x^2-y^2-z^2
+        \quad.
     \end{split} \end{equation}
 
     Another conventional quirk has been introduced between the final two lines,
@@ -204,7 +208,8 @@
     That is, I am setting the speed of light $c$ equal to the reduced Planck's constant $\hbar$,
         equal to the electric charge of the electron, equal to the permittivity of free space $\epsilon_0$,
         and so forth, all equal to 1:
-    \begin{equation} c=\hbar=q=\epsilon_0=1 \end{equation}
+    \begin{equation} c=\hbar=q=\epsilon_0=1 \quad. \end{equation}
+
     There is a potentially profound philosophy to be gleaned from the fact that this can be done at all
         (e.g. for $c$ to literally be unit-less requires that space and time have the \textit{same} units of measurement),
         but I will not delve into such deep implications.
@@ -222,6 +227,7 @@
     \begin{equation} \begin{split}
         (\gamma^\mu p_\mu - m) \psi(x) = 0
         \\ (i\gamma^\mu \partial_\mu - m) \psi(x) = 0
+        \quad.
     \end{split} \end{equation}
     The term $\gamma^\mu$ is a vector of matrices, simply called the gamma matrices.
     The derivation and implications of the gamma matrices are a fascinating subject all their own, 
@@ -273,6 +279,7 @@
         except in the specific case for which $\Delta t$ is an infinitesimal $\delta t$:
     \begin{equation}
         x(t) \to x'(t) = \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right) x(t)
+        \quad.
     \end{equation}
 
     To produce a more general finite operator I can apply the infinitesimal operator an infinite number of times
@@ -329,7 +336,8 @@
         \item Closure - the product of any two elements of the group is also an element of the group;
         \item Associativity - $(a \times b)\times c = a\times(b \times c)$;
         \item Identity - there is some element in the group $I$ for which $I \times a=a$;
-        \item and Inversion - every element $a$ has an inverse $a^{-1}$ such that if $b \times a = c$ then $c \times a^{-1} = b$.
+        \item and Inversion - every element $a$ has an inverse $a^{-1}$ such that if $b \times a = c$,
+            then $c \times a^{-1} = b$.
     \end{itemize}
 
     It should be relatively simple to see that time translation operations satisfy each of these.
@@ -386,6 +394,7 @@
     The Lagrangian of a Dirac field satisfying these symmetries takes the form
     \begin{equation} \label{eq:basic_fermionL}
         \Lag = \psibar (\gamma^\mu p_\mu - m) \psi = i \psibar \gamma^\mu \partial_\mu \psi - m \psibar \psi
+        \quad.
     \end{equation}
     As an example of the symmetry now described, I will reuse the time translation operator $e^{i\Delta x^0 \partial_0}$
 
@@ -431,6 +440,7 @@
     This group corresponds to phase shifts of a field, and the transformation takes the form
     \begin{equation}
         \psi(x) \to \psi'(x) = e^{i\theta} \psi(x)
+        \quad.
     \end{equation}
 
     %describe global vs local
@@ -445,6 +455,7 @@
     A local $U(1)$ transform would then take the form 
     \begin{equation}
         \psi(x) \to \psi'(x) = e^{i\theta(x)} \psi(x)
+        \quad.
     \end{equation}
     Noting that the phase-angle $\theta(x)$ is now a function of $x$.
 
@@ -459,6 +470,7 @@
             \left( e^{-i\theta(x)} \psibar \right) (\gamma^\mu p_\mu - m) \left( e^{i\theta(x)}\psi \right)
             \\ &= \left( e^{-i\theta(x)} \psibar \right) i\gamma^\mu \partial_\mu \left( e^{i\theta(x)}\psi \right)
                 - \left( e^{-i\theta(x)} \psibar \right) m \left( e^{i\theta(x)}\psi \right)
+        \quad.
     \end{split} \end{equation}
     In the mass term, the transform will cancel in the usual fashion.
     The momentum term however will \textit{not} cancel, as the derivative will also affect the position-dependent $\theta(x)$.
@@ -474,6 +486,7 @@
             - m \psibar(x) \psi(x)
         \\ &= - \psibar \left( \gamma^\mu \partial_\mu\theta(x) \right) \psi 
             + \psibar ( \gamma^\mu p_\mu - m ) \psi
+        \quad.
     \end{split} \end{equation}
 
     %Show how to fix lagrangian
@@ -488,6 +501,7 @@
     where $\emc$ is a constant and the new function $A_\mu(x)$ is formulated such that it transforms under a $U(1)$ gauge rotation as
     \begin{equation}
         A_\mu(x) \to A'_\mu(x) = A_\mu(x) - \frac{1}{\emc} \partial_\mu \theta(x)
+        \quad.
     \end{equation}
 
     With this additional term, the Lagrangian becomes
@@ -531,9 +545,9 @@
     Furthermore, the three-field term $i \emc \psibar \gamma^\mu A_\mu \psi$
         allows the Dirac field to interact directly with the photon field,
         and through the photon field to interact indirectly with \textit{other} Dirac fields.
-    Far from the static situation described by Eqn. \ref{eq:basic_fermionL},
+    Far from the static situation described by Eq. \ref{eq:basic_fermionL},
         the new Lagrangian permits a wide range of dynamic interactions between particles.
-    In fact, using the Euler-Lagrange equations on Eqn. \ref{eq:qedL}
+    In fact, using the Euler-Lagrange equations on Eq. \ref{eq:qedL}
         will now reproduce the Lorentz Force Law as the equation of motion for the Dirac fields,
         and Maxwell's Equations as the equation of motion for the photon.
 
@@ -559,7 +573,7 @@
         $SU(2)$ performs three orthogonal rotations $\alpha^a$ through a three-dimensional complex space,
         and $SU(3)$ performs rotations through an eight-dimensional complex space.
     Because $SU(2)$ operates through the $2 \times 2$ Pauli Matrices, it must operate on the fermions in doublets
-        (recall Section \ref{sec:standard_model}).
+        (recall Section \ref{sec:standard_model}):
     \begin{equation}
         \minimatrix{u_L \\ d_L} \to e^{i \alpha^a \sigma^a / 2} \minimatrix{u_L \\ d_L}
     \end{equation}
@@ -567,6 +581,7 @@
     Similarly, the triplet nature of $SU(3)$ necessitates that the group operate on all three generations of fermions at once
     \begin{equation}
         \minimatrix{u\\c\\t} \to e^{i \xi^b \mathscr{F}^b / 2} \minimatrix{u\\c\\t}
+        \quad.
     \end{equation}
 
     Neither group operates uniformly across the fermions though.

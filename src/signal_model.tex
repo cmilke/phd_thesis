@@ -147,6 +147,7 @@
     \begin{equation} \begin{split} \label{eq:tree_level_invamp_simple}
         \xsec &\equiv \dXsecM \propto |\invAmp|^2 = |  \kv^2 M_t + \kv \kl M_s + \kvv M_x |^2 \\
         \xsec &= \kv^2 \kl^2 a_1 + \kv^4 a_2 + \kvv^2 a_3 + \kv^3 \kl a_4 + \kv \kl \kvv a_5 + \kv^2 \kvv a_6
+        \quad.
     \end{split} \end{equation}
 
     The $a_i$ matrix element expansion values have a dependence on \mhh, which is not trivially derivable as an analytic function.
@@ -170,6 +171,7 @@
         \crossterm{4}
         \crossterm{5}
         \crossterm{6}
+        \quad.
     \end{split} \end{equation}
 
     This set of equations can be reformatted as a matrix equation
@@ -202,13 +204,13 @@
     Equation \ref{eq:allsixxsecs} can then be written in the much simpler form
     \begin{equation}
         \vec{\xsec} = F \bullet \vec{a}
-        \quad .
+        \quad.
     \end{equation}
 
     The $a_i$ terms can then be trivially solved for through an inversion of $F$
     \begin{equation} \label{eq:amp_solution}
         \vec{a} = F^{-1} \bullet \vec{\xsec}
-        \quad .
+        \quad.
     \end{equation}
 
     %\newcommand{\combterm}[1]{ g_{#1} \frac{d\sigma_{#1}}{d \mhh} }
@@ -228,7 +230,7 @@
             \combterm{4} +
             \combterm{5} +
             \combterm{6}
-        \quad .
+        \quad.
     \end{split} \end{equation}
 
     In practice, the differential cross-section values $\xsec_i$ of these six \textit{basis} samples
@@ -269,8 +271,8 @@
             + \left(- \frac{11 \kappa_{2V}^{2}}{540} + \frac{11 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{216} + \frac{13 \kappa_{V}^{4}}{270} - \frac{5 \kappa_{V}^{3} \kappa_{\lambda}}{54} + \frac{\kappa_{V}^{2} \kappa_{\lambda}^{2}}{72}\right) \times \xsec{\left(1,10,1 \right)}  \\
             + \left(\frac{88 \kappa_{2V}^{2}}{45} - \frac{16 \kappa_{2V} \kappa_{V}^{2}}{3} + \frac{4 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{9} + \frac{152 \kappa_{V}^{4}}{45} - \frac{4 \kappa_{V}^{3} \kappa_{\lambda}}{9}\right) \times \xsec{\left(1,1,\frac{1}{2} \right)} \\
             + \left(\frac{8 \kappa_{2V}^{2}}{45} - \frac{4 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{9} - \frac{8 \kappa_{V}^{4}}{45} + \frac{4 \kappa_{V}^{3} \kappa_{\lambda}}{9}\right) \times \xsec{\left(1,-5,\frac{1}{2} \right)}
-    \end{split}
-    \end{equation}}
+        \quad.
+    \end{split} \end{equation}}
 
     The method used to determine the overall performance of a basis is to check the number of negative bins generated
         in the \mhh distribution across all points in the two-dimensional \kvv,\kl space, as seen in \ref{fig:vbf_hh_6term_nWeight_grid}.
@@ -471,10 +473,11 @@
         in that some Feynman diagrams invariably cancel with others.
     Thus, I will be looking at the ``closeness'' of the \textit{absolute values} of the weighted cross-sections,
         specifically ensuring that bases are \textbf{not} penalized for large cancellations between terms.
-    The resulting metric, which I call \textit{Solidarity}, effectively measures how well the basis samples work together at a given point.
+    The resulting metric, which I call \textit{Solidarity}, effectively measures how well the basis samples work together at a given point:
 
     \begin{equation}
-    \textrm{\textbf{Solidarity}: }S \equiv \frac{ \sum\limits_{i=1}^6 g_i\sigma_i }{ \textrm{Stdev}(|g_i\sigma_i|) }
+        \textrm{\textbf{Solidarity}: }S \equiv \frac{ \sum\limits_{i=1}^6 g_i\sigma_i }{ \textrm{Stdev}(|g_i\sigma_i|) }
+        \quad.
     \end{equation}
 
     That is, first take the standard deviation of the absolute values of the $ g_i \sigma_i $ weighted cross-sections.

@@ -53,12 +53,14 @@
         I can relate the initial state at $t_0$ to its time $\Delta t$ units in the future, $t_i$, by the transformation
     \begin{equation}
         \ket{q_{1} q_{2} (t_i)} = e^{i\Delta tH}\ket{q_{1} q_{2} (t_0)}
+        \quad.
     \end{equation}
     The same can be done to transform the final state backwards in time
     \begin{equation}
         \bra{h_1 h_2 q_{3} q_{4} (t_f)}
         = \bra{h_1 h_2 q_{3} q_{4} (t_0)} (e^{i(-\Delta t)H})^\dag
         = \bra{h_1 h_2 q_{3} q_{4} (t_0)} e^{i\Delta tH}
+        \quad.
     \end{equation}
     Putting both of these together yields
     \begin{equation} \begin{split} \label{eq:transition_amplitude}
@@ -66,15 +68,17 @@
         &= \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{e^{i\Delta tH} e^{i\Delta tH}}{q_{1} q_{2} (t_0)}
         \\&= \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{e^{2\Delta tH}}{q_{1} q_{2} (t_0)}
         \\&= \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{1 + iT}{q_{1} q_{2} (t_0)}
+        \quad.
     \end{split} \end{equation}
 
     In the last step, the exponential operator is expanded as an infinite series of terms,
         in a reversal of the procedure from Section \ref{sec:group_theory}.
     The first of these terms will just be 1, corresponding to the static situation in which no interaction occurs at all.
     The sum of the remaining terms, represented as $iT$, is the part relevant for calculating the interaction probability,
-        with the entire transition amplitude referred to as the \textit{invariant amplitude}, $\invAmp$.
+        with the entire transition amplitude referred to as the \textit{invariant amplitude}, $\invAmp$:
     \begin{equation}
         i\invAmp \equiv \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{iT}{q_{1} q_{2} (t_0)}
+        \quad.
     \end{equation}
 
     As stated above, the differential cross-section, $\dXsec$,
@@ -85,6 +89,7 @@
             = \left| \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{iT}{q_{1} q_{2} (t_0)} \right|^2 
             = |i \invAmp|^2 
         \\\dXsec &= \Gamma(p_1, p_2, ...) |\invAmp|^2
+        \quad.
     \end{split} \end{equation}
 
     Where $\Gamma(p_1, p_2, ...)$ is a function of the scattering kinematics,
@@ -171,6 +176,7 @@
             \\&\qquad + \kv \kl \kvv (M_s^* M_x + M_x^* M_s ) 
             \\&\qquad + \kv^2 \kvv (M_t^* M_x + M_x^* M_t )
         \\\dXsec \propto |\invAmp|^2 &= \kv^2 \kl^2 a_1 + \kv^4 a_2 + \kvv^2 a_3 + \kv^3 \kl a_4 + \kv \kl \kvv a_5 + \kv^2 \kvv a_6
+        \quad.
     \end{split} \end{equation}
 
     As noted earlier, the precise value of this cross-section will vary depending on the kinematics of the incoming particles,
@@ -180,33 +186,3 @@
         and to produce di-Higgs processes with any appreciable abundance,
         even higher energies are required.
     For measuring the Higgs self-couplings, there is only one machine on the planet that will suffice.
-
-    %In the case where all three $\kappa$ values are 1 and the ``center of mass'' collision energy
-    %    between the two initial quarks is $\approx 13$ TeV [FIXME: that's s for the protons],
-    %    the cross-section for the \vbfhhproc is 1.18 fb.
-
-
-
-    %In the last line, the various squares and cross-terms of the diagram values have been aggregated entirely into the $a$ terms.
-    %The formula for the cross-section will be proportional to this squared amplitude, along with various kinematic properties.
-    %Of particular importance among these kinematics is the center-of-mass energy of the interaction, with the final relation taking the form
-
-    %\begin{equation} \label{eq:dXsec_final} %FIXME: what is the E_com proportionality?
-    %    \dXsec \propto E_{CoM}^{??}\left(kv^2 \kl^2 a_1 + \kv^4 a_2 + \kvv^2 a_3 + \kv^3 \kl a_4 + \kv \kl \kvv a_5 + \kv^2 \kvv a_6 \right)
-    %\end{equation}
-
-    %TODO: calculate concrete number for the cross-section at SM at different energies
-    % for comparison, compare the energy of an oxygen (O2, m=2.66x10^-26 kg) molecule
-    % at room temp (v ~= .5 km/s, E=(1/2)mv^2=3.06x10^-21 J =~ 19 meV - milli-electron volts)
-    % to O2 in the center of the sun (E = 1.9 KeV, v =~ 100 km/s)
-    % to the energy of particles in the LHC (13 TeV, over a billion times more energy than O2 in the center of the sun)
-    %This final formula reveals two essential pieces of insight.
-    %The first is that the cross-section depends on the values of the various $\kappa$ values in a manner which is non-trivial,
-    %    but nonetheless measurable.
-    %The second is the strong energy dependence.
-    %Explicit calculation of the cross-section will show that, if the Standard Model is correct,
-    %    this VBF \to hh process is exceedingly rare.
-    %Consequently, if one wants to make a noteworthy measurement of this process,
-    %    an extraordinarily high center-of-mass energy will be required.
-    %Currently, there exists only one machine on the planet capable of achieving these energies.
-

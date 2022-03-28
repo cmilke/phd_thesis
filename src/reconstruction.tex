@@ -22,7 +22,7 @@
             The first point of contact for anything leaving the IR of ATLAS is the tracking detectors.
             As such, the objects reconstructed from the tracking detectors will be the first point of discussion.
             Prior to encountering the ATLAS calorimeters,
-                particles exiting the IR pass through primarily low-density material (see figure \ref{fig:cal_rad_length}).
+                particles exiting the IR pass through primarily low-density material (see Fig. \ref{fig:cal_rad_length}).
             Thanks to the inclusion of the Solenoid Magnet field encompassing the Inner Detectors,
                 these trajectories reveal crucial information about the particles in an event.
             This is because any charged particle with a momentum component orthogonal to a magnetic field
@@ -40,9 +40,10 @@
             There are several conventions for the form these parameters should take,
                 but in ATLAS a helix is described by a set of equations parameterised by an angle $\alpha$ as\cite{thesis_giacinto}:
             \begin{equation} \begin{split}
-            x(\alpha) &= x_R + d_0 \cos(\phi) + \rho \left[ \cos(\alpha) - \cos(\phi) \right] \\
-            y(\alpha) &= y_R + d_0 \sin(\phi) + \rho \left[ \sin(\alpha) - \sin(\phi) \right] \\
-            z(\alpha) &= z_R + z_0 - \rho \cot(\theta) (\alpha - \phi)
+                x(\alpha) &= x_R + d_0 \cos(\phi) + \rho \left[ \cos(\alpha) - \cos(\phi) \right] \\
+                y(\alpha) &= y_R + d_0 \sin(\phi) + \rho \left[ \sin(\alpha) - \sin(\phi) \right] \\
+                z(\alpha) &= z_R + z_0 - \rho \cot(\theta) (\alpha - \phi)
+                \quad.
             \end{split} \end{equation}
             %FIXME: you used 'r' in the figures, but rho in the equations. Fix one of them
 
@@ -125,8 +126,7 @@
                 \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/trackseeding}
                 \caption{
                     Diagram of space-points formed in the ATLAS Pixel (Red) and SCT (Blue) subdetectors,
-                        with track seeds highlighted in yellow
-                        [TODO cite https://atlassoftwaredocs.web.cern.ch/trackingTutorial/tracksf/].
+                        with track seeds highlighted in yellow\cite{track_seeding}.
                     Track seeds are formed using ``adjacent'' space-points, in the sense that they
                         occur in sequential detector layers at roughly the same solid angle.
                 }
@@ -185,10 +185,11 @@
             Most of the vertices are of little interest, and are known as ``pile-up vertices.''
             The PV is the vertex assumed to be the location of the hard-scatter interaction,
                 and is identified as a vertex associated with at least two tracks
-                and whose tracks possess the largest scalar sum of squared transverse momentum\cite{jet_energy_scale13TeV}
-                [TODO cite https://twiki.cern.ch/twiki/bin/view/AtlasProtected/PrimaryVertexIdentification]
+                and whose tracks possess the largest scalar sum of squared transverse momentum
+                    \cite{jet_energy_scale13TeV} \cite{primary_vertex_identification}.
                 \begin{equation}
                     p_T^2 \textrm{ sum}  \equiv \sum\limits_{i \in \textrm{tracks}} p_{T,i}^2 \quad.
+                    \quad.
                 \end{equation}
             Once the primary vertex is identified, the high resolution track fitting step is rerun,
                 but now with the PV set as the reference point $R$ instead of the beamspot.
@@ -334,10 +335,11 @@
             \begin{equation} \begin{split}
                 \textrm{sign}_{d0} &= \textrm{sign}(\sin(\phi_{\textrm{jet}} - \phi_{\textrm{track}}) \cdot d_{0,\textrm{track}}) \\
                 \textrm{sign}_{z0} &= \textrm{sign}((\eta_{\textrm{jet}} - \eta_{\textrm{track}}) \cdot z_{0,\textrm{track}})
+                \quad.
             \end{split} \end{equation}
             Physically, this sign convention is to distinguish tracks which are likely to have actually been part of the jet (with a positive sign)
                 from those likely originating from pile-up vertices (negative sign).
-            [TODO: I'm not sure these equations are actually right. At the very least, I don't understand them, so I'll need to revisit this]
+            %[TODO: I'm not sure these equations are actually right. At the very least, I don't understand them, so I'll need to revisit this]
             See Fig. \ref{fig:ip3d_sign} for a graphical illustration of this convention.
 
             \begin{figure}
@@ -373,9 +375,9 @@
                         an up, down, or strange quark.}
                 would be based on the PDF of the impact parameter for
                 b-jets ($\textrm{PDF}_b$) to that for light-jets ($\textrm{PDF}_l$)
-
             \begin{equation}
                 R(t_1, t_2, ... t_N) \equiv \frac{\prod_{i=1}^N \textrm{PDF}_b(t_i)}{\prod_{i=1}^N \textrm{PDF}_l(t_i)}
+                \quad.
             \end{equation}
 
             These distributions are subsequently used as a discriminant to distinguish b-jets and charm-jets from light-jets
