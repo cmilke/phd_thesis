@@ -1,23 +1,156 @@
 \chapter{Data Collection and Simulation} \label{chapter:data}
 
 \section{Introduction}
+    
+    ATLAS is responsible for collecting all the experimental data required for this analysis,
+        but that data is of limited use without knowing how to interpret it.
+    Without understanding how the key features of a physics interaction manifest within the electronics readout
+        it is impossible to distinguish signal events from any other bunch crossing.
+    Chapter \ref{chapter:theory} explained the theoretical motivation for this analysis.
+    The past two chapters have focused entirely on the hardware necessary to produce and observe particle physics interactions.
+    If falls on this chapter to describe how these two concepts --
+        mathematical equations and electronic circuits -- can be meshed into a single comparable concept.
+    To compare the intangible and the physical on the same terms,
+        one must enter the realm of software and digital data.
+
+    This chapter will have to begin by backtracking slightly,
+        describing the software analogs of the three chapters that have lead up to this point.
+    These analogs will take the form of Monte-Carlo simulation frameworks,
+        which are collectively able to emulate the signals expected from the ATLAS hardware
+        based on theoretical Lagrangians.
+    Once the software description of physics processes is caught up,
+        I can move forward with discussing what happens to the
+        simulated and true electrical signals of ATLAS as they are read out.
+    The real output bandwidth of ATLAS is extraordinary,
+        so the simulated output is used to inform the usage of
+        a rapid filtering mechanism called the trigger system.
+    In turn, the simulated samples are processed by a simulation of the trigger system,
+        while the electrical signals are routed through the physical trigger system.
+    The final output of both of these processes is identically formatted data,
+        which can be further refined and directly compared for the purpose of statistical analysis.
+        
+        
+
+    %Having such a system in place is not by itself sufficient however,
+    %    without guidance as to how it and its output should be utilized.
+    %Throwing out bunch crossings without reason will remove events of interest as well as irrelevant events.
+    %In order to make informed decisions as to how filtering should be done,
+    %    data is not only collected from ATLAS, but is generated through Monte Carlo simulation processes.
+    %These simulated data samples provide insight into how different physics processes may present in ATLAS,
+    %    allowing for greater efficiency in what data is kept and what is removed.
+
+
+\FloatBarrier
+\section{Monte-Carlo Simulation} \label{sec:mcsim}
+    
+    Currently, Monte-Carlo simulation is the most effective method of making predictions
+        for how theoretical parameters should affect experimental observations in particle physics.
+
+    all the future sections depend on this...
+
+    The simulation process required for this analysis is a complex one, 
+        consisting of three distinct software frameworks meant
+        to emulate the key phases of an ATLAS particle interaction.
+    The 
+
+
+
+        used to achieve a fully simulated output prediction.
+
+    Their ultimate goal is to produce a faithful reproduction of how a collection of VBF \to HH processes would appear,
+        were they to occur in data collected from ATLAS.
+
+    The chain begins with pure theoretical simulation from MadGraph,
+        the output of which is fed to a program called Pythia8,
+        which in turn has its output run through the Geant4 simulation framework.
+
+    Output from Geant4 is made to take the same form as if it came from the ATLAS hardware,
+        at which point it can be processed in the same manner as real data and studied to make analysis decisions.
+
+
+    \subsection{MadGraph}
+
+    Madgraph is technically a meta-code, a program that creates a program,
+        with the created program designed to simulate physics in a prescribed manner.
+    To do this, Madgraph needs a theory model, which consists of a Lagrangian of the desired physics
+        alongside input parameters such as coupling values and particle masses.
+    The Feynman rules are derived from the given Lagrangian,
+        which are in turn used to create the process's matrix elements (see Section \ref{sec:feyn_rules}).
+    Feynman rules alone are sufficient to then produce tree-level calculations automatically.
+    For NLO calculations, additional counterterms must be supplied by hand
+        so that matrix element computations appropriately converge during loop integrations. 
+    With these features supplied, MadGraph generates code specific to the supplied model,
+        which in turn calculates and computes the matrix elements of the requested process\cite{madgraph}.
+    A large number of events are produced using Monte Carlo techniques,
+        each involving a different configuration of four momenta for the associated particles.
+    These events represent a different point in the phase-space of the process,
+        and a weight is assigned to each corresponding to its probability as calculated from the matrix element computation.
+    The final collection of events is then output for use by later stages of the simulation process.
+
+    \subsection{Pythia8}
+
+    The final particles produced by MadGraph are often short-lived and unstable,
+        and so require further simulation of their evolution.
+    Pythia8 is the software responsible for this phase of the simulation. 
+    By default, Pythia8 is entirely self-contained, and can generate physics processes entirely on its own.
+    However, the processes available to it are limited,
+        hence the need to first generate the bare interaction with MadGraph.
+    Pythia8 operates in three stages: process generation, partonic activity handling, and hadronization.
+    Process generation is the step which is taken over by MadGraph.
+    The partonic stage addresses what happens to the parts of the proton \textit{not} involved in the immediate interaction (beam remnants),
+        initial and final-state radiation of the final state particles, and inter-parton interactions.
+    Following this is the hadronization stage, wherein final-state (but unstable)
+        hadronic particles are extended through a cycle of radiation, decay, annihilation, and creation
+        until a shower of stable hadronic matter remains.
+    These steps are not fixed in Pythia's framework,
+        and individual particles can transfer back and forth between these three stages
+        as necessary to reach the stable state of the event as would be observed through a detector
+        \cite{pythia}.
+    The emulation of the detector's response to these particles then consitutes the final step of event simulation,
+        which is handled by Geant4.
+
+    \subsection{Geant4}
+
+    Geant4 is a robust particle simulation framework,
+        that seeks to provide a comprehensive simulation of how particles behave as they propagate through physical materials.
+    The entire geometry of the material in question is specified in the Geant4 framework in terms of
+        its specific shape, location, and material properties.
+    For this analysis, that means a replica of the entire ATLAS detector,
+        down to the copper wiring and individual metal bolts,
+        has been meticulously crafted across a set of specification files Geant4 can read in.
+    After specifying the geometry to simulate, individual events can be propagated through the materials.
+
+    An event procedure starts with a set of final-state particles,
+        either generated through one of Geant4's built-in processes,
+        or provided to it from an external program (in this case, Pythia8).
+    These particles are moved forward in small time steps, according to their associated four-momentum.
+    As they encounter different materials,
+        these time steps are adjusted to be longer or shorter depending on
+        the expected mean-free path and radiation length of the particle.
+    For every step in a particle's movement,
+        Geant4 examines a wide variety of physics processes the particle can undergo,
+        ranging across material scattering, radiation, decay, and so on.
+    Particles are split, absorbed, and created as necessary,
+        until all particles have either been absorbed by material
+        or exited the physical scope of the simulation (e.g.\ muons escaping from ATLAS) \cite{geant4}.
+
+    Geant4 additionally simulates the response of materials to these particle interactions,
+        allowing energy and charge readouts to be simulated as they would be found within detector elements.
+    The last step is to digitize these material responses to emulate the of electrical signals of a real detector.
+    All of the event response information, as well as an abundance of \textit{truth} information related to the simulated particles,
+        is exported to a data format identical in format to that produced by the ATLAS trigger system.
+    This simulated data can then be processed in the same manner as real data,
+        allowing critical studies to be performed that in turn produce
+        a far better understanding of the physics underlying the data.
+
+
+\section{Trigger System} \label{sec:trigger}
 
     The amount of data output by the ATLAS detector is immense and overwhelming.
     Reading out every single bunch crossing would require phenomenal bandwidth and would take far too long to process.
     To counteract this overabundance of data, ATLAS relies on an on-site bunch crossing filtering system to drastically reduce the throughput.
     Known as the ATLAS trigger system, this critical piece of infrastructure constitutes the last step of data taking,
         and the first step of physics analysis.
-        
-    Having such a system in place is not by itself sufficient however,
-        without guidance as to how it and its output should be utilized.
-    Throwing out bunch crossings without reason will remove events of interest as well as irrelevant events.
-    In order to make informed decisions as to how filtering should be done,
-        data is not only collected from ATLAS, but is generated through Monte Carlo simulation processes.
-    These simulated data samples provide insight into how different physics processes may present in ATLAS,
-        allowing for greater efficiency in what data is kept and what is removed.
-
-
-\section{Trigger System} \label{sec:trigger}
 
     The trigger system is a series of hardware and software level algorithms designed to quickly identify bunch crossing ``events'' which may be of interest to physics analysis, while discarding the rest.
     Referred to as ``online'' analysis, these algorithms perform event selection live, in parallel to the ATLAS detector observing collisions.
@@ -131,126 +264,4 @@
         Understanding how the signal contribution is determined, and how these selections are optimized,
             requires understanding the second kind of data used for this analysis, Monte Carlo simulation data.
 
-
-\FloatBarrier
-\section{Monte-Carlo Simulation} \label{sec:mcsim}
-    
-    Currently, Monte-Carlo simulation is the most effective method of making predictions
-        for how theoretical parameters should affect experimental observations in particle physics.
-    The process for this analysis is a complex one, 
-        consisting of three distinct software frameworks used to achieve a fully simulated output prediction.
-    Their ultimate goal is to produce a faithful reproduction of how a collection of VBF \to HH processes would appear,
-        were they to occur in data collected from ATLAS.
-    The chain begins with pure theoretical simulation from MadGraph,
-        the output of which is fed to a program called Pythia8,
-        which in turn has its output run through the Geant4 simulation framework.
-    Output from Geant4 is made to take the same form as if it came from the ATLAS hardware,
-        at which point it can be processed in the same manner as real data and studied to make analysis decisions.
-
-
-    \subsection{MadGraph}
-
-    Madgraph is technically a meta-code, a program that creates a program,
-        with the created program designed to simulate physics in a prescribed manner.
-    To do this, Madgraph needs a theory model, which consists of a Lagrangian of the desired physics
-        alongside input parameters such as coupling values and particle masses.
-    The Feynman rules are derived from the given Lagrangian,
-        which are in turn used to create the process's matrix elements (see Section \ref{sec:feyn_rules}).
-    Feynman rules alone are sufficient to then produce tree-level calculations automatically.
-    For NLO calculations, additional counterterms must be supplied by hand
-        so that matrix element computations appropriately converge during loop integrations. 
-    With these features supplied, MadGraph generates code specific to the supplied model,
-        which in turn calculates and computes the matrix elements of the requested process\cite{madgraph}.
-    A large number of events are produced using Monte Carlo techniques,
-        each involving a different configuration of four momenta for the associated particles.
-    These events represent a different point in the phase-space of the process,
-        and a weight is assigned to each corresponding to its probability as calculated from the matrix element computation.
-    The final collection of events is then output for use by later stages of the simulation process.
-
-    \subsection{Pythia8}
-
-    The final particles produced by MadGraph are often short-lived and unstable,
-        and so require further simulation of their evolution.
-    Pythia8 is the software responsible for this phase of the simulation. 
-    By default, Pythia8 is entirely self-contained, and can generate physics processes entirely on its own.
-    However, the processes available to it are limited,
-        hence the need to first generate the bare interaction with MadGraph.
-    Pythia8 operates in three stages: process generation, partonic activity handling, and hadronization.
-    Process generation is the step which is taken over by MadGraph.
-    The partonic stage addresses what happens to the parts of the proton \textit{not} involved in the immediate interaction (beam remnants),
-        initial and final-state radiation of the final state particles, and inter-parton interactions.
-    Following this is the hadronization stage, wherein final-state (but unstable)
-        hadronic particles are extended through a cycle of radiation, decay, annihilation, and creation
-        until a shower of stable hadronic matter remains.
-    These steps are not fixed in Pythia's framework,
-        and individual particles can transfer back and forth between these three stages
-        as necessary to reach the stable state of the event as would be observed through a detector
-        \cite{pythia}.
-    The emulation of the detector's response to these particles then consitutes the final step of event simulation,
-        which is handled by Geant4.
-
-    \subsection{Geant4}
-
-    Geant4 is a robust particle simulation framework,
-        that seeks to provide a comprehensive simulation of how particles behave as they propagate through physical materials.
-    The entire geometry of the material in question is specified in the Geant4 framework in terms of
-        its specific shape, location, and material properties.
-    For this analysis, that means a replica of the entire ATLAS detector,
-        down to the copper wiring and individual metal bolts,
-        has been meticulously crafted across a set of specification files Geant4 can read in.
-    After specifying the geometry to simulate, individual events can be propagated through the materials.
-
-    An event procedure starts with a set of final-state particles,
-        either generated through one of Geant4's built-in processes,
-        or provided to it from an external program (in this case, Pythia8).
-    These particles are moved forward in small time steps, according to their associated four-momentum.
-    As they encounter different materials,
-        these time steps are adjusted to be longer or shorter depending on
-        the expected mean-free path and radiation length of the particle.
-    For every step in a particle's movement,
-        Geant4 examines a wide variety of physics processes the particle can undergo,
-        ranging across material scattering, radiation, decay, and so on.
-    Particles are split, absorbed, and created as necessary,
-        until all particles have either been absorbed by material
-        or exited the physical scope of the simulation (e.g.\ muons escaping from ATLAS) \cite{geant4}.
-
-    Geant4 additionally simulates the response of materials to these particle interactions,
-        allowing energy and charge readouts to be simulated as they would be found within detector elements.
-    The last step is to digitize these material responses to emulate the of electrical signals of a real detector.
-    All of the event response information, as well as an abundance of \textit{truth} information related to the simulated particles,
-        is exported to a data format identical in format to that produced by the ATLAS trigger system.
-    This simulated data can then be processed in the same manner as real data,
-        allowing critical studies to be performed that in turn produce
-        a far better understanding of the physics underlying the data.
-
-
-
-    %MadGraph is used for producing simulated particle interactions based on the Feynman diagrams of the process.
-    %Using a configuration of particle properties and interaction vertices,
-    %    MadGraph is able to construct a tree-level formula akin to Equation \ref{eq:tree_level_invamp}.
-    %It does this by using the provided configuration to prepare a list of Feynman rules,
-    %    compose all tree-level diagrams that could result from those rules,
-    %    and then perform the appropriate matrix element squared expansion.
-    %Given a desired initial and final particle state,
-    %    MadGraph can produce PDFs for the four-momentum of the final-state particles.
-    %A collection of \textit{truth-level} simulated events can then be generated from MadGraph
-    %    by sampling from these kinematic PDFs.
-
-    %Although MadGraph does a fine job of generating output particles with kinematics resulting from a production process,
-    %    in practice such particles rarely remain in such a state for very long.
-    %Most particles, given any appreciable amount of time to propagate, will undergo some form of decay or radioactive emission.
-    %Such processes occur randomly, and will often occur repeatedly
-    %    (e.g.\ the products of a decay process can themselves undergo further decay).
-    %Pythia8 is used to simulate these decay chains.
-    %It uses a variety of built-in physics processes to inform the behavior of high-energy collision particle products.
-    %This simulation is done entirely in a vacuum though, and one last program is required for full simulation.
-
-    %Geant4 is responsible for the final step of event simulation,
-    %    which is to simulate the propagation of particles through the physical hardware of ATLAS,
-    %    and then simulate the detector response to this propagation.
-    %A full three-dimensional simulation of ATLAS has been constructed within the Geant4 framework,
-    %    modeling the exact dimensions and material composition of every component,
-    %    be it an active detector material or an inactive support structure.
-    %The particles and showers output by Pythia8 are propagated through the materials of the ATLAS machine by Geant4,
-    %    with further modeling of showering and scattering effects.
 
