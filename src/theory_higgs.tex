@@ -51,14 +51,17 @@
          & = \frac{1}{2} (\partial_{\mu} h)^2
             - m^2_{h} h^2
             -\sqrt{\frac{\lambda}{6}} \mu h^3
-            - \frac{\lambda}{4!} h^4 \\
+            - \frac{\lambda}{4!} h^4
         \quad.
     \end{split} \end{equation} %FIXME: you screwed up the terms somewhere
 
     \begin{figure}[h!]
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{theory/higgspotential}
-        \caption{A two-dimensional representation of the Higgs Potential for a complex Higgs field.
-            \cite{higgspotential}}
+        \caption{A two-dimensional representation of the Higgs Potential for a complex Higgs field\cite{higgspotential}.
+            Like a ball on a narrow hill, the Higgs field will inevitably roll off to the side into valley below.
+            From the Higgs's new perspective at the bottom of this valley,
+                the potential no longer appears symmetric, from which the Higgs acquires
+        }
         \label{fig:higgs_potential}
     \end{figure}
 
@@ -285,16 +288,18 @@
     \begin{equation} \begin{split}
         \Lag &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2 +
             \mu^2 \vec{\phi}^\dag \vec{\phi} - \lambda \left( \vec{\phi}^\dag\vec{\phi} \right)^2
-        \\&= \Lag_K + \Lag_U
+        \\&= \Lag_K + \Lag_U \quad ; \quad 
+            \Lag_K \equiv \frac{1}{2} |D_{\mu} \vec{\phi}|^2 \quad , \quad
+            \Lag_U \equiv \mu^2 \vec{\phi}^\dag \vec{\phi} - \lambda \left( \vec{\phi}^\dag\vec{\phi} \right)^2
         \quad.
     \end{split} \end{equation}
     
-    To make expansion easier, I will expand the covariant derivative terms ($\Lag_D$) first,
-        and then add then expanded $\Lag_U$ terms.
-    Starting with $\Lag_D$, (and defining $Q_{\mu}$ as the matrix from Eqn. \ref{eq:electroweak_matrix})
+    To make expansion easier, I will expand the covariant derivative terms ($\Lag_K$) first,
+        and then add the expanded $\Lag_U$ terms.
+    Starting with $\Lag_K$, (and defining $Q_{\mu}$ as the matrix from Eqn. \ref{eq:electroweak_matrix})
 
     \begin{equation} \begin{split}
-        \Lag_D &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2
+        \Lag_K &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2
             \\&= \frac{1}{2} (D^{\mu} \vec{\phi})^\dag (D_{\mu} \vec{\phi})
                 = \frac{1}{2} \left[(\partial^{\mu} - \frac{i}{2}Q^{\mu}) \vec{\phi}\right]^\dag
                 \left[(\partial_{\mu} - \frac{i}{2}Q^{\mu}) \vec{\phi}\right]
@@ -324,7 +329,7 @@
     Replacing the coefficients in front of the $W$ and $Z$ fields with their respective masses
 
     \begin{equation} \begin{split}
-        \Lag_D = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
+        \Lag_K = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
             + 2v\left[ m_W W^{-\ \mu} W^+_{\mu} + \frac{m_Z}{2} (Z^0_{\mu})^2 \right] h
             + \left[ m_W W^{-\ \mu} W^+_{\mu} + \frac{m_Z}{2} (Z^0_{\mu})^2 \right] h^2
         \quad.
@@ -334,7 +339,7 @@
         and as such are described together simply as Vector Bosons, $V$:
 
     \begin{equation} \begin{split}
-        \Lag_D = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
+        \Lag_K = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
             + 2 v m_V V^2 h + m_V V^2 h^2
         \quad.
     \end{split} \end{equation}
@@ -351,7 +356,7 @@
         and the vev $v$ as $\frac{\mu}{\sqrt{\lambda}} = \frac{m_h}{\sqrt{2 \lambda}}$,
         I can now write the full Lagrangian for the Higgs field\cite{Halzen_book}
     \begin{equation} \begin{split} \label{eq:higgsfull}
-        \Lag_h &= \Lag_D + \Lag_U
+        \Lag_h &= \Lag_K + \Lag_U
         \\&= \left[ \frac{1}{2} | \partial_{\mu}h |^2
             + m_h \sqrt{\frac{2}{\lambda}}  m_V V^2 h + m_V V^2 h^2 \right]
             + \left[ - \frac{1}{2} m^2_h h^2 - m_h \sqrt{\frac{\lambda}{2}} h^3 - \frac{1}{4} \lambda h^4 \right]
@@ -373,7 +378,7 @@
         along with its coupling terms to fermions and vector bosons.
     The various self-interaction terms however, are still on more tenuous grounds.
     If they exist at all, there is no guarantee that these interactions have the coupling strength indicated by Eqn. \ref{eq:higgsfull}.
-    In order to account for this uncertainty, the Lagrangian can be rewritten with arbitrary couplings for the interactions
+    In order to account for this uncertainty, the Lagrangian can be rewritten with arbitrary scaling factors for the interaction couplings
     \begin{equation} \begin{split} \label{eq:higgskappas}
         \Lag_h &= \frac{1}{2} \left(\partial^2 - m_h^2 \right) h^2
             + \kv g_V V^2 h + \kvv g_{2V} V^2 h^2

@@ -1,4 +1,4 @@
-\chapter{Data Collection and Simulation} \label{chapter:data}
+\chapter{Data Simulation and Collection} \label{chapter:data}
 
 \section{Introduction}
     
@@ -8,29 +8,27 @@
         it is impossible to distinguish signal events from any other bunch crossing.
     Chapter \ref{chapter:theory} explained the theoretical motivation for this analysis.
     The past two chapters have focused entirely on the hardware necessary to produce and observe particle physics interactions.
-    If falls on this chapter to describe how these two concepts --
+    If falls on this chapter to describe how these two notions --
         mathematical equations and electronic circuits -- can be meshed into a single comparable concept.
     To compare the intangible and the physical on the same terms,
         one must enter the realm of software and digital data.
 
     This chapter will have to begin by backtracking slightly,
         describing the software analogs of the three chapters that have lead up to this point.
-    These analogs will take the form of Monte-Carlo simulation frameworks,
-        which are collectively able to emulate the signals expected from the ATLAS hardware
+    These analogs will take the form of Monte-Carlo simulation frameworks
+        that are collectively able to emulate the signals expected from the ATLAS hardware
         based on theoretical Lagrangians.
     Once the software description of physics processes is caught up,
-        I can move forward with discussing what happens to the
+        I can move forward in discussing what happens to the
         simulated and true electrical signals of ATLAS as they are read out.
     The real output bandwidth of ATLAS is extraordinary,
         so the simulated output is used to inform the usage of
         a rapid filtering mechanism called the trigger system.
-    In turn, the simulated samples are processed by a simulation of the trigger system,
+    In turn, the simulated samples are processed by a simulation of this same trigger system,
         while the electrical signals are routed through the physical trigger system.
-    The final output of both of these processes is identically formatted data,
+    The final output of both of these operations is identically formatted data files,
         which can be further refined and directly compared for the purpose of statistical analysis.
         
-        
-
     %Having such a system in place is not by itself sufficient however,
     %    without guidance as to how it and its output should be utilized.
     %Throwing out bunch crossings without reason will remove events of interest as well as irrelevant events.
@@ -43,29 +41,25 @@
 \FloatBarrier
 \section{Monte-Carlo Simulation} \label{sec:mcsim}
     
+    All of the remaining chapters of this thesis are in some way dependent on simulated data.
+    Without a way to link pure physics equations to observable physical phenomena,
+        there is no way to make meaningful decisions or predictions about collected data.
     Currently, Monte-Carlo simulation is the most effective method of making predictions
         for how theoretical parameters should affect experimental observations in particle physics.
 
-    all the future sections depend on this...
-
-    The simulation process required for this analysis is a complex one, 
-        consisting of three distinct software frameworks meant
-        to emulate the key phases of an ATLAS particle interaction.
-    The 
-
-
-
-        used to achieve a fully simulated output prediction.
-
-    Their ultimate goal is to produce a faithful reproduction of how a collection of VBF \to HH processes would appear,
+    There are three core software frameworks used for this analysis,
+        each corresponding to the three phases of interaction described in the prior chapters.
+    The Lagrangian formalism, Feynman diagrams, and cross-section calculations of Chapter \ref{chapter:theory}
+        are handled by a framework called MadGraph.
+    Showering, decay chains, and radiative processes follow in the immediate aftermath of
+        hard-scatter events such as those at the interaction points of the LHC (Section \ref{sec:lhc-interaction_region}).
+    These physical mechanisms are simulated by a program called Pythia8.
+    As hadronic showers and ionizing particles pass through ATLAS (Chapter \ref{chapter:atlas})
+        they cause a cascade of electrical signals and scattering effects.
+    This highly complex set of interactions is modeled by the Geant4 framework.
+    Collectively, these three programs are designed to
+        produce a faithful reproduction of how a collection of VBF \to HH events would appear,
         were they to occur in data collected from ATLAS.
-
-    The chain begins with pure theoretical simulation from MadGraph,
-        the output of which is fed to a program called Pythia8,
-        which in turn has its output run through the Geant4 simulation framework.
-
-    Output from Geant4 is made to take the same form as if it came from the ATLAS hardware,
-        at which point it can be processed in the same manner as real data and studied to make analysis decisions.
 
 
     \subsection{MadGraph}
@@ -106,7 +100,7 @@
         and individual particles can transfer back and forth between these three stages
         as necessary to reach the stable state of the event as would be observed through a detector
         \cite{pythia}.
-    The emulation of the detector's response to these particles then consitutes the final step of event simulation,
+    The emulation of the detector's response to these particles then constitutes the final step of event simulation,
         which is handled by Geant4.
 
     \subsection{Geant4}
@@ -143,6 +137,13 @@
         allowing critical studies to be performed that in turn produce
         a far better understanding of the physics underlying the data.
 
+    On a more immediately relevant note, this data can be run through a variety of filtering algorithms,
+        in order to test how useful these algorithms and their parameters are.
+    These algorithms must be able to limit the throughput of events,
+        without removing too many events of interest.
+    Once a satisfactory level of performance is achieved these algorithms can be applied to the real ATLAS detector,
+        in the form of the ATLAS trigger system.
+
 
 \section{Trigger System} \label{sec:trigger}
 
@@ -152,9 +153,13 @@
     Known as the ATLAS trigger system, this critical piece of infrastructure constitutes the last step of data taking,
         and the first step of physics analysis.
 
-    The trigger system is a series of hardware and software level algorithms designed to quickly identify bunch crossing ``events'' which may be of interest to physics analysis, while discarding the rest.
-    Referred to as ``online'' analysis, these algorithms perform event selection live, in parallel to the ATLAS detector observing collisions.
-    The trigger system processes all ATLAS events immediately after readout, ultimately reducing the 40 MHz bunch crossing rate to a data output rate of 1 kHz.
+    The trigger system is a series of hardware and software level algorithms designed
+        to quickly identify bunch crossing ``events'' which may be of interest to physics analysis,
+        while discarding the rest.
+    Referred to as ``online'' analysis, these algorithms perform event selection live,
+        in parallel to the ATLAS detector observing collisions.
+    The trigger system processes all ATLAS events immediately after readout,
+        ultimately reducing the 40 MHz bunch crossing rate to a data output rate of 1 kHz.
     The data that survive this rapid selection are read out to disk and distributed to individual research teams for more sophisticated ``offline'' analysis later.
 
     \begin{figure}[h]
@@ -248,7 +253,7 @@
             \caption{Amount of data collected, in terms of integrated luminosity,
                 through the Run2 data taking period\cite{data_quality}.
                 ``LHC Delivered'' refers to the amount of luminosity present during stable beams.
-                ``ATLAS Recorded'' is luminosity that the ATLAS decector was active and recording for.
+                ``ATLAS Recorded'' is luminosity that the ATLAS detector was active and recording for.
                 ``Good for Physics'' describes all the luminosity that was actually able to be passed to offline storage,
                     as opposed to thrown out because of malfunctions or issues in ATLAS at the time.
             }
@@ -259,9 +264,14 @@
             (see Fig. \ref{fig:data_delivered}).
         Due to an inefficiency in the vertex reconstruction present during 2016,
             only 125.9 \ifb of that data are actually used in my analysis.
-        Of that data, only a tiny portion is expected to be the actual di-Higgs signal event,
-            which means further selection criteria will need to be applied.
-        Understanding how the signal contribution is determined, and how these selections are optimized,
-            requires understanding the second kind of data used for this analysis, Monte Carlo simulation data.
-
-
+        Nonetheless, with a wealth of both simulated and true data now available, 
+            physics analysis can now begin.
+        On the one hand is a set raw electrical signals, with no indication of which signals correspond to what.
+        On the other is a collection of simulated data signals,
+            wherein each signal is tied through software back to its fundamental theoretical production mechanism.
+        By recognizing the key features present in the simulated data,
+            those same features can be identified in the true data.
+        Data collection has now concluded, and it is time to begin the task of physics analysis,
+            starting with reconstruction.
+        %The first step of analysis is to recognize the key features present in the simulated data,
+            %and then identify those same features in the true data in order to reconstruct the underlying physical objects.

@@ -4,19 +4,19 @@
     \vertex [below right=of c2v] (h2) {H};
     \vertex [above left=of c2v] (vb1);
     \vertex [below left=of c2v] (vb2);
-    \vertex [left=of vb1] (q1i) {q};
-    \vertex [left=of vb2] (q2i) {q};
+    \vertex [left=of vb1] (q1) {q};
+    \vertex [left=of vb2] (q2) {q};
     \vertex [above right=of h1] (b1) {$b$};
     \vertex [below right=of h2] (bbar2) {$\bar b$};
     \vertex [below=of b1] (bbar1) {$\bar b$};
     \vertex [above=of bbar2] (b2) {$b$};
 
-    \vertex [above=of b1] (q1f) {q};
-    \vertex [below=of bbar2] (q2f) {q};
+    \vertex [above=of b1] (q3) {q};
+    \vertex [below=of bbar2] (q4) {q};
 
     \diagram* {
-        (q1i) -- (vb1) -- (q1f),
-        (q2i) -- (vb2) -- (q2f), 
+        (q1) -- (vb1) -- (q3),
+        (q2) -- (vb2) -- (q4), 
         (vb1) -- [boson] (c2v) -- [boson] (vb2),
         (h1) -- [scalar] (c2v) -- [scalar] (h2),
         (b1) -- (h1) -- (bbar1),

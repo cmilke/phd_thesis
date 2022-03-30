@@ -336,9 +336,27 @@
 
     \input{tables/atlas/muon_specs.tex}
 
+    \FloatBarrier
+\section{Readout}
 
-        
-% Readout electronics???
-% All the electrical signals from the detectors have to be collected
-% need like digital-to-analogue converters and amplifiers and buffers and clock cycles and stuff
-% something something and then there are too many signals so you need something to process stuff quick. enter trigger
+    As the last muons (and probably a plethora of invisible neutrinos) exit the volume of the ATLAS detector,
+        all the electronics components described thus far undergo their various readout routines.
+    Electrons displaced from countless ionizing encounters are slowly (compared to relativistic particles)
+        aggregated into anodes of different forms,
+        whereupon they are funneled through a labyrinth of circuitry.
+    Most of this readout circuitry is designed to amplify these loose electron currents,
+        convert the analogue currents to digital signals,
+        and then store the digital signals into temporary buffers.
+    The sheer quantity of channels present across all of ATLAS's sub-detectors ensures that
+        reading all of these signals out takes a not insignificant amount of time.
+
+    From here, it is a race against the LHC's 40 MHz bunch crossing cycle.
+    In only 25 nanoseconds another bunch will arrive and flood the circuitry with more signals.
+    The buffers can hold a few bunch-crossings of information at a time, but these only delay the inevitable.
+    In order to keep up with the rate of collisions, some bunch crossings must be thrown out.
+    Determining what bunch crossings to keep on such short notice
+        requires a deep understanding of the physical features that matter,
+        as well as a powerful system that can identify such features quickly.
+    These are the responsibilities of Monte-Carlo simulation and the ATLAS trigger system. 
+
+
