@@ -340,12 +340,14 @@
             See Fig. \ref{fig:ip3d_sign} for a graphical illustration of this convention.
 
             \begin{figure}
-                \subfloat[IP3D Negative Sign Convention]{
-                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_sign_negative}
-                }
-                \subfloat[IP3D Positive Sign Convention]{
-                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_sign_positive}
-                }
+                \begin{subfigure}{0.48\textwidth}
+                    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_sign_negative}
+                    \captionsetup{justification=centering} \caption{IP3D Negative Sign Convention}
+                \end{subfigure}
+                \begin{subfigure}{0.48\textwidth}
+                    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_sign_positive}
+                    \captionsetup{justification=centering} \caption{IP3D Positive Sign Convention}
+                \end{subfigure}
                 \caption{
                     Diagrams of the sign convention used for IP3D.
                     In the left diagram, the track $p_T$ vector intersects with the jet $p_T$ vector axis
@@ -381,18 +383,22 @@
                 (see Fig. \ref{fig:ip3dsig})\cite{thesis_giacinto}.
 
             \begin{figure}
-                \subfloat[IP3D-$d_0$, 2016]{
-                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_d0_sig_2016}
-                }
-                \subfloat[IP3D-$d_0$, 2017]{
-                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_d0_sig_2017}
-                }\\
-                \subfloat[IP3D-$z_0$, 2016]{
-                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_z0_sig_2016}
-                }
-                \subfloat[IP3D-$z_0$, 2017]{
-                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_z0_sig_2017}
-                }
+                \begin{subfigure}{0.48\textwidth}
+                    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_d0_sig_2016}
+                    \captionsetup{justification=centering} \caption{IP3D-$d_0$, 2016}
+                \end{subfigure}
+                \begin{subfigure}{0.48\textwidth}
+                    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_d0_sig_2017}
+                    \captionsetup{justification=centering} \caption{IP3D-$d_0$, 2017}
+                \end{subfigure} \\
+                \begin{subfigure}{0.48\textwidth}
+                    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_z0_sig_2016}
+                    \captionsetup{justification=centering} \caption{IP3D-$z_0$, 2016}
+                \end{subfigure}
+                \begin{subfigure}{0.48\textwidth}
+                    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/ip3d_z0_sig_2017}
+                    \captionsetup{justification=centering} \caption{IP3D-$z_0$, 2017}
+                \end{subfigure}
                 \caption{
                     IP3D d0 and z0, for 2016 and 2017 configurations\cite{btagging_optimisation}.
                 }
@@ -465,12 +471,14 @@
                 with each layer corresponding to another weight matrix to be tuned by training.
 
             \begin{figure}
-                \subfloat[Flavor Tagging Performance Against Light Jets]{
-                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/dl1_performance_ljet}
-                }
-                \subfloat[Flavor Tagging Performance Against Charm Jets]{
-                    \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/dl1_performance_cjet}
-                }
+                \begin{subfigure}{0.48\textwidth}
+                    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/dl1_performance_ljet}
+                    \captionsetup{justification=centering} \caption{Flavor Tagging Performance Against Light Jets}
+                \end{subfigure}
+                \begin{subfigure}{0.48\textwidth}
+                    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/dl1_performance_cjet}
+                    \captionsetup{justification=centering} \caption{Flavor Tagging Performance Against Charm Jets}
+                \end{subfigure}
                 \caption{
                     Plots of the various flavor taggers ability to correctly identify b-jets (efficiency, x-axis)
                         vs. their ability to correctly reject light and charm jets (purity, y-axis).

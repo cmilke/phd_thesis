@@ -120,15 +120,15 @@
 
         \begin{figure}[tbh]
             \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv-5.0}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{{{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv-5.0}}}
                 \caption{}
             \end{subfigure}
             \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv1.0}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{{{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv1.0}}}
                 \caption{}
             \end{subfigure}\\
             \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv5.0}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{{{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv5.0}}}
                 \caption{}
             \end{subfigure}
             \caption{
@@ -147,15 +147,15 @@
 
         \begin{figure}[tbh]
             \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl-15.0}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{{{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl-15.0}}}
                 \caption{}
             \end{subfigure}
             \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl1.0}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{{{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl1.0}}}
                 \caption{}
             \end{subfigure}\\
             \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl21.0}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{{{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl21.0}}}
                 \caption{}
             \end{subfigure}
             \caption{
@@ -166,19 +166,19 @@
 
         \begin{figure}[tbh]
             \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v-3.0}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{{{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v-3.0}}}
                 \caption{}
             \end{subfigure}
             \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v0.0}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{{{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v0.0}}}
                 \caption{}
             \end{subfigure}\\
             \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v1.0}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{{{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v1.0}}}
                 \caption{}
             \end{subfigure}
             \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v5.0}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{{{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v5.0}}}
                 \caption{}
             \end{subfigure}
             \caption{
@@ -296,16 +296,19 @@
             \label{fig:minDR_pairing_diagram}
         \end{figure}
 
+
         \begin{figure}[hbt]
             \centering
-            \subfloat[Pairing accuracy vs \kl]{
-                     \includegraphics[width=0.5\textwidth]{selection/pairing_accuracy_kl}
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\textwidth]{selection/pairing_accuracy_kl}
+                \captionsetup{justification=centering} \caption{Pairing accuracy vs \kl}
                 \label{fig:acc_kl_exists}
-            }
-            \subfloat[Pairing accuracy vs $\kappa_{2V}$]{
-                     \includegraphics[width=0.5\textwidth]{selection/pairing_accuracy_k2v}
+            \end{subfigure}
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\textwidth]{selection/pairing_accuracy_k2v}
+                \captionsetup{justification=centering} \caption{Pairing accuracy vs $\kappa_{2V}$}
                 \label{fig:acc_k2v_exists}
-            }
+            \end{subfigure}
             \caption{Accuracy of the MinDR pairing algorithm for different values of \kv and \kvv.
                 Accuracy here is defined as the fraction of events which were paired correctly,
                 compared to all events in which the correct 4 Higgs decay b-jets were given to the algorithm.

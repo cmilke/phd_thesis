@@ -72,14 +72,16 @@
         \end{equation}
 
     \begin{figure}[!htbp]
-        \subfloat[Data before reweighting]{
+        \begin{subfigure}{0.48\textwidth}
             \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]
                 {background/crypto-mean-stdBS-m-hh-Control-Region-1-no-rw-all-4binclusive}
-        }
-        \subfloat[Data after reweighting]{
+            \captionsetup{justification=centering} \caption{Data before reweighting}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
             \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]
                 {background/crypto-mean-stdBS-m-hh-Control-Region-1-NN-all-4binclusive}
-        }
+            \captionsetup{justification=centering} \caption{Data after reweighting}
+        \end{subfigure}
         \caption{
             The \mhh kinematic distribution of the 2b vs 4b regions, before and after reweighting the 2b region.
         }
