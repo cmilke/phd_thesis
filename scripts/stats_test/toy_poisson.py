@@ -51,5 +51,30 @@ def make_basic_poisson_plots():
     plt.close()
 
 
+def sum_testing():
+    signal = 4
+    mu_value = 4
+    background = 700
+    observed = 703
 
-make_basic_poisson_plots()
+    mu, s, b, n, N = sympy.symbols('u s b n N')
+    v = mu * s + b
+    #poisson = (2*sympy.pi*n)**(-1/2) * (v/n)**n * sympy.exp(n-v) # Unusable for n=0!
+    log_poisson = n*( sympy.log(v/n) - v/n + 1 )
+    poisson = (2*sympy.pi*n)**(-1/2) * sympy.exp(log_poisson) # Unusable for n=0!
+
+    poisson_expression = poisson.subs([(b, background), (mu, mu_value)])
+    sympy.pprint(poisson_expression)
+    poisson_function = sympy.lambdify( [s, n], poisson_expression, "numpy")
+    Cpoisson = sympy.concrete.summations.Sum(poisson, (n,1,N)) + sympy.exp(-v)
+    Cpoisson_expression = Cpoisson.subs([(b, background), (N, observed), (mu, mu_value)])
+    Cpoisson_function = sympy.lambdify( s, poisson_expression, "numpy")
+    #print(', '.join([f'{Cpoisson_function(s)*100:.0f}' for s in range(0,observed)]))
+    #print('\n')
+
+
+
+
+
+#make_basic_poisson_plots()
+sum_testing()

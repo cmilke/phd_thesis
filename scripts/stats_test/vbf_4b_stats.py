@@ -36,6 +36,33 @@ def log_poisson(n,v):
     return lp
 
 
+def get_fast_cumulative_pval_function(bgd_yield, data_yield, mu_factor):
+    base_couplings, basis_weights, basis_errors = fileioutils.load_signal_basis(None, pickle_load=True)
+    basis_yields = [ sum(w) for w in basis_weights ]
+    signal_formula = fileioutils.get_amplitude_function(base_couplings, form='expression')
+    signal = signal_formula.subs([ (f'A{i}',y) for i,y in enumerate(basis_yields) ])
+    sum_range = numpy.array(list(range(1,data_yield)))
+    #sum_range = numpy.array([397,398,399,400])
+
+    mu, s, b, n = sympy.symbols('u s b n')
+    v = mu * s + b
+    log_poisson_component = n*( sympy.log(v/n) - v/n + 1 )
+    poisson = (2*sympy.pi*n)**(-1/2) * sympy.exp(log_poisson_component) # Unusable for n=0!
+    poisson_expression = poisson.subs([(s,signal), (b, bgd_yield)])
+
+    nax = numpy.newaxis
+    poisson_function_sb = sympy.lambdify( [_k2v,_kl,_kv, 'n'], poisson_expression.subs('u',mu_factor), "numpy")
+    poisson_function_b  = sympy.lambdify( ['n'], poisson_expression.subs([('u',0), (_k2v,0), (_kl,0), (_kv,0)]), "numpy")
+    Cpoisson_function_sb = lambda kappas: poisson_function_sb(*kappas, sum_range[:,nax,nax]).sum(axis=0)
+    Cpoisson_b = poisson_function_b(sum_range).sum(axis=0)
+    Cpoisson_function_s = lambda kappas: Cpoisson_function_sb(kappas) / (1-Cpoisson_b)
+
+    #print(Cpoisson_function_sb((*numpy.array([ [[2,3,4],[2,3,4]],[[3,3,3],[4,4,4]] ]), 1 )))
+    #exit()
+    return Cpoisson_function_s
+
+
+
 def get_mu_kappa_expression(bgd_yield, data_yield):
     base_couplings, basis_weights, basis_errors = fileioutils.load_signal_basis(None, pickle_load=True)
     basis_yields = [ sum(w) for w in basis_weights ]
@@ -44,8 +71,8 @@ def get_mu_kappa_expression(bgd_yield, data_yield):
 
     mu, s, b, n, N = sympy.symbols('u s b n N')
     v = mu * s + b
-    #poisson = v**n * sympy.exp(-v) / sympy.factorial(n)
-    poisson = (2*sympy.pi*n)**(-1/2) * (v/n)**n * sympy.exp(n-v) # Unusable for n=0!
+    log_poisson_component = n*( sympy.log(v/n) - v/n + 1 )
+    poisson = (2*sympy.pi*n)**(-1/2) * sympy.exp(log_poisson_component) # Unusable for n=0!
     Cpoisson = sympy.concrete.summations.Sum(poisson, (n,1,N)) + sympy.exp(-v)
     Cpoisson_sb = Cpoisson
     Cpoisson_b = Cpoisson.subs(mu,0)
@@ -285,7 +312,7 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
 
 
 
-def make_multidimensional_limit_plots(results=None):
+def make_multidimensional_limit_plots(results=None, hl_lhc_projection=False):
     #k2v_bounds = (-4,15)
     #kl_bounds  = (-50,50)
     #kv_bounds  = (-6,6)
@@ -309,12 +336,24 @@ def make_multidimensional_limit_plots(results=None):
     limit_resolution = 100
 
 
-    data_yield = int(sum(results['data'][0]))
     bgd_yield = sum(results['bgd'][0])
-    kappa_expression = get_mu_kappa_expression( bgd_yield, data_yield).subs('u',1)
-    #kappa_exp_expression = get_mu_kappa_expression( bgd_yield, int(bgd_yield)).subs('u',1)
-    kappa_function = sympy.lambdify( [_k2v,_kl,_kv], kappa_expression, "numpy")
+    data_yield = int(sum(results['data'][0]))
+    mu_factor = 1
+    infix = ''
+    if hl_lhc_projection:
+        infix = 'HL-LHC_'
+        hl_lhc_luminosity = 3000
+        hl_lhc_scaling_factor = hl_lhc_luminosity / 126.7
+        bgd_yield *= hl_lhc_scaling_factor
+        data_yield = int(bgd_yield)
+        mu_factor = hl_lhc_scaling_factor
+    #kappa_exp_expression = get_poisson_expression( bgd_yield, int(bgd_yield)).subs('u',1)
     #kappa_exp_function = sympy.lambdify( [_k2v,_kl,_kv], kappa_expression, "numpy")
+
+    Cpoisson_function_s = get_fast_cumulative_pval_function(bgd_yield, data_yield, mu_factor)
+    #kappa_expression = get_mu_kappa_expression(bgd_yield, data_yield).subs('u',mu_factor)
+    #kappa_function = sympy.lambdify( [_k2v,_kl,_kv], kappa_expression, "numpy")
+    #Cpoisson_function_s = lambda kappas: kappa_function(*kappas)
 
     kappas = list(coupling_parameters)
     print('Generating multi-dimensional pvalues...')
@@ -336,7 +375,8 @@ def make_multidimensional_limit_plots(results=None):
             kappa_grid[yi] = xy_grid[1]
             import warnings
             warnings.filterwarnings('ignore')
-            pvalue_grid = kappa_function(*kappa_grid)
+            pvalue_grid = Cpoisson_function_s(kappa_grid)
+            #pvalue_grid = kappa_function(*kappa_grid)
             #pvalue_exp_grid = kappa_exp_function(*kappa_grid)
 
             fig, ax = plt.subplots()
@@ -353,8 +393,9 @@ def make_multidimensional_limit_plots(results=None):
             plt.title('Limit Boundaries for ' +_coupling_labels[key]+ f' = {kslice:.2f}')
             plt.xlabel(_coupling_labels[xkey])
             plt.ylabel(_coupling_labels[ykey])
-            plt.savefig('out/3D/limit_slice_'+key+'_'+str(kslice).replace('.','p')+'.pdf')
+            plt.savefig('out/3D/limit_slice_'+infix+key+'_'+str(kslice).replace('.','p')+'.pdf')
             plt.close()
+        break
 
     return shell_points
     
@@ -459,11 +500,13 @@ def main():
     #shell_points = pickle.load(open('.shell_points.p','rb'))
     #make_full_3D_render(shell_points)
 
-    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(-1,1,1))
-    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,1,1))
-    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(2,1,1))
-    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(3,1,1))
-    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,10,1))
+    shell_points = make_multidimensional_limit_plots(results=results, hl_lhc_projection=True)
+
+    #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(-1,1,1))
+    #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,1,1))
+    #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(2,1,1))
+    #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(3,1,1))
+    #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,10,1))
 
 
 main()

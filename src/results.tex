@@ -239,10 +239,16 @@
         \end{subfigure}
         \caption{
             A plot of the probability distribution function (PDF)
-                and cumulative PDF for the estimated background and simulated signal,
+                and cumulative PDF for the estimated background and
+                two variations (\kvv=1 and \kvv=3) of the signal hypothesis,
                 with the observed yield denoted in both.
+            In the \kvv=1 case, the signal yield is so small that the ``background only''
+                and ``signal plus background'' distributions overlap almost completely.
+            For \kvv=3 there a much greater distinction between these distributions,
+                to the extent that the observed event yield now lies at the extreme left edge of the S+B distribution.
         }
     \end{figure}
+    \FloatBarrier
 
     A useful technique for visualizing the compatibility of a signal hypothesis with data is to use a ``$\mu$ scan.''
     With this technique the expectation value is subtly adjusted to be $\nu = \mu S + B$,
@@ -252,8 +258,9 @@
     Figures \ref{fig:muscan_kvv1} and \ref{fig:muscan_kvv3} show such a test for \kvv set to 1 and 3.
     In a sense, what these figures state is how much the proposed signal would have to be scaled in order to be realistically perceivable.
     For \kvv = 1, this means that the signal would need to be scaled by a factor of 134 before it would make a noteworthy impact against the background.
-    In contrast, the plot for \kvv = 3 highlighting a $\mu$ of 0.91 indicates
-        that the signal would have to be \textit{reduced} to 91\% of its yield before it could be considered as reasonably compatible with data.
+    In contrast the plot for \kvv = 3, which highlights a $\mu$ of 0.91,
+        indicates that the signal would have to be \textit{reduced} to 91\% of its yield
+        before it could be considered as reasonably compatible with data.
 
     \begin{figure}
         \centering
@@ -272,6 +279,7 @@
                 as the scaling factor $\mu$ is adjusted.
         }
     \end{figure}
+    \FloatBarrier
 
 
     It is easy to see how this technique could be extended to arbitrary values of the $\kappa$ factors
@@ -281,7 +289,8 @@
     A similar plot can be produced by scanning across the values of \kl (Fig. \ref{fig:mulimits_kl}).
     An alternate visualization of these scan plots can be produced by multiplying $\mu$ by
         the theoretical cross-section predicted for a given set of $\kappa$ factors.
-    Shown in Figs. \ref{fig:xseclimits_kvv} and \ref{fig:xseclimits_kl}, these scans indicate how far the \vbfproc cross-section would have to deviated from
+    Shown in Figs. \ref{fig:xseclimits_kvv} and \ref{fig:xseclimits_kl},
+        these scans indicate how far the \vbfproc cross-section would have to deviated from
         the theoretical value in order to remain compatible with the observed data.
 
     \begin{figure}
@@ -313,6 +322,7 @@
                 be accounted for in the observed data.
         }
     \end{figure}
+    \FloatBarrier
 
     Of course, the linear combination equation is not constrained to variations in only one $\kappa$ factor at a time.
     Noting that the points of greatest interest are those which define the boundary between excluded and non-excluded
@@ -644,22 +654,23 @@
         \centering
         \begin{subfigure}{0.48\textwidth} 
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_thesis_3D_samps_vbf_pd_vbf_inc161718_k1v1.0_exclusion}
-            \caption{2D \kvv/\kl Limit Exclusion Plot, for \kv=1}
+            \caption{2D \kvv/\kl Limits, for \kv=1}
             \label{fig:limit_slice_kv_1p0_rooFit}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth} 
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_thesis_3D_samps_vbf_pd_vbf_inc161718_k1v-1.0_exclusion}
-            \caption{\kvv/\kl Limit Plot, for \kv=-1}
+            \caption{\kvv/\kl Limits, for \kv=-1}
             \label{fig:limit_slice_kv_1p0_rooFit}
         \end{subfigure}\\
+
         \begin{subfigure}{0.48\textwidth}
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_thesis_3D_samps_vbf_pd_vbf_inc161718_kl1.0_exclusion}
-            \caption{\kvv/\kv Limit Plot, for \kl=1}
+            \caption{\kvv/\kv Limits, for \kl=1}
             \label{fig:limit_slice_kl_1p0_rooFit}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth} 
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/2D_scan_thesis_3D_samps_vbf_pd_vbf_inc161718_k2v1.0_exclusion}
-            \caption{\kl/\kv Limit Plot, for \kvv=1}
+            \caption{\kl/\kv Limits, for \kvv=1}
             \label{fig:limit_slice_k2v_1p0_rooFit}
         \end{subfigure}
         \caption{
