@@ -9,6 +9,7 @@ import sympy
 import numpy
 import pickle
 from matplotlib import pyplot as plt
+#import multiprocessing
 
 import fileioutils
 from fileioutils import _k2v, _kl, _kv
@@ -311,13 +312,54 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
     plt.close()
 
 
+def plot_slice(kappas, coupling_parameters, Cpoisson_function_s, shell_points, infix, si, key, kslice):
+    limit_resolution = 100
+
+    print('    '+key+' = '+str(kslice))
+    (xi, xkey), (yi, ykey) = [ (i,k) for i,k in enumerate(kappas) if k != key ]
+    xbounds, _ = coupling_parameters[xkey]
+    ybounds, _ = coupling_parameters[ykey]
+
+    xrange = numpy.linspace(*xbounds,limit_resolution)
+    yrange = numpy.linspace(*ybounds,limit_resolution)
+    xy_grid = numpy.meshgrid(xrange, yrange)
+    kappa_grid = [None, None, None]
+    kappa_grid[si] = kslice
+    kappa_grid[xi] = xy_grid[0]
+    kappa_grid[yi] = xy_grid[1]
+    import warnings
+    warnings.filterwarnings('ignore')
+    pvalue_grid = Cpoisson_function_s(kappa_grid)
+    #pvalue_grid = kappa_function(*kappa_grid)
+    #pvalue_exp_grid = kappa_exp_function(*kappa_grid)
+
+    fig, ax = plt.subplots()
+    contour_group = ax.contour(xy_grid[0], xy_grid[1], pvalue_grid, levels=[0.05], antialiased=True)
+    #ax.contour(xy_grid[0], xy_grid[1], pvalue_exp_grid, levels=[0.05], antialiased=True)
+
+    for path in contour_group.collections[0].get_paths():
+        for x, y in path.vertices:
+            new_point = [0,0,0]
+            new_point[si] = kslice
+            new_point[xi] = x
+            new_point[yi] = y
+            shell_points.append(new_point)
+
+    plt.grid()
+    plt.title('Limit Boundaries for ' +_coupling_labels[key]+ f' = {kslice:.2f}')
+    plt.xlabel(_coupling_labels[xkey])
+    plt.ylabel(_coupling_labels[ykey])
+    plt.savefig('out/3D/limit_slice_'+infix+key+'_'+str(kslice).replace('.','p')+'.pdf')
+    plt.close()
+
+
 
 def make_multidimensional_limit_plots(results=None, hl_lhc_projection=False):
     #k2v_bounds = (-4,15)
     #kl_bounds  = (-50,50)
     #kv_bounds  = (-6,6)
     k2v_bounds = (-2.5,14)
-    kl_bounds  = (-50,50)
+    kl_bounds  = (-51,49)
     kv_bounds  = (-3.5,3.5)
 
     k2v_slices  = numpy.linspace(*k2v_bounds, int((k2v_bounds[1]-k2v_bounds[0])*2)+1)
@@ -333,7 +375,6 @@ def make_multidimensional_limit_plots(results=None, hl_lhc_projection=False):
         'kl':  [kl_bounds, kl_slices],
         'kv':  [kv_bounds, kv_slices]
     }
-    limit_resolution = 100
 
 
     bgd_yield = sum(results['bgd'][0])
@@ -357,52 +398,31 @@ def make_multidimensional_limit_plots(results=None, hl_lhc_projection=False):
 
     kappas = list(coupling_parameters)
     print('Generating multi-dimensional pvalues...')
-    shell_points = ([], [], [])
+    shell_points = []
+    #process_list = []
+    #max_processes = 8
     for si, key in enumerate(kappas):
         sbounds, srange = coupling_parameters[key]
         for kslice in srange:
-            print('    '+key+' = '+str(kslice))
-            (xi, xkey), (yi, ykey) = [ (i,k) for i,k in enumerate(kappas) if k != key ]
-            xbounds, _ = coupling_parameters[xkey]
-            ybounds, _ = coupling_parameters[ykey]
-
-            xrange = numpy.linspace(*xbounds,limit_resolution)
-            yrange = numpy.linspace(*ybounds,limit_resolution)
-            xy_grid = numpy.meshgrid(xrange, yrange)
-            kappa_grid = [None, None, None]
-            kappa_grid[si] = kslice
-            kappa_grid[xi] = xy_grid[0]
-            kappa_grid[yi] = xy_grid[1]
-            import warnings
-            warnings.filterwarnings('ignore')
-            pvalue_grid = Cpoisson_function_s(kappa_grid)
-            #pvalue_grid = kappa_function(*kappa_grid)
-            #pvalue_exp_grid = kappa_exp_function(*kappa_grid)
-
-            fig, ax = plt.subplots()
-            contour_group = ax.contour(xy_grid[0], xy_grid[1], pvalue_grid, levels=[0.05], antialiased=True)
-            #ax.contour(xy_grid[0], xy_grid[1], pvalue_exp_grid, levels=[0.05], antialiased=True)
-
-            for path in contour_group.collections[0].get_paths():
-                for x, y in path.vertices:
-                    shell_points[si].append(kslice)
-                    shell_points[xi].append(x)
-                    shell_points[yi].append(y)
-
-            plt.grid()
-            plt.title('Limit Boundaries for ' +_coupling_labels[key]+ f' = {kslice:.2f}')
-            plt.xlabel(_coupling_labels[xkey])
-            plt.ylabel(_coupling_labels[ykey])
-            plt.savefig('out/3D/limit_slice_'+infix+key+'_'+str(kslice).replace('.','p')+'.pdf')
-            plt.close()
-        break
+            #if key != 'kl' or kslice != 1: continue
+            plot_slice(kappas, coupling_parameters, Cpoisson_function_s, shell_points, infix, si, key, kslice) 
+            #if len(process_list) >= max_processes:
+            #    for process in process_list: process.join()
+            #    process_list = []
+            #    
+            #args=(kappas, coupling_parameters, Cpoisson_function_s, shell_points, infix, si, key, kslice) 
+            #slice_process = multiprocessing.Process(target=plot_slice, args=args)
+            #process_list.append(slice_process)
+            #slice_process.start()
+    #for process in process_list: process.join()
 
     return shell_points
     
 
 def make_full_3D_render(shell_points):
-    numpy.savetxt('mesh_dump.dat', numpy.array(shell_points).transpose())
-    shell_points = [ [x,y,z] for x,y,z in zip(*shell_points) ]
+    #numpy.savetxt('mesh_dump.dat', numpy.array(shell_points).transpose())
+    numpy.savetxt('mesh_dump.dat', numpy.array(shell_points))
+    #shell_points = [ [x,y,z] for x,y,z in zip(*shell_points) ]
     shell_points.sort(key=lambda p: p[2])
     shell_points = numpy.array(shell_points)
 
@@ -495,12 +515,12 @@ def main():
     #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False)
     #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False)
 
-    #shell_points = make_multidimensional_limit_plots(results=results)
+    shell_points = make_multidimensional_limit_plots(results=results)
     #pickle.dump(shell_points, open('.shell_points.p','wb'))
     #shell_points = pickle.load(open('.shell_points.p','rb'))
     #make_full_3D_render(shell_points)
 
-    shell_points = make_multidimensional_limit_plots(results=results, hl_lhc_projection=True)
+    #shell_points = make_multidimensional_limit_plots(results=results, hl_lhc_projection=True)
 
     #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(-1,1,1))
     #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,1,1))
