@@ -227,10 +227,16 @@ def make_lazy_mu_probability_distro(results=None, couplings=None):
     plt.close()
 
 def mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
-        results, observed=True, slow_form=False):
+        results, observed=True, slow_form=False, hl_lhc_projection=False):
 
     bgd_yield = sum(results['bgd'][0])
     data_yield = int(sum(results['data'][0])) if observed else int(bgd_yield)
+    if hl_lhc_projection:
+        hl_lhc_luminosity = 3000
+        hl_lhc_scaling_factor = hl_lhc_luminosity / 126.7
+        bgd_yield *= hl_lhc_scaling_factor
+        data_yield = int(bgd_yield)
+        bgd_yield
 
     mu_limit_list = []
     if slow_form:
@@ -252,6 +258,7 @@ def mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
                 mu_expression = mu_kappa_expression.subs([(_k2v,x),(_kl,1),(_kv,1)]) - 0.05
             elif scan_coupling == 'kl':
                 mu_expression = mu_kappa_expression.subs([(_k2v,1),(_kl,x),(_kv,1)]) - 0.05
+            if hl_lhc_projection: mu_expression = mu_expression.subs('u', f'{hl_lhc_scaling_factor}*u')
             mu_function = sympy.lambdify( ['u'], mu_expression, "numpy")
             mu_vals = numpy.linspace(0,100,1001)
             rough_mu = mu_function(mu_vals)
@@ -263,7 +270,7 @@ def mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
     return mu_limit_array
 
 
-def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
+def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False, hl_lhc_projection=False):
     if scan_coupling == 'k2v':
         plot_xvals = numpy.linspace(-2,4,13)
         if not slow_form: plot_xvals = numpy.linspace(-2,4,6*10+1)
@@ -278,14 +285,18 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
     theory_xsec = numpy.array([ xsec_fn(c) for c in coupling_list ])
 
     mu_limit_array = mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
-        results, slow_form=slow_form)
+        results, slow_form=slow_form, hl_lhc_projection=hl_lhc_projection)
 
     #exp_mu_limit_array = mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
         #results, observed=False, slow_form=slow_form)
 
-    slow = 'slow_' if slow_form else 'fast_'
+    infix = 'slow_' if slow_form else 'fast_'
+    if hl_lhc_projection: infix += 'HL-LHC_'
     fig, ax = plt.subplots()
-    ax.plot(plot_xvals, mu_limit_array, color='black', ls='-', label='Observed Limit')
+    if not hl_lhc_projection:
+        ax.plot(plot_xvals, mu_limit_array, color='black', ls='-', label='Observed Limit')
+    else:
+        ax.plot(plot_xvals, mu_limit_array, color='black', ls='--', label='Expected Limit')
     #ax.plot(plot_xvals, exp_mu_limit_array, color='black', ls='--', label='Expected Limit')
     ax.set_yscale('log')
     ax.axhline(1, color='red', ls='-', label=r'$\mu=1$')
@@ -294,11 +305,14 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
     plt.xlabel(_coupling_labels[scan_coupling])
     plt.ylabel(r'$\mu$ Value Required for 95% Confidence')
     plt.title(_coupling_labels[scan_coupling] + r' $\mu$ Limit Scan')
-    plt.savefig('out/'+'mu_limits_'+slow+scan_coupling+'.pdf')
+    plt.savefig('out/'+'mu_limits_'+infix+scan_coupling+'.pdf')
     plt.close()
 
     fig, ax = plt.subplots()
-    ax.plot(plot_xvals, mu_limit_array*theory_xsec, color='black', ls='-', label='Observed Limit')
+    if not hl_lhc_projection:
+        ax.plot(plot_xvals, mu_limit_array*theory_xsec, color='black', ls='-', label='Observed Limit')
+    else:
+        ax.plot(plot_xvals, mu_limit_array*theory_xsec, color='black', ls='--', label='Expected Limit')
     #ax.plot(plot_xvals, exp_mu_limit_array*theory_xsec, color='black', ls='--', label='Expected Limit')
     ax.set_yscale('log')
     ax.plot(plot_xvals, theory_xsec, color='red', ls='-', label='Theory cross-section')
@@ -308,7 +322,7 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
     plt.ylabel(r'Cross-section at 95% Confidence')
     plt.title(_coupling_labels[scan_coupling] + r' Cross-section Limit Scan')
     ax.legend()
-    plt.savefig('out/'+'xsec_limits_'+slow+scan_coupling+'.pdf')
+    plt.savefig('out/'+'xsec_limits_'+infix+scan_coupling+'.pdf')
     plt.close()
 
 
@@ -515,11 +529,13 @@ def main():
     #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False)
     #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False)
 
-    shell_points = make_multidimensional_limit_plots(results=results)
+    #shell_points = make_multidimensional_limit_plots(results=results)
     #pickle.dump(shell_points, open('.shell_points.p','wb'))
     #shell_points = pickle.load(open('.shell_points.p','rb'))
     #make_full_3D_render(shell_points)
 
+    make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False, hl_lhc_projection=True)
+    make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False, hl_lhc_projection=True)
     #shell_points = make_multidimensional_limit_plots(results=results, hl_lhc_projection=True)
 
     #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(-1,1,1))
