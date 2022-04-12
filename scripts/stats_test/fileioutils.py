@@ -4,9 +4,12 @@ import sympy
 import uproot
 
 #_eta_cut = lambda ttree: ttree['dEta_hh'].array() < 1.5
-_k2v = sympy.Symbol('\kappa_{2V}')
-_kl = sympy.Symbol('\kappa_{\lambda}')
-_kv = sympy.Symbol('\kappa_{V}')
+#_k2v = sympy.Symbol('\kappa_{2V}')
+#_kl = sympy.Symbol('\kappa_{\lambda}')
+#_kv = sympy.Symbol('\kappa_{V}')
+_k2v = sympy.Symbol('KVV')
+_kl = sympy.Symbol('KL')
+_kv = sympy.Symbol('KV')
 
 _eta_cut = lambda ttree: ttree['dEta_hh'].array() > -1
 
@@ -188,7 +191,8 @@ def extract_ntuple_events(ntuple, var_key='m_hh'):
     weights = ttree['mc_sf'].array()[:,0][valid_event]
     run_number = ttree['run_number'].array()[valid_event]
 
-    mc2015 = ( run_number < 296939 ) * 3.2
+    #mc2015 = ( run_number < 296939 ) * 3.2
+    mc2015 = ( run_number < 296939 ) * 0
     mc2016 = ( numpy.logical_and(296939 < run_number, run_number < 320000) ) * 24.6
     mc2017 = ( numpy.logical_and(320000 < run_number, run_number < 350000) ) * 43.65
     mc2018 = ( numpy.logical_and(350000 < run_number, run_number < 370000) ) * 58.45

@@ -9,6 +9,7 @@ import sympy
 import numpy
 import pickle
 from matplotlib import pyplot as plt
+#import multiprocessing
 
 import fileioutils
 from fileioutils import _k2v, _kl, _kv
@@ -36,6 +37,33 @@ def log_poisson(n,v):
     return lp
 
 
+def get_fast_cumulative_pval_function(bgd_yield, data_yield, mu_factor):
+    base_couplings, basis_weights, basis_errors = fileioutils.load_signal_basis(None, pickle_load=True)
+    basis_yields = [ sum(w) for w in basis_weights ]
+    signal_formula = fileioutils.get_amplitude_function(base_couplings, form='expression')
+    signal = signal_formula.subs([ (f'A{i}',y) for i,y in enumerate(basis_yields) ])
+    sum_range = numpy.array(list(range(1,data_yield)))
+    #sum_range = numpy.array([397,398,399,400])
+
+    mu, s, b, n = sympy.symbols('u s b n')
+    v = mu * s + b
+    log_poisson_component = n*( sympy.log(v/n) - v/n + 1 )
+    poisson = (2*sympy.pi*n)**(-1/2) * sympy.exp(log_poisson_component) # Unusable for n=0!
+    poisson_expression = poisson.subs([(s,signal), (b, bgd_yield)])
+
+    nax = numpy.newaxis
+    poisson_function_sb = sympy.lambdify( [_k2v,_kl,_kv, 'n'], poisson_expression.subs('u',mu_factor), "numpy")
+    poisson_function_b  = sympy.lambdify( ['n'], poisson_expression.subs([('u',0), (_k2v,0), (_kl,0), (_kv,0)]), "numpy")
+    Cpoisson_function_sb = lambda kappas: poisson_function_sb(*kappas, sum_range[:,nax,nax]).sum(axis=0)
+    Cpoisson_b = poisson_function_b(sum_range).sum(axis=0)
+    Cpoisson_function_s = lambda kappas: Cpoisson_function_sb(kappas) / (1-Cpoisson_b)
+
+    #print(Cpoisson_function_sb((*numpy.array([ [[2,3,4],[2,3,4]],[[3,3,3],[4,4,4]] ]), 1 )))
+    #exit()
+    return Cpoisson_function_s
+
+
+
 def get_mu_kappa_expression(bgd_yield, data_yield):
     base_couplings, basis_weights, basis_errors = fileioutils.load_signal_basis(None, pickle_load=True)
     basis_yields = [ sum(w) for w in basis_weights ]
@@ -44,8 +72,8 @@ def get_mu_kappa_expression(bgd_yield, data_yield):
 
     mu, s, b, n, N = sympy.symbols('u s b n N')
     v = mu * s + b
-    #poisson = v**n * sympy.exp(-v) / sympy.factorial(n)
-    poisson = (2*sympy.pi*n)**(-1/2) * (v/n)**n * sympy.exp(n-v) # Unusable for n=0!
+    log_poisson_component = n*( sympy.log(v/n) - v/n + 1 )
+    poisson = (2*sympy.pi*n)**(-1/2) * sympy.exp(log_poisson_component) # Unusable for n=0!
     Cpoisson = sympy.concrete.summations.Sum(poisson, (n,1,N)) + sympy.exp(-v)
     Cpoisson_sb = Cpoisson
     Cpoisson_b = Cpoisson.subs(mu,0)
@@ -199,10 +227,16 @@ def make_lazy_mu_probability_distro(results=None, couplings=None):
     plt.close()
 
 def mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
-        results, observed=True, slow_form=False):
+        results, observed=True, slow_form=False, hl_lhc_projection=False):
 
     bgd_yield = sum(results['bgd'][0])
     data_yield = int(sum(results['data'][0])) if observed else int(bgd_yield)
+    if hl_lhc_projection:
+        hl_lhc_luminosity = 3000
+        hl_lhc_scaling_factor = hl_lhc_luminosity / 126.7
+        bgd_yield *= hl_lhc_scaling_factor
+        data_yield = int(bgd_yield)
+        bgd_yield
 
     mu_limit_list = []
     if slow_form:
@@ -224,6 +258,7 @@ def mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
                 mu_expression = mu_kappa_expression.subs([(_k2v,x),(_kl,1),(_kv,1)]) - 0.05
             elif scan_coupling == 'kl':
                 mu_expression = mu_kappa_expression.subs([(_k2v,1),(_kl,x),(_kv,1)]) - 0.05
+            if hl_lhc_projection: mu_expression = mu_expression.subs('u', f'{hl_lhc_scaling_factor}*u')
             mu_function = sympy.lambdify( ['u'], mu_expression, "numpy")
             mu_vals = numpy.linspace(0,100,1001)
             rough_mu = mu_function(mu_vals)
@@ -235,7 +270,7 @@ def mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
     return mu_limit_array
 
 
-def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
+def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False, hl_lhc_projection=False):
     if scan_coupling == 'k2v':
         plot_xvals = numpy.linspace(-2,4,13)
         if not slow_form: plot_xvals = numpy.linspace(-2,4,6*10+1)
@@ -250,14 +285,18 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
     theory_xsec = numpy.array([ xsec_fn(c) for c in coupling_list ])
 
     mu_limit_array = mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
-        results, slow_form=slow_form)
+        results, slow_form=slow_form, hl_lhc_projection=hl_lhc_projection)
 
     #exp_mu_limit_array = mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
         #results, observed=False, slow_form=slow_form)
 
-    slow = 'slow_' if slow_form else 'fast_'
+    infix = 'slow_' if slow_form else 'fast_'
+    if hl_lhc_projection: infix += 'HL-LHC_'
     fig, ax = plt.subplots()
-    ax.plot(plot_xvals, mu_limit_array, color='black', ls='-', label='Observed Limit')
+    if not hl_lhc_projection:
+        ax.plot(plot_xvals, mu_limit_array, color='black', ls='-', label='Observed Limit')
+    else:
+        ax.plot(plot_xvals, mu_limit_array, color='black', ls='--', label='Expected Limit')
     #ax.plot(plot_xvals, exp_mu_limit_array, color='black', ls='--', label='Expected Limit')
     ax.set_yscale('log')
     ax.axhline(1, color='red', ls='-', label=r'$\mu=1$')
@@ -266,11 +305,14 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
     plt.xlabel(_coupling_labels[scan_coupling])
     plt.ylabel(r'$\mu$ Value Required for 95% Confidence')
     plt.title(_coupling_labels[scan_coupling] + r' $\mu$ Limit Scan')
-    plt.savefig('out/'+'mu_limits_'+slow+scan_coupling+'.pdf')
+    plt.savefig('out/'+'mu_limits_'+infix+scan_coupling+'.pdf')
     plt.close()
 
     fig, ax = plt.subplots()
-    ax.plot(plot_xvals, mu_limit_array*theory_xsec, color='black', ls='-', label='Observed Limit')
+    if not hl_lhc_projection:
+        ax.plot(plot_xvals, mu_limit_array*theory_xsec, color='black', ls='-', label='Observed Limit')
+    else:
+        ax.plot(plot_xvals, mu_limit_array*theory_xsec, color='black', ls='--', label='Expected Limit')
     #ax.plot(plot_xvals, exp_mu_limit_array*theory_xsec, color='black', ls='--', label='Expected Limit')
     ax.set_yscale('log')
     ax.plot(plot_xvals, theory_xsec, color='red', ls='-', label='Theory cross-section')
@@ -280,17 +322,58 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False):
     plt.ylabel(r'Cross-section at 95% Confidence')
     plt.title(_coupling_labels[scan_coupling] + r' Cross-section Limit Scan')
     ax.legend()
-    plt.savefig('out/'+'xsec_limits_'+slow+scan_coupling+'.pdf')
+    plt.savefig('out/'+'xsec_limits_'+infix+scan_coupling+'.pdf')
+    plt.close()
+
+
+def plot_slice(kappas, coupling_parameters, Cpoisson_function_s, shell_points, infix, si, key, kslice):
+    limit_resolution = 100
+
+    print('    '+key+' = '+str(kslice))
+    (xi, xkey), (yi, ykey) = [ (i,k) for i,k in enumerate(kappas) if k != key ]
+    xbounds, _ = coupling_parameters[xkey]
+    ybounds, _ = coupling_parameters[ykey]
+
+    xrange = numpy.linspace(*xbounds,limit_resolution)
+    yrange = numpy.linspace(*ybounds,limit_resolution)
+    xy_grid = numpy.meshgrid(xrange, yrange)
+    kappa_grid = [None, None, None]
+    kappa_grid[si] = kslice
+    kappa_grid[xi] = xy_grid[0]
+    kappa_grid[yi] = xy_grid[1]
+    import warnings
+    warnings.filterwarnings('ignore')
+    pvalue_grid = Cpoisson_function_s(kappa_grid)
+    #pvalue_grid = kappa_function(*kappa_grid)
+    #pvalue_exp_grid = kappa_exp_function(*kappa_grid)
+
+    fig, ax = plt.subplots()
+    contour_group = ax.contour(xy_grid[0], xy_grid[1], pvalue_grid, levels=[0.05], antialiased=True)
+    #ax.contour(xy_grid[0], xy_grid[1], pvalue_exp_grid, levels=[0.05], antialiased=True)
+
+    for path in contour_group.collections[0].get_paths():
+        for x, y in path.vertices:
+            new_point = [0,0,0]
+            new_point[si] = kslice
+            new_point[xi] = x
+            new_point[yi] = y
+            shell_points.append(new_point)
+
+    plt.grid()
+    plt.title('Limit Boundaries for ' +_coupling_labels[key]+ f' = {kslice:.2f}')
+    plt.xlabel(_coupling_labels[xkey])
+    plt.ylabel(_coupling_labels[ykey])
+    plt.savefig('out/3D/limit_slice_'+infix+key+'_'+str(kslice).replace('.','p')+'.pdf')
     plt.close()
 
 
 
-def make_multidimensional_limit_plots(results=None):
+def make_multidimensional_limit_plots(results=None, hl_lhc_projection=False):
     #k2v_bounds = (-4,15)
     #kl_bounds  = (-50,50)
     #kv_bounds  = (-6,6)
     k2v_bounds = (-2.5,14)
-    kl_bounds  = (-50,50)
+    kl_bounds  = (-51,49)
     kv_bounds  = (-3.5,3.5)
 
     k2v_slices  = numpy.linspace(*k2v_bounds, int((k2v_bounds[1]-k2v_bounds[0])*2)+1)
@@ -306,62 +389,54 @@ def make_multidimensional_limit_plots(results=None):
         'kl':  [kl_bounds, kl_slices],
         'kv':  [kv_bounds, kv_slices]
     }
-    limit_resolution = 100
 
 
-    data_yield = int(sum(results['data'][0]))
     bgd_yield = sum(results['bgd'][0])
-    kappa_expression = get_mu_kappa_expression( bgd_yield, data_yield).subs('u',1)
-    #kappa_exp_expression = get_mu_kappa_expression( bgd_yield, int(bgd_yield)).subs('u',1)
-    kappa_function = sympy.lambdify( [_k2v,_kl,_kv], kappa_expression, "numpy")
+    data_yield = int(sum(results['data'][0]))
+    mu_factor = 1
+    infix = ''
+    if hl_lhc_projection:
+        infix = 'HL-LHC_'
+        hl_lhc_luminosity = 3000
+        hl_lhc_scaling_factor = hl_lhc_luminosity / 126.7
+        bgd_yield *= hl_lhc_scaling_factor
+        data_yield = int(bgd_yield)
+        mu_factor = hl_lhc_scaling_factor
+    #kappa_exp_expression = get_poisson_expression( bgd_yield, int(bgd_yield)).subs('u',1)
     #kappa_exp_function = sympy.lambdify( [_k2v,_kl,_kv], kappa_expression, "numpy")
+
+    Cpoisson_function_s = get_fast_cumulative_pval_function(bgd_yield, data_yield, mu_factor)
+    #kappa_expression = get_mu_kappa_expression(bgd_yield, data_yield).subs('u',mu_factor)
+    #kappa_function = sympy.lambdify( [_k2v,_kl,_kv], kappa_expression, "numpy")
+    #Cpoisson_function_s = lambda kappas: kappa_function(*kappas)
 
     kappas = list(coupling_parameters)
     print('Generating multi-dimensional pvalues...')
-    shell_points = ([], [], [])
+    shell_points = []
+    #process_list = []
+    #max_processes = 8
     for si, key in enumerate(kappas):
         sbounds, srange = coupling_parameters[key]
         for kslice in srange:
-            print('    '+key+' = '+str(kslice))
-            (xi, xkey), (yi, ykey) = [ (i,k) for i,k in enumerate(kappas) if k != key ]
-            xbounds, _ = coupling_parameters[xkey]
-            ybounds, _ = coupling_parameters[ykey]
-
-            xrange = numpy.linspace(*xbounds,limit_resolution)
-            yrange = numpy.linspace(*ybounds,limit_resolution)
-            xy_grid = numpy.meshgrid(xrange, yrange)
-            kappa_grid = [None, None, None]
-            kappa_grid[si] = kslice
-            kappa_grid[xi] = xy_grid[0]
-            kappa_grid[yi] = xy_grid[1]
-            import warnings
-            warnings.filterwarnings('ignore')
-            pvalue_grid = kappa_function(*kappa_grid)
-            #pvalue_exp_grid = kappa_exp_function(*kappa_grid)
-
-            fig, ax = plt.subplots()
-            contour_group = ax.contour(xy_grid[0], xy_grid[1], pvalue_grid, levels=[0.05], antialiased=True)
-            #ax.contour(xy_grid[0], xy_grid[1], pvalue_exp_grid, levels=[0.05], antialiased=True)
-
-            for path in contour_group.collections[0].get_paths():
-                for x, y in path.vertices:
-                    shell_points[si].append(kslice)
-                    shell_points[xi].append(x)
-                    shell_points[yi].append(y)
-
-            plt.grid()
-            plt.title('Limit Boundaries for ' +_coupling_labels[key]+ f' = {kslice:.2f}')
-            plt.xlabel(_coupling_labels[xkey])
-            plt.ylabel(_coupling_labels[ykey])
-            plt.savefig('out/3D/limit_slice_'+key+'_'+str(kslice).replace('.','p')+'.pdf')
-            plt.close()
+            #if key != 'kl' or kslice != 1: continue
+            plot_slice(kappas, coupling_parameters, Cpoisson_function_s, shell_points, infix, si, key, kslice) 
+            #if len(process_list) >= max_processes:
+            #    for process in process_list: process.join()
+            #    process_list = []
+            #    
+            #args=(kappas, coupling_parameters, Cpoisson_function_s, shell_points, infix, si, key, kslice) 
+            #slice_process = multiprocessing.Process(target=plot_slice, args=args)
+            #process_list.append(slice_process)
+            #slice_process.start()
+    #for process in process_list: process.join()
 
     return shell_points
     
 
 def make_full_3D_render(shell_points):
-    numpy.savetxt('mesh_dump.dat', numpy.array(shell_points).transpose())
-    shell_points = [ [x,y,z] for x,y,z in zip(*shell_points) ]
+    #numpy.savetxt('mesh_dump.dat', numpy.array(shell_points).transpose())
+    numpy.savetxt('mesh_dump.dat', numpy.array(shell_points))
+    #shell_points = [ [x,y,z] for x,y,z in zip(*shell_points) ]
     shell_points.sort(key=lambda p: p[2])
     shell_points = numpy.array(shell_points)
 
@@ -459,11 +534,15 @@ def main():
     #shell_points = pickle.load(open('.shell_points.p','rb'))
     #make_full_3D_render(shell_points)
 
-    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(-1,1,1))
-    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,1,1))
-    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(2,1,1))
-    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(3,1,1))
-    make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,10,1))
+    make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False, hl_lhc_projection=True)
+    make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False, hl_lhc_projection=True)
+    #shell_points = make_multidimensional_limit_plots(results=results, hl_lhc_projection=True)
+
+    #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(-1,1,1))
+    #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,1,1))
+    #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(2,1,1))
+    #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(3,1,1))
+    #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,10,1))
 
 
 main()
