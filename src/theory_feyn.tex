@@ -53,14 +53,14 @@
         I can relate the initial state at $t_0$ to its time $\Delta t$ units in the future, $t_i$, by the transformation
     \begin{equation}
         \ket{q_{1} q_{2} (t_i)} = e^{i\Delta tH}\ket{q_{1} q_{2} (t_0)}
-        \quad.
+        \,.
     \end{equation}
     The same can be done to transform the final state backwards in time
     \begin{equation}
         \bra{h_1 h_2 q_{3} q_{4} (t_f)}
         = \bra{h_1 h_2 q_{3} q_{4} (t_0)} (e^{i(-\Delta t)H})^\dag
         = \bra{h_1 h_2 q_{3} q_{4} (t_0)} e^{i\Delta tH}
-        \quad.
+        \,.
     \end{equation}
     Putting both of these together yields
     \begin{equation} \begin{split} \label{eq:transition_amplitude}
@@ -68,7 +68,7 @@
         &= \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{e^{i\Delta tH} e^{i\Delta tH}}{q_{1} q_{2} (t_0)}
         \\&= \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{e^{2\Delta tH}}{q_{1} q_{2} (t_0)}
         \\&= \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{1 + iT}{q_{1} q_{2} (t_0)}
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     In the last step, the exponential operator is expanded as an infinite series of terms,
@@ -78,7 +78,7 @@
         with the entire transition amplitude referred to as the \textit{invariant amplitude}, $\invAmp$:
     \begin{equation}
         i\invAmp \equiv \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{iT}{q_{1} q_{2} (t_0)}
-        \quad.
+        \,.
     \end{equation}
 
     As stated above, the differential cross-section, $\dXsec$,
@@ -89,7 +89,7 @@
             = \left| \TbraketA{ h_1 h_2 q_{3} q_{4} (t_0)}{iT}{q_{1} q_{2} (t_0)} \right|^2 
             = |i \invAmp|^2 
         \\\dXsec &= \Gamma(p_1, p_2, ...) |\invAmp|^2
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     Where $\Gamma(p_1, p_2, ...)$ is a function of the scattering kinematics,
@@ -146,7 +146,7 @@
         \caption{$M_x$}
         \label{fig:tree_level_vbfhh:k2v}
     \end{subfigure}
-    \caption{Tree-level diagrams of the VBF$\rightarrow$hh process}
+    \caption{Tree-level diagrams of the \hhproc process}
     \end{figure}
 
     Once all possible diagrams have been drawn to the order desired, each diagram has a value assigned to it.
@@ -154,7 +154,7 @@
     The rules are derived based on the structure of the Lagrangian and are rather extensive;
         hence, they will not be listed here.
     After the values have been determined, the invariant amplitude is trivially calculated as the sum of the values of all drawn diagrams.
-    The VBF$\to$hh process studied here is primarily done at tree-level
+    The \hhproc process studied here is primarily done at tree-level
         (Fig. \ref{fig:tree_level_vbfhh:kv}-\ref{fig:tree_level_vbfhh:k2v}),
         but N\textsuperscript{3}LO calculations are also used to some degree.
 
@@ -176,7 +176,7 @@
             \\&\qquad + \kv \kl \kvv (M_s^* M_x + M_x^* M_s ) 
             \\&\qquad + \kv^2 \kvv (M_t^* M_x + M_x^* M_t )
         \\\dXsec \propto |\invAmp|^2 &= \kv^2 \kl^2 a_1 + \kv^4 a_2 + \kvv^2 a_3 + \kv^3 \kl a_4 + \kv \kl \kvv a_5 + \kv^2 \kvv a_6
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     As noted earlier, the precise value of this cross-section will vary depending on the kinematics of the incoming particles,

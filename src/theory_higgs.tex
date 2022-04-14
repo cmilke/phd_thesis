@@ -6,17 +6,17 @@
     To start, introduce a massless, scalar field $\phi$.
     The equation of motion for this field will be the Klein-Gordon equation
     \begin{equation} \begin{split}
-        p^2 \phi = m^2 \phi
-        \\(p^2 - m^2) \phi = 0
-        \\(\partial^\mu \partial_\mu + m^2) \phi = 0
-        \\\partial^\mu \partial_\mu \phi = 0,\; m\to0
-        \quad.
+        p^2 \phi &= m^2 \phi
+        \\(p^2 - m^2) \phi &= 0
+        \\(\partial^\mu \partial_\mu + m^2) \phi &= 0
+        \\\partial^\mu \partial_\mu \phi &= 0,\; m\to0
+        \,.
     \end{split} \end{equation}
 
     By default, the Lagrangian for this field will be a trivial kinetic-only term
     \begin{equation}
         \Lag = K_{\phi} = \frac{1}{2} (\partial_{\mu} \phi)^2
-        \quad.
+        \,.
     \end{equation}
     
     Next, introduce a quartic potential $U(\phi) = -\frac{1}{2} \mu^2 \phi^2 + \frac{\lambda}{4!} \phi^4$.
@@ -24,7 +24,7 @@
     \begin{equation}
         \Lag = K_{\phi} - U_{\phi} = \frac{1}{2} (\partial_{\mu} \phi)^2 
             +\frac{1}{2} \mu^2 \phi^2 - \frac{\lambda}{4!} \phi^4
-        \quad.
+        \,.
     \end{equation}
     Such a potential will result in a Hamiltonian which is symmetric about a local maximum at $\phi=0$.
     The Hamiltonian will have two minima to either side of $\phi=0$, at points $\pm v = \pm \sqrt{\frac{6}{\lambda}} \mu$.
@@ -52,7 +52,7 @@
             - m^2_{h} h^2
             -\sqrt{\frac{\lambda}{6}} \mu h^3
             - \frac{\lambda}{4!} h^4
-        \quad.
+        \,.
     \end{split} \end{equation} %FIXME: you screwed up the terms somewhere
 
     \begin{figure}[h!]
@@ -60,7 +60,8 @@
         \caption{A two-dimensional representation of the Higgs Potential for a complex Higgs field\cite{higgspotential}.
             Like a ball on a narrow hill, the Higgs field will inevitably roll off to the side into valley below.
             From the Higgs's new perspective at the bottom of this valley,
-                the potential no longer appears symmetric, from which the Higgs acquires
+                the potential no longer appears symmetric,
+                leading to the Higgs field acquiring a mass term.
         }
         \label{fig:higgs_potential}
     \end{figure}
@@ -77,14 +78,14 @@
         I will now give the scalar field a complex phase and spinor components:
     \begin{equation}
         \vec{\phi}(x) = \frac{1}{\sqrt{2}} \tinymatrix{\phi_1 \\ \phi_2}
-        \quad.
+        \,.
     \end{equation}
     $\vec{\phi}$ is still a scalar in space-time, but now also has vector components in the $SU(2)$ subspace.
 
     As with the Dirac fields, I will then impose $U(1) \times SU(2)$ gauge symmetry on the field, so it transforms as
     \begin{equation}
         \vec{\phi}(x) \rightarrow e^{i \alpha^a \tau^a} e^{i \beta/2 } \vec{\phi}(x)
-        \quad.
+        \,.
     \end{equation}
 
     The additional symmetries will in general complicate matters significantly,
@@ -92,7 +93,7 @@
     Regardless of symmetries, any arbitrary vector such as $\vec{\phi}$ can be written as a unitary transformation $U(x)$ operating on a simpler single-valued vector
     \begin{equation}
         \vec{\phi}(x) = \frac{1}{\sqrt{2}} \tinymatrix{\phi_1 \\ \phi_2} = \frac{1}{\sqrt{2}} U(x) \tinymatrix{0 \\ \phi}
-        \quad.
+        \,.
     \end{equation}
     Courtesy of the newly added gauge freedom, this field can be rotated through $SU(2) \times U(1)$ space freely without affecting the Lagrangian.
     A particularly convenient rotation to perform then, is one in alignment with the orientation of $U(x)$, such that $U(x)$ vanishes
@@ -102,7 +103,7 @@
             = \frac{1}{\sqrt{2}} U^{-1}(x) U(x) \tinymatrix{0 \\ \phi}
             = \frac{1}{\sqrt{2}} \tinymatrix{0 \\ \phi} \\
         \vec{\phi}'(x) &= \frac{1}{\sqrt{2}} \tinymatrix{0 \\ \phi}
-        \quad.
+        \,.
     \end{split} \end{equation}
     This orientation is referred as the \textit{Unitary Gauge}, and will be used for the rest of the chapter.
 
@@ -114,15 +115,17 @@
     \begin{equation} \begin{split}
         \Lag &= \frac{1}{2} |D_{\mu} \vec{\phi}|^2 +
             \mu^2 \vec{\phi}^\dag \vec{\phi} - \lambda \left( \vec{\phi}^\dag\vec{\phi} \right)^2
-        \quad.
+        \,.
     \end{split} \end{equation}
 
 
     Once again, I allow the scalar field to fall into its offset minimum $v$
-        (hereafter refered to as the ``Vacuum Expectation Value'' or \textit{vev})
+        (hereafter referred to as the ``Vacuum Expectation Value'' or \textit{vev})
     \begin{equation}
-        v \equiv \frac{\mu}{\sqrt{\lambda}} \textrm{ , for } \phi(x) \to h(x) + v
-        \quad.
+        v \equiv \frac{\mu}{\sqrt{\lambda}} \textrm{ ,  for   }
+            \vec{\phi}(x) \to \vec{h}(x) + \vec{v} = 
+            \minimatrix{0\\h(x)} + \minimatrix{0\\v} = \minimatrix{0\\h(x)+v}
+        \,.
     \end{equation}
     Worth mentioning is that due to the added groups, there are no longer only two minima.
     Instead, there is now a continuum of equal-valued minima centered on a spherical ``valley'' a distance $v$ from $\phi=0$.
@@ -133,14 +136,14 @@
             + \mu^2 \left|\minimatrix{0\\h(x)+v}\right|^2
             - \lambda \left|\minimatrix{0\\h(x)+v}\right|^4 \\
          & = \Lag_h + \Lag_v
-        \quad.
+        \,.
     \end{split} \end{equation}
     where $\Lag_h$ takes a form similar to Eqn. \ref{eq:basic_higgs}, incorporating both the $h$ and $h$/$v$ cross terms.
     Meanwhile, $\Lag_v$ refers only to the terms arising from $D_{\mu}$ acting on the vev:
     \begin{equation}
         \label{eq:lagv}
         \Lag_v = \frac{1}{2} (D_{\mu} \vec{v})^2
-        \quad.
+        \,.
     \end{equation}
 
     The expansion of this term specifically will lead to the breakdown of Electro-Weak Symmetry,
@@ -152,7 +155,7 @@
         D^{\mu} v  = \big( \partial^{\mu} & - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \frac{1}{\sqrt{2}}\minimatrix{0\\v} \\
         = \big( & - \frac{ig}{2} \wField^a_{\mu} \sigma^a - \frac{ig'}{2} B_{\mu} \big) \frac{1}{\sqrt{2}}\minimatrix{0\\v} \\
         = - \frac{i}{2} \big( & g \wField^a_{\mu} \sigma^a + g' B_{\mu} \big) \frac{1}{\sqrt{2}}\minimatrix{0\\1} v
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     It is useful here to fully expand the $U(1) \times SU(2)$ fields into their matrix components and add them explicitly,
@@ -173,7 +176,7 @@
             g\wField^3_{\mu} + g'B_{\mu} & g\wField^1_{\mu} - ig\wField^2_{\mu} \\
             g\wField^1_{\mu} + ig\wField^2_{\mu} & -g\wField^3_{\mu} + g'B_{\mu}
         \end{pmatrix}
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     The four components of this matrix will ultimately be associated with the 
@@ -188,7 +191,7 @@
             \sqrt{g^2 + g^{\prime 2}}\ A_{\mu} & g \sqrt{2}\ W^+_{\mu} \\
             g \sqrt{2}\ W^-_{\mu} & - \sqrt{g^2 + g^{\prime 2}}\ Z^0_{\mu}
         \end{pmatrix}
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     With $A$, $W^+$, $W^-$, and $Z^0$ related to the unbroken $\wField^a$ and $B$ fields by
@@ -196,7 +199,7 @@
         A_{\mu} & = \frac{1}{\sqrt{g^2 + g^{\prime 2}}} ( g\wField^3_{\mu} + g'B_{\mu} ) \\
         Z^0_{\mu} & = \frac{1}{\sqrt{g^2 + g^{\prime 2}}} ( g\wField^3_{\mu} - g'B_{\mu} ) \\
         W^{\pm}_{\mu} & = \frac{1}{\sqrt{2}} (\wField^1_{\mu} \mp i\wField^2_{\mu})
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     The $\sqrt{g^2 + g^{\prime 2}}$ factor is the result of converting between
@@ -211,7 +214,7 @@
             \cos\theta_w & -\sin\theta_w \\
             \sin\theta_w & \cos\theta_w
         \end{pmatrix} \begin{pmatrix} \wField^3 \\ B \end{pmatrix}
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     Where $\theta_w \equiv \cot(\frac{g'}{g})$ is known as the \textit{weak mixing angle} (AKA the Weinberg angle).
@@ -254,7 +257,7 @@
         & = \frac{1}{2} \left[ \left(\frac{vg}{2}\right)^2\  W^-_{\mu} W^+_{\mu}
             + \frac{1}{2} \left(\frac{v}{2}\sqrt{g^2 + g^{\prime 2}}\right)\ (Z^0_{\mu})^2 \right] \\
         & = \frac{1}{2} \left[ m_W W^{-\ \mu} W^+_{\mu} + \frac{m_Z}{2} (Z^0_{\mu})^2 \right]
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     As in Section \ref{sec:higgs_mechanism}, the $W$ and $Z$ fields now have additional mass terms associated with their kinetic energy terms,
@@ -281,7 +284,7 @@
 %You need to tie k2v, kl, and kv in to the shape of the higgs potential here
 \section{Keystone of the Standard Model: The Higgs Boson} \label{sec:higgs_boson}
 
-    With the critical role of the Higgs Field established, it is now time to return to Eqn. \ref{eq:fullHiggs},
+    With the critical role of the Higgs Field established, it is now time to return to Eqn. \ref{eq:fullHiggs}
         and investigate $\Lag_h$, the Lagrangian of the Higgs Boson itself.
     The terms involved therein provide information not only about the Higgs Field,
         but also provide insight into how the Higgs may be further studied:
@@ -291,10 +294,10 @@
         \\&= \Lag_K + \Lag_U \quad ; \quad 
             \Lag_K \equiv \frac{1}{2} |D_{\mu} \vec{\phi}|^2 \quad , \quad
             \Lag_U \equiv \mu^2 \vec{\phi}^\dag \vec{\phi} - \lambda \left( \vec{\phi}^\dag\vec{\phi} \right)^2
-        \quad.
+        \,.
     \end{split} \end{equation}
     
-    To make expansion easier, I will expand the covariant derivative terms ($\Lag_K$) first,
+    To make expansion easier, I will expand the covariant derivative terms ($\Lag_K$) first
         and then add the expanded $\Lag_U$ terms.
     Starting with $\Lag_K$, (and defining $Q_{\mu}$ as the matrix from Eqn. \ref{eq:electroweak_matrix})
 
@@ -322,7 +325,7 @@
             \\&= \frac{1}{2} | \partial_{\mu}h |^2
                 + \frac{1}{2} \left[ \left(\frac{g}{2}\right)^2\  W^{-\ \mu} W^+_{\mu}
                 + \frac{1}{2} \left(\frac{1}{2}\sqrt{g^2 + g^{\prime 2}}\right)\ (Z^0_{\mu})^2 \right] (h+v)^2
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     The $(h+v)^2$ term will produce couplings quadratic in $v$ ($\Lag_v$ of Eqn. \ref{eq:lagv_full}), and both linear and quadratic in $h$.
@@ -332,7 +335,7 @@
         \Lag_K = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
             + 2v\left[ m_W W^{-\ \mu} W^+_{\mu} + \frac{m_Z}{2} (Z^0_{\mu})^2 \right] h
             + \left[ m_W W^{-\ \mu} W^+_{\mu} + \frac{m_Z}{2} (Z^0_{\mu})^2 \right] h^2
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     Often, $W$ and $Z$ field interactions are considered for the same process,
@@ -341,15 +344,15 @@
     \begin{equation} \begin{split}
         \Lag_K = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
             + 2 v m_V V^2 h + m_V V^2 h^2
-        \quad.
+        \,.
     \end{split} \end{equation}
 
-    Returning to $\Lag_U$ and substituting in for $v$
+    \noindent Returning to $\Lag_U$ and substituting in for $v$
     \begin{equation} \begin{split}
         \Lag_U &= \mu^2 \vec{\phi}^\dag \vec{\phi} - \lambda \left( \vec{\phi}^\dag\vec{\phi} \right)^2
         \\&= - \mu^2 h^2 -\lambda v h^3 - \frac{1}{4} \lambda h^4
         \\&= - \mu^2 h^2 - \mu \sqrt\lambda h^3 - \frac{1}{4} \lambda h^4
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     Identifying the Higgs mass $m_h$ as $\sqrt{2}\mu$,
@@ -363,7 +366,7 @@
         \\&= \frac{1}{2} \left(\partial^2 - m_h^2 \right) h^2
             + m_h m_V \sqrt{\frac{2}{\lambda}} V^2 h + m_V V^2 h^2
             - m_h \sqrt{\frac{\lambda}{2}} h^3 - \frac{1}{4} \lambda h^4
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     The first term of this Lagrangian is simply the kinetic energy term for the Higgs.
@@ -383,10 +386,12 @@
         \Lag_h &= \frac{1}{2} \left(\partial^2 - m_h^2 \right) h^2
             + \kv g_V V^2 h + \kvv g_{2V} V^2 h^2
             + \kl g_{\lambda} h^3 + \kappa_{2 \lambda} g_{\lambda} h^4
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     The new $\kappa$ terms are ratios of the coupling, as predicted by the Standard Model ($g$), to the true coupling value ($g'$).
+    The new $\kappa$ terms are ratios of the true coupling value ($g'$)
+        to the coupling as predicted by the Standard Model ($g$).
     For example, $\kappa_V \equiv \frac{g'_V}{g_V} = \frac{g'_V}{m_h m_V \sqrt{2/\lambda}}$.
     A $\kappa$ value of 1 indicates consistency with the coupling strength predicted by the Standard Model.
     Any value other than 1 would indicate deviation from the Standard Model,

@@ -6,12 +6,12 @@
         there are still many details that are as yet unconfirmed.
     In this chapter, I want to explain what these properties are and how they can be further studied.
     Moreover, I want to justify why the Higgs is so important as to be worth studying in the first place.
-    And in order to explain the importance of the Higgs Boson,
+    In order to explain the importance of the Higgs Boson,
         I will need to explain the structure of the Standard Model itself.
 
     The organization of the following sections will begin with a discussion of the purpose and layout of the Standard Model.
     Following this will be an introduction to the mathematical formalism the Standard Model is based around,
-        involving Group Theory, the calculus of variations, and symmetry.
+        involving group theory, the calculus of variations, and symmetry.
     Here I will introduce the reason for the original postulation of the Higgs, what it is, how it works, and how it fits into the Standard Model.
     Finally, the chapter will conclude with a motivation for further study into the Higgs Boson, and provide a technique to perform such study.
     Additionally, these last sections will introduce the purpose of my particular contribution to the study,
@@ -29,10 +29,10 @@
         and possesses an intrinsic spin of $\hbar/2$.
     These fundamental fermions, each with a different mass, are able to interact with each other through three ``fundamental interactions.''
     The three fundamental interactions (more commonly called ``Fundamental Forces'') are known as
-        the Electromagnetic, Weak, and Strong interactions (gravity is entirely absent in the Standard Model).
+        the Electromagnetic (EM), Weak, and Strong interactions (gravity is entirely absent in the Standard Model).
     All the interactions have an associated ``charge'' which can be ascribed to different particles,
-        and which govern how strongly that particle can interact with similarly charged particles.
-    Indeed, the various fermions are distinct primarily because of the charges they carry.
+        and which governs how strongly that particle can interact with similarly charged particles.
+    Indeed, the various categories of fermions are distinct primarily because of the charges they carry.
 
     \begin{figure}[h!]
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{theory/Standard_Model_of_Elementary_Particles}
@@ -50,7 +50,7 @@
     Each generation accordingly consists of two quarks and two leptons.
     These pairs, called ``doublets,'' behave the same across all generations.
     Among the leptons, every generation contains a doublet of a charged particle (electron, muon, tauon)
-        with EM charge of $\approx −1.6 \times 10^{-19}$ coulombs,
+        with EM charge of $\approx −1.6 \times 10^{-19}$ Coulombs,
         and an uncharged neutrino with no electric charge.
     For quarks, each doublet consists of an up-type quark (up, charm, top) with electromagnetic charge -2/3 that of the electron,
         and a down-type quark (down, strange, bottom) with 1/3 the charge of the electron.
@@ -86,7 +86,7 @@
         which can be described by how distance within it is measured.
     Just as the familiar three-dimensional (``Euclidean'') distance can be measured with the equation $x^2+y^2+z^2=r^2$,
         four-dimensional space-time (``Minkowskian'') distance is measured as $(ct)^2-x^2-y^2-z^2 = s^2$.
-    Classical physics assumes Euclidean space with time as a parameter,
+    Classical physics assumes Euclidean space with time as a parameter
         and so is unequipped to address four-dimensional space-time.
     Minkowski space-time can be accounted for in physics however,
         by subtly redefining how vector products are evaluated.
@@ -94,7 +94,7 @@
     \begin{equation}
         r^2 = \begin{pmatrix} x & y & z\end{pmatrix} \begin{pmatrix} x \\ y \\ z \end{pmatrix} = \sum\limits_{i=1}^3 x_i x_i
         \quad , \quad \begin{pmatrix}x_1 \\ x_2 \\ x_3 \end{pmatrix} = \begin{pmatrix} x \\ y \\ z \end{pmatrix} 
-        \quad.
+        \,.
     \end{equation}
 
     To permit vectors in arbitrary geometries,
@@ -111,7 +111,7 @@
             \begin{pmatrix} x \\ y \\ z \end{pmatrix} \\
         r^2 &= \sum\limits_{i=1}^3 \sum\limits_{j=1}^3 x_i g^i_j x_j
             = \sum\limits_{i=1}^3 x_i x^i
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     In the second line the metric tensor $g^i_j$ has been contracted with $x_j$,
@@ -127,10 +127,10 @@
             0 &  0 & -1 &  0 \\
             0 &  0 &  0 & -1
         \end{pmatrix}
-        \quad.
+        \,.
     \end{equation}
 
-    which permits the appropriate distance equation:
+    \noindent which permits the appropriate distance equation:
 
     \begin{equation} \begin{split}
         s^2 &= \begin{pmatrix} ct & x & y & z\end{pmatrix} 
@@ -144,12 +144,12 @@
         s^2 &= \sum\limits_{\mu=0}^3 \sum\limits_{\nu=0}^3 x_\mu g^\mu_\nu x_\nu
             \quad , \quad x_0 \equiv ct \\
         s^2 &= x_\mu g^\mu_\nu x_\nu = x_\mu x^\mu = (ct)^2-x^2-y^2-z^2
-        \quad.
+        \,.
     \end{split} \end{equation}
 
-    Another conventional quirk has been introduced between the final two lines,
+    Another convention has been introduced between the final two lines,
         wherein the summations over $\mu$ and $\nu$ are made implicit by the repetition of their indices.
-    Known as ``Einstein Summation Notation,'' this convention drastically simplifies equations in Field Theory
+    Known as ``Einstein Summation Notation,'' this drastically simplifies equations in Field Theory
         and will also be used throughout the rest of this thesis.
     With the description of space-time laid out,
         I can now provide a mathematical description for the particles that operate within it.
@@ -171,7 +171,7 @@
         $\Delta x \Delta p \geq \hbar/2$, which states that there is an absolute lower bound on the
         product of the uncertainty of a particle's position and momentum,
         defined by the Reduced Planck's Constant $\hbar$.
-    Because particles cannot have both well defined position and momentum,
+    Because particles cannot have both well-defined position and momentum,
         they can no longer be described as singular objects,
         and instead these properties are described as functions that extend the particle through 
         ``phase-space'' -- its range of possible positions and momenta.
@@ -199,16 +199,16 @@
         %}
     \begin{equation}
         p^\mu \equiv i \hbar \frac{\partial}{\partial x_\mu} = i \hbar \partial^\mu
-        \quad.
+        \,.
     \end{equation}
 
     Before proceeding to the final description of matter, I want to highlight one last notational convention called ``natural units.''
     A number of physical constants have been mentioned by now, and they are beginning to get cumbersome.
-    To address this, an effective (albeit comical) solution is to simply set all of these constants to identically \textit{one}.
+    To address this, an effective (albeit amusing) solution is to simply set all of these constants to identically \textit{one}.
     That is, I am setting the speed of light $c$ equal to the reduced Planck's constant $\hbar$,
         equal to the electric charge of the electron, equal to the permittivity of free space $\epsilon_0$,
         and so forth, all equal to 1:
-    \begin{equation} c=\hbar=q=\epsilon_0=1 \quad. \end{equation}
+    \begin{equation} c=\hbar=q=\epsilon_0=1 \,. \end{equation}
 
     There is a potentially profound philosophy to be gleaned from the fact that this can be done at all
         (e.g. for $c$ to literally be unit-less requires that space and time have the \textit{same} units of measurement),
@@ -225,9 +225,9 @@
     Fermions are described as manifestations of ``Dirac Fields,'' $\psi(x)$,
         which are defined as solutions to an equation of motion known as the Dirac Equation
     \begin{equation} \begin{split}
-        (\gamma^\mu p_\mu - m) \psi(x) = 0
-        \\ (i\gamma^\mu \partial_\mu - m) \psi(x) = 0
-        \quad.
+        (\gamma^\mu p_\mu - m) \psi(x) &= 0 \\
+        (i\gamma^\mu \partial_\mu - m) \psi(x) &= 0
+        \,.
     \end{split} \end{equation}
     The term $\gamma^\mu$ is a vector of matrices, simply called the gamma matrices.
     The derivation and implications of the gamma matrices are a fascinating subject all their own, 
@@ -241,7 +241,7 @@
         and are represented as
     \begin{equation}
         \psibar(x) \equiv \gamma^0 \psi^\dag(x)
-        \quad.
+        \,.
     \end{equation}
     Anti-matter particles are identical to their matter components in every way,
         except that their charges are inverted.
@@ -256,7 +256,7 @@
     This is accomplished by operating on the function $f$ with a transformation operator $U$ as
     \begin{equation}
         f \to f' = U f
-        \quad.
+        \,.
     \end{equation}
 
     To see how such an operator works in practice,
@@ -265,12 +265,12 @@
         its position can be transformed into a time that is an amount $\Delta t$ in the future by
     \begin{equation}
         x(t) \to x'(t) = x(t) + v \Delta t
-        \quad.
+        \,.
     \end{equation}
     Recognizing that $v$ is just $\frac{d}{dt} x(t)$, this can be rewritten as
     \begin{equation}
         x(t) \to x'(t) = x(t) + \Delta t \frac{d}{dt} x(t) = \left(1+\Delta t \frac{d}{dt}\right) x(t)
-        \quad.
+        \,.
     \end{equation}
 
     This term $\left(1+\Delta t \frac{d}{dt}\right)$ is the classical time-translation operator.
@@ -279,7 +279,7 @@
         except in the specific case for which $\Delta t$ is an infinitesimal $\delta t$:
     \begin{equation}
         x(t) \to x'(t) = \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right) x(t)
-        \quad.
+        \,.
     \end{equation}
 
     To produce a more general finite operator I can apply the infinitesimal operator an infinite number of times
@@ -288,16 +288,16 @@
         \\x(t) \to x'(t) &= \lim_{N \to \infty} \lim_{\delta t \to 0} \left(1+\delta t \frac{d}{dt}\right)^N x(t)
         \\x(t) \to x'(t) &= \lim_{N \to \infty} \left(1+\frac{\Delta t}{N} \frac{d}{dt}\right)^N x(t)
         \\x(t) \to x'(t) &= e^{\Delta t \frac{d}{dt}} x(t)
-        \quad.
+        \,.
     \end{split} \end{equation}
 
-    Where $\Delta t$ is again a finite time transformation,
+    Now $\Delta t$ is again a finite time transformation,
         and I have compressed the infinite product of terms using the power series expansion of the exponential function.
     In order to use this classical operator in quantum field theory it must of course be Hermitian,
         which requires it to have a factor `$i$' associated with it,
     \begin{equation} \begin{split}
         x(t) \to x'(t) = e^{i\Delta t \frac{d}{dt}} x(t)
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     Returning to Dirac Fields, which are functions of four-position $x_\mu$, this same transformation can be used
@@ -305,21 +305,21 @@
          $\frac{\partial}{\partial t} = \frac{\partial}{\partial x^0} = \partial_0$
 
     \begin{equation} \begin{split}
-    \psi(x) \to \psi'(x) = e^{\Delta x^0 i\partial_0} \psi(x)
-    \quad.
+    \psi(x) \to \psi'(x) = e^{\Delta x^0 i \partial_0} \psi(x)
+    \,.
     \end{split} \end{equation}
 
     Meanwhile, the Dirac anti-particle field transforms with a negative sign as
     \begin{equation} \begin{split}
-    \psibar(x) \to \psibar'(x) = e^{-\Delta x^0 \partial_0} \psibar(x)
-    \quad.
+    \psibar(x) \to \psibar'(x) = e^{-\Delta x^0 i \partial_0} \psibar(x)
+    \,.
     \end{split} \end{equation}
     
     The time translation operator is but one of a myriad of different transformation operators.
     However, all of the transformation operators used here take a similar form to this, appearing as
     \begin{equation} \begin{split}
         \psi(x) \to \psi'(x) = e^{ q \cdot \mathcal{F}_q } \psi(x)
-        \quad.
+        \,.
     \end{split} \end{equation}
     $\mathcal{F}_q$ is the transformation \textit{generator} (e.g.\ $i\partial_0$),
         and $q$ the amount to transform by (e.g.\ $\Delta t$)\footnote{
@@ -330,7 +330,7 @@
 
     These transforms fall under a larger realm of mathematics known as Group Theory,
         and are in turn called ``group transformations.''
-    The basic definition of a group is a set of elements which can be ``multiplied'' according to some rule,
+    The basic definition of a group is a set of elements which can be ``multiplied'' according to some rule
         and which satisfies the following four conditions\cite{Cheng_book}:
     \begin{itemize}
         \item Closure - the product of any two elements of the group is also an element of the group;
@@ -369,7 +369,7 @@
     One can then find the ``path'' of this Lagrangian which minimizes the ``Action,'' $\mathscr{A}$
     \begin{equation} %TODO: double check this!!
         \mathscr{A} = \int \Lag d^4 x
-        \quad.
+        \,.
     \end{equation}
 
     This minimization is performed using the four-dimensional Euler-Lagrange equations
@@ -394,7 +394,7 @@
     The Lagrangian of a Dirac field satisfying these symmetries takes the form
     \begin{equation} \label{eq:basic_fermionL}
         \Lag = \psibar (\gamma^\mu p_\mu - m) \psi = i \psibar \gamma^\mu \partial_\mu \psi - m \psibar \psi
-        \quad.
+        \,.
     \end{equation}
     As an example of the symmetry now described, I will reuse the time translation operator $e^{i\Delta x^0 \partial_0}$
 
@@ -403,7 +403,7 @@
             \left( e^{-i\Delta x^0 \partial_0} \psibar \right) (\gamma^\mu p_\mu - m) \left( e^{i\Delta x^0 \partial_0}\psi \right)
         \\  = e^{-i\Delta x^0 \partial_0 + i \Delta x^0 \partial_0} \psibar (\gamma^\mu p_\mu - m) \psi
         \\  = \psibar (\gamma^\mu p_\mu - m) \psi
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     \noindent Applying the Euler-Lagrange equations to this equation will separately return the Dirac Equation
@@ -440,7 +440,7 @@
     This group corresponds to phase shifts of a field, and the transformation takes the form
     \begin{equation}
         \psi(x) \to \psi'(x) = e^{i\theta} \psi(x)
-        \quad.
+        \,.
     \end{equation}
 
     %describe global vs local
@@ -455,7 +455,7 @@
     A local $U(1)$ transform would then take the form 
     \begin{equation}
         \psi(x) \to \psi'(x) = e^{i\theta(x)} \psi(x)
-        \quad.
+        \,.
     \end{equation}
     Noting that the phase-angle $\theta(x)$ is now a function of $x$.
 
@@ -470,7 +470,7 @@
             \left( e^{-i\theta(x)} \psibar \right) (\gamma^\mu p_\mu - m) \left( e^{i\theta(x)}\psi \right)
             \\ &= \left( e^{-i\theta(x)} \psibar \right) i\gamma^\mu \partial_\mu \left( e^{i\theta(x)}\psi \right)
                 - \left( e^{-i\theta(x)} \psibar \right) m \left( e^{i\theta(x)}\psi \right)
-        \quad.
+        \,.
     \end{split} \end{equation}
     In the mass term, the transform will cancel in the usual fashion.
     The momentum term however will \textit{not} cancel, as the derivative will also affect the position-dependent $\theta(x)$.
@@ -486,7 +486,7 @@
             - m \psibar(x) \psi(x)
         \\ &= - \psibar \left( \gamma^\mu \partial_\mu\theta(x) \right) \psi 
             + \psibar ( \gamma^\mu p_\mu - m ) \psi
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     %Show how to fix lagrangian
@@ -501,7 +501,7 @@
     where $\emc$ is a constant and the new function $A_\mu(x)$ is formulated such that it transforms under a $U(1)$ gauge rotation as
     \begin{equation}
         A_\mu(x) \to A'_\mu(x) = A_\mu(x) - \frac{1}{\emc} \partial_\mu \theta(x)
-        \quad.
+        \,.
     \end{equation}
 
     With this additional term, the Lagrangian becomes
@@ -554,7 +554,7 @@
     % Introduce SU(2) and SU(3)
     All of this complexity arose from the simple imposition of the $U(1)$ gauge symmetry upon the fermion Lagrangian.
     The full extent of interaction in the Standard Model can be realized by imposing then two more gauge group symmetries:
-        $SU(2)$, and $SU(3)$.
+        $SU(2)$ and $SU(3)$.
     Both of these groups behave in a similar manner to $U(1)$, with the transformations taking the forms
     \begin{equation} \begin{split}
         SU(2)&: e^{i \alpha^a(x) \sigma^a / 2}, a=\{1,2,3\}
@@ -581,7 +581,7 @@
     Similarly, the triplet nature of $SU(3)$ necessitates that the group operate on all three generations of fermions at once
     \begin{equation}
         \minimatrix{u\\c\\t} \to e^{i \xi^b \mathscr{F}^b / 2} \minimatrix{u\\c\\t}
-        \quad.
+        \,.
     \end{equation}
 
     Neither group operates uniformly across the fermions though.

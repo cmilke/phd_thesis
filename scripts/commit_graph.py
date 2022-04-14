@@ -29,13 +29,18 @@ total = insertions + deletions
 total = total[::-1].cumsum()[::-1]
 
 from matplotlib import pyplot as plt
-fig, (ax1, ax2) = plt.subplots(2, sharex=True)
-ax1.plot(datelist, insertions, color='green', ds='steps', label='Insertions')
-ax1.plot(datelist, deletions, color='red', ds='steps', label='Deletions')
-ax2.plot(datelist, total, color='purple', ds='steps', label='Cumulative')
+numbins = 30
+fig, (ax1, ax2) = plt.subplots(2, sharex=True, gridspec_kw={'height_ratios':(2,1)})
+#ax1.plot(datelist, insertions, color='green', ds='steps', label='Insertions')
+#ax1.plot(datelist, deletions, color='red', ds='steps', label='Deletions')
+#ax2.plot(datelist, total, color='purple', ds='steps', label='Cumulative')
+inserted, bins = ax1.hist(datelist, weights=insertions, bins=numbins, color='green', histtype='stepfilled', label='Insertions')[:2]
+deleted = ax1.hist(datelist, weights=deletions, bins=numbins, color='red', histtype='stepfilled', label='Deletions')[0]
+total = (inserted + deleted).cumsum()
+ax2.hist(bins[:-1], weights=total, bins=bins, color='purple', histtype='stepfilled', label='Cumulative')
 ax1.axhline()
 ax1.grid()
-ax1.legend()
+ax1.legend(loc='upper left')
 ax2.grid()
 ax2.tick_params(labelrotation=45 )
 fig.tight_layout()
