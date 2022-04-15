@@ -43,7 +43,7 @@
                 x(\alpha) &= x_R + d_0 \cos(\phi) + \rho \left[ \cos(\alpha) - \cos(\phi) \right] \\
                 y(\alpha) &= y_R + d_0 \sin(\phi) + \rho \left[ \sin(\alpha) - \sin(\phi) \right] \\
                 z(\alpha) &= z_R + z_0 - \rho \cot(\theta) (\alpha - \phi)
-                \quad.
+                \,.
             \end{split} \end{equation}
             %FIXME: you used 'r' in the figures, but rho in the equations. Fix one of them
 
@@ -155,8 +155,8 @@
                 whether it shared pixels,
                 if the track has any ``holes''\footnote{
                     A track hole is an absence of a space-point in detector material intersected by a track
-                    where an interaction would otherwise be expected.}
-                and its impact parameters with respect to the PV\cite{atlas_track_reco_performance}.
+                    where an interaction would otherwise be expected.
+                } and its impact parameters with respect to the PV\cite{atlas_track_reco_performance}.
             Tracks can be outright rejected depending on some of these criteria,
                 but are also assigned a score if they satisfy them.
             Higher track scores are attained through the number and type of clusters they pass through,
@@ -177,8 +177,10 @@
                 the resultant tracks can be used to identify a key piece of event information, 
                 called the \textit{Primary Vertex} (PV).
             When bunches collide in the IR of ATLAS, most of the collisions of a given bunch are fairly low energy.
-            Events which clear the L1 trigger however, typically do so because of the presence of a hard-scatter interaction\footnote{
-                Characterized as an interaction involving significant momentum transfer between partons.}.
+            Events which clear the L1 trigger however,
+                typically do so because of the presence of a hard-scatter interaction\footnote{
+                    Characterized as an interaction involving significant momentum transfer between partons.
+                }.
             Identifying the location along the beamline at which this hard-scatter interaction occurred is achieved via ``vertex-finding.''
             Points along $z$ from which particles originate are referred to as ``vertices.''
             They are identified in reconstruction by tracing the reconstructed tracks backwards
@@ -190,8 +192,8 @@
                 and whose tracks possess the largest scalar sum of squared transverse momentum
                     \cite{jet_energy_scale13TeV} \cite{primary_vertex_identification}.
                 \begin{equation}
-                    p_T^2 \textrm{ sum}  \equiv \sum\limits_{i \in \textrm{tracks}} p_{T,i}^2 \quad.
-                    \quad.
+                    p_T^2 \textrm{ sum}  \equiv \sum\limits_{i \in \textrm{tracks}} p_{T,i}^2
+                    \,.
                 \end{equation}
             Once the primary vertex is identified, the high resolution track fitting step is rerun,
                 but now with the PV set as the reference point $R$ instead of the beamspot.
@@ -204,7 +206,7 @@
 
         Moving beyond the inner tracker and extending into the calorimeters,
             focus shifts from tracks to the objects known as ``jets.''
-        Jets are an algorithm meant to associate related reconstructed objects in the detector elements
+        Jets are the result of an algorithm meant to associate related reconstructed objects in the detector elements
             in order to produce a more comprehensive representation of the physical behavior of the particles traversing those elements.
         Jet reconstruction encompasses all elements of ATLAS,
             but it begins in the calorimeter system in the form of ``topological clusters.''
@@ -214,11 +216,11 @@
         Topo-clusters are the reconstructed structure meant to address the issue of noise in the calorimeters
             by emphasizing regions with a high energy-to-noise ratio.
         As such, cell clustering is based on a ``signal-significance'' metric,
-        \begin{equation}
-            \xi^{\textrm{EM}}_{\textrm{cell}} \equiv \frac{
-                E^{\textrm{EM}}_{\textrm{cell}} }{
-                \sigma^{\textrm{EM}}_{\textrm{noise, cell}} } \quad,
-        \end{equation}
+            \begin{equation}
+                \xi^{\textrm{EM}}_{\textrm{cell}} \equiv \frac{
+                    E^{\textrm{EM}}_{\textrm{cell}} }{
+                    \sigma^{\textrm{EM}}_{\textrm{noise, cell}} } \,,
+            \end{equation}
             where $E^{\textrm{EM}}_{\textrm{cell}}$ is the energy of an individual cell calibrated to the electromagnetic scale
             (see Section \ref{sec:jet_calibration}).
         $\sigma^{\textrm{EM}}_{\textrm{noise, cell}}$ is the noise factor of that cell, calculated for that particular LHC run.
@@ -334,7 +336,7 @@
             \begin{equation} \begin{split}
                 \textrm{sign}_{d0} &= \textrm{sign}(\sin(\phi_{\textrm{jet}} - \phi_{\textrm{track}}) \cdot d_{0,\textrm{track}}) \\
                 \textrm{sign}_{z0} &= \textrm{sign}((\eta_{\textrm{jet}} - \eta_{\textrm{track}}) \cdot z_{0,\textrm{track}})
-                \quad.
+                \,.
             \end{split} \end{equation}
             Physically, this sign convention is to distinguish tracks which are likely to have actually been part of the jet (with a positive sign)
                 from those likely originating from pile-up vertices (negative sign).
@@ -373,14 +375,13 @@
             IP2D and IP3D are then constructed as likelihood ratios of the product of all track-values for a jet.
             For example, the likelihood ratio of a jet being a b-jet versus a light-jet\footnote{
                     A light-jet is defined as a jet produced from the hadronization of a gluon or
-                        an up, down, or strange quark.}
-                would be based on the PDF of the impact parameter for
+                        an up, down, or strange quark.
+                } would be based on the PDF of the impact parameter for
                 b-jets ($\textrm{PDF}_b$) to that for light-jets ($\textrm{PDF}_l$)
             \begin{equation}
                 R(t_1, t_2, ... t_N) \equiv \frac{\prod_{i=1}^N \textrm{PDF}_b(t_i)}{\prod_{i=1}^N \textrm{PDF}_l(t_i)}
-                \quad.
+                \,.
             \end{equation}
-
             These distributions are subsequently used as a discriminant to distinguish b-jets and charm-jets from light-jets
                 (see Fig. \ref{fig:ip3dsig})\cite{thesis_giacinto}.
 
@@ -511,10 +512,10 @@
                     Input variables, hidden layers, nodes, and epochs have already been discussed.
                     ``Maxout layers'' are layers in the network in which the nodes, rather than a function of their inputs,
                         are simply the maximum of the input values.
-                    The ``learning rate'' controls how much the network weights are ajusted after each epoch.
+                    The ``learning rate'' controls how much the network weights are adjusted after each epoch.
                     Too low and the network will take excessively long to train,
                         but too high and the network may adjust beyond the optimal solution.
-                    A ``minibatch'' is where the network training data sample is split into multiple batches and an epoch is trained over each seperately.
+                    A ``minibatch'' is where the network training data sample is split into multiple batches and an epoch is trained over each separately.
                     The overall adjustments from the epoch are determined by combining the adjustments determined from each batch.
                 }
                 \label{tab:DL1_hyperparams}

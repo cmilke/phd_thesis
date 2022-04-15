@@ -75,8 +75,8 @@
 \section{Statistical Mathematics}
 
     I have thus far established how the analysis has collected its data,
-        how it has estimated the amount of background present in that data,
-        and how it has modeled the hypothesis for the HH process to be tested with that data.
+        how it has estimated the amount of background present in those data,
+        and how it has modeled the hypothesis for the HH process to be tested with those data.
     With these assembled, the final step is to arrange them together in order to make a definitive statement
         as to the validity or incompatibility of the hypothesis with the provided data.
     More plainly, the questions for this chapter are:
@@ -92,12 +92,12 @@
     % i.e. that with a coin toss, the number to tosses is entirely determined by me, and is thus fixed.
     % For decay and such, the number of events is completely random, and what is fixed is how much time (luminosity)
     %     the experiment is given.
-    Like most particle physics processes, the $VBF \to HH \to 4b$ process results in a need to count outcomes,
+    Like most particle physics processes, the \vbfhhproc process results in a need to count outcomes,
         a fundamentally Poissonian situation.
     The number $n$ of di-Higgs process that are observed in ATLAS can then be modeled with a Poisson distribution\cite{cranmer2015practical}:
     \begin{equation}
         P(n|\nu) = \frac{ \nu^n e^{-\nu} }{n!}
-        \quad.
+        \,.
     \end{equation}
     This function $P(n|\nu)$ can be read as ``the probability $P$ of obtaining $n$ events \textit{given} the parameter $\nu$.''
     That is, for a process which is expected on average to produce $\nu$ number of events,
@@ -133,11 +133,12 @@
     Its goal is to find the probability that, were my hypothesis correct,
         I would obtain data with a value \textit{at least as extreme} as what I measured\footnote{
             There are actually several different variations of a p-test;
-            this is specifically a one-sided p-test}.
+            this is specifically a one-sided p-test.
+        }.
     So the p-value for an event rate of 52, given an expected average of 60, can be found by taking:
     \begin{equation}
         \textrm{p-value}(N=52) = P(0|60) + P(1|60) + ... + P(51|60) ... P(52|60) = \sum\limits_{n=0}^N P(n|60)
-        \quad.
+        \,.
     \end{equation}
     This is best visualized using the \textit{cumulative} probability distribution function (Fig. \ref{fig:poisson_toy_sig:Cpdf}).
     In this example, the p-value would be 0.17.
@@ -164,7 +165,7 @@
         but in this analysis the p-value of the signal alone is given by
     \begin{equation}
         P_S = \frac{P_{S+B}}{1 - P_B}
-        \quad.
+        \,.
     \end{equation}
     Where $P_{S+B}$ is the p-value of the hypothesis assuming the signal is present,
         and $P_B$ is the p-value of the background-only hypothesis
@@ -325,7 +326,7 @@
     \begin{equation} \begin{split}
         \nu(\kvv,\kl,\kv) &= S(\kvv,\kl,\kv) + B \\
         \nu(\kvv,\kl,\kv) &= \vec{g}(\kvv,\kl,\kv) \bullet \vec{S} + B
-        \quad .
+        \,.
     \end{split} \end{equation}
 
     The two-dimensional $\kappa$ limits can be seen in Figs \ref{fig:limit_slice_kv_1p0}-\ref{fig:limit_slice_k2v_1p0},
@@ -468,7 +469,7 @@
         in terms of individual bins $i$:
     \begin{equation}
         \nu_i(\mu) = \mu S_i + B_i
-        \quad.
+        \,.
     \end{equation}
     Instead of a probability distribution function, now a ``likelihood'' function $L$ will be used,
         which is the joint probability of the observed data $n$ in each of the bins
@@ -476,7 +477,7 @@
     \begin{equation}
         L(n,\mu) = \prod \limits_{i=1}^{N} P(n_i | \nu_i)
             = \prod \limits_{i=1}^{N} \frac{ (\mu S_i + B_i)^{n_i} e^{\mu S_i + B_i} }{n_i!}
-        \quad.
+        \,.
     \end{equation}
     Where $i$ runs over all the $N$ bins.
     Note that unlike a PDF, the sum of all outcomes from the likelihood function will \textit{not} sum to unity,
@@ -489,7 +490,7 @@
         where $\Theta$ is a product of five scaling values 
     \begin{equation}
         \Theta = \prod \limits_{a=0}^{4}  \theta^a
-        \quad.
+        \,.
     \end{equation}
     These scaling values, called ``nuisance parameters,''
         correspond to the four \mhh shape uncertainties $\sigma_i^a, a\in{1,2,3,4}$
@@ -504,7 +505,7 @@
             \prod \limits_{a=0}^4 \frac{1}{\sigma_i^a \sqrt{2\pi}} e^{
                 -\frac{1}{2}\left(\frac{n_i- (\mu S_i + \Theta B_i)}{\sigma_i^a}\right)^2
             }
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     Finally, in order to increase sensitivity further, events are split into two different categories
@@ -514,7 +515,7 @@
         L(n,\mu,\Theta) = \prod \limits_{j=1}^{2}
              \prod \limits_{i=1}^{N} P_{\textrm{poiss}}(n_{ij} | \nu_{ij}) 
              \prod \limits_{a=0}^{4} P_{\textrm{gauss}}(n_{ij} | \nu_{ij}, \sigma_{i}^a) 
-        \quad.
+        \,.
     \end{equation}
 
     % Discuss nuissance parameter fitting
@@ -538,12 +539,12 @@
     It is then maximized with regard to both $\mu$ and the nuisance parameters such that
     \begin{equation}
         \prod \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} \frac{\partial}{\partial \mu} L(n,\mu,\Theta) |_{\Theta=\hat \Theta} |_{\mu=\hat \mu} = 0
-        \quad.
+        \,.
     \end{equation}
     A test statistic $t$ can now be constructed with $\lambda$, as
     \begin{equation}
         t = -2 \ln{\lambda} = -2 \ln{\frac{L(\mu, \hat {\hat \Theta})}{L(\hat \mu, \hat \Theta)}}
-        \quad.
+        \,.
     \end{equation}
     It is worth briefly reviewing what this formula and its pieces mean before moving onto the last step.
     The likelihood $L$ is just the joint probability that every bin of the observed data would have the values they do,
@@ -553,7 +554,7 @@
     Their ratio $\lambda$ represents how close $L$ is to being maximally likely for the given set of observed data and models.
     $\lambda$ can at most be equal to 1, indicating that $L$ is nearly equal to $\hat L$,
         which in turn indicates that the model fits the observed data as well as it can for any given value of $\mu$.
-    In turn, a value near 0 indicates that the observed data is exceedingly unlikely to have come from the model with the given $\mu$,
+    In turn, a value near 0 indicates that the observed data are exceedingly unlikely to have come from the model with the given $\mu$,
         compared to the much more likely model based on the optimal value of $\mu$.
     The test statistic $t$ then has a simple interpretation:
         values of $t$ close to 0 indicate high likelihood,
@@ -567,7 +568,7 @@
             -2 \ln{\frac{L(\mu, \hat {\hat \Theta})}{L(\hat \mu, \hat \Theta)}} & 0 \leq \hat \mu \leq \mu,\\
             0 & \mu < \hat \mu 
         \end{cases}
-        \quad.
+        \,.
     \end{equation}
     The middle condition is simply $t$, with the top and bottom edge cases being the defining traits of \qtil.
     \qtil in particular is used for this analysis because of these piece-wise conditions,

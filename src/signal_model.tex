@@ -45,14 +45,14 @@
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_H1_pt}
             \captionsetup{justification=centering} \caption{
                 Truth-level display of the transverse momentum of the leading-$p_T$ Higgs boson
-                    for various values of the scaling factors
+                    for various values of the scaling factors.
             }
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth}
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_H2_pt}
             \captionsetup{justification=centering} \caption{
                 Truth-level display of the transverse momentum of the sub-leading-$p_T$ Higgs boson
-                    for various values of the scaling factors
+                    for various values of the scaling factors.
             }
         \end{subfigure} \\
 
@@ -60,7 +60,7 @@
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_HH_dEta}
             \captionsetup{justification=centering} \caption{
                 Truth-level display of the pseudo-rapidity gap between the Higgs pair
-                    for various values of the scaling factors
+                    for various values of the scaling factors.
             }
         \end{subfigure} \\
         \caption{}
@@ -99,9 +99,9 @@
            \label{tab:mcsample}
            \footnotesize
            \begin{tabular}{l l l S l}
-           \toprule
+           \hline
                DSID  &	Type and parameters  &	Generator  &{AMI $\sigma$ [fb]}& Total gen events (MC16a+d+e) \\
-               \midrule
+               \hline
                502970  &	VBF \kl=1, \kvv=1, \kv=1    &  MadGraph+Pythia8 &	1.1836  & $399000  +520000  +678000  $\\
                502971  &	VBF \kl=1, \kvv=0, \kv=1    &  MadGraph+Pythia8 &	18.593  & $400000  +520000  +677000  $\\
                502972  &	VBF \kl=1, \kvv=0.5, \kv=1  &  MadGraph+Pythia8 &	6.6177  & $199000  +260000  +338000  $\\
@@ -115,7 +115,7 @@
                502980  &	VBF \kl=1, \kvv=1, \kv=1.5  &  MadGraph+Pythia8 &	45.412  & $200000  +259000  +340000  $\\
                502981  &	VBF \kl=0, \kvv=0, \kv=1    &  MadGraph+Pythia8 &	25.4    & $199000  +260000  +340000  $\\
                507684  &	VBF \kl=-5, \kvv=1, \kv=0.5 &  MadGraph+Pythia8 &	4.45    & $200000  +260000  +340000  $\tnote{a}\\
-           \bottomrule
+           \hline
            \end{tabular}
            \begin{tablenotes}
             \item[a] 450050: This dataset was produced after the others based on the studies of Section \ref{sec:solidarity}
@@ -242,7 +242,7 @@
     The signal distribution modeling is thus performed by directly combining the reconstructed \mhh distributions of post-selection signal samples.
 
     \begin{table}[] \centering
-    \caption{6-Term VBF Combination Sample Variations}
+    \caption{6-Term VBF Combination Sample Variations.}
     \label{tab:vbf_hh_6term_varlist}
     \begin{tabular}{ |l|l|l| }
         \hline
@@ -565,9 +565,10 @@
         the 12 original samples plus one prospective MC sample.
     Thus, each Solidarity surface integral histogram corresponded to 13 samples,
         and served as a figure of merit for the 13th (the prospective) sample's performance\footnote{
-    I would like to note that this brute-force application of Solidarity is far from efficient,
-        and any future attempts at producing MC with this metric
-        would do well to use a more sophisticated optimization technique}.
+            I would like to note that this brute-force application of Solidarity is far from efficient,
+                and any future attempts at producing MC with this metric
+                would do well to use a more sophisticated optimization technique.
+        }.
 
     \begin{figure}[tbh]
         \begin{subfigure}{0.5\textwidth}

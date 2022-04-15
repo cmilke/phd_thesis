@@ -58,7 +58,7 @@
         they cause a cascade of electrical signals and scattering effects.
     This highly complex set of interactions is modeled by the Geant4 framework.
     Collectively, these three programs are designed to
-        generate a faithful reproduction of how a collection of VBF \to HH events would appear,
+        generate a faithful reproduction of how a collection of \hhproc events would appear,
         were they to occur in data collected from ATLAS.
 
 
@@ -133,7 +133,7 @@
     The last step is to digitize these material responses so as to emulate the electrical signals of a real detector.
     All of the event response information, as well as an abundance of \textit{truth} information related to the simulated particles,
         is exported to a data format identical in format to that produced by the ATLAS trigger system.
-    This simulated data can then be processed in the same manner as real data,
+    These simulated data can then be processed in the same manner as real data,
         allowing critical studies to be performed that in turn produce
         a far better understanding of the data's underlying physics.
 
@@ -160,7 +160,8 @@
         in parallel to the ATLAS detector observing collisions.
     The trigger system processes all ATLAS events immediately after readout,
         ultimately reducing the 40 MHz bunch crossing rate to a data output rate of 1 kHz.
-    The data that survive this rapid selection are read out to disk and distributed to individual research teams for more sophisticated ``offline'' analysis later.
+    The data that survive this rapid selection are read out to disk
+        and distributed to individual research teams for more sophisticated ``offline'' analysis later.
 
     \begin{figure}[h]
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{trigger/trigger_flow}
@@ -187,7 +188,7 @@
 
     \begin{figure}[h]
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{trigger/facilities}
-        \caption{General layout of buildings and facilities at LHC Point 1, site of ATLAS \cite{trigger_tdr}}
+        \caption{General layout of buildings and facilities at LHC Point 1, site of ATLAS \cite{trigger_tdr}.}
         \label{fig:facilities}
     \end{figure}
 
@@ -214,7 +215,7 @@
 
         \begin{figure}[h]
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{trigger/trigger_towers}
-            \caption{Structure of trigger towers and Regions of Interest \cite{L1_calo_run1}}
+            \caption{Structure of trigger towers and Regions of Interest \cite{L1_calo_run1}.}
             \label{fig:trigger_towers}
         \end{figure}
 
@@ -241,7 +242,9 @@
     \subsection{High Level Trigger}
 
         After the L1 Trigger has reduced the event rate to 100 kHz, the software-based High Level Trigger is used to further reduce the event rate to the final output of \textasciitilde 1 kHz.
-        Located in the SCX1 building (Fig. \ref{fig:facilities}) at the surface of P1 (again to minimize latency), the HLT uses data from all detector elements to completely reconstruct the event as it occurred in ATLAS, and performs its selections based on this reconstructed event.
+        Located in the SCX1 building (Fig. \ref{fig:facilities}) at the surface of P1 (again to minimize latency),
+            the HLT uses data from all detector elements to completely reconstruct the event as it occurred in ATLAS,
+            and performs its selections based on this reconstructed event.
         Different physics processes and particles, known as physics ``signatures,'' are reconstructed in different ways, and have different triggers based around them. 
         The main signatures used in ATLAS are: minimum bias signatures, electron/photons (Egamma), muons, jets, taus, missing transverse energy (MET), b-jets (as in jets from bottom quarks), and B-physics (as in B-hadrons).
         The process of reconstruction and the trigger algorithms applied to these reconstructed signatures are based on offline software algorithms which have been repurposed for online use.
@@ -260,11 +263,11 @@
             \label{fig:data_delivered}
         \end{figure}
 
-        Over its three operational years, Run 2 has resulted in a total of 139 \ifb of data which has passed the online triggers
+        Over its three operational years, Run 2 has resulted in a total of 139 \ifb of data which have passed the online triggers
             (see Fig. \ref{fig:data_delivered}).
         Due to an inefficiency in the vertex reconstruction present during 2016,
-            only 125.9 \ifb of that data are actually used in my analysis.
-        Nonetheless, with a wealth of both simulated and true data now available, 
+            only 125.9 \ifb of those data are actually used in my analysis.
+        Nonetheless, with a wealth of both simulated and true data at last available, 
             physics analysis can now begin.
         On the one hand is a set raw electrical signals, with no indication of which signals correspond to what.
         On the other is a collection of simulated data signals,
