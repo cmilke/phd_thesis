@@ -16,7 +16,8 @@
 
 
     % Purpose
-    The overall function of the ATLAS detector is to accurately record the physical properties of the particle interactions which take place in the detector's Interaction Region (IR).
+    The overall function of the ATLAS detector is to accurately record the physical properties
+        of the particle interactions which take place in the detector's IR.
     Most of the particles of interest are extremely short-lived, and so their properties cannot be measured directly.
     Instead, these particles must be reconstructed based on detection of their decay products.
     Accurate reconstruction of these original particles is critically dependent on measuring, as precisely as possible, the physical properties of these decay products.
@@ -61,7 +62,7 @@
     Their location between the IR and Muon System is based on the fact that calorimeters function by absorbing all of a particle's energy, thereby stopping them.
     Since their function necessarily stops particles, they must be placed outside the range of the tracking system, as otherwise the trackers would never see particles.
     The Muon system however functions best when only muons traverse it, and so the calorimeters are intentionally placed between the IR and the Muon Spectrometer in order to shield the Muon system from unwanted hadrons.
-    Thus, at the outer edge of ATLAS, is the Muon Spectrometer,
+    Thus, at the outer edge of ATLAS is the Muon Spectrometer,
         which has been built to measure the momentum and trajectories of muons leaving the detector volume.
 
 % Then split off into sections for the individual subsystems
@@ -200,7 +201,10 @@
     To do this, two different materials are used in the detector's construction, referred to as the active and inactive materials.
     The active material is the material which actually measures the energy of particles, using the same or similar techniques as the tracking systems discussed earlier.
     The inactive material in turn has no detection capabilities, but instead exists purely for the purpose of the aforementioned impedance of particle trajectories.
-    Typically, inactive calorimeter material is a very dense and heavy high $Z$ medium, in order to maximize the number of particle interactions per unit distance.
+    Typically, inactive calorimeter material is a very dense and heavy high-$Z$ medium\footnote{
+            $Z$ referring to \textit{atomic number},
+                so high-$Z$ materials are those consisting of elements with heavy atomic nuclei (e.g.\ iron, lead, tungsten, etc.).
+        }, in order to maximize the number of particle interactions per unit distance.
     The active and inactive materials are arranged in alternating layers, so that the active material gets a snapshot of the way the particle is depositing energy across the entire length of the detector.\cite{energy_measurement}
 
     \begin{figure}
@@ -292,7 +296,7 @@
     It thus falls to the Muon Spectrometer to provide this critical information of muon momentum, which all the other sensors are unable to deliver.
 
     The Muon Spectrometer system is immense.
-    The Muon barrels start at a radii of 5 m from the beam axis and extend all the way out to 10 m.
+    The Muon barrels start at a radius of 5 m from the beam axis and extend all the way out to 10 m.
     The endcaps start at a $|z|$ of roughly 7.4 m, and proceed to an extent of 21.5 m.
     Such size poses a challenge, as the Muon system must provide tracking across its entire volume.
     %Its distance from the interaction point ameliorates this issue though, as it permits the Muon detectors to operate at much lower spatial resultions than the inner detectors, while still retaining similar anngular resolution.
@@ -328,11 +332,13 @@
 
         The last set of sensors in the ATLAS detector, the Trigger Chambers of the Muon system act to augment the information obtained from the Precision Track Chambers, as well as provide additional rapid information for the trigger system.
         It provides coverage in the range $|\eta| < 2.4$, only slightly less than that of the Track Chambers.
-        The barrel and end-cap use two different technologies, Resistive Plate Chambers (RPCs) in the barrel, and Thin Gap Chambers (TGCs) in the endcaps.
+        The barrel and end-cap use two different technologies:
+            Resistive Plate Chambers (RPCs) in the barrel, and Thin Gap Chambers (TGCs) in the endcaps.
         Both technologies are designed with extremely fast signal response times (15-25 ns) so that their measurements can be used to tag individual-beam crossings.
         %ok but why different techs?
         RPCs follow the same principle of operation as drift tube chambers, but the anode and cathodes are both conductive plates that maintain an electric potential in the gaseous mixture between them.
-        The TGCs are multi-wire drift tube chambers with very small gaps between the anode wires and the cathode strips; indeed, the anode-cathode gaps are 1.4 mm are smaller than the anode-anode gaps of 1.8 mm.
+        The TGCs are multi-wire drift tube chambers with very small gaps between the anode wires and the cathode strips;
+            indeed, the anode-cathode gaps of 1.4 mm are smaller than the anode-anode gaps of 1.8 mm.
 
     \input{tables/atlas/muon_specs.tex}
 
@@ -345,7 +351,7 @@
         aggregated into anodes of different forms,
         whereupon they are funneled through a labyrinth of circuitry.
     Most of this readout circuitry is designed to amplify these loose electron currents,
-        convert the analogue currents to digital signals,
+        convert the analog currents to digital signals,
         and then store the digital signals into temporary buffers.
     The sheer quantity of channels present across all of ATLAS's sub-detectors ensures that
         reading all of these signals out takes a not insignificant amount of time.

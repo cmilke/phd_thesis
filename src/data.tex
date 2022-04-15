@@ -3,12 +3,12 @@
 \section{Introduction}
     
     ATLAS is responsible for collecting all the experimental data required for this analysis,
-        but that data is of limited use without knowing how to interpret it.
+        but those data are of limited use without knowing how to interpret them.
     Without understanding how the key features of a physics interaction manifest within the electronics readout
         it is impossible to distinguish signal events from any other bunch crossing.
     Chapter \ref{chapter:theory} explained the theoretical motivation for this analysis.
     The past two chapters have focused entirely on the hardware necessary to produce and observe particle physics interactions.
-    If falls on this chapter to describe how these two notions --
+    It falls on this chapter to describe how these two notions --
         mathematical equations and electronic circuits -- can be meshed into a single comparable concept.
     To compare the intangible and the physical on the same terms,
         one must enter the realm of software and digital data.
@@ -58,7 +58,7 @@
         they cause a cascade of electrical signals and scattering effects.
     This highly complex set of interactions is modeled by the Geant4 framework.
     Collectively, these three programs are designed to
-        produce a faithful reproduction of how a collection of VBF \to HH events would appear,
+        generate a faithful reproduction of how a collection of VBF \to HH events would appear,
         were they to occur in data collected from ATLAS.
 
 
@@ -130,15 +130,15 @@
 
     Geant4 additionally simulates the response of materials to these particle interactions,
         allowing energy and charge readouts to be simulated as they would be found within detector elements.
-    The last step is to digitize these material responses to emulate the of electrical signals of a real detector.
+    The last step is to digitize these material responses so as to emulate the electrical signals of a real detector.
     All of the event response information, as well as an abundance of \textit{truth} information related to the simulated particles,
         is exported to a data format identical in format to that produced by the ATLAS trigger system.
     This simulated data can then be processed in the same manner as real data,
         allowing critical studies to be performed that in turn produce
-        a far better understanding of the physics underlying the data.
+        a far better understanding of the data's underlying physics.
 
-    On a more immediately relevant note, this data can be run through a variety of filtering algorithms,
-        in order to test how useful these algorithms and their parameters are.
+    On a more immediately relevant note, these data can be run through a variety of filtering algorithms,
+        in order to test how useful are these algorithms and their parameters.
     These algorithms must be able to limit the throughput of events,
         without removing too many events of interest.
     Once a satisfactory level of performance is achieved these algorithms can be applied to the real ATLAS detector,
@@ -150,10 +150,10 @@
     The amount of data output by the ATLAS detector is immense and overwhelming.
     Reading out every single bunch crossing would require phenomenal bandwidth and would take far too long to process.
     To counteract this overabundance of data, ATLAS relies on an on-site bunch crossing filtering system to drastically reduce the throughput.
-    Known as the ATLAS trigger system, this critical piece of infrastructure constitutes the last step of data taking,
+    Known as the ATLAS trigger system, this critical piece of infrastructure constitutes the last step of data taking
         and the first step of physics analysis.
 
-    The trigger system is a series of hardware and software level algorithms designed
+    The trigger system is a series of hardware- and software-level algorithms designed
         to quickly identify bunch crossing ``events'' which may be of interest to physics analysis,
         while discarding the rest.
     Referred to as ``online'' analysis, these algorithms perform event selection live,
@@ -180,7 +180,7 @@
     There are hundreds of different trigger chains, each permitting different combinations of kinematics.
     An event is read out if it passes any one of these trigger chains, and is labeled in data with all the trigger chains it passes.
     The trigger chains used in ATLAS were largely decided upon before the beginning of the Run 2 data taking period\footnote{
-        Some trigger chains were introduced later, as the trigger menu can evolve mid-run
+            Some trigger chains were introduced later, as the trigger menu can evolve mid-run.
         }, based on input from various analysis teams.
     This defined list of trigger chains comprise what is known as the ``trigger menu,'' and ultimately determines what kinds of physics processes ATLAS analyses have available.
     The following sections describe broadly how the two levels of the trigger system work, and later chapters will focus on which trigger menu items are used in the di-Higgs analysis specifically .
