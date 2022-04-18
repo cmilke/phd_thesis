@@ -1,19 +1,19 @@
 \section{Introduction}
 
-    The Higgs Boson sits as the crown jewel of a grand overarching theory of the behavior of the universe,
+    The Higgs boson sits as the crown jewel of a grand overarching theory of the behavior of the universe,
         known as the Standard Model of Particle Physics.
     While its recent discovery has shed light on many of its key properties,
         there are still many details that are as yet unconfirmed.
     In this chapter, I want to explain what these properties are and how they can be further studied.
     Moreover, I want to justify why the Higgs is so important as to be worth studying in the first place.
-    In order to explain the importance of the Higgs Boson,
+    In order to explain the importance of the Higgs boson,
         I will need to explain the structure of the Standard Model itself.
 
     The organization of the following sections will begin with a discussion of the purpose and layout of the Standard Model.
     Following this will be an introduction to the mathematical formalism the Standard Model is based around,
         involving group theory, the calculus of variations, and symmetry.
     Here I will introduce the reason for the original postulation of the Higgs, what it is, how it works, and how it fits into the Standard Model.
-    Finally, the chapter will conclude with a motivation for further study into the Higgs Boson, and provide a technique to perform such study.
+    Finally, the chapter will conclude with a motivation for further study into the Higgs boson, and provide a technique to perform such study.
     Additionally, these last sections will introduce the purpose of my particular contribution to the study,
         and lay the groundwork for the techniques used in Chapter \ref{chapter:signal}.
 
@@ -28,8 +28,8 @@
         defined by the fact that it contains no discernible substructure (it is ``fundamental'')
         and possesses an intrinsic spin of $\hbar/2$.
     These fundamental fermions, each with a different mass, are able to interact with each other through three ``fundamental interactions.''
-    The three fundamental interactions (more commonly called ``Fundamental Forces'') are known as
-        the Electromagnetic (EM), Weak, and Strong interactions (gravity is entirely absent in the Standard Model).
+    The three fundamental interactions (more commonly called ``fundamental forces'') are known as
+        the electromagnetic (EM), weak, and strong interactions (gravity is entirely absent in the Standard Model).
     All the interactions have an associated ``charge'' which can be ascribed to different particles,
         and which governs how strongly that particle can interact with similarly charged particles.
     Indeed, the various categories of fermions are distinct primarily because of the charges they carry.
@@ -44,15 +44,15 @@
 
     There are twelve distinct elementary fermions (see Fig. \ref{fig:sm_particles}),
         which are split evenly into two subgroups, called quarks and leptons.
-    Quarks have ``color'' charge associated with the Strong Interaction,
-        which leptons lack (and thus cannot interact via the Strong Interaction at all).
+    Quarks have ``color'' charge associated with the strong interaction,
+        which leptons lack (and thus cannot interact via the strong interaction at all).
     Both classes of particles -- quarks and leptons -- are divided into three ``generations'' of progressively heavier particles.
     Each generation accordingly consists of two quarks and two leptons.
     These pairs, called ``doublets,'' behave the same across all generations.
     Among the leptons, every generation contains a doublet of a charged particle (electron, muon, tauon)
         with EM charge of $\approx −1.6 \times 10^{-19}$ Coulombs,
         and an uncharged neutrino with no electric charge.
-    For quarks, each doublet consists of an up-type quark (up, charm, top) with electromagnetic charge -2/3 that of the electron,
+    For quarks, each doublet consists of an up-type quark (up, charm, top) with EM charge -2/3 that of the electron,
         and a down-type quark (down, strange, bottom) with 1/3 the charge of the electron.
     In addition to the fermions, there is also an entirely separate class of spin-1 particles, called gauge bosons,
         which play a fundamental role in the aforementioned interactions.
@@ -116,7 +116,7 @@
         indicated by the now superscript $x^i$.
     This shorthand convention is called \textit{covariant} notation, and will be used extensively from now on.
 
-    For three-dimensional Euclidean space the metric tensor is just the Identity matrix.
+    For three-dimensional Euclidean space the metric tensor is just the identity matrix.
     Four-dimensional space-time is encoded in the Minkowski metric
     \begin{equation}
         g = \begin{pmatrix}
@@ -145,7 +145,7 @@
 
     Another convention has been introduced between the final two lines,
         wherein the summations over $\mu$ and $\nu$ are made implicit by the repetition of their indices.
-    Known as ``Einstein Summation Notation,'' this drastically simplifies equations in Field Theory
+    Known as ``Einstein summation notation,'' this drastically simplifies equations in particle physics
         and will also be used throughout the rest of this thesis.
     With the description of space-time laid out,
         I can now provide a mathematical description for the particles that operate within it.
@@ -157,7 +157,7 @@
 % Operator principle (hermition operators)
 \section{Describing Particles: Quantum Field Theory}
 
-    Quantum Field Theory is the mathematical framework the underlies the Standard Model,
+    Quantum field theory (QFT) is the mathematical framework the underlies the Standard Model,
         which arises as the confluence of special relativity and quantum mechanics.
     %A comprehensive description of quantum mechanics is less straight-forward than for special relativity,
     %    and its axioms vary depending on the particular formulation used.
@@ -169,13 +169,13 @@
         \end{equation}
         which states that there is an absolute lower bound on the
         product of the uncertainty of a particle's position and momentum,
-        defined by the Reduced Planck's Constant $\hbar$.
+        defined by the reduced Planck's constant $\hbar$.
     Because particles cannot have both well-defined position and momentum,
         they can no longer be described as singular objects,
         and instead these properties are described as functions that extend the particle through 
         ``phase-space'' -- its range of possible positions and momenta.
     The precise form and scope of these functions varies depending on the application and context,
-        but in Quantum Field Theory particles are collectively described by a particle \textit{field},
+        but in QFT particles are collectively described by a particle \textit{field},
         which exists at all points in space-time;
         individual particles are merely perturbations of the field.
     Mathematically, quantum fields are described in the form of linear operators $\varphi(x)$,
@@ -205,9 +205,9 @@
     A number of physical constants have been mentioned by now, and they are beginning to get cumbersome.
     To address this, an effective (albeit amusing) solution is to simply set all of these constants to identically \textit{one}.
     That is, I am setting the speed of light $c$ equal to the reduced Planck's constant $\hbar$,
-        equal to the electric charge of the electron, equal to the permittivity of free space $\epsilon_0$,
+        equal to the electric charge of the electron $q_e$, equal to the permittivity of free space $\epsilon_0$,
         and so forth, all equal to 1:
-    \begin{equation} c=\hbar=q=\epsilon_0=1 \,. \end{equation}
+    \begin{equation} c=\hbar=q_e=\epsilon_0=1 \,. \end{equation}
 
     There is a potentially profound philosophy to be gleaned from the fact that this can be done at all
         (e.g. for $c$ to literally be unit-less requires that space and time have the \textit{same} units of measurement),
@@ -221,11 +221,12 @@
     With these conventions and mathematical descriptions in place,
         I can at last express the explicit mathematical form of fermionic matter.
 
-    Fermions are described as manifestations of ``Dirac Fields,'' $\psi(x)$,
-        which are defined as solutions to an equation of motion known as the Dirac Equation
+    Fermions are described as manifestations of ``Dirac fields,'' $\psi(x)$,
+        which are defined as solutions to an equation of motion known as the Dirac equation
     \begin{equation} \begin{split}
-        (\gamma^\mu p_\mu - m) \psi(x) &= 0 \\
-        (i\gamma^\mu \partial_\mu - m) \psi(x) &= 0
+        \gamma^\mu p_\mu \psi(x) = m \psi(x) \\
+        (\gamma^\mu p_\mu - m) \psi(x) = 0 \\
+        (i\gamma^\mu \partial_\mu - m) \psi(x) = 0
         \,.
     \end{split} \end{equation}
     The term $\gamma^\mu$ is a vector of matrices, simply called the gamma matrices.
@@ -233,10 +234,10 @@
         but for the purposes of this discussion it will suffice to state that
         their primary function is in allowing the 4-vector $p_\mu$ to be added to the scalar $m$.
 
-    Additionally, a peculiar consequence of Quantum Field Theory presents itself in the form of \textit{anti-matter}.
+    Additionally, a peculiar consequence of QFT presents itself in the form of \textit{anti-matter}.
     Anti-matter particle fields correspond to negative-energy\footnote{
             Or \textit{time-reversed}, the Feynman-St\"uckelberg interpretation of the same states.
-        } solutions to the Dirac Equation,
+        } solutions to the Dirac equation,
         and are represented as
     \begin{equation}
         \psibar(x) \equiv \gamma^0 \psi^\dag(x)
@@ -290,14 +291,14 @@
     \end{split} \end{equation}
     Now $\Delta t$ is again a finite time transformation,
         and I have compressed the infinite product of terms using the power series expansion of the exponential function.
-    In order to use this classical operator in quantum field theory it must of course be Hermitian,
+    In order to use this classical operator in QFT it must of course be Hermitian,
         which requires it to have a factor `$i$' associated with it,
     \begin{equation} \begin{split}
         x(t) \to x'(t) = e^{i\Delta t \frac{d}{dt}} x(t)
         \,.
     \end{split} \end{equation}
 
-    Returning to Dirac Fields, which are functions of four-position $x_\mu$, this same transformation can be used
+    Returning to Dirac fields, which are functions of four-position $x_\mu$, this same transformation can be used
          with the minor adjustment of changing the total derivative to a partial derivative in time,
          $\frac{\partial}{\partial t} = \frac{\partial}{\partial x^0} = \partial_0$
     \begin{equation} \begin{split}
@@ -322,7 +323,7 @@
                 $E = p^0 = i\partial^0$.
             This is no coincidence, as four-momentum is the generator of space-time translations.
          }.
-    These transforms fall under a larger realm of mathematics known as Group Theory,
+    These transforms fall under a larger realm of mathematics known as group theory,
         and are in turn called ``group transformations.''
     The basic definition of a group is a set of elements which can be ``multiplied'' according to some rule
         and which satisfies the following four conditions\cite{Cheng_book}:
@@ -336,31 +337,35 @@
 
     It should be relatively simple to see that time translation operations satisfy each of these.
     Additional classifications for groups are whether a group is discrete or continuous,
-        and whether a group is ``Abelian'' (commutative) or ``non-Abelian'' (non-commutative).
+        and whether a group is ``abelian'' (commutative) or ``non-abelian'' (non-commutative).
     Time translations are continuous (one can translate by an infinitesimally small amount of time),
-        and Abelian (the order that the translations are applied does not matter).
-    An example of a non-Abelian group would be that of three-dimensional rotations (formally called the $SO(3)$ group),
+        and abelian (the order that the translations are applied does not matter).
+    An example of a non-abelian group would be that of three-dimensional rotations (formally called the $SO(3)$ group),
         as applying rotations in a different order can lead to a different final orientation.
 
-    As a last point regarding Group Theory, is the absolutely crucial idea of \textit{symmetry}.
+    As a last point regarding group theory, is the absolutely crucial idea of \textit{symmetry}.
     If a system can be transformed under a group transformation and remain overall unchanged,
         then that system is said to be invariant, or symmetric, under that group.
+    In turn, \textit{Noether's theorem} then states that for any continuously differentiable symmetry,
+        there exists a corresponding \textit{conserved quantity}.
+    That is to say that many of the conservation laws of physics, often discussed as fundamental,
+        are in fact derivable purely from the principle of symmetry.
 
-    In a very deep sense, Group Theory and symmetry are the driving forces behind the entire Standard Model.
-    Not only is motion in the Standard Model entirely described by Group Theory,
-        but as will be seen in the coming sections its interactions are defined by Group Theory,
-        and its entire organizational structure is ultimately rooted in Group Theory.
+    In a very deep sense, group theory and symmetry are the driving forces behind the entire Standard Model.
+    Not only is motion in the Standard Model entirely described by group theory,
+        but as will be seen in the coming sections its interactions are defined by group theory,
+        and its entire organizational structure is ultimately rooted in group theory.
 
 
 \section{Restricting Motion: The Lagrangian and Symmetry}\label{sec:symmetry}
     
-    The Dirac Equation describes the equation of motion of a single field,
+    The Dirac equation describes the equation of motion of a single field,
         but what is required is a way to describe the interactions of \textit{many} fields.
-    For this, the Standard Model makes use of the Principle of Least Action,
-        also known as the Lagrangian Formalism\cite{Halzen_book}.
-    The idea of the Principle of Least Action is to construct an overall description of all aspects of a system,
+    For this, the Standard Model makes use of the ``principle of least action,''
+        also known as the Lagrangian formalism\cite{Halzen_book}.
+    The idea of the principle of least action is to construct an overall description of all aspects of a system,
         called the Lagrangian, $\Lag$.
-    One can then find the ``path'' of this Lagrangian which minimizes the ``Action,'' $\mathscr{A}$
+    One can then find the ``path'' of this Lagrangian which minimizes the ``action,'' $\mathscr{A}$
     \begin{equation} %TODO: double check this!!
         \mathscr{A} = \int \Lag d^4 x
         \,.
@@ -379,10 +384,12 @@
     Formulation of the Standard Model Lagrangian must therefore start with an enumeration of restrictions,
         which are given in the form of a series of groups under which the Lagrangian must remain symmetric.
     Specifically, the Lagrangian must remain symmetric under ten transformations,
-        collectively referred to as the Poincare Group.
+        collectively referred to as the Poincare group.
     Four of these transformations correspond to the space-time translations,
         three to spatial rotations, and the remaining three to space-\textit{time} rotations,
-        also known as Lorentz Transformations (also known as just changing velocity).
+        also known as Lorentz transformations (also known as just changing velocity).
+    Through Noether's theorem these symmetries then produce, respectively,
+        the conservation of four-momentum, angular momentum, and the center of mass.
 
     The Lagrangian of a Dirac field satisfying these symmetries takes the form
     \begin{equation} \label{eq:basic_fermionL}
@@ -397,7 +404,7 @@
         \\  = \psibar (\gamma^\mu p_\mu - m) \psi
         \,.
     \end{split} \end{equation}
-    Applying the Euler-Lagrange equations to this equation will separately return the Dirac Equation
+    Applying the Euler-Lagrange equations to this equation will separately return the Dirac equation
         for the fermion and anti-fermion fields, as it should.
 
     Given that there are many different kinds of fermions, the Lagrangian can be expanded to include all of them
@@ -426,7 +433,7 @@
 \section{Generating Interactions: Gauge Symmetry} \label{sec:gauge_symmetry}
 
     %Describe Global U1
-    Allow me to introduce another group, called $U(1)$ (Unitary Rank 1 Group).
+    Allow me to introduce another group, called $U(1)$ (unitary rank 1 group).
     This group corresponds to phase shifts of a field, and the transformation takes the form
     \begin{equation}
         \psi(x) \to \psi'(x) = e^{i\theta} \psi(x)
@@ -440,7 +447,7 @@
     This transformation, along with all the others already described under the Poincare group,
         all fall under the category of \textit{global} transformations.
     A global transformation is one which is applied uniformly across all of space-time.
-    There is a different kind of transformation, called a Local or ``Gauge'' transformation.
+    There is a different kind of transformation, called a local or ``gauge'' transformation.
     Gauge transforms are such that the transformation amount varies \textit{at each point in space-time}.
     A local $U(1)$ transform would then take the form 
     \begin{equation}
@@ -538,8 +545,10 @@
     Far from the static situation described by Eq. \ref{eq:basic_fermionL},
         the new Lagrangian permits a wide range of dynamic interactions between particles.
     In fact, using the Euler-Lagrange equations on Eq. \ref{eq:qedL}
-        will now reproduce the Lorentz Force Law as the equation of motion for the Dirac fields,
-        and Maxwell's Equations as the equation of motion for the photon.
+        will now reproduce the Lorentz force law as the equation of motion for the Dirac fields,
+        and Maxwell's equations as the equation of motion for the photon.
+    Noether's theorem then completes the theory of electrodynamics, 
+        converting the symmetry in $U(1)$ into the conservation of EM charge.
 
     % Introduce SU(2) and SU(3)
     All of this complexity arose from the simple imposition of the $U(1)$ gauge symmetry upon the fermion Lagrangian.
@@ -575,15 +584,15 @@
     \end{equation}
 
     Neither group operates uniformly across the fermions though.
-    $SU(2)$ acts only on the ``left-handed'' chiral state of the fermions (denoted by the subscript L),
+    $SU(2)$ acts only on the ``left-handed'' chiral state of the fermions (denoted by the subscript $L$),
         and $SU(3)$ acts only on the quarks, having a charge of zero for all leptons.
 
-    The behavior of these Gauge Groups established, the natural assumption is that the three gauge fields
+    The behavior of these gauge groups established, the natural assumption is that the three gauge fields
         $U(1)$, $SU(2)$, and $SU(3)$ correspond to the three fundamental interactions,
-        Electromagnetic, Weak, and Strong.
+        electromagnetic, weak, and strong.
     This would serve to complete a theory of the universe based entirely on the geometric principle of symmetry.
     The electromagnetic interaction and its photons have already been revealed as the manifestation of the $U(1)$ group. 
-    Likewise, $SU(3)$ assuredly does correspond to the strong interaction, its gauge fields manifested as the Gluons.
+    Likewise, $SU(3)$ assuredly does correspond to the strong interaction, its gauge fields manifested as the gluons.
     All of this breaks down however with $SU(2)$, which does \textbf{not} directly correspond to the W and Z bosons.
 
     The problem is that the W and Z fields have mass.
@@ -596,7 +605,7 @@
         but only under the condition that an entirely new field, unlike any previously observed, must exist.
     Not only did this theory resolve the origin of the W and Z masses;
         it predicted -- nearly a half-century in advance of its discovery --
-        the existence of the scalar particle now known as the Higgs Boson.
+        the existence of the scalar particle now known as the Higgs boson.
     \cite{Osborn_notes}
     \cite{Peskin_book}
     \cite{Halzen_book}
