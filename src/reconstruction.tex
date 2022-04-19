@@ -23,7 +23,7 @@
             As such, the objects reconstructed from the tracking detectors will be the first point of discussion.
             Prior to encountering the ATLAS calorimeters,
                 particles exiting the IR pass through primarily low-density material (see Fig. \ref{fig:cal_rad_length}).
-            Thanks to the inclusion of the Solenoid Magnet field encompassing the Inner Detectors,
+            Thanks to the inclusion of the solenoid magnet field encompassing the Inner Detectors,
                 these trajectories reveal crucial information about the particles in an event.
             This is because any charged particle with a momentum component orthogonal to a magnetic field
                 will trace out a \textit{helical} trajectory.
@@ -36,9 +36,9 @@
             the track's helical shape can reveal all components except for the energy $E$,
                 which will eventually be determined from the calorimeters.
             To understand how this is achieved, one must understand how a track helix is described mathematically.
-            A helix can be defined using five parameters structured in a three-dimensional parametric equation.
+            A helix can be defined using five parameters structured in a three-dimensional parametric equation\cite{thesis_giacinto}.
             There are several conventions for the form these parameters should take,
-                but in ATLAS a helix is described by a set of equations parameterised by an angle $\alpha$ as\cite{thesis_giacinto}:
+                but in ATLAS a helix is described by a set of equations parameterised by an angle $\alpha$ as:
             \begin{equation} \begin{split}
                 x(\alpha) &= x_R + d_0 \cos(\phi) + \rho \left[ \cos(\alpha) - \cos(\phi) \right] \\
                 y(\alpha) &= y_R + d_0 \sin(\phi) + \rho \left[ \sin(\alpha) - \sin(\phi) \right] \\
@@ -54,6 +54,7 @@
                 called \textit{perigee parameters} (see Figs. \ref{fig:perigee_params_base}-\ref{fig:perigee_params_top}),
                 are described largely in terms of the ``Point of Closest Approach'' (PoCA),
                 the point on the helix closest to $R$ in the $x,y$ plane.
+            These perigee parameters are the following:
             \begin{itemize}
                 \item $d_0$: $|(x,y)|$-distance from the origin to the closest point on the helix, in the $x,y$ plane
                 \item $z_0$: $z$-distance between the PoCA and the origin
@@ -130,7 +131,7 @@
                     Diagram of space-points formed in the ATLAS Pixel (Red) and SCT (Blue) subdetectors,
                         with track seeds highlighted in yellow\cite{track_seeding}.
                     Track seeds are formed using ``adjacent'' space-points, in the sense that they
-                        occur in sequential detector layers at roughly the same solid angle.
+                        occur in sequential detector layers at roughly the same angle in $\eta$ and $\phi$.
                 }
                 \label{fig:track_fit}
             \end{figure}
@@ -196,7 +197,7 @@
                     \,.
                 \end{equation}
             Once the primary vertex is identified, the high resolution track fitting step is rerun,
-                but now with the PV set as the reference point $R$ instead of the beamspot.
+                but now with the reference point $R$ set as the PV instead of the beamspot.
 
 
     \FloatBarrier
@@ -403,7 +404,12 @@
                     \captionsetup{justification=centering} \caption{IP3D-$z_0$, 2017}
                 \end{subfigure}
                 \caption{
-                    IP3D d0 and z0, for 2016 and 2017 configurations\cite{btagging_optimisation}.
+                    IP3D $d_0$ and $z_0$, for 2016 and 2017 configurations of the LHC and ATLAS\cite{btagging_optimisation}.
+                    Note the excess of b-jets for positive-valued IP2D and IP3D significance values as compared to charm-jets
+                        and especially light-jets.
+                    This excess shows how b-jets are more likely to be associated with jets possessing
+                        these positive impact parameter values,
+                        providing a mechanism to help identify b-jets.
                 }
                 \label{fig:ip3dsig}
             \end{figure}
@@ -436,7 +442,7 @@
             \begin{figure}[tbh] \center
                 \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/nn_matrix}
                 \caption{
-                    A representation of a simple single-layer neural network \cite{intro_to_neural_networks}.
+                    A representation of a simple neural network \cite{intro_to_neural_networks}.
                 }
                 \label{fig:nn_matrix}
             \end{figure}
@@ -456,7 +462,7 @@
             \begin{figure}[tbh] \center
                 \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{reconstruction/Colored_neural_network}
                 \caption{
-                    A representation of a simple single-layer neural network\cite{colored_neural_network}.
+                    A representation of a neural network with a single hidden layer\cite{colored_neural_network}.
                 }
                 \label{fig:colored_neural_network}
             \end{figure}
@@ -466,7 +472,7 @@
             However, the network undergoes an iterative training procedure, in which the weights are slightly adjusted
                 and retested against a known sample of training data.
             Adjustments which lead to slightly better performance are maintained and improved upon
-                with successive cycles (each cycle is reffered to as an ``epoch'')
+                with successive cycles (each cycle is referred to as an ``epoch'')
                 of the training while negative adjustments are discarded.
             After enough cycles the network should ideally be tuned to provide very powerful classification.
             Of course, a trivial network such as that in Fig. \ref{fig:nn_matrix} is very limited,
@@ -508,7 +514,6 @@
                 \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{tables/reconstruction/DL1_hyperparams}
                 \caption{
                     Hyperparameters of the DL1 neural network\cite{bjet_id_and_performance}.
-                    DL1 is trained via the python library Keras.
                     Input variables, hidden layers, nodes, and epochs have already been discussed.
                     ``Maxout layers'' are layers in the network in which the nodes, rather than a function of their inputs,
                         are simply the maximum of the input values.
@@ -578,7 +583,7 @@
         %Step3.1 - Perform BDT training for MV2 on HLT MC reco w/ low-level tags;
         The low-level tagger output is now fed as input to the training frameworks for the high-level taggers.
         For MV2, this is ROOT's TMVA\cite{cern_root_tmva},
-            and for DL1 this is the python package Keras\cite{keras}.
+            and for DL1 this is the Python package Keras\cite{keras}.
         %Step3.2 - Convert training output to usable histograms;
         Once training is complete, the output machine-learning structure is converted into a form usable by Athena,
             and the full retuning is completed.

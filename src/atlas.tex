@@ -42,7 +42,7 @@
     The reason for this design is simple kinematics.
     The LHC particle beams cross with no initial transverse momentum, which means particles are ejected without preference in the radial angle $\phi$.
     Furthermore, the extremely high longitudinal momentum of the beams results in many particles continuing along a highly ``forward'' (parallel to the beampipe) trajectory.
-    These two properties lead naturally to a radially symmetric detector which is elongated in the forward direction; a cylinder centered on the beam axis.
+    These two properties lead naturally to a radially symmetric detector which is elongated in the forward direction: a cylinder centered on the beam axis.
     To accommodate this geometry, the various sub-detectors of ATLAS are generally split into two distinct parts, called ``barrels'' and ``endcaps.''
     The barrels are a series of radially symmetric cylindrical shells, concentric about the beampipes, meant to detect particles moving primarily in the transverse direction.
     In turn, the endcaps are a series of flat, circular plates, stacked one behind the next along the beampipes,
@@ -99,17 +99,21 @@
         On the one hand, they must be able to accurately track the path of all ionizing particles
             emerging from the IR with high resolution (see Table \ref{tab:ID_resolution}).
         On the other hand, any disturbance they introduce to particle trajectories will distort the measurement of every other detector in ATLAS.
-        Add to this that these detectors face the highest radiation flux of any system simply by their proximity to the IR, forcing usage of very radiation-hard material design.
-        For these reasons, the Pixel Detector and SCT use top-of-the-line silicon semiconductor diode technology, which can be made both extremely thin and sensitive. 
-        This means that particles only deposit a small fraction of their energy into the detector material, and yet that small deposition is enough to accurately record their passage.
-        With four layers of the Pixel Detector and four of the SCT, any particle leaving the IR crosses at least seven detector layers, yet continues on with a mostly unchanged trajectory.
+        Add to this that these detectors face the highest radiation flux of any system simply by their proximity to the IR,
+            forcing usage of very radiation-hard material design.
+        For these reasons, the Pixel Detector and SCT use top-of-the-line silicon semiconductor diode technology,
+            which can be made both extremely thin and sensitive. 
+        This means that particles only deposit a small fraction of their energy into the detector material,
+            and yet that small deposition is enough to accurately record their passage.
+        With four layers of the Pixel Detector and four of the SCT, any particle leaving the IR must cross a number of detector layers,
+            yet will continue on with a mostly unchanged trajectory.
 
         \input{tables/atlas/ID_resolution.tex}
 
         Semiconductor diode detectors function by exploiting the properties of semiconductor p-n junctions.
         These particular detectors are made using silicon.
         Silicon has four valence electrons, so a pure silicon crystal lattice will have its valence band perfectly filled, leading to a very stable structure.
-        A pure semiconductor crystal lattice (in this case, silicon) can have impurities intentionally introduced to it through the process of doping.
+        A pure semiconductor crystal lattice (in this case, silicon) can have impurities intentionally introduced to it through the process of ``doping.''
         Doping the lattice with an element possessing only three valence electrons (e.g. Boron) will result in a number of gaps in the valence band (called ``holes'').
         In such a situation, known as p-type doping, the lattice will accept additional electrons to fill these holes, which will lead to an excess of negatively charged ions.
         Conversely, an element with five valence electrons can be introduced for doping, leading to an excess of electrons in the valence band.
@@ -131,7 +135,9 @@
         If a voltage is applied across the semiconductor, the width and potential difference of the depletion region can be altered.
         If the voltage is applied with the positive end of the difference at the p-type side, then the semiconductor is said to be ``forward biased,'' and the depletion region will become smaller (and with a high enough voltage can be eliminated entirely).
         If the positive end of the voltage difference is applied to the n-type side though, the semiconductor becomes ``reverse biased,'' and the depletion region and potential difference across the junction will grow larger \cite{wiley_radiation_detection}.
-        In this reverse-biased state, the electric potential of the p-n junction becomes very effective at rapidly sweeping excess ions from the depletion region off to the edges of the semiconductor wafer, and it is this mechanism which the ATLAS semiconductor detectors exploit in order to detect particles.
+        In this reverse-biased state, the electric potential of the p-n junction becomes very effective
+            at rapidly sweeping excess ions from the depletion region off to the edges of the semiconductor wafer,
+            and it is this mechanism which the ATLAS semiconductor detectors exploit in order to detect ionizing radiation.
 
         Ionizing radiation is any particle that interacts electromagnetically and that is capable of removing electrons from atoms,
             which means either photons or any particle with electric charge.
@@ -182,7 +188,7 @@
             This arrangement is to maximize the number of straws traversed by an outgoing particle, typically 35-40 straws for $0 < |\eta| < 2$.
             Though each individual hit has a relatively low spatial resolution compared to the semiconductor detectors, the large number of hits compensates for this with a reduced statistical uncertainty.
 
-            In addition to providing additional tracking information, the TRT provides a secondary purpose of aiding in the identification of electrons by means of detecting transition radiation. 
+            In addition to providing additional tracking information, the TRT provides a secondary purpose of aiding in the identification of electrons by means of detecting ``transition radiation.''
             Transition radiation is a phenomenon in which radiation is emitted when a charged particle crosses a boundary between two materials \cite{transition_radiation}.
             The TRT uses polypropylene as its transition radiation material, which is interleaved between the layers of straws.
             In the barrel, there are 73 layers of straws interwoven with polypropylene fibres, and in the endcaps there are 160 layers of straws with polypropylene foil between them.
@@ -197,7 +203,7 @@
 
     There are a number of different ways to measure the energy of a particle, but in ATLAS this is done exclusively using the class of calorimeters known as \textit{sampling} calorimeters.
     Fundamentally, particle calorimeters work by impeding the path of a particle with some material, such that the particle is forced to interact with that material and deposit energy into it.
-    This interaction must be such that it produces a measurable response, proportional to the deposited energy.
+    This interaction must be such that it produces a measurable response proportional to the deposited energy.
     A sampling calorimeter functions by measuring only a fraction of the deposited energy, spread out across the detector medium; i.e.\ by taking a sample of the energy.
     To do this, two different materials are used in the detector's construction, referred to as the active and inactive materials.
     The active material is the material which actually measures the energy of particles, using the same or similar techniques as the tracking systems discussed earlier.
@@ -218,13 +224,15 @@
     The innermost of these subsystems is the Electromagnetic Calorimeter (ECal), designed primarily to measure (anti) electrons and photons \cite{calorimetry_lecture}.
     These particles readily interact electromagnetically in the calorimeter material, rapidly losing energy and permitting the ECal to be more compact.
     Surrounding the ECal are the Hadronic Calorimeter (HCal) systems.
-    These detectors, as their name suggests, detect hadrons, such as neutrons or pions.
+    These detectors, as their name suggests, detect hadrons such as neutrons or pions.
     Not only are these particles heavier, but many of them are electrically neutral and can therefore only be stopped through repeated nuclear interactions \cite{energy_measurement}.
     Consequently, the HCal systems must be much thicker than the ECal systems (see Fig. \ref{fig:cal_rad_length}).
     \begin{figure}
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{atlas/cal_rad_length}
         \caption{
-            Histogram of interaction lengths $X_0$ as a function of $\eta$ for the different sub-detectors \cite{atlas_tdr}.
+            Histogram of interaction lengths $\lambda$ as a function of $\eta$ for the different sub-detectors \cite{atlas_tdr}.
+            Interaction lengths are defined as the mean-free path between collisions for a material,
+                measured in units of $\textrm{g}/\textrm{cm}^2$ \cite{pdg}.
             The unlabeled tan region at the bottom corresponds to all material leading up to the first ECal layer.
             The cyan region at the top corresponds to additional material between the outer edge of the calorimeter subsystems
                 leading up to the first layer of the Muon Spectrometer.
@@ -238,7 +246,8 @@
 
     \subsection{Electromagnetic Calorimeters}
 
-        Light, electromagnetically interacting particles, namely electrons/positrons and photons, are much more easily stopped than heavy or neutral particles.
+        Low mass electromagnetically interacting particles -- namely electrons/positrons and photons --
+            are much more easily stopped than heavy or neutral particles.
         As these kinds of particles are the first to be stopped, the calorimeter responsible for measuring their energy, the Electromagnetic Calorimeter (ECal) is the closest to the IR.
         Furthermore, the lesser amount of material required for this detector permits higher resolution in its construction.
         In $\eta$, this resolution increase is a strict numerical change of 0.025 for ECal versus 0.1 for HCal (see Table \ref{tab:cal_specs}).
@@ -265,7 +274,8 @@
         The endcap portion of the HCal, known as the Hadronic Endcap Calorimeter (HEC), uses liquid argon for the active material, like the ECal, but uses copper plates for the inactive material.
 
         Distinct from the LAr-based calorimeters, the HCal Barrel and Extended Barrel must provide coverage to a very large area, making the LAr technology prohibitively costly.
-        Referred to as the Tile Calorimeters, the HCal barrel system instead uses scintillating tiles as its active material, with steel plates as the inactive material.
+        The HCal barrel system instead uses scintillating tiles as its active material,
+            referred to as the Tile Calorimeters, with steel plates as the inactive material.
         These tiles are less radiation resistant than the LAr sensors, but this is compensated by the Tile Calorimeter's larger distance from the IR.
         The scintillating tiles used in the Tile Calorimeter operate on different ionization detection principles than the other sensor technologies discussed so far.
         The key to scintillating materials is that they respond to ionizing radiation not by ion release, but by fluorescence.
@@ -282,6 +292,8 @@
         The innermost of these sections acts as an extension to the ECal, and the other two serve as forward HCal detectors.
         Due to their proximity to the IR and beam-line, all three use LAr for their active material, again for its radiation hardness.
         The main difference between the sections is that the electromagnetic section uses copper for its inactive material, while the hadronic components use tungsten \cite{Lar_cal_tdr}.
+        The FCal, along with the HCal Endcaps and Barrel, mark the end of the journey for nearly all observable particles emitted from the IR.
+        Muons are the notable exception to this and require dedicated instrumentation to measure.
 
     \input{tables/atlas/cal_specs.tex}
 
@@ -289,20 +301,23 @@
 \section{Muon Spectrometer} \label{sec:muon}
 
     Far from the interaction region, beyond all other sub-systems, lies the Muon Spectrometer.
-    Muons interact electromagnetically and carry charge, as electrons, but their much higher mass vastly suppresses their differential energy deposition \cite{wiley_radiation_detection}.
-    As well, they do not interact through the strong force, and so are completely unaffected by nuclear interactions.
+    Muons interact electromagnetically and carry charge, same as electrons,
+        but their much higher mass vastly suppresses their differential energy deposition \cite{wiley_radiation_detection}.
+    As well, they do not interact through the strong force and so are completely unaffected by nuclear interactions.
     For these reasons, muons pass almost unfazed through the entire ATLAS Calorimetry system.
     Moreover, their large mass and high momentum means they are barely deflected by the Inner Detector's solenoid magnet,
         leaving the details of their momentum poorly resolved.
-    It thus falls to the Muon Spectrometer to provide this critical information of muon momentum, which all the other sensors are unable to deliver.
+    ATLAS is thus reliant on the Muon Spectrometer to provide this critical information of muon momentum,
+        which all the other sensors are unable to deliver.
 
-    The Muon Spectrometer system is immense.
+    The Muon Spectrometer system is giant.
     The Muon barrels start at a radius of 5 m from the beam axis and extend all the way out to 10 m.
     The endcaps start at a $|z|$ of roughly 7.4 m, and proceed to an extent of 21.5 m.
     Such size poses a challenge, as the Muon system must provide tracking across its entire volume.
     %Its distance from the interaction point ameliorates this issue though, as it permits the Muon detectors to operate at much lower spatial resultions than the inner detectors, while still retaining similar anngular resolution.
     To achieve this goal, the Muon system is split into two primary sections, the Precision Track Chambers and the Trigger Chambers.
-    The Precision Track Chambers are primarily responsible for providing tracking of muons leaving the ATLAS detector volume in order to determine their momentum.
+    The Precision Track Chambers are primarily responsible for providing tracking
+        of muons leaving the ATLAS detector volume in order to determine their momentum.
     Past the Precision Track Chamber are the Trigger Chambers, which are primarily designed for providing rapid information of muon track multiplicity and energy range, used in large part by the trigger system (Section \ref{sec:trigger}).
 
     \begin{figure}
@@ -326,7 +341,7 @@
         Within this $\eta$ range, for the first layer, the muon track density exceeds the resolution capabilities of the MDT's.
         This very specific $\eta$ range of this one particular endcap layer is where the CSC is used for tracking instead.
         The CSC's are multiwire drift chambers, meaning that the (gold-plated tungsten) anode wires do not each have their own individual drift tube.
-        Instead, each of the many drift chambers contains many anodes and many cathode strips, made of copper.
+        Instead, each of the many drift chambers contain many anodes and many cathode strips, made of copper.
         These chambers can read both coordinates of a track simultaneously, preventing the ambiguities that can occur if more than one track is present in the same chamber \cite{atlas_tdr}.
 
     \subsection{Trigger Chambers}\label{sec:muon-trigger_chamber}

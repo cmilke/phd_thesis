@@ -19,14 +19,14 @@
             The yellow circles correspond to the b-jet decay products of the Higgs bosons,
                 and their red inlay indicates that they have been tagged as b-jets by the b-tagging algorithms.
             The blue jets with white `X's correspond to the VBF initial scatter jets.
-            The final blue circle corresponds to a jet caused by a particle radiated by the nearby ID jet.
+            The final blue circle corresponds to a jet caused by a particle radiated by the nearby initial scatter jet.
             The teal vertical lines designate $|\eta|=2.5$,
                 the distinction between the ``Forward'' and ``Central'' regions.
         }
         \label{fig:event_display}
     \end{figure}
 
-    Figure \ref{fig:event_display} is an ``event display'' of what a \vbfproc event is expected to look like,
+    Figure \ref{fig:event_display} is an ``event display'' of what a \vbfhhproc event is expected to look like,
         based on Monte-Carlo simulation (see Chapter \ref{chapter:signal}).
     It demonstrates the key features these selection algorithms use to differentiate signal from background.
     The most obvious feature to identify is the high-$p_T$-jet multiplicity.
@@ -40,7 +40,7 @@
         so many high-$p_T$ b-jets orthogonal to the beamline is rare for background events,
         and thus makes for another highly identifiable feature of the signal.
     Finally, due to their high initial momentum,
-        the $\bbar$ decay products of each Higgs will have little spread between them,
+        the $\bbar$ decay products of each Higgs will have only minor angular spread between them,
         producing an identifiable pattern in the final distribution of jets.
 
     All of these features are exploited by the selection process carried out in this analysis,
@@ -54,7 +54,7 @@
         
         The first stage of the selection process largely occurs before reconstruction has even begun,
             in the L1 and HLT systems as well as Offline reconstruction.
-        Table \ref{tab:nr-triggers-used} lists the trigger chains used in this analysis.
+        Table \ref{tab:nr-triggers-used} lists the trigger chains (recall Section \ref{sec:trigger}) used in this analysis.
         An event from ATLAS is incorporated into the data used as long as it passes at least one 
             of the listed chains associated with its year.
         These triggers have been chosen based on any features that lend themselves to the \vbfproc process.
@@ -107,7 +107,7 @@
             resulting in very low acceptance through the selection criteria described below
             and thus negligible as a background \cite{vbf_hh_4b_resonant_2020_int}.
         Similarly, the yield and acceptance of the ggf and single Higgs processes, though substantial,
-            was found through MC simulation to be dwarfed by the QCD multijet background\cite{hh4b_2021_int_note}.
+            were found through MC simulation to be dwarfed by the QCD multijet background\cite{hh4b_2021_int_note}.
         The only backgrounds that are therefore considered for this analysis are the
             dominant QCD multijet background and sub-dominant \ttbar background.
 
@@ -210,7 +210,7 @@
         Forward jets have less stringent requirements, needing only a $p_T > 30$ GeV.
 
         After jets have been categorized and selected, an event is only used if there are at least six selected jets remaining.
-        Of these, at least four must be Central jets which have been b-tagged by the offline DL1r algorithm the 77\% working point.
+        Of these, at least four must be Central jets which have been b-tagged by the offline DL1r algorithm at the 77\% working point.
         From the remaining jets (Central or Forward), there must be at least two \textit{anti}-b-tagged jets
             (i.e.\ jets that were marked as failing the b-tagging requirement).
 
