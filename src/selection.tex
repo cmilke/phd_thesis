@@ -5,7 +5,7 @@
     Run in parallel with the process of reconstruction is that of event selection.
     As discussed earlier in Chapter \ref{chapter:data},
         there are far too many events in ATLAS to record and analyze them all.
-    Thus, a series of selection algorithms are used to veto the abundance of background events.
+    Thus, a series of selection algorithms are used to veto the abundant background events.
     Unfortunately, these selection algorithms are not perfect,
         and so a careful balance must be achieved between removing a suitable amount of background,
         while retaining as many signal events as possible.
@@ -21,7 +21,7 @@
             The blue jets with white `X's correspond to the VBF initial scatter jets.
             The final blue circle corresponds to a jet caused by a particle radiated by the nearby initial scatter jet.
             The teal vertical lines designate $|\eta|=2.5$,
-                the distinction between the ``Forward'' and ``Central'' regions.
+                the distinction between the ``forward'' and ``central'' regions.
         }
         \label{fig:event_display}
     \end{figure}
@@ -37,8 +37,8 @@
     Such a jet pattern stands out dramatically from most of the stochastic background noise
         and is one of the main advantages of the VBF process.
     Additionally, while the four b-jets of the Higgs are not exclusively produced in the low-$\eta$ regions,
-        so many high-$p_T$ b-jets orthogonal to the beamline is rare for background events,
-        and thus makes for another highly identifiable feature of the signal.
+        such a multiplicity of high-$p_T$ b-jets orthogonal to the beamline is rare for background events.
+    This makes for another highly identifiable feature of the signal.
     Finally, due to their high initial momentum,
         the $\bbar$ decay products of each Higgs will have only minor angular spread between them,
         producing an identifiable pattern in the final distribution of jets.
@@ -60,7 +60,7 @@
         These triggers have been chosen based on any features that lend themselves to the \vbfproc process.
         Notably, the utilized triggers heavily emphasize high jet multiplicity and an abundance of b-jets.
         To understand how, it is necessary to understand the nomenclature of the trigger chains.
-        A full reference can be found in \cite{trigger_naming},
+        A full reference can be found in Ref. \cite{trigger_naming},
             but a brief example of how to read the chains is provided here:
 
         HLT\_j110\_gsc150\_boffperf\_split\_2j45\_gsc55\_bmv2c1070\_split\_L1J85\_3J30:
@@ -82,7 +82,7 @@
                 using only the L1 reconstruction (see Section \ref{sec:L1})
                 \begin{itemize}
                 \item J85: Requires a cluster with energy greater than 85 GeV
-                \item 3J30: Require at least 3 jets with a minimum $E_T$ of 30 GeV at Level-1
+                \item 3J30: Require at least 3 jets with a minimum $E_T$ of 30 GeV
             \end{itemize}
         \end{itemize}
 
@@ -195,12 +195,12 @@
         
         First and foremost is a check to ensure that there are enough jets to even constitute a \vbfproc event,
             by emphasizing the quality and location of jets.
-        Jets are categorized as ``Central'' if they fall within $|\eta| \leq 2.5$,
-            and are ``Forward'' if they are found with $ 2.5 < |\eta| \leq 4.5 $.
-        The reason for the distinction between the two is that Central jets fall within the boundaries of the ATLAS tracker system
+        Jets are categorized as ``central'' if they fall within $|\eta| \leq 2.5$
+            and are ``forward'' if they are found with $ 2.5 < |\eta| \leq 4.5 $.
+        The reason for the distinction between the two is that central jets fall within the boundaries of the ATLAS tracker system
             (see Section \ref{sec:inner_detector}).
         As the tracking system is necessary for the b-tagging algorithms,
-            candidates for the Higgs' decay products are taken exclusively from Central jets.
+            candidates for the Higgs' decay products are taken exclusively from central jets.
         To suppress jets from pileup vertices, central jets are only used if they have a $p_T > 40$ GeV,
             and satisfy at least one of the following three conditions:
             they pass the JVT algorithm\footnote{
@@ -210,12 +210,12 @@
         Forward jets have less stringent requirements, needing only a $p_T > 30$ GeV.
 
         After jets have been categorized and selected, an event is only used if there are at least six selected jets remaining.
-        Of these, at least four must be Central jets which have been b-tagged by the offline DL1r algorithm at the 77\% working point.
-        From the remaining jets (Central or Forward), there must be at least two \textit{anti}-b-tagged jets
+        Of these, at least four must be central jets which have been b-tagged by the offline DL1r algorithm at the 77\% working point.
+        From the remaining jets (central or forward), there must be at least two \textit{anti}-b-tagged jets
             (i.e.\ jets that were marked as failing the b-tagging requirement).
 
         The VBF jets are chosen as the pair of anti-b-tagged jets with the largest vector-sum invariant mass (\mjj) between them,
-            while the Higgs decay jets are chosen as the four highest-$p_T$, b-tagged, Central jets.
+            while the Higgs decay jets are chosen as the four highest-$p_T$, b-tagged, central jets.
         Any other jets in the event are discarded for the purposes of the rest of the analysis.
         The remaining selection cuts are made on these two categories of jets.
         
@@ -223,8 +223,8 @@
     \subsection{VBF Topology}
 
         For the VBF jets, the characteristic wide-opening angle and high invariant mass is exploited here.
-        The selected VBF pair must have $\deta < 3$ and $\mjj \geq 1 \textrm{GeV}$.
-        As well, the combined vector-sum-pt of all six jets
+        The selected VBF pair must have $\deta > 3$ and $\mjj \geq 1 \textrm{GeV}$.
+        As well, the combined vector-sum-$p_T$ of all six jets
             (the four Higgs products and the two VBF jets)
             must be less than 65 GeV:
         \begin{equation}
@@ -256,6 +256,8 @@
             \end{subfigure}
             \caption{
                 Significance value for different cut values on the various VBF selection criteria\cite{vbf_hh_4b_2018_int}.
+                Specifically, cuts on \mjj and $\Delta \eta_{jj}$ denote the \textit{minimum} value permitted,
+                    while the cut on ``vector sum of $p_T$'' is an upper bound.
                 The goal is to maximize significance while avoiding ``edges'' where significance rapidly falls off.
                 The selection cuts chosen for this analysis can be seen to occupy roughly the middle
                     of the highest points of these plots.
@@ -403,5 +405,5 @@
             as does the much larger contribution from QCD multijet events.
         The contribution of these remaining background events to the total signal yield
             must now be estimated.
-        To do this, the analysis has turned to a data-driven approach.
+        To do this, the analysis employs a data-driven approach.
 

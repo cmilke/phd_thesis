@@ -19,7 +19,7 @@
         should all be identically 1.
     A simple hypothesis to construct would be to calculate the expected event yield of the \vbfproc process
         by multiplying the integrated luminosity of LHC Run 2 with the cross-section predicted by the SM.
-    The same could be done to obtain predicted event yields for various alternative values of the scale-factor.
+    The same could be done to obtain predicted event yields for various alternative values of the scale factor.
     However, testing a hypothesis using a single number presents a challenge, as many different unrelated factors can affect the event yield.
 
 
@@ -75,9 +75,9 @@
         and so can be used to test the validity of a hypothesis.
     If the \mhh distribution reconstructed from the data collected at ATLAS has no resemblance to
         the \mhh distribution predicted for a particular combination of the scale factors,
-        then that set of scale-factors can be ruled out as incompatible with data
+        then that set of scale factors can be ruled out as incompatible with data
         at some level of statistical confidence
-        (see Chapter \ref{chapter:results} for more details).
+        (to be further discussed in Chapter \ref{chapter:results}).
 
     Of course, making a prediction for the shape of the \mhh distribution as it would appear in ATLAS is easier said than done.
     Calculating the event yield alone is not too difficult to perform by hand,
@@ -88,41 +88,6 @@
         adds several additional layers of complexity to the problem.
     In order to address these issues, I will need to turn to the power of Monte Carlo simulation.
 
-    \begin{table}[tbh]
-       \begin{center}
-           \caption{Simulated signal samples used in this analysis.
-                    Results retrieved via pyAMI tool~\cite{pyAMIdoc}\cite{hh4b_2021_int_note}.
-                    [TODO: Steve, so I've got this table and table \ref{tab:mcyields}.
-                    I feel like one is probably redundant and should just be combined into the other.
-                    Where should the combined table go?]
-                 }
-           \label{tab:mcsample}
-           \footnotesize
-           \begin{tabular}{l l l S l}
-           \hline
-               DSID  &	Type and parameters  &	Generator  &{AMI $\sigma$ [fb]}& Total gen events (MC16a+d+e) \\
-               \hline
-               502970  &	VBF \kl=1, \kvv=1, \kv=1    &  MadGraph+Pythia8 &	1.1836  & $399000  +520000  +678000  $\\
-               502971  &	VBF \kl=1, \kvv=0, \kv=1    &  MadGraph+Pythia8 &	18.593  & $400000  +520000  +677000  $\\
-               502972  &	VBF \kl=1, \kvv=0.5, \kv=1  &  MadGraph+Pythia8 &	6.6177  & $199000  +260000  +338000  $\\
-               502973  &	VBF \kl=1, \kvv=1.5, \kv=1  &  MadGraph+Pythia8 &	2.3032  & $190000  +260000  +339000  $\\
-               502974  &	VBF \kl=1, \kvv=2, \kv=1    &  MadGraph+Pythia8 &	9.9726  & $199000  +258000  +213000  $\\
-               502975  &	VBF \kl=1, \kvv=3, \kv=1    &  MadGraph+Pythia8 &	44.944  & $200000  +260000  +338000  $\\
-               502976  &	VBF \kl=0, \kvv=1, \kv=1    &  MadGraph+Pythia8 &	3.1659  & $200000  +259000  +339000  $\\
-               502977  &	VBF \kl=2, \kvv=1, \kv=1    &  MadGraph+Pythia8 &	1.068   & $200000  +259000  +323000  $\\
-               502978  &	VBF \kl=10, \kvv=1, \kv=1   &  MadGraph+Pythia8 &	67.377  & $400000  +517000  +680000  $\\
-               502979  &	VBF \kl=1, \kvv=1, \kv=0.5  &  MadGraph+Pythia8 &	7.5289  & $200000  +259000  +340000  $\\
-               502980  &	VBF \kl=1, \kvv=1, \kv=1.5  &  MadGraph+Pythia8 &	45.412  & $200000  +259000  +340000  $\\
-               502981  &	VBF \kl=0, \kvv=0, \kv=1    &  MadGraph+Pythia8 &	25.4    & $199000  +260000  +340000  $\\
-               507684  &	VBF \kl=-5, \kvv=1, \kv=0.5 &  MadGraph+Pythia8 &	4.45    & $200000  +260000  +340000  $\tnote{a}\\
-           \hline
-           \end{tabular}
-           \begin{tablenotes}
-            \item[a] 450050: This dataset was produced after the others based on the studies of Section \ref{sec:solidarity}
-          \end{tablenotes}
-       \end{center}
-    \end{table}
-
 
 
 \FloatBarrier
@@ -131,27 +96,27 @@
     As discussed in Section \ref{sec:feyn_rules},
         the cross-section and kinematic distributions of the di-Higgs production processes
         depend fundamentally on a number of scaling factors between the Higgs and other particles.
-    Of particular interest in this analysis are \kl for the Higg's self-coupling scale-factor and \kvv for the \HHVV coupling scale-factor.
+    Of particular interest in this analysis are \kl for the Higgs's self-coupling scale factor and \kvv for the \HHVV coupling scale factor.
     The values of \kl and \kvv have loose experimental constraints \cite{EXOT-2016-31} \cite{HDBS-2018-18-witherratum} \cite{ATLAS-CONF-2019-049},
-        requiring analysis across a wide range of these scale-factor values.
+        requiring analysis across a wide range of these scale factor values.
     Unfortunately, the MC generation process discussed in Section \ref{sec:mcsim} is computationally expensive and time consuming.
-    As such, only a handful of MC simulation samples for a select few scale-factor values are actually produced,
-        and a sample combination technique is employed to model the signal hypothesis across the scale-factor parameter space.
+    As such, only a handful of MC simulation samples for a select few scale factor values are actually produced,
+        and a sample combination technique is employed to model the signal hypothesis across the scale factor parameter space.
 
     The process of combining a few samples in such a way as to model the entire parameter space of scaling factors is based on exploiting the underlying mathematics of the differential cross-section formula.
     By expanding the squared term of the sum of all Feynman diagram contributions,
-        the cross-section can be expressed as a function of its scale-factor values \cite{ATLAS-CONF-2019-049},
+        the cross-section can be expressed as a function of its scale factor values \cite{ATLAS-CONF-2019-049},
         as shown in Eqn. \ref{eq:tree_level_invamp}.
     Rewriting the expression again in terms of the differential cross-section as a function of the observable \mhh:
 
     \begin{equation} \begin{split} \label{eq:tree_level_invamp_simple}
         \xsec &\equiv \dXsecM \propto |\invAmp|^2 = |  \kv^2 M_t + \kv \kl M_s + \kvv M_x |^2 \\
         \xsec &= \kv^2 \kl^2 a_1 + \kv^4 a_2 + \kvv^2 a_3 + \kv^3 \kl a_4 + \kv \kl \kvv a_5 + \kv^2 \kvv a_6
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     The $a_i$ matrix element expansion values have a dependence on \mhh, which is not trivially derivable as an analytic function.
-    Instead, for a given scale-factor,
+    Instead, for a given scale factor,
         its cross-section for a given \mhh can be mathematically determined by solving a set of linear equations for the $a_i$ terms.
     This is done using six different cross-section values (for the same \mhh) for six different scaling values.
 
@@ -161,32 +126,29 @@
             + \fkvv{#1}^2 a_3
             + \fkv{#1}^3 \fkl{#1} a_4
             + \fkv{#1} \fkl{#1} \fkvv{#1} a_5
-            + \fkv{#1}^2 \fkvv{#1} a_6 \\
+            + \fkv{#1}^2 \fkvv{#1} a_6
     }
+    %\newcommand{\combterm}[1]{ g_{#1} \frac{d\sigma_{#1}}{d \mhh} }
+    \newcommand{\combterm}[1]{ g_{#1} \xsec_{#1} }
 
     \begin{equation} \label{eq:allsixxsecs} \begin{split}
-        \crossterm{1}
-        \crossterm{2}
-        \crossterm{3}
-        \crossterm{4}
-        \crossterm{5}
-        \crossterm{6}
-        \quad.
+        \crossterm{1} \\
+        \crossterm{2} \\
+        \crossterm{3} \\
+        \crossterm{4} \\
+        \crossterm{5} \\
+        \crossterm{6} \,. \\
     \end{split} \end{equation}
-
     This set of equations can be reformatted as a matrix equation
         by rewriting the differential cross-sections and $a_i$ terms as vectors,
-
     \begin{equation}
         \vec{\xsec} = \minimatrix{ \xsec_{1} \\ \xsec_{2} \\ \xsec_{3} \\ \xsec_{4} \\ \xsec_{5} \\ \xsec_{6} }
         \qquad,\qquad
         \vec{a} = \minimatrix{ a_1 \\ a_2 \\ a_3 \\ a_4 \\ a_5 \\ a_6 }
-        \qquad.
+        \,.
     \end{equation}
-
     By reformatting the various $\kappa$ terms as a vector function $\vec{f}$,
-        the collection of varied scale-factors can be written as a matrix $F$
-
+        the collection of varied scale factors can be written as a matrix $F$
     \begin{equation}
         \vec{f} = \begin{pmatrix} \kv^2 \kl^2 \\ \kv^4 \\ \kvv^2 \\ \kv^3 \kl \\ \kv \kl \kvv \\ \kv^2 \kvv \end{pmatrix}
         \quad,\quad
@@ -198,24 +160,18 @@
             \vec{f}(\fkvv{5}, \fkl{5}, \fkv{5}) \\
             \vec{f}(\fkvv{6}, \fkl{6}, \fkv{6}) \\
         \end{pmatrix}
-        \quad.
+        \,.
     \end{equation}
-
     Equation \ref{eq:allsixxsecs} can then be written in the much simpler form
     \begin{equation}
         \vec{\xsec} = F \bullet \vec{a}
-        \quad.
+        \,.
     \end{equation}
-
     The $a_i$ terms can then be trivially solved for through an inversion of $F$
     \begin{equation} \label{eq:amp_solution}
         \vec{a} = F^{-1} \bullet \vec{\xsec}
-        \quad.
+        \,.
     \end{equation}
-
-    %\newcommand{\combterm}[1]{ g_{#1} \frac{d\sigma_{#1}}{d \mhh} }
-    \newcommand{\combterm}[1]{ g_{#1} \xsec_{#1} }
-
     Substituting \ref{eq:amp_solution} back into \ref{eq:tree_level_invamp_simple} produces
         a final expression for deriving a combined differential cross-section $\xsec'$ of the form
     \begin{equation} \label{eq:combination_general} \begin{split}
@@ -230,7 +186,7 @@
             \combterm{4} +
             \combterm{5} +
             \combterm{6}
-        \quad.
+        \,.
     \end{split} \end{equation}
 
     In practice, the differential cross-section values $\xsec_i$ of these six \textit{basis} samples
@@ -271,13 +227,15 @@
             + \left(- \frac{11 \kappa_{2V}^{2}}{540} + \frac{11 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{216} + \frac{13 \kappa_{V}^{4}}{270} - \frac{5 \kappa_{V}^{3} \kappa_{\lambda}}{54} + \frac{\kappa_{V}^{2} \kappa_{\lambda}^{2}}{72}\right) \times \xsec{\left(1,10,1 \right)}  \\
             + \left(\frac{88 \kappa_{2V}^{2}}{45} - \frac{16 \kappa_{2V} \kappa_{V}^{2}}{3} + \frac{4 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{9} + \frac{152 \kappa_{V}^{4}}{45} - \frac{4 \kappa_{V}^{3} \kappa_{\lambda}}{9}\right) \times \xsec{\left(1,1,\frac{1}{2} \right)} \\
             + \left(\frac{8 \kappa_{2V}^{2}}{45} - \frac{4 \kappa_{2V} \kappa_{V} \kappa_{\lambda}}{9} - \frac{8 \kappa_{V}^{4}}{45} + \frac{4 \kappa_{V}^{3} \kappa_{\lambda}}{9}\right) \times \xsec{\left(1,-5,\frac{1}{2} \right)}
-        \quad.
+        \,.
     \end{split} \end{equation}}
 
     The method used to determine the overall performance of a basis is to check the number of negative bins generated
-        in the \mhh distribution across all points in the two-dimensional \kvv,\kl space, as seen in \ref{fig:vbf_hh_6term_nWeight_grid}.
+        in the \mhh distribution across all points in the two-dimensional \kvv,\kl space, as seen in Fig. \ref{fig:vbf_hh_6term_nWeight_grid}.
     As negative bin weights are unphysical, they indicate poor signal modeling.
-    Thus, identifying a basis which minimizes the presence of negative weights ensures stable modeling of the signal hypothesis at all points in the coupling space (\ref{fig:vbf_hh_6term_validation} and \ref{fig:vbf_hh_6term_preview}).
+    Thus, identifying a basis which minimizes the presence of negative weights
+        ensures stable modeling of the signal hypothesis at all points in the coupling space
+        (Figs. \ref{fig:vbf_hh_6term_validation} and \ref{fig:vbf_hh_6term_preview}).
 
     \begin{figure}[tbh]
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/negative_weights_base}
@@ -371,9 +329,9 @@
             \captionsetup{justification=centering} \caption{Combination at  \kl = -9}
         \end{subfigure}
         \caption{
-            The six-term linear combination of samples is combined for scale-factor scaling factor values very far from the Standard Model.
+            The six-term linear combination of samples is combined for scale factor scaling factor values very far from the Standard Model.
             There are no MC simulated samples to compare these points too, but the combined distributions at these points are smooth and well-behaved,
-                indicating reasonable modeling of the distribution even at distant scale-factor scaling factors.
+                indicating reasonable modeling of the distribution even at distant scale factor scaling factors.
         }
         \label{fig:vbf_hh_preview}
     \end{figure}
@@ -384,7 +342,7 @@
     
     As a final note on the discussion of the signal sample combination technique,
         I would like to address the reason that some combination bases work better than others.
-    Originally, the 2021 MC production for the 4b analysis consisted of 12 samples (all but the bottom row of Table \ref{tab:mcsample}).
+    Originally, the 2021 MC production for the 4b analysis consisted of 12 samples (all but the bottom row of Table \ref{tab:mcyields}).
     However, inspection of these samples using the negative weight technique discussed above revealed very poor modeling performance.
     From a combinatorics perspective, there were 12 samples available, and six are needed for the combination.
     There are 924 ways to choose 6 samples from 12, and of those 619 produce linearly solvable systems of equations.
@@ -451,18 +409,18 @@
     Different samples can have cross-sections which are orders of magnitude apart from each other
         (e.g.\ the 1.18 fb cross-section of the SM point VS the 67 fb cross-section of the \kl=10 sample).
     As well, the $\kappa$-factor-based coefficients $g_i$ can vary dramatically across the $\kappa$ space.
-    The product of the sample cross-section and the scale-factor coefficient (the \textit{weighted cross-section})
-        can therefore fluctuate a great deal across the scale-factor space.
+    The product of the sample cross-section and the scale factor coefficient (the \textit{weighted cross-section})
+        can therefore fluctuate a great deal across the scale factor space.
     For many regions of the $\kappa$ space, it can happen that one or two of the samples' weighted cross-sections vastly outweigh the others.
     In such cases, the combined cross-section is then based almost entirely on these one or two over-represented samples,
         making the combination much more susceptible to statistical deficiencies.
-    I propose that this ``closeness'' of the weighted cross-sections can be used as an effective metric of performance,
+    I propose that this ``closeness'' of the weighted cross-sections can be used as an effective metric of performance
         and one which does not depend on the generation of MC.
 
     Here I define a metric to quantify this behavior.
     Due to the nature of the weighted cross-sections,
         the metric will be dependent both on the basis samples' cross-section ($\sigma_i$),
-        and on the scale-factor coefficient ($g_i(\kvv,\kl,\kv)$) of the specific point in the scale-factor space to be modeled\footnote{
+        and on the scale factor coefficient ($g_i(\kvv,\kl,\kv)$) of the specific point in the scale factor space to be modeled\footnote{
             Note that I have switched from a binned differential cross-section, to here working with the total cross-section.
             This is possible because the $g_i$ terms are independent of phase-space,
                 and therefore do not affect the phase-space integration of differential cross-section.
@@ -477,7 +435,7 @@
 
     \begin{equation}
         \textrm{\textbf{Solidarity}: }S \equiv \frac{ \sum\limits_{i=1}^6 g_i\sigma_i }{ \textrm{Stdev}(|g_i\sigma_i|) }
-        \quad.
+        \,.
     \end{equation}
 
     That is, first take the standard deviation of the absolute values of the $ g_i \sigma_i $ weighted cross-sections.
@@ -542,7 +500,7 @@
         \caption{
             Plots of the negative weight surface integral (calculated from post-reconstruction/selection MC samples)
                 of all possible bases, with respect to the same bases' Solidarity surface integral
-                (calculated from the theoretical cross-section associated with the MC samples' scale-factor values).
+                (calculated from the theoretical cross-section associated with the MC samples' scale factor values).
             The plot on the left uses only the original 12 available MC samples for its bases.
             To the right is the same plot with the inclusion of the 13th (\kl=-5, \kvv=1, \kv=0.5) sample.
             Note that the plot on the left has a y-axis with a lower bound that is significantly higher ($\sim 250$) 
@@ -592,7 +550,7 @@
         produces a clear method of distinguishing samples that 
         could produce high stability combinations with the existing 12 samples.
     The aggregate sum of all Solidarity surface integrals associated with a new sample
-        can evidently be used as a scalar metric by which to rank different prospective scale-factor points.
+        can evidently be used as a scalar metric by which to rank different prospective scale factor points.
     The culmination of these tests is Fig. \ref{fig:solidarity_performance_map}.
 
     \begin{figure}[tbh]
@@ -611,7 +569,7 @@
         \caption{
             Solidarity cumulative performance maps for various values of \kv.
             The color of a particular (\kvv,\kl) point indicates the overall
-                benefit to adding an MC sample with that set of scale-factor
+                benefit to adding an MC sample with that set of scale factors
                 to the existing set of 12 MC samples.
             Colors closer to yellow (the upper end of the scale) denote samples that would improve combination performance,
                 while colors closer to purple (the lower end of the scale) denote samples that would be of little to no use if added.
@@ -624,7 +582,7 @@
         a number of points (mostly those corresponding to the highest aggregate performance values, $\approx 5.5$)
         were selected for limited simulation at truth level.
     Based on the preliminary stability shown by these truth level simulations,
-        a full MC production run was generated with its scale-factor values set to \kvv=1, \kl=-5, \kv=0.5.
+        a full MC production run was generated with its scale factor values set to \kvv=1, \kl=-5, \kv=0.5.
     This set of MC samples combined with the collected data and background estimation,
         can then be used together to test the validity of different possible hypotheses.
 

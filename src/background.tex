@@ -73,12 +73,12 @@
 
     \begin{figure}[!htbp]
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]
                 {background/crypto-mean-stdBS-m-hh-Control-Region-1-no-rw-all-4binclusive}
             \captionsetup{justification=centering} \caption{Data before reweighting}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth}
-            \includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]
                 {background/crypto-mean-stdBS-m-hh-Control-Region-1-NN-all-4binclusive}
             \captionsetup{justification=centering} \caption{Data after reweighting}
         \end{subfigure}
@@ -145,7 +145,16 @@
         the first of which was determining how strongly correlated different variables are to \mhh
         (Figs. \ref{fig:mhh_corrLT1.5} and \ref{fig:mhh_corrGT1.5}).
     I used the Pearson correlation coefficient as a measure of the relationship of different variables.
-    This coefficient is a scalar metric of how closely the variables follow a linear correlation.
+    This coefficient $\rho$ is a scalar metric of how closely
+        two variables $x$ and $y$ follow a linear correlation, measured as
+        \begin{equation}
+            \rho_{xy} \equiv \frac{\textrm{cov}(x,y)}{\sigma_x \sigma_y}
+            \,.
+        \end{equation}
+    This is a function of the standard deviations $\sigma_x,\sigma_y$ of $x$ and $y$,
+        as well as their \textit{covariance} 
+        $\textrm{cov}(x,y) \equiv \left<(x-\left<x\right>)(y-\left<y\right>)\right>$
+        (with $\left<f\right>$ being the expectation value of $f$)\cite{pearson_correlation}.
 
 
     \begin{sidewaysfigure}[tbh]
