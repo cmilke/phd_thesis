@@ -27,14 +27,18 @@
         \centering
         \begin{subfigure}{0.48\textwidth}
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_HH_m}
-            \captionsetup{justification=centering} \caption{Truth-level display of \mhh for various values of the scaling factors}
+            \captionsetup{justification=centering} \caption{Di-Higgs Invariant Mass}
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth}
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_jj_M}
-            \captionsetup{justification=centering} \caption{Truth-level display of \mjj for various values of the scaling factors}
+            \captionsetup{justification=centering} \caption{VBF Initial Scatter Jets Invariant Mass}
         \end{subfigure}
         \caption{
-            Invariant mass between the Higgs pair and VBF initial scatter jets, respectively.
+            MC event distributions from \textit{truth-level} events.
+            That is, events generated from MadGraph+Pythia8
+                but which have not gone through Geant4 detector simulation or reconstruction.
+            These plots show the invariant mass between the Higgs pair and VBF initial scatter jets respectively,
+                for a number of different $\kappa$ scale factors.
         }
         \label{fig:lhe_truth1}
     \end{figure}
@@ -44,26 +48,25 @@
         \begin{subfigure}{0.48\textwidth}
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_H1_pt}
             \captionsetup{justification=centering} \caption{
-                Truth-level display of the transverse momentum of the leading-$p_T$ Higgs boson
-                    for various values of the scaling factors.
+                $p_T$ of the leading-$p_T$ Higgs boson
             }
         \end{subfigure}
         \begin{subfigure}{0.48\textwidth}
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_H2_pt}
             \captionsetup{justification=centering} \caption{
-                Truth-level display of the transverse momentum of the sub-leading-$p_T$ Higgs boson
-                    for various values of the scaling factors.
+                $p_T$ of the sub-leading-$p_T$ Higgs boson
             }
         \end{subfigure} \\
 
         \begin{subfigure}{0.48\textwidth}
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/truth_lhe_HH_dEta}
             \captionsetup{justification=centering} \caption{
-                Truth-level display of the pseudo-rapidity gap between the Higgs pair
-                    for various values of the scaling factors.
+                \deta between the two produced Higgs bosons
             }
         \end{subfigure} \\
-        \caption{}
+        \caption{
+                Truth-level display of additional kinematic properties the \vbfhhproc.
+        }
         \label{fig:lhe_truth2}
     \end{figure}
 
@@ -100,10 +103,13 @@
     The values of \kl and \kvv have loose experimental constraints \cite{EXOT-2016-31} \cite{HDBS-2018-18-witherratum} \cite{ATLAS-CONF-2019-049},
         requiring analysis across a wide range of these scale factor values.
     Unfortunately, the MC generation process discussed in Section \ref{sec:mcsim} is computationally expensive and time consuming.
-    As such, only a handful of MC simulation samples for a select few scale factor values are actually produced,
-        and a sample combination technique is employed to model the signal hypothesis across the scale factor parameter space.
+    As such, only a handful of MC simulation samples for a select few scale factor values are actually produced.
+    A sample combination technique 
+        (expanded upon from an analogous approach used in Ref. \ref{combination_origin})
+        is employed to model the signal hypothesis across the scale factor parameter space.
 
-    The process of combining a few samples in such a way as to model the entire parameter space of scaling factors is based on exploiting the underlying mathematics of the differential cross-section formula.
+    The process of combining a few samples in such a way as to model the entire parameter space of scaling factors
+        is based on exploiting the underlying mathematics of the differential cross-section formula.
     By expanding the squared term of the sum of all Feynman diagram contributions,
         the cross-section can be expressed as a function of its scale factor values \cite{ATLAS-CONF-2019-049},
         as shown in Eqn. \ref{eq:tree_level_invamp}.

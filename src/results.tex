@@ -381,19 +381,12 @@
 \section{VBF HH 4b Limit-Setting Framework}
 
     Although a wealth of information can be obtained from event yields alone,
-        far more statistical power can be wrought by making full use of
+        far more statistical power can be attained by making full use of
         the kinematic information of individual events.
-    %The issue of course, is that the signal is utterly dwarfed by the quantity of background events.
-    %A method of circumventing this scale issue
-        %is to break the event count up across a number of different
-    By splitting the event count up across a number of different
-        bins and categories dependent on kinematic observables of the events,
-
-    The signal and background events are expected to have their events distributed differently across such observables.
-    Thus, even though there are vastly more background events overall,
-        it is entirely possible for there to exist a region in the observable space
-        in which there are a comparable or even dominant number of signal events.
-    In this analysis, the primary observable variable is the di-Higgs invariant mass, \mhh.
+    The signal and background events are expected to have their events distributed differently across certain observables.
+    Binning events according to their kinematic observables can emphasize these distinctions
+        and highlight deviations from the null or signal hypotheses.
+    In this analysis, the primary observable variable used for this purpose is the di-Higgs invariant mass, \mhh.
     Ultimately, the final test of the hypothesis will still be to create a cumulative PDF distribution,
         obtain the p-value of the cumulative PDF for the observed data, and use that to derive a CL for the signal.
     With multiple bins (as well as categories and uncertainties) however,
@@ -472,7 +465,7 @@
         \,.
     \end{equation}
     Instead of a probability distribution function, now a ``likelihood'' function $L$ will be used,
-        which is the joint probability of the observed data $n$ in each of the bins
+        which is the joint probability of the observed data $n_i$ in each of the bins
         (which are in turn all Poisson-distributed data in each of the bins, with expectation value $\nu_i$)
     \begin{equation}
         L(n,\mu) = \prod \limits_{i=1}^{N} P(n_i | \nu_i)
