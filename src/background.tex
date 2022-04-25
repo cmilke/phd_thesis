@@ -4,7 +4,7 @@
 \section{Data-Driven Background Estimate}
 
     The basic event selection does not remove all non-signal events.
-    Indeed, based on the relative rates of QCD multijet events (Fig. \ref{fig:lhc_rates}) and the SM \vbfhhproc process (1.18 fb, see Table \ref{tab:mcyields}),
+    Indeed, based on the relative rates of QCD multijet events (Figs. \ref{fig:lhc_rates} and \ref{fig:multijet_rates}) and the SM \vbfhhproc process (1.18 fb, see Table \ref{tab:mcyields}),
         most of the events remaining in the data are very likely background.
     Since these background events cannot be effectively differentiated from the signal,
         a technique must be used to estimate how much of the observed data are coming from background.
@@ -15,15 +15,27 @@
     \begin{figure}[tbh]
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/lhc_rates}
         \caption{
-            Production cross-section of various final state in ATLAS\cite{atlas_sm_summary}.
-            Note the $~3 \times 10^5$ pb cross-section of diject events,
-                and $~1 \times 10^3$ pb cross-section of \ttbar events.
-            Though the 6-jet events that act as a background in this analysis are not shown...
-                I should probably just find a better plot...
-                I found some tables listing xsecs of decays of Z and W bosons to 6+ jets,
-                but presumably there are other ways to get 6 jets so those wouldn't be the whole story? TODO
+            Production cross-section of various final states in ATLAS\cite{atlas_sm_summary}.
+            Note the $\sim 1 \times 10^3$ pb cross-section of \ttbar events
+                as compared to the 1.18 fb cross-section of the SM \vbfhhproc process.
         }
         \label{fig:lhc_rates}
+    \end{figure}
+
+
+    \begin{figure}[tbh]
+        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/multijet_rates}
+        \caption{
+            Production cross-section as a function of jet number\cite{multijet_measurement}.
+            This measurement was made at a lower CoM energy of 7 TeV and used a slightly larger
+                \antikt $\Rparam$-parameter of 0.6.
+            However, it still serves to provide a rough estimate of what can be expected from the multijet
+                background in this analysis.
+            For comparison, the di-jet estimate provided here of $4\times10^6$ pb
+                is just over an order of magnitude greater than the analogous measurement of
+                $3\times10^5$ pb from Fig. \ref{fig:lhc_rates}.
+        }
+        \label{fig:multijet_rates}
     \end{figure}
 
     For the \vbfproc process, the background consists mostly of QCD multijet events,
