@@ -40,12 +40,11 @@
             There are several conventions for the form these parameters should take,
                 but in ATLAS a helix is described by a set of equations parameterised by an angle $\alpha$ as:
             \begin{equation} \begin{split}
-                x(\alpha) &= x_R + d_0 \cos(\phi) + \rho \left[ \cos(\alpha) - \cos(\phi) \right] \\
-                y(\alpha) &= y_R + d_0 \sin(\phi) + \rho \left[ \sin(\alpha) - \sin(\phi) \right] \\
-                z(\alpha) &= z_R + z_0 - \rho \cot(\theta) (\alpha - \phi)
+                x(\alpha) &= x_R + d_0 \cos(\phi) + r \left[ \cos(\alpha) - \cos(\phi) \right] \\
+                y(\alpha) &= y_R + d_0 \sin(\phi) + r \left[ \sin(\alpha) - \sin(\phi) \right] \\
+                z(\alpha) &= z_R + z_0 - r \cot(\theta) (\alpha - \phi)
                 \,.
             \end{split} \end{equation}
-            %FIXME: you used 'r' in the figures, but rho in the equations. Fix one of them
 
             The helix is described relative to a reference point $R$,
                 which is initially set to the beam-spot location in the IR.
@@ -59,8 +58,8 @@
                 \item $d_0$: $|(x,y)|$-distance from the origin to the closest point on the helix, in the $x,y$ plane
                 \item $z_0$: $z$-distance between the PoCA and the origin
                 \item $\phi$: Angle in the $x,y$ plane of the PoCA
-                \item $\rho$: The radius of curvature of the helix
-                \item $\theta$: The angle of the helix's trajectory in the $\rho,z$ plane
+                \item $r$: The radius of curvature of the helix
+                \item $\theta$: The angle of the helix's trajectory in the $r,z$ plane
             \end{itemize}
 
             \begin{figure}[tbh]
@@ -94,9 +93,9 @@
 
             All five of the parameters are used at some stage of the analysis.
             With regards to the particle momentum, $\phi$ and $\theta$ are themselves components of the particle's 4-vector.
-            $\rho$ can be related to the particle's transverse momentum and electric charge by:
+            $r$ can be related to the particle's transverse momentum and electric charge by:
             \begin{equation}
-                \rho = \frac{p_T}{qB} = \frac{|\vec{p}| \sin \theta}{qB}
+                r = \frac{p_T}{qB} = \frac{|\vec{p}| \sin \theta}{qB}
             \end{equation}
             where $B$ is the magnetic field\footnote{
                     Note that this equation only really works for a perfectly uniform axial field.
@@ -107,7 +106,6 @@
             The impact parameters, $d_0$ and $z_0$, are not related to momentum,
                 but will be used in later sections for the purpose of flavor tagging.
 
-        \FloatBarrier
         \subsection{Track Reconstruction}
 
             As particles pass through the inner detector subsystems, they trace out a path in ionized detector elements.
@@ -341,7 +339,6 @@
             \end{split} \end{equation}
             Physically, this sign convention is to distinguish tracks which are likely to have actually been part of the jet (with a positive sign)
                 from those likely originating from pile-up vertices (negative sign).
-            %[TODO: I'm not sure these equations are actually right. At the very least, I don't understand them, so I'll need to revisit this]
             See Fig. \ref{fig:ip3d_sign} for a graphical illustration of this convention.
 
             \begin{figure}

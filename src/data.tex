@@ -204,11 +204,14 @@
             is that it must exclusively use information from the ATLAS calorimeters and Muon Trigger Chamber for its decisions.
         %(utilizes detector buffer memory to keep up).
 
-        The Muon Trigger aspect of L1 is based entirely on the dedicated Muon Trigger Chambers, described in section \ref{sec:muon-trigger_chamber}.
+        The Muon Trigger aspect of L1 is based entirely on the dedicated Muon Trigger Chambers,
+            described in section \ref{sec:muon-trigger_chamber}.
         Their purpose is to make trigger decisions primarily based on muon $p_T$ and track multiplicity\cite{trigger_run1}.
         In the calorimeter-based trigger, the selection algorithm first requires a reduction in data resolution.
         The full granularity of the ATLAS calorimeters is too high to analyze in the 25 ns L1 has to process each bunch-crossing
-            [TODO figure out Steve's edit to this :-/].
+        The full granularity of the ATLAS calorimeters is too high to analyze in the data collected so far by ATLAS\footnote{
+            Though this is planned to change for the HL-LHC, which will have full granularity access at L1.
+        }.
         Instead, the various sensors of the calorimeters are clustered together into ``trigger towers,''
             each with a resolution of $0.1 \times 0.1$ in $\Delta \eta \times \Delta \phi$.
         The way towers are clustered and used varies between the three different L1 calorimeter trigger modules.
