@@ -7,7 +7,7 @@ import numpy
 import matplotlib
 from matplotlib import pyplot as plt
 
-sys_regions = ['East', 'North', 'South', 'West']
+sys_regions = [('East','magenta'), ('North','cyan'), ('South','green'), ('West','orange')]
     
 for f in sorted(os.listdir('workspaces')):
     if '.json' not in f: continue
@@ -39,59 +39,46 @@ for f in sorted(os.listdir('workspaces')):
         bgd_prediction = hypothesis['samples'][1]
         data['Background'] = numpy.array(bgd_prediction['data'])
         data['Background Stat Error'] = numpy.array(bgd_prediction['modifiers'][4]['data'])
-        for shape_index, shape in enumerate(sys_regions):
+        for shape_index, (shape,c) in enumerate(sys_regions):
             shape_systematic_hi = numpy.array(bgd_prediction['modifiers'][shape_index]['data']['hi_data'])
             data['Background Sys '+shape] = abs(shape_systematic_hi - full_stats[category_index]['data']['Observed'])
 
+    bgdcolor = 'blue'
+    sigcolor = 'red'
     for cat_index, category in enumerate(full_stats):
-        fig, (ax, rat, errplt) = plt.subplots(3, gridspec_kw={'height_ratios':(1,1,1)}, sharex=True)
+        fig, (ax, errplt, rat) = plt.subplots(3, gridspec_kw={'height_ratios':(1,1,1)}, sharex=True)
         bins = category['bins']
         data = category['data']
         ax.plot(bins, data['Observed'], label='Observed', color='black')
         ax.errorbar(bins, data['Signal'], 
-            yerr=data['Signal Stat Error'], label='Signal', color='green')
+            yerr=data['Signal Stat Error'], label='Signal', color=sigcolor)
         ax.errorbar(bins, data['Background'],
-            yerr=data['Background Stat Error'], label='Background', color='blue')
-        ax.legend()
+            yerr=data['Background Stat Error'], label='Background', color=bgdcolor)
+        ax.legend(fontsize=10, loc='upper right', ncol=3)
         ax.set_ylabel('Event Count')
+
+        errplt.plot(bins, data['Signal Stat Error'], color=sigcolor, label='Sig Stat Error')
+        errplt.plot(bins, data['Background Stat Error'], color=bgdcolor, label='Bgd Stat Error')
+        for shape_index, (shape,c) in enumerate(sys_regions):
+            key = 'Background Sys '+shape
+            errplt.plot(bins, data[key], label='Sys '+shape, color=c, linestyle='--')
+        #errplt.legend(fontsize=10, loc='upper center', ncol=3)
+        errplt.set_ylabel('Yield Error')
 
         safe_obs = data['Observed'].copy()
         safe_obs[safe_obs < 1] = float('inf')
-        rat.plot(bins, data['Signal Stat Error']/data['Signal'], color='green', label='Sig Stat Error')
-        rat.plot(bins, data['Background Stat Error']/data['Background'], color='blue', label='Bgd Stat Error')
-        for shape_index, shape in enumerate(sys_regions):
+        rat.plot(bins, data['Signal Stat Error']/data['Signal'], color=sigcolor, label='Sig Stat Error')
+        rat.plot(bins, data['Background Stat Error']/data['Background'], color=bgdcolor, label='Bgd Stat Error')
+        for shape_index, (shape,c) in enumerate(sys_regions):
             key = 'Background Sys '+shape
-            rat.plot(bins, data[key]/safe_obs, label='Sys '+shape)
+            rat.plot(bins, data[key]/safe_obs, label='Sys '+shape, color=c, linestyle='--')
         rat.set_ylim(0,1)
-        rat.legend(fontsize=5)
-        rat.set_ylabel('Error/Prediction')
+        rat.set_ylabel('Relative Error')
+        rat.legend(fontsize=9, loc='upper center', ncol=3)
 
-        errplt.plot(bins, data['Signal Stat Error'], color='green', label='Sig Stat Error')
-        errplt.plot(bins, data['Background Stat Error'], color='blue', label='Bgd Stat Error')
-        for shape_index, shape in enumerate(sys_regions):
-            key = 'Background Sys '+shape
-            errplt.plot(bins, data[key], label='Sys '+shape)
-        errplt.legend(fontsize=5)
-        errplt.set_ylabel('Error Value')
+        rat.set_xlabel('$M_{HH} (GeV)$')
 
-        errplt.set_xlabel('$M_{HH} (GeV)$')
-
-        title = coupling_title + '\n' + category['title']
+        title = coupling_title + ' $\;\emdash\;$ ' + category['title']
         fig.suptitle(title)
         plt.savefig('out/error_comparison_'+coupling_name+f'cat{cat_index}.pdf')
         plt.close()
-
-    ##x = 
-    #for key, data in workspace_data.items():
-    #    ax.plot(data,label=key)
-    ##rat.plot(data/data_average)
-    ##ax.set_ylabel('data')
-    ##rat.set_ylabel('data / avg(data)')
-    ##for d,l in zip(datasets,labels):
-    ##    ax.plot(d, label=l)
-
-    #title = coupling_title
-    #fig.suptitle(title)
-    #ax.legend()
-    #plt.savefig('error_comparison_'+coupling_name+'.pdf')
-    #plt.close()

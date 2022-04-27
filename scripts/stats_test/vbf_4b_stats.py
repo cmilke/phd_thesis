@@ -84,13 +84,13 @@ def get_mu_kappa_expression(bgd_yield, data_yield):
 
 def make_data_display_plots(results=None, var_edges=None, couplings=None, var_key='m_hh', var_title=r'$m_{HH}$'):
     fig, (ax, rat) = plt.subplots(2, gridspec_kw={'height_ratios':(2,1)}, sharex=True)
-    ax.errorbar(var_edges[:-1]+0.5, results['data'][0], yerr=results['data'][1], marker='.', ls='--', color='purple', label='Data')
-    ax.errorbar(var_edges[:-1]+0.5, results['bgd'][0], yerr=results['bgd'][1], marker='.', ls='--', color='blue', label='Bgd')
-    ax.errorbar(var_edges[:-1]+0.5, results['sig'](couplings)[0], yerr=results['sig'](couplings)[1], marker='.', ls='--', color='green', label='Signal')
+    ax.errorbar(var_edges[:-1]+0.5, results['data'][0], yerr=results['data'][1], marker='.', ls='-', color='black', label='Data')
+    ax.errorbar(var_edges[:-1]+0.5, results['bgd'][0], yerr=results['bgd'][1], marker='.', ls='-', color='blue', label='Bgd')
+    ax.errorbar(var_edges[:-1]+0.5, results['sig'](couplings)[0], yerr=results['sig'](couplings)[1], marker='.', ls='-', color='red', label='Signal')
 
     sensitivity = results['sig'](couplings)[0] / numpy.sqrt( results['data'][1]**2 + results['bgd'][1]**2)
-    rat.errorbar(var_edges[:-1]+0.5, sensitivity, marker='.', ls='--', color='red')
-    rat.hlines(0, var_edges[0], var_edges[-1], linestyle='-', color='black')
+    rat.errorbar(var_edges[:-1]+0.5, sensitivity, marker='.', ls='-', color='purple')
+    #rat.hlines(0, var_edges[0], var_edges[-1], linestyle='-', color='black')
 
     ax.legend()
     ax.set_ylabel('Yield of Events with Given '+var_title)
@@ -135,7 +135,7 @@ def make_sb_poisson_plots(results=None, prefix='', couplings=None):
     fig, ax = plt.subplots()
     ax.plot(poisson_inputs, poisson_bgd_values, label='Background PDF', color='blue')
     ax.plot(poisson_inputs, poisson_bs_values, ls='--', label='S+B PDF', color='green')
-    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='red')
+    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='black')
     ax.fill_between(range(0,observed+1), 0, poisson_bgd_values[:observed+1], color='blue', hatch='///', alpha=0.3, label=f'bgd p-value={bgd_pvalue:.2f}')
     ax.fill_between(range(0,observed+1), 0, poisson_bs_values[:observed+1], color='green', hatch='/', alpha=0.3, label=f'S+B p-value={bs_pvalue:.2f}')
     plt.xlabel('Number of Events')
@@ -150,10 +150,10 @@ def make_sb_poisson_plots(results=None, prefix='', couplings=None):
     fig, ax = plt.subplots()
     ax.plot(poisson_inputs, cumulative_bgd_poisson, label='Bgd Cumulative PDF')
     ax.plot(poisson_inputs, cumulative_bs_poisson, label='S+B Cumulative PDF', ls='--')
-    ax.plot(poisson_inputs, cumulative_sig_poisson, label='Signal Cumulative PDF', color='purple')
-    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='red')
+    ax.plot(poisson_inputs, cumulative_sig_poisson, label='Signal Cumulative PDF', color='red')
+    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='black')
     ax.axhline(bgd_pvalue, ls='dotted', label=f'Bgd p-value={bgd_pvalue:.2f}', color='blue')
-    ax.axhline(sig_pvalue, ls='dotted', label=f'Signal p-value={sig_pvalue:.2f}', color='purple')
+    ax.axhline(sig_pvalue, ls='dotted', label=f'Signal p-value={sig_pvalue:.2f}', color='crimson')
     plt.xlabel('Number of Events')
     plt.ylabel('Cumulative Poisson Probability')
     plt.xlim(expectation*.5, expectation*1.5)
@@ -477,10 +477,10 @@ def make_full_3D_render(shell_points):
 
 def main():
     pickle_load = len(sys.argv) > 1
-    #var_edges = numpy.linspace(200, 1400, 30)
-    #var_key = 'm_hh'
-    var_edges = numpy.linspace(0, 4, 20)
-    var_key = 'dEta_hh'
+    var_edges = numpy.linspace(200, 1400, 30)
+    var_key = 'm_hh'
+    #var_edges = numpy.linspace(0, 4, 20)
+    #var_key = 'dEta_hh'
 
     ###################
     # LOAD EVERYTHING #
@@ -520,8 +520,8 @@ def main():
     #print('Data')
     #print(results['data'][0].sum(), results['data'][1].sum())
 
-    #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
-    #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
+    make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
+    make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
 
     #make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
     #make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
@@ -534,8 +534,8 @@ def main():
     #shell_points = pickle.load(open('.shell_points.p','rb'))
     #make_full_3D_render(shell_points)
 
-    make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False, hl_lhc_projection=True)
-    make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False, hl_lhc_projection=True)
+    #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False, hl_lhc_projection=True)
+    #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False, hl_lhc_projection=True)
     #shell_points = make_multidimensional_limit_plots(results=results, hl_lhc_projection=True)
 
     #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(-1,1,1))

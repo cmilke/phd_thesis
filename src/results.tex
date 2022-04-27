@@ -428,7 +428,7 @@
             \label{fig:data_dump_dEta_hh_1p00_10p00_1p00}
         \end{subfigure}\\
         \caption{
-            \small
+            \scriptsize
             The event yields of the data, background, and signal binned by their \mhh and \deta distributions.
             The bottom plot displays the ``significance'' ($Z_s=\frac{S}{\sqrt{S+B}}$)
                 of the analysis in a particular bin.
@@ -482,20 +482,21 @@
     The expectation value is further adjusted to be $\nu_i(\mu, \Theta) = \mu S_i + \Theta B_i$,
         where $\Theta$ is a product of five scaling values 
     \begin{equation}
-        \Theta = \prod \limits_{a=0}^{4}  \theta^a
+        \Theta = \prod \limits_{a=1}^{4}  \theta^a
         \,.
     \end{equation}
     These scaling values, called ``nuisance parameters,''
         correspond to the four \mhh shape uncertainties $\sigma_i^a, a\in{1,2,3,4}$
-        and one normalization uncertainty $\sigma^0$ ($\sigma^0$ does not vary by bin),
         which were described in Section \ref{sec:nn_training}.
+    See Figs. \ref{fig:error_dump_sm}-\ref{fig:error_dump_kl10} for a visual comparison of the size of the statistical and systematic errors
+        compared to the data and predicted signal and backgrounds.
     Here the background uncertainty is modeled as a Gaussian with expectation value $\theta^a B_i$ and standard deviation $\sigma_i^a$.
     Extending the likelihood function with the nuisance parameters produces
     \begin{equation} \begin{split}
         L(n,\mu,\Theta) &= \prod \limits_{i=1}^{N} P_{\textrm{poiss}}(n_i | \nu_i) 
-             \prod \limits_{a=0}^{4} P_{\textrm{gauss}}(n_i | \nu_i, \sigma_i^a) 
+             \prod \limits_{a=1}^{4} P_{\textrm{gauss}}(n_i | \nu_i, \sigma_i^a) 
         \\&= \prod \limits_{i=1}^{N} \frac{ (\mu S_i + \Theta B_i)^{n_i} e^{\mu S_i + \Theta B_i} }{n_i!} \times
-            \prod \limits_{a=0}^4 \frac{1}{\sigma_i^a \sqrt{2\pi}} e^{
+            \prod \limits_{a=1}^4 \frac{1}{\sigma_i^a \sqrt{2\pi}} e^{
                 -\frac{1}{2}\left(\frac{n_i- (\mu S_i + \Theta B_i)}{\sigma_i^a}\right)^2
             }
         \,.
@@ -507,12 +508,91 @@
     \begin{equation}
         L(n,\mu,\Theta) = \prod \limits_{j=1}^{2}
              \prod \limits_{i=1}^{N} P_{\textrm{poiss}}(n_{ij} | \nu_{ij}) 
-             \prod \limits_{a=0}^{4} P_{\textrm{gauss}}(n_{ij} | \nu_{ij}, \sigma_{i}^a) 
+             \prod \limits_{a=1}^{4} P_{\textrm{gauss}}(n_{ij} | \nu_{ij}, \sigma_{i}^a) 
         \,.
     \end{equation}
 
-    % Discuss nuissance parameter fitting
-    There is only one parameter of interest ($\mu$), but there are now six total parameters of which $L$ is a function. %FIXME mention the bootstrap uncertainty too
+
+    \begin{figure}
+        \centering
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/error_comparison_kl1p0_kvv1p0_kv1p0cat0}
+            \caption{Yields Binned in \mhh for the SM, $\eta < 1.5$}
+            \label{fig:error_dump_eta0_1p00_1p00_1p00}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/error_comparison_kl1p0_kvv1p0_kv1p0cat1}
+            \caption{Yield Binned in \deta for the SM, $\eta \geq 1.5$}
+            \label{fig:error_dump_eta1_hh_1p00_1p00_1p00}
+        \end{subfigure}
+        \caption{
+            \scriptsize
+            Plots illustrating the relative scale of the data and signal/background predictions
+                to the statistical and systematic errors present in this analysis,
+                for both $\eta$ categories for the SM values of the $\kappa$ factors.
+            The Event Count (top) plot displays event yields of data and the signal/background predictions
+                with the statistical error (\textit{not} systematic) of those predictions displayed as error bars.
+            Recall that the statistical error of the background is a quadrature sum of the typical stat uncertainty
+                and the ``bootstrap'' uncertainty associated with the neural network training procedure.
+            Also note that the statistical error of the signal is practically invisible at this scale.
+            The Yield Error (middle) plot shows the values of the various errors, in units of event yields.
+            The signal error continues to be basically irrelevant in comparison to the much larger
+                systematic and statistical error on the background estimate.
+            All four of the systematic shape uncertainties are highly consistent in their shape
+                and roughly comparable to the stat uncertainty in scale.
+            The jagged nature of the systematics stems from the fact that this is a background-driven estimate
+                and thus statistically limited by the yield in data.
+            At the bottom of the figures is the Relative Error, which shows the ratio of each of the errors
+                \textit{to their respective prediction}
+                (i.e.\ the signal stat error is displayed as a ratio of the signal stat error to the signal yield,
+                while the background stat error is displayed as a ratio of the background stat error to the \textit{background} yield).
+        }
+        \label{fig:error_dump_sm}
+    \end{figure}
+
+    \begin{figure}
+        \centering
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/error_comparison_kl1p0_kvv3p0_kv1p0cat0}
+            \caption{Yields Binned in \mhh for \kvv=3, $\eta < 1.5$}
+            \label{fig:error_dump_eta0_3p00_1p00_1p00}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/error_comparison_kl1p0_kvv3p0_kv1p0cat1}
+            \caption{Yields Binned in \deta for \kvv=3, $\eta \geq 1.5$}
+            \label{fig:error_dump_eta1_hh_3p00_1p00_1p00}
+        \end{subfigure}
+        \caption{
+            Plots illustrating the relative scale of the data and signal/background predictions
+                to the statistical and systematic errors present in this analysis,
+                for both $\eta$ categories for $\kvv=3$.
+        }
+        \label{fig:error_dump_kvv3}
+    \end{figure}
+
+    \begin{figure}
+        \centering
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/error_comparison_kl10p0_kvv1p0_kv1p0cat0}
+            \caption{Yields Binned in \mhh for \kl=10, $\eta < 1.5$}
+            \label{fig:error_dump_eta0_1p00_10p00_1p00}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/error_comparison_kl10p0_kvv1p0_kv1p0cat1}
+            \caption{Yields Binned in \deta for \kl=10, $\eta \geq 1.5$}
+            \label{fig:error_dump_eta1_hh_1p00_10p00_1p00}
+        \end{subfigure}
+        \caption{
+            Plots illustrating the relative scale of the data and signal/background predictions
+                to the statistical and systematic errors present in this analysis,
+                for both $\eta$ categories for $\kl=10$.
+        }
+        \label{fig:error_dump_kl10}
+    \end{figure}
+
+
+    % Discuss nuisance parameter fitting
+    There is only one parameter of interest ($\mu$), but there are now six total parameters of which $L$ is a function.
     To address this without over-fitting to the data, a maximized fit is performed across the nuisance parameters.
     Such a fit eliminates their presence from the likelihood function, but it should be noted that it does so at a cost.
     The nuisance parameter fit significantly extends the final cumulative PDF, reducing the overall confidence intervals.
@@ -520,7 +600,7 @@
         and then $L(n,\mu,\Theta)$ is maximized over the various values of the $\theta^a$.
     The nuisance parameter values are then fixed to this maximal value $\hat{\hat\theta}^a$, such that
     \begin{equation}
-        \prod \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} L(n,\mu,\Theta) |_{\Theta=\hat{\hat\Theta}} = 0
+        \prod \limits_{a=1}^{4} \frac{\partial}{\partial \theta^a} L(n,\mu,\Theta) |_{\Theta=\hat{\hat\Theta}} = 0
     \end{equation}
     resulting in a fitted $L = L(n,\mu,\hat{\hat\Theta})$.
         
@@ -531,7 +611,7 @@
         $\hat L$ allows $\mu$ to also be a free parameter.
     It is then maximized with regard to both $\mu$ and the nuisance parameters such that
     \begin{equation}
-        \prod \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} \frac{\partial}{\partial \mu} L(n,\mu,\Theta) |_{\Theta=\hat \Theta} |_{\mu=\hat \mu} = 0
+        \prod \limits_{a=1}^{4} \frac{\partial}{\partial \theta^a} \frac{\partial}{\partial \mu} L(n,\mu,\Theta) |_{\Theta=\hat \Theta} |_{\mu=\hat \mu} = 0
         \,.
     \end{equation}
     A test statistic $t$ can now be constructed with $\lambda$, as
@@ -549,7 +629,7 @@
         which in turn indicates that the model fits the observed data as well as it can for any given value of $\mu$.
     In turn, a value near 0 indicates that the observed data are exceedingly unlikely to have come from the model with the given $\mu$,
         compared to the much more likely model based on the optimal value of $\mu$.
-    The test statistic $t$ then has a simple interpretation:
+    The test statistic $t$ (being the negative log of $\lambda$) then has a simple interpretation:
         values of $t$ close to 0 indicate high likelihood,
         and the higher the value of $t$ (up to infinity) the more unlikely it is that the model is compatible with the data.
 
@@ -565,8 +645,10 @@
     \end{equation}
     The middle condition is simply $t$, with the top and bottom edge cases being the defining traits of \qtil.
     \qtil in particular is used for this analysis because of these piece-wise conditions,
-        which enforce the fact that $\mu$ should never be negative (the signal cannot remove events from the background),
-        and that this analysis is only interested in establishing a lower-bound.
+        which enforce the fact that $\mu$ should never be negative
+        (the signal cannot remove events from the background),
+        and that this analysis is only interested in establishing a lower-bound
+        (and so equates as maximally likely any models for which the $\mu$ being tested is less than the optimal $\hat\mu$).
 
     %Single mu vs q~ PDF constructed from monte-carlo distros
     %C-PDF showing where mu-model resides for Psb, Pb, and finally Ps=Psb/(1-Pb)
