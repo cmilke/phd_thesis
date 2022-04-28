@@ -249,8 +249,8 @@
             \left[ 2 g^2  W^-_{\mu} W^+_{\mu}
             + \left(\sqrt{g^2 + g^{\prime 2}}\right)^2 (Z^0_{\mu})^2 \right] \\
         & = \frac{1}{2} \left[ \left(\frac{vg}{2}\right)^2\  W^-_{\mu} W^+_{\mu}
-            + \frac{1}{2} \left(\frac{v}{2}\sqrt{g^2 + g^{\prime 2}}\right)\ (Z^0_{\mu})^2 \right] \\
-        & = \frac{1}{2} \left[ m_W W^{-\ \mu} W^+_{\mu} + \frac{m_Z}{2} (Z^0_{\mu})^2 \right]
+            + \frac{1}{2} \left(\frac{v}{2}\sqrt{g^2 + g^{\prime 2}}\right)^2\ (Z^0_{\mu})^2 \right] \\
+        & = \frac{1}{2} \left[ m_W^2 W^{-\ \mu} W^+_{\mu} + \frac{m_Z^2}{2} (Z^0_{\mu})^2 \right]
         \,.
     \end{split} \end{equation}
 
@@ -317,7 +317,10 @@
                     Q_{\mu} \minimatrix{0 \\ h + v}
             \\&= \frac{1}{2} | \partial_{\mu}h |^2
                 + \frac{1}{2} \left[ \left(\frac{g}{2}\right)^2\  W^{-\ \mu} W^+_{\mu}
-                + \frac{1}{2} \left(\frac{1}{2}\sqrt{g^2 + g^{\prime 2}}\right)\ (Z^0_{\mu})^2 \right] (h+v)^2
+                + \frac{1}{2} \left(\frac{1}{2}\sqrt{g^2 + g^{\prime 2}}\right)^2\ (Z^0_{\mu})^2 \right] (h+v)^2
+            \\&= \frac{1}{2} | \partial_{\mu}h |^2
+                + \frac{1}{2v^2} \left[ m_W^2\  W^{-\ \mu} W^+_{\mu}
+                + \frac{1}{2} m_Z^2\ (Z^0_{\mu})^2 \right] (h+v)^2
         \,.
     \end{split} \end{equation}
 
@@ -325,8 +328,8 @@
     Replacing the coefficients in front of the $W$ and $Z$ fields with their respective masses
     \begin{equation} \begin{split}
         \Lag_K = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
-            + 2v\left[ m_W W^{-\ \mu} W^+_{\mu} + \frac{m_Z}{2} (Z^0_{\mu})^2 \right] h
-            + \left[ m_W W^{-\ \mu} W^+_{\mu} + \frac{m_Z}{2} (Z^0_{\mu})^2 \right] h^2
+            + \frac{2}{v}\left[ m_W^2 W^{-\ \mu} W^+_{\mu} + \frac{m_Z^2}{2} (Z^0_{\mu})^2 \right] h
+            + \left[ m_W^2 W^{-\ \mu} W^+_{\mu} + \frac{m_Z^2}{2} (Z^0_{\mu})^2 \right] h^2
         \,.
     \end{split} \end{equation}
 
@@ -334,7 +337,7 @@
         and as such are described together simply as vector bosons, $V$:
     \begin{equation} \begin{split}
         \Lag_K = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
-            + 2 v m_V V^2 h + m_V V^2 h^2
+            + 2 v m_V^2 V^2 h + m_V^2 V^2 h^2
         \,.
     \end{split} \end{equation}
 
@@ -351,10 +354,10 @@
     \begin{equation} \begin{split} \label{eq:higgsfull}
         \Lag_h &= \Lag_K + \Lag_U
         \\&= \left[ \frac{1}{2} | \partial_{\mu}h |^2
-            + m_h \sqrt{\frac{2}{\lambda}}  m_V V^2 h + m_V V^2 h^2 \right]
+            + m_h \sqrt{\frac{2}{\lambda}}  m_V^2 V^2 h + m_V^2 V^2 h^2 \right]
             + \left[ - \frac{1}{2} m^2_h h^2 - m_h \sqrt{\frac{\lambda}{2}} h^3 - \frac{1}{4} \lambda h^4 \right]
         \\&= \frac{1}{2} \left(\partial^2 - m_h^2 \right) h^2
-            + m_h m_V \sqrt{\frac{2}{\lambda}} V^2 h + m_V V^2 h^2
+            + m_h m_V^2 \sqrt{\frac{2}{\lambda}} V^2 h + m_V^2 V^2 h^2
             - m_h \sqrt{\frac{\lambda}{2}} h^3 - \frac{1}{4} \lambda h^4
         \,.
     \end{split} \end{equation}
@@ -381,7 +384,7 @@
     The new $\kappa$ terms are ratios of the coupling, as predicted by the Standard Model ($g$), to the true coupling value ($g'$).
     The new $\kappa$ terms are ratios of the true coupling value ($g'$)
         to the coupling as predicted by the Standard Model ($g$).
-    For example, $\kappa_V \equiv \frac{g'_V}{g_V} = \frac{g'_V}{m_h m_V \sqrt{2/\lambda}}$.
+    For example, $\kappa_V \equiv \frac{g'_V}{g_V} = \frac{g'_V}{m_h m_V^2 \sqrt{2/\lambda}}$.
     A $\kappa$ value of 1 indicates consistency with the coupling strength predicted by the Standard Model.
     Any value other than 1 would indicate deviation from the Standard Model,
         which would need to be explained with a modification to the (or entirely new) theory.
