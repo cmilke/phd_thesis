@@ -18,15 +18,15 @@
         \Lag = K_{\phi} = \frac{1}{2} (\partial_{\mu} \phi)^2
         \,.
     \end{equation}
-    Next, introduce a quartic potential $U(\phi) = -\frac{1}{2} \mu^2 \phi^2 + \frac{\lambda}{4!} \phi^4$.
+    Next, introduce a quartic potential $U(\phi) = -\frac{1}{2} \mu^2 \phi^2 + \frac{1}{4} \lambda \phi^4$.
     Now the Lagrangian takes the form
     \begin{equation}
         \Lag = K_{\phi} - U_{\phi} = \frac{1}{2} (\partial_{\mu} \phi)^2 
-            +\frac{1}{2} \mu^2 \phi^2 - \frac{\lambda}{4!} \phi^4
+            +\frac{1}{2} \mu^2 \phi^2 - \frac{1}{4} \lambda \phi^4
         \,.
     \end{equation}
     Such a potential will result in a Hamiltonian which is symmetric about a local maximum at $\phi=0$.
-    The Hamiltonian will have two minima to either side of $\phi=0$, at points $\pm v = \pm \sqrt{\frac{6}{\lambda}} \mu$.
+    The Hamiltonian will have two minima to either side of $\phi=0$, at points $\pm v = \pm \frac{\mu}{\sqrt{\lambda}}$.
 
     This is a small, seemingly innocuous change, so allow me to emphasize:
         this quartic potential is the linchpin of the entire Standard Model,
@@ -45,15 +45,17 @@
     \begin{equation} \begin{split} \label{eq:basic_higgs}
         \Lag & = \frac{1}{2} (\partial_{\mu} h)^2
             - \mu^2 h^2
-            -\sqrt{\frac{\lambda}{6}} \mu h^3
-            - \frac{\lambda}{4!} h^4 \\
+            -\sqrt{\lambda} \mu h^3
+            - \frac{1}{4} \lambda h^4 
+            + \frac{\mu^4}{4 \lambda} \\
          & = \frac{1}{2} (\partial_{\mu} h)^2
             - m^2_{h} h^2
-            -\sqrt{\frac{\lambda}{6}} \mu h^3
-            - \frac{\lambda}{4!} h^4
+            -\sqrt{\lambda} \mu h^3
+            - \frac{1}{4} \lambda h^4
         \,.
-    \end{split} \end{equation} %FIXME: you screwed up the terms somewhere
-    With the latter equation taking the form of a now massive field $h$ with both a three and four point self-coupling vertex.
+    \end{split} \end{equation}
+    With the latter equation taking the form of a now massive field $h$ with both a three and four point self-coupling vertex
+        (the constant potential term $\frac{\mu^4}{4 \lambda}$ is simply dropped, as potential energy is relative).
     This is the mechanism used to take a massless, symmetric field and convert it to a massive, asymmetric form.
     In the next section, I will show how the same scalar field can induce mass in fields other than itself.
 
