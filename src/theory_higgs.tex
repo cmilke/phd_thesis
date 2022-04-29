@@ -122,7 +122,7 @@
     \begin{equation}
         v \equiv \frac{\mu}{\sqrt{\lambda}} \textrm{ ,  for   }
             \vec{\phi}(x) \to \vec{h}(x) + \vec{v} = 
-            \minimatrix{0\\h(x)} + \minimatrix{0\\v} = \minimatrix{0\\h(x)+v}
+            \frac{1}{\sqrt{2}}\minimatrix{0\\h(x)} + \frac{1}{\sqrt{2}}\minimatrix{0\\v} = \frac{1}{\sqrt{2}}\minimatrix{0\\h(x)+v}
         \,.
     \end{equation}
     Worth mentioning is that due to the added groups, there are no longer only two minima.
@@ -130,9 +130,9 @@
     Substituting into the Lagrangian now produces a more complex expression:
     \begin{equation} \begin{split}
         \label{eq:fullHiggs}
-        \Lag & = \frac{1}{2} \left|D_{\mu} \minimatrix{0\\h(x)+v}\right|^2
-            + \mu^2 \left|\minimatrix{0\\h(x)+v}\right|^2
-            - \lambda \left|\minimatrix{0\\h(x)+v}\right|^4 \\
+        \Lag & = \frac{1}{2} \left|D_{\mu} \frac{1}{\sqrt{2}}\minimatrix{0\\h(x)+v}\right|^2
+            + \mu^2 \left|\frac{1}{\sqrt{2}}\minimatrix{0\\h(x)+v}\right|^2
+            - \lambda \left|\frac{1}{\sqrt{2}}\minimatrix{0\\h(x)+v}\right|^4 \\
          & = \Lag_h + \Lag_v
         \,.
     \end{split} \end{equation}
@@ -313,23 +313,25 @@
                 \right)
                 = \frac{1}{2} | \partial_{\mu}h |^2 + \frac{1}{8} \vec{\phi}^\dag Q^{\mu}Q_{\mu} \vec{\phi}
             \\&= \frac{1}{2} | \partial_{\mu}\vec{\phi} |^2 + \frac{1}{8} 
-                    \minimatrix{0 & h^* + v} Q^{\mu}
-                    Q_{\mu} \minimatrix{0 \\ h + v}
+                    \frac{1}{\sqrt{2}}\minimatrix{0 & h^* + v} Q^{\mu}
+                    Q_{\mu} \frac{1}{\sqrt{2}}\minimatrix{0 \\ h + v}
             \\&= \frac{1}{2} | \partial_{\mu}h |^2
-                + \frac{1}{2} \left[ \left(\frac{g}{2}\right)^2\  W^{-\ \mu} W^+_{\mu}
-                + \frac{1}{2} \left(\frac{1}{2}\sqrt{g^2 + g^{\prime 2}}\right)^2\ (Z^0_{\mu})^2 \right] (h+v)^2
-            \\&= \frac{1}{2} | \partial_{\mu}h |^2
-                + \frac{1}{2v^2} \left[ m_W^2\  W^{-\ \mu} W^+_{\mu}
-                + \frac{1}{2} m_Z^2\ (Z^0_{\mu})^2 \right] (h+v)^2
+                + \frac{1}{2} \frac{1}{8} \frac{v^2}{v^2} \left[ 2 g^2  W^-_{\mu} W^+_{\mu}
+                + \left(\sqrt{g^2 + g^{\prime 2}}\right)^2 (Z^0_{\mu})^2 \right] (h+v)^2
         \,.
     \end{split} \end{equation}
 
     The $(h+v)^2$ term will produce couplings quadratic in $v$ ($\Lag_v$ of Eqn. \ref{eq:lagv_full}), and both linear and quadratic in $h$.
     Replacing the coefficients in front of the $W$ and $Z$ fields with their respective masses
+        and expanding these terms out (except the quadratic $v$ term, $\Lag_v$) yields
     \begin{equation} \begin{split}
-        \Lag_K = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
-            + \frac{2}{v}\left[ m_W^2 W^{-\ \mu} W^+_{\mu} + \frac{m_Z^2}{2} (Z^0_{\mu})^2 \right] h
-            + \left[ m_W^2 W^{-\ \mu} W^+_{\mu} + \frac{m_Z^2}{2} (Z^0_{\mu})^2 \right] h^2
+        \Lag_K &= \frac{1}{2} | \partial_{\mu}h |^2
+                + \frac{1}{2v^2} \left[ m_W^2\  W^{-\ \mu} W^+_{\mu}
+                + \frac{1}{2} m_Z^2\ (Z^0_{\mu})^2 \right] (h+v)^2 \\
+        &= \frac{1}{2} | \partial_{\mu}h |^2
+            + \frac{1}{v}\left[ m_W^2 W^{-\ \mu} W^+_{\mu} + \frac{m_Z^2}{2} (Z^0_{\mu})^2 \right] h
+            + \frac{1}{2v^2} \left[ m_W^2 W^{-\ \mu} W^+_{\mu} + \frac{m_Z^2}{2} (Z^0_{\mu})^2 \right] h^2
+            + \Lag_v % FIXME: I'm missing a factor of 2 here :-/
         \,.
     \end{split} \end{equation}
 
@@ -337,7 +339,7 @@
         and as such are described together simply as vector bosons, $V$:
     \begin{equation} \begin{split}
         \Lag_K = \frac{1}{2} | \partial_{\mu}h |^2 + \Lag_v
-            + 2 v m_V^2 V^2 h + m_V^2 V^2 h^2
+            + \frac{1}{v} m_V^2 V^2 h + \frac{1}{2v^2} m_V^2 V^2 h^2
         \,.
     \end{split} \end{equation}
 
@@ -354,19 +356,30 @@
     \begin{equation} \begin{split} \label{eq:higgsfull}
         \Lag_h &= \Lag_K + \Lag_U
         \\&= \left[ \frac{1}{2} | \partial_{\mu}h |^2
-            + m_h \sqrt{\frac{2}{\lambda}}  m_V^2 V^2 h + m_V^2 V^2 h^2 \right]
+                + \frac{1}{v} m_V^2 V^2 h + \frac{1}{2v^2} m_V^2 V^2 h^2
+            \right]
             + \left[ - \frac{1}{2} m^2_h h^2 - m_h \sqrt{\frac{\lambda}{2}} h^3 - \frac{1}{4} \lambda h^4 \right]
         \\&= \frac{1}{2} \left(\partial^2 - m_h^2 \right) h^2
-            + m_h m_V^2 \sqrt{\frac{2}{\lambda}} V^2 h + m_V^2 V^2 h^2
+            + \sqrt{2\lambda} \frac{m_V^2}{m_h} V^2 h + \lambda \frac{m_V^2}{m_h^2} V^2 h^2
             - m_h \sqrt{\frac{\lambda}{2}} h^3 - \frac{1}{4} \lambda h^4
+        \\&= \frac{1}{2} \left(\partial^2 - m_h^2 \right) h^2
+            + g_{HVV} V^2 h + \frac{g_{HHVV}}{2} V^2 h^2
+            + \frac{g_{HHH}}{3!} h^3 + \frac{g_{HHHH}}{4!} h^4 \\
         \,.
+    \end{split} \end{equation}
+    where the coupling terms are defined as
+    \begin{equation} \begin{split} \label{eq:higgscouplings}
+        g_{HVV}  \equiv 2\sqrt{2\lambda} \frac{m_V^2}{m_h} ,\;
+        g_{HHVV} \equiv 4\lambda \frac{m_V^2}{m_h^2} ,\;
+        g_{HHH}  \equiv 3\sqrt{2\lambda} m_h ,\;
+        g_{HHHH} \equiv 6 \lambda
     \end{split} \end{equation}
     The first term of this Lagrangian is simply the kinetic energy term for the Higgs.
     The remaining terms correspond, respectively,
-        to the Higgs/vector boson interaction,
-        Higgs/vector boson four-point interaction,
-        Higgs self-coupling,
-        and finally the Higgs four-point self-coupling.
+        to the Higgs/vector boson interaction $g_{HVV}$,
+        Higgs/vector boson four-point interaction $g_{HHVV}$,
+        Higgs self-coupling $g_{HHH}$,
+        and finally the Higgs four-point self-coupling $g_{HHHH}$.
 
     In 2012, the Higgs boson was detected with a mass of 125 GeV, solidifying both its existence and crucial role in the Standard Model.
     More to the point, its detection confirmed the existence of the Higgs kinetic energy term in the Lagrangian,
@@ -376,15 +389,15 @@
     In order to account for this uncertainty, the Lagrangian can be rewritten with arbitrary scaling factors for the interaction couplings
     \begin{equation} \begin{split} \label{eq:higgskappas}
         \Lag_h &= \frac{1}{2} \left(\partial^2 - m_h^2 \right) h^2
-            + \kv g_V V^2 h + \kvv g_{2V} V^2 h^2
-            + \kl g_{\lambda} h^3 + \kappa_{2 \lambda} g_{\lambda} h^4
+            + \kv g_{HVV} V^2 h + \kvv \frac{g_{HHVV}}{2} V^2 h^2
+            + \kl \frac{g_{HHH}}{3!} h^3 + \kappa_{2\lambda} \frac{g_{HHHH}}{4!} h^4
         \,.
     \end{split} \end{equation}
 
     The new $\kappa$ terms are ratios of the coupling, as predicted by the Standard Model ($g$), to the true coupling value ($g'$).
     The new $\kappa$ terms are ratios of the true coupling value ($g'$)
         to the coupling as predicted by the Standard Model ($g$).
-    For example, $\kappa_V \equiv \frac{g'_V}{g_V} = \frac{g'_V}{m_h m_V^2 \sqrt{2/\lambda}}$.
+    For example, $\kappa_V \equiv \frac{g'_{HVV}}{g_{HVV}}$.
     A $\kappa$ value of 1 indicates consistency with the coupling strength predicted by the Standard Model.
     Any value other than 1 would indicate deviation from the Standard Model,
         which would need to be explained with a modification to the (or entirely new) theory.
