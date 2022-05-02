@@ -52,7 +52,10 @@ ENTRY
     archive
     eprint
     report
+    reportNumber
     collaboration
+    url
+    urldate
   }
   {}
   { label }
@@ -304,11 +307,38 @@ FUNCTION {format.eprint.paren}
 }
 
 
+FUNCTION {format.url}
+{ url empty$
+    { ""}
+    {"\href{" url * "}" *
+     "{{\ttfamily " * url * "}}" *}
+     if$
+}
+
+
 
 FUNCTION {format.report}
 { report empty$
      { ""}
      { report}
+     if$
+}
+
+
+
+FUNCTION {format.reportNumber}
+{ reportNumber empty$
+     { ""}
+     { "Report Number: " reportNumber *}
+     if$
+}
+
+
+
+FUNCTION {format.urldate}
+{ urldate empty$
+     { ""}
+     { "Accessed on " urldate *}
      if$
 }
 
@@ -398,6 +428,8 @@ FUNCTION {format.date.paren}
     }
   if$
 }
+
+
 
 FUNCTION {format.collaboration}
 { collaboration empty$
@@ -708,6 +740,8 @@ FUNCTION {article}
       format.eprint.paren output
     }
   if$
+  format.reportNumber "reportNumber" output.check
+  format.url "url" output.check
   new.sentence
   % format.doi output
   % note output
@@ -939,6 +973,7 @@ FUNCTION {misc}
   if$
   howpublished output
   format.date output
+  format.urldate output
   new.block
   % note output
   doi output
@@ -990,11 +1025,13 @@ FUNCTION {techreport}
   format.collaboration output
   format.authors "author" output.check
   format.title "title" output.check
+  format.reportNumber "reportNumber" output.check
   blank.sep
   format.tr.number output.nonnull
   institution "institution" output.check
   address output
   format.date "year" output.check
+  format.url "url" output.check
   new.block
   % note output
   doi output
