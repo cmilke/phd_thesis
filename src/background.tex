@@ -100,6 +100,40 @@
         \label{fig:data_mhh_reweight}
     \end{figure}
 
+    \begin{figure}[!htbp]
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]
+                {background/crypto-mean-stdBS-X-wt-tag-Control-Region-1-no-rw-all-4binclusive}
+            \captionsetup{justification=centering} \caption{Data before reweighting}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]
+                {background/crypto-mean-stdBS-X-wt-tag-Control-Region-1-NN-all-4binclusive}
+            \captionsetup{justification=centering} \caption{Data after reweighting}
+        \end{subfigure}
+        \caption{
+            The Xwt-tag kinematic distribution of the 2b vs 4b regions, before and after reweighting the 2b region.
+        }
+        \label{fig:data_mhh_reweight}
+    \end{figure}
+
+    \begin{figure}[!htbp]
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]
+                {background/crypto-mean-stdBS-dEta-hh-Control-Region-1-no-rw-all-4binclusive}
+            \captionsetup{justification=centering} \caption{Data before reweighting}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]
+                {background/crypto-mean-stdBS-dEta-hh-Control-Region-1-NN-all-4binclusive}
+            \captionsetup{justification=centering} \caption{Data after reweighting}
+        \end{subfigure}
+        \caption{
+            The $\deta_{HH}$ kinematic distribution of the 2b vs 4b regions, before and after reweighting the 2b region.
+        }
+        \label{fig:data_mhh_reweight}
+    \end{figure}
+
     The problem with this training approach is that the 4b signal region cannot be used in the training.
     Instead, the neural networks are trained using the CR1 data
         and are optimized to reweight the 2b CR1 data to resemble the 4b CR1 data.
