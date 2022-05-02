@@ -37,6 +37,40 @@ def log_poisson(n,v):
     return lp
 
 
+def make_signal_yield_plot():
+    base_couplings, basis_weights, basis_errors = fileioutils.load_signal_basis(None, pickle_load=True)
+    basis_yields = [ sum(w) for w in basis_weights ]
+    signal_formula = fileioutils.get_amplitude_function(base_couplings, form='expression')
+    signal_expression = signal_formula.subs([ (f'A{i}',y) for i,y in enumerate(basis_yields) ])
+    signal_function = sympy.lambdify( [_k2v,_kl,_kv], signal_expression, "numpy")
+
+    k2v_bounds = (-40,40)
+    kl_bounds  = (-100,100)
+    kv_bounds  = (-3.5,3.5)
+
+    resolution = 1000
+    k2v_vals = numpy.linspace(*k2v_bounds,resolution)
+    kl_vals = numpy.linspace(*kl_bounds,resolution)
+    kv = 1
+    k2v, kl = numpy.meshgrid(k2v_vals, kl_vals)
+    signal_vals = signal_function(k2v,kl,kv)
+
+    fig, ax = plt.subplots()
+    im = ax.imshow(signal_vals, vmin=0, extent=(*k2v_bounds, *kl_bounds), origin='lower', cmap='plasma')
+    ax.set_xlabel('$\kappa_{2V}$')
+    ax.set_ylabel('$\kappa_{\lambda}$')
+    ax.grid()
+    ax.set_aspect('auto','box')
+    fig.subplots_adjust(right=0.85)
+    cbar_ax = fig.add_axes([0.87, 0.11, 0.03, 0.7])
+    fig.colorbar(im, cax=cbar_ax, label='Yield')
+    plt.savefig('out/yield2D.pdf')
+
+    #signal_vals = signal_function
+
+    
+
+
 def get_fast_cumulative_pval_function(bgd_yield, data_yield, mu_factor):
     base_couplings, basis_weights, basis_errors = fileioutils.load_signal_basis(None, pickle_load=True)
     basis_yields = [ sum(w) for w in basis_weights ]
@@ -261,6 +295,9 @@ def mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
             if hl_lhc_projection: mu_expression = mu_expression.subs('u', f'{hl_lhc_scaling_factor}*u')
             mu_function = sympy.lambdify( ['u'], mu_expression, "numpy")
             mu_vals = numpy.linspace(0,100,1001)
+            rough_mu = mu_function(mu_vals)
+            mu_guess = mu_vals[numpy.argmax(rough_mu < 0)]
+            mu_vals = numpy.linspace(0,mu_guess*10,1001)
             rough_mu = mu_function(mu_vals)
             mu_guess = mu_vals[numpy.argmax(rough_mu < 0)]
             mu_limit = scipy.optimize.fsolve(mu_function, mu_guess)[0]
@@ -520,8 +557,10 @@ def main():
     #print('Data')
     #print(results['data'][0].sum(), results['data'][1].sum())
 
-    make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
-    make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
+    #make_signal_yield_plot()
+
+    #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
+    #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
 
     #make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
     #make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
@@ -534,8 +573,8 @@ def main():
     #shell_points = pickle.load(open('.shell_points.p','rb'))
     #make_full_3D_render(shell_points)
 
-    #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False, hl_lhc_projection=True)
-    #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False, hl_lhc_projection=True)
+    make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False, hl_lhc_projection=True)
+    make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False, hl_lhc_projection=True)
     #shell_points = make_multidimensional_limit_plots(results=results, hl_lhc_projection=True)
 
     #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(-1,1,1))
