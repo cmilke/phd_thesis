@@ -37,6 +37,40 @@ def log_poisson(n,v):
     return lp
 
 
+def make_signal_yield_plot():
+    base_couplings, basis_weights, basis_errors = fileioutils.load_signal_basis(None, pickle_load=True)
+    basis_yields = [ sum(w) for w in basis_weights ]
+    signal_formula = fileioutils.get_amplitude_function(base_couplings, form='expression')
+    signal_expression = signal_formula.subs([ (f'A{i}',y) for i,y in enumerate(basis_yields) ])
+    signal_function = sympy.lambdify( [_k2v,_kl,_kv], signal_expression, "numpy")
+
+    k2v_bounds = (-40,40)
+    kl_bounds  = (-100,100)
+    kv_bounds  = (-3.5,3.5)
+
+    resolution = 1000
+    k2v_vals = numpy.linspace(*k2v_bounds,resolution)
+    kl_vals = numpy.linspace(*kl_bounds,resolution)
+    kv = 1
+    k2v, kl = numpy.meshgrid(k2v_vals, kl_vals)
+    signal_vals = signal_function(k2v,kl,kv)
+
+    fig, ax = plt.subplots()
+    im = ax.imshow(signal_vals, vmin=0, extent=(*k2v_bounds, *kl_bounds), origin='lower', cmap='plasma')
+    ax.set_xlabel('$\kappa_{2V}$')
+    ax.set_ylabel('$\kappa_{\lambda}$')
+    ax.grid()
+    ax.set_aspect('auto','box')
+    fig.subplots_adjust(right=0.85)
+    cbar_ax = fig.add_axes([0.87, 0.11, 0.03, 0.7])
+    fig.colorbar(im, cax=cbar_ax, label='Yield')
+    plt.savefig('out/yield2D.pdf')
+
+    #signal_vals = signal_function
+
+    
+
+
 def get_fast_cumulative_pval_function(bgd_yield, data_yield, mu_factor):
     base_couplings, basis_weights, basis_errors = fileioutils.load_signal_basis(None, pickle_load=True)
     basis_yields = [ sum(w) for w in basis_weights ]
@@ -84,13 +118,13 @@ def get_mu_kappa_expression(bgd_yield, data_yield):
 
 def make_data_display_plots(results=None, var_edges=None, couplings=None, var_key='m_hh', var_title=r'$m_{HH}$'):
     fig, (ax, rat) = plt.subplots(2, gridspec_kw={'height_ratios':(2,1)}, sharex=True)
-    ax.errorbar(var_edges[:-1]+0.5, results['data'][0], yerr=results['data'][1], marker='.', ls='--', color='purple', label='Data')
-    ax.errorbar(var_edges[:-1]+0.5, results['bgd'][0], yerr=results['bgd'][1], marker='.', ls='--', color='blue', label='Bgd')
-    ax.errorbar(var_edges[:-1]+0.5, results['sig'](couplings)[0], yerr=results['sig'](couplings)[1], marker='.', ls='--', color='green', label='Signal')
+    ax.errorbar(var_edges[:-1]+0.5, results['data'][0], yerr=results['data'][1], marker='.', ls='-', color='black', label='Data')
+    ax.errorbar(var_edges[:-1]+0.5, results['bgd'][0], yerr=results['bgd'][1], marker='.', ls='-', color='blue', label='Bgd')
+    ax.errorbar(var_edges[:-1]+0.5, results['sig'](couplings)[0], yerr=results['sig'](couplings)[1], marker='.', ls='-', color='red', label='Signal')
 
     sensitivity = results['sig'](couplings)[0] / numpy.sqrt( results['data'][1]**2 + results['bgd'][1]**2)
-    rat.errorbar(var_edges[:-1]+0.5, sensitivity, marker='.', ls='--', color='red')
-    rat.hlines(0, var_edges[0], var_edges[-1], linestyle='-', color='black')
+    rat.errorbar(var_edges[:-1]+0.5, sensitivity, marker='.', ls='-', color='purple')
+    #rat.hlines(0, var_edges[0], var_edges[-1], linestyle='-', color='black')
 
     ax.legend()
     ax.set_ylabel('Yield of Events with Given '+var_title)
@@ -135,7 +169,7 @@ def make_sb_poisson_plots(results=None, prefix='', couplings=None):
     fig, ax = plt.subplots()
     ax.plot(poisson_inputs, poisson_bgd_values, label='Background PDF', color='blue')
     ax.plot(poisson_inputs, poisson_bs_values, ls='--', label='S+B PDF', color='green')
-    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='red')
+    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='black')
     ax.fill_between(range(0,observed+1), 0, poisson_bgd_values[:observed+1], color='blue', hatch='///', alpha=0.3, label=f'bgd p-value={bgd_pvalue:.2f}')
     ax.fill_between(range(0,observed+1), 0, poisson_bs_values[:observed+1], color='green', hatch='/', alpha=0.3, label=f'S+B p-value={bs_pvalue:.2f}')
     plt.xlabel('Number of Events')
@@ -150,10 +184,10 @@ def make_sb_poisson_plots(results=None, prefix='', couplings=None):
     fig, ax = plt.subplots()
     ax.plot(poisson_inputs, cumulative_bgd_poisson, label='Bgd Cumulative PDF')
     ax.plot(poisson_inputs, cumulative_bs_poisson, label='S+B Cumulative PDF', ls='--')
-    ax.plot(poisson_inputs, cumulative_sig_poisson, label='Signal Cumulative PDF', color='purple')
-    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='red')
+    ax.plot(poisson_inputs, cumulative_sig_poisson, label='Signal Cumulative PDF', color='red')
+    ax.axvline(observed, ls='--', label=f'Observed n={observed}', color='black')
     ax.axhline(bgd_pvalue, ls='dotted', label=f'Bgd p-value={bgd_pvalue:.2f}', color='blue')
-    ax.axhline(sig_pvalue, ls='dotted', label=f'Signal p-value={sig_pvalue:.2f}', color='purple')
+    ax.axhline(sig_pvalue, ls='dotted', label=f'Signal p-value={sig_pvalue:.2f}', color='crimson')
     plt.xlabel('Number of Events')
     plt.ylabel('Cumulative Poisson Probability')
     plt.xlim(expectation*.5, expectation*1.5)
@@ -261,6 +295,9 @@ def mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
             if hl_lhc_projection: mu_expression = mu_expression.subs('u', f'{hl_lhc_scaling_factor}*u')
             mu_function = sympy.lambdify( ['u'], mu_expression, "numpy")
             mu_vals = numpy.linspace(0,100,1001)
+            rough_mu = mu_function(mu_vals)
+            mu_guess = mu_vals[numpy.argmax(rough_mu < 0)]
+            mu_vals = numpy.linspace(0,mu_guess*10,1001)
             rough_mu = mu_function(mu_vals)
             mu_guess = mu_vals[numpy.argmax(rough_mu < 0)]
             mu_limit = scipy.optimize.fsolve(mu_function, mu_guess)[0]
@@ -477,10 +514,10 @@ def make_full_3D_render(shell_points):
 
 def main():
     pickle_load = len(sys.argv) > 1
-    #var_edges = numpy.linspace(200, 1400, 30)
-    #var_key = 'm_hh'
-    var_edges = numpy.linspace(0, 4, 20)
-    var_key = 'dEta_hh'
+    var_edges = numpy.linspace(200, 1400, 30)
+    var_key = 'm_hh'
+    #var_edges = numpy.linspace(0, 4, 20)
+    #var_key = 'dEta_hh'
 
     ###################
     # LOAD EVERYTHING #
@@ -519,6 +556,8 @@ def main():
     #print()
     #print('Data')
     #print(results['data'][0].sum(), results['data'][1].sum())
+
+    #make_signal_yield_plot()
 
     #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
     #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))

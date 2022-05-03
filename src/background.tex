@@ -100,6 +100,40 @@
         \label{fig:data_mhh_reweight}
     \end{figure}
 
+    \begin{figure}[!htbp]
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]
+                {background/crypto-mean-stdBS-X-wt-tag-Control-Region-1-no-rw-all-4binclusive}
+            \captionsetup{justification=centering} \caption{Data before reweighting}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]
+                {background/crypto-mean-stdBS-X-wt-tag-Control-Region-1-NN-all-4binclusive}
+            \captionsetup{justification=centering} \caption{Data after reweighting}
+        \end{subfigure}
+        \caption{
+            The Xwt-tag kinematic distribution of the 2b vs 4b regions, before and after reweighting the 2b region.
+        }
+        \label{fig:data_mhh_reweight}
+    \end{figure}
+
+    \begin{figure}[!htbp]
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]
+                {background/crypto-mean-stdBS-dEta-hh-Control-Region-1-no-rw-all-4binclusive}
+            \captionsetup{justification=centering} \caption{Data before reweighting}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]
+                {background/crypto-mean-stdBS-dEta-hh-Control-Region-1-NN-all-4binclusive}
+            \captionsetup{justification=centering} \caption{Data after reweighting}
+        \end{subfigure}
+        \caption{
+            The $\deta_{HH}$ kinematic distribution of the 2b vs 4b regions, before and after reweighting the 2b region.
+        }
+        \label{fig:data_mhh_reweight}
+    \end{figure}
+
     The problem with this training approach is that the 4b signal region cannot be used in the training.
     Instead, the neural networks are trained using the CR1 data
         and are optimized to reweight the 2b CR1 data to resemble the 4b CR1 data.
@@ -112,6 +146,8 @@
         \caption{
             The Signal Region quadrant splitting used for calculating systematic uncertainties on the background estimate.
             The angles of the split are set to match the angle found in Fig. \ref{fig:region_definition}.
+            The four regions are named after the cardinal directions (North, East, South, West)
+                to which they correspond on this plot.
         }
         \label{fig:sig_quads}
     \end{figure}
@@ -146,6 +182,10 @@
     This uncertainty is calculated by producing an \mhh histogram for each of the 100 bootstrap NNs.
     The standard deviation of each bin across all 100 bootstrap histograms is calculated,
         and then assigned as a statistical error for that bin of the nominal histogram (see Fig. \ref{fig:spider}).
+    This statistical error is treated as a true \textit{statistical} error
+        (not systematic, like the shape uncertainties)
+        and is ultimately added in quadrature with the standard yield-based statistical uncertainty
+        in the background estimate.
 
 
 \FloatBarrier
