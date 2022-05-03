@@ -364,7 +364,7 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False, hl_
 
 
 def plot_slice(kappas, coupling_parameters, Cpoisson_function_s, shell_points, infix, si, key, kslice):
-    limit_resolution = 100
+    limit_resolution = 200
 
     print('    '+key+' = '+str(kslice))
     (xi, xkey), (yi, ykey) = [ (i,k) for i,k in enumerate(kappas) if k != key ]
@@ -409,14 +409,19 @@ def make_multidimensional_limit_plots(results=None, hl_lhc_projection=False):
     #k2v_bounds = (-4,15)
     #kl_bounds  = (-50,50)
     #kv_bounds  = (-6,6)
-    k2v_bounds = (-2.5,14)
+
+    k2v_bounds = (-2.5,14.5)
     kl_bounds  = (-51,49)
-    kv_bounds  = (-3.5,3.5)
+    kv_bounds  = (-3.7,3.7)
 
     k2v_slices  = numpy.linspace(*k2v_bounds, int((k2v_bounds[1]-k2v_bounds[0])*2)+1)
+    #k2v_slices  = numpy.linspace(1,1,1)
     #kl_slices  = [-50, -40, -30, -20, -10, 0, 1, 10, 20, 30, 40, 50]
     kl_slices  = numpy.linspace(*kl_bounds, 26)
+    #kl_slices  = numpy.linspace(1,1,1)
     kv_slices  = numpy.linspace(*kv_bounds, int((kv_bounds[1]-kv_bounds[0])*2)+1)
+    #kv_slices  = numpy.linspace(1,1,1)
+
     #k2v_slices = numpy.linspace(*k2v_bounds, 11)
     #kl_slices  = [-50, -30, -10, 0, 10, 30, 50]
     #kv_slices  = numpy.linspace(*kv_bounds, 7)
@@ -477,14 +482,14 @@ def make_full_3D_render(shell_points):
     shell_points.sort(key=lambda p: p[2])
     shell_points = numpy.array(shell_points)
 
-    import inspect
-    import pymesh
-    print('\n'.join([str(i) for i in inspect.getmembers(pymesh)]))
-    tri_form = pymesh.triangle()
-    tri_form.points = shell_points
-    tri_form.run()
-    mesh = tri_form.mesh
-    mesh.save_mesh('limit_mesh.stl')
+    #import inspect
+    #import pymesh
+    #print('\n'.join([str(i) for i in inspect.getmembers(pymesh)]))
+    #tri_form = pymesh.triangle()
+    #tri_form.points = shell_points
+    #tri_form.run()
+    #mesh = tri_form.mesh
+    #mesh.save_mesh('limit_mesh.stl')
 
 
 
@@ -568,13 +573,13 @@ def main():
     #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False)
     #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False)
 
-    #shell_points = make_multidimensional_limit_plots(results=results)
-    #pickle.dump(shell_points, open('.shell_points.p','wb'))
-    #shell_points = pickle.load(open('.shell_points.p','rb'))
-    #make_full_3D_render(shell_points)
+    shell_points = make_multidimensional_limit_plots(results=results)
+    pickle.dump(shell_points, open('.shell_points.p','wb'))
+    shell_points = pickle.load(open('.shell_points.p','rb'))
+    make_full_3D_render(shell_points)
 
-    make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False, hl_lhc_projection=True)
-    make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False, hl_lhc_projection=True)
+    #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False, hl_lhc_projection=True)
+    #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False, hl_lhc_projection=True)
     #shell_points = make_multidimensional_limit_plots(results=results, hl_lhc_projection=True)
 
     #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(-1,1,1))

@@ -128,7 +128,6 @@
         }
     \end{figure}
 
-    \FloatBarrier
     A ``p-test'' is the key tool that will be used throughout the rest of the analysis.
     Its goal is to find the probability that, were my hypothesis correct,
         I would obtain data with a value \textit{at least as extreme} as what I measured\footnote{
@@ -199,7 +198,7 @@
     The total yields of the data, background estimate, and the SM and \kvv=3 signal hypotheses are provided in Table \ref{tab:event_yield},
         and their PDF and cumulative PDFs can be seen in Fig. \ref{fig:poisson_sig_kvv1_pdf} and \ref{fig:poisson_sig_kvv1_Cpdf}.
     Proof of the di-Higgs process would necessitate an excess of events so significant that
-        the null hypothesis must be rejected (typically $P_B < 10^{-7}$, the ``$5\sigma$'' discovery limit).
+        the null hypothesis must be rejected (typically $P_B < 3\times10^{-7}$, the ``$5\sigma$'' discovery limit).
     Here though, the background estimate almost completely overlaps with the observed data,
         resulting in a $P_B = 0.55$.
     This means the null hypothesis is highly compatible with the data and cannot be rejected.
@@ -216,7 +215,7 @@
         but indicates that the signal hypothesis is highly compatible with the observed data,
         in this case because the signal is so tiny as to practically be a rounding error.
 
-    \begin{figure}
+    \begin{figure}[!htbp]
         \centering
         \begin{subfigure}{0.48\textwidth} 
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/total_yield_poisson_1p00_1p00_1p00}
@@ -256,7 +255,7 @@
     In contrast, the plot for \kvv = 3 highlighting a $\mu$ of 0.91 indicates
         that the signal would have to be \textit{reduced} to 91\% of its yield before it could be considered as reasonably compatible with data.
 
-    \begin{figure}
+    \begin{figure}[!htbp]
         \centering
         \begin{subfigure}{0.48\textwidth} 
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_pvalue_1p00_1p00_1p00}
@@ -282,10 +281,11 @@
     A similar plot can be produced by scanning across the values of \kl (Fig. \ref{fig:mulimits_kl}).
     An alternate visualization of these scan plots can be produced by multiplying $\mu$ by
         the theoretical cross-section predicted for a given set of $\kappa$ factors.
-    Shown in Figs. \ref{fig:xseclimits_kvv} and \ref{fig:xseclimits_kl}, these scans indicate how far the \vbfproc cross-section would have to deviated from
+    Shown in Figs. \ref{fig:xseclimits_kvv} and \ref{fig:xseclimits_kl},
+        these scans indicate how far the \vbfproc cross-section would have to deviate from
         the theoretical value in order to remain compatible with the observed data.
 
-    \begin{figure}
+    \begin{figure}[!htbp]
         \centering
         \begin{subfigure}{0.48\textwidth} 
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/mu_limits_fast_k2v}
@@ -332,7 +332,7 @@
     The two-dimensional $\kappa$ limits can be seen in Figs \ref{fig:limit_slice_kv_1p0}-\ref{fig:limit_slice_k2v_1p0},
         which span the entire three-dimensional parameter space of the $\kappa$ factors.
 
-    \begin{figure}
+    \begin{figure}[!htbp]
         \centering
         \begin{subfigure}{0.48\textwidth} 
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/limit_slice_kv_1p0}
@@ -359,7 +359,7 @@
         \label{fig:limit_slices}
     \end{figure}
 
-    \begin{figure}
+    \begin{figure}[!htbp]
         \centering
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{results/full_3D_point_cloud}
         \label{fig:full_3D_point_cloud}
@@ -480,7 +480,7 @@
     Uncertainties present in the background estimate add another layer of complexity to the likelihood function,
         because uncertain parameters must be fit as well as the parameter of interest.
     The expectation value is further adjusted to be $\nu_i(\mu, \Theta) = \mu S_i + \Theta B_i$,
-        where $\Theta$ is a product of five scaling values 
+        where $\Theta$ is a product of four scaling values 
     \begin{equation}
         \Theta = \prod \limits_{a=1}^{4}  \theta^a
         \,.
@@ -683,8 +683,6 @@
         there is little cause for alarm.
     As can be seen in the remaining figures, there is strong agreement between what was expected
         and what has been observed, with at most only a small overestimate of the background.
-
-
 
 
     \begin{figure}
