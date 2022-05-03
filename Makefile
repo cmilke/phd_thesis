@@ -61,9 +61,6 @@ clean:
 		*.synctex.gz *.brf *.fls *.fdb_latexmk \
 		*.glg *.gls *.glo *.ist *.alg *.acr *.acn
 
-clean_figures:
-	rm -f $(figure_list)
-
 clean_drafts:
 	rm -f drafts/draft_*.pdf
 
