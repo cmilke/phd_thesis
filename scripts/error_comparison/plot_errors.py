@@ -71,7 +71,7 @@ for f in sorted(os.listdir('workspaces')):
         rat.plot(bins, data['Background Stat Error']/data['Background'], color=bgdcolor, label='Bgd Stat Error')
         for shape_index, (shape,c) in enumerate(sys_regions):
             key = 'Background Sys '+shape
-            rat.plot(bins, data[key]/safe_obs, label='Sys '+shape, color=c, linestyle='--')
+            rat.plot(bins, data[key]/data['Background'], label='Sys '+shape, color=c, linestyle='--')
         rat.set_ylim(0,1)
         rat.set_ylabel('Relative Error')
         rat.legend(fontsize=9, loc='upper center', ncol=3)

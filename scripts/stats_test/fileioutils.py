@@ -185,7 +185,8 @@ def extract_ntuple_events(ntuple, var_key='m_hh'):
     pass_vbf_sel = ttree['pass_vbf_sel'].array()
     x_wt_tag = ttree['X_wt_tag'].array() > 1.5
     ntag = ttree['ntag'].array() >= 4
-    valid_event = numpy.logical_and.reduce( (pass_vbf_sel, x_wt_tag, ntag) )
+    eta = _eta_cut(ttree)
+    valid_event = numpy.logical_and.reduce( (pass_vbf_sel, x_wt_tag, ntag, eta) )
 
     kinvals = ttree[var_key].array()[valid_event]
     weights = ttree['mc_sf'].array()[:,0][valid_event]

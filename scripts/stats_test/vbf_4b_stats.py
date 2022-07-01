@@ -116,7 +116,13 @@ def get_mu_kappa_expression(bgd_yield, data_yield):
     return mu_kappa_expression
     
 
-def make_data_display_plots(results=None, var_edges=None, couplings=None, var_key='m_hh', var_title=r'$m_{HH}$'):
+def make_data_display_plots(results=None, var_edges=None, couplings=None, var_key='m_hh'):
+    var_title_dict = {
+        'm_hh': r'$m_{HH}$',
+        'dEta_hh': r'$\Delta \eta_{HH}$'
+    }
+
+    var_title = var_title_dict[var_key]
     fig, (ax, rat) = plt.subplots(2, gridspec_kw={'height_ratios':(2,1)}, sharex=True)
     ax.errorbar(var_edges[:-1]+0.5, results['data'][0], yerr=results['data'][1], marker='.', ls='-', color='black', label='Data')
     ax.errorbar(var_edges[:-1]+0.5, results['bgd'][0], yerr=results['bgd'][1], marker='.', ls='-', color='blue', label='Bgd')
@@ -143,7 +149,7 @@ def make_data_display_plots(results=None, var_edges=None, couplings=None, var_ke
 def make_sb_poisson_plots(results=None, prefix='', couplings=None):
     mu = 1
     signal = mu*sum(results['sig'](couplings)[0])
-    background = int(sum(results['bgd'][0]))
+    background = sum(results['bgd'][0])
     observed = int(sum(results['data'][0]))
 
     expectation = signal+background
@@ -163,6 +169,8 @@ def make_sb_poisson_plots(results=None, prefix='', couplings=None):
     sig_pvalue = cumulative_sig_poisson[observed]
     bgd_pvalue = cumulative_bgd_poisson[observed]
     bs_pvalue = cumulative_bs_poisson[observed]
+    print(signal, background, observed)
+    print(sig_pvalue)
 
     coupling_title = _kappa_title + ' = ' + title_couplings(couplings)
 
@@ -222,17 +230,18 @@ def get_mu_pvalue_relation(yields, max_mu=1000, zoom_passes=2, precision_thresho
     sig_yield, bgd_yield, data_yield = yields
 
     for i in range(zoom_passes+1):
-        mu_values = numpy.linspace(0,max_mu,100)
+        mu_values = numpy.linspace(0,max_mu,1000)
         pvalues = [ get_pvalue(mu*sig_yield, bgd_yield, data_yield) for mu in mu_values ]
         pvalues = numpy.array(pvalues)
         max_mu = mu_values[numpy.argmax(pvalues<precision_threshold)]
+    muone_indices = numpy.argwhere(mu_values < 1.0)
     return mu_values, pvalues
 
 
 def make_lazy_mu_probability_distro(results=None, couplings=None):
-    data_yield = int(sum(results['data'][0]))
     sig_yield = sum(results['sig'](couplings)[0])
     bgd_yield = sum(results['bgd'][0])
+    data_yield = int(sum(results['data'][0]))
 
     sigmaV = lambda y,hilo: y+hilo*math.sqrt(y)
     mu_values, pvalues = get_mu_pvalue_relation((sig_yield, bgd_yield, data_yield))
@@ -257,7 +266,8 @@ def make_lazy_mu_probability_distro(results=None, couplings=None):
     plt.ylabel('Signal p-value')
     plt.xlabel(r'Signal Scaling Coefficient $\mu$')
     plt.title(r'p-value vs $\mu$''\nfor '+coupling_title)
-    plt.savefig('out/'+'mu_pvalue_'+name_couplings(couplings)+'.pdf')
+    plt.ylim([0,1.4])
+    plt.savefig('out/'+'mu_pvalue_'+name_couplings(couplings)+'.pdf', dpi=1000)
     plt.close()
 
 def mu_pval_scan(scan_coupling, coupling_list, plot_xvals,
@@ -364,7 +374,7 @@ def make_basic_1D_mu_plot(results=None, scan_coupling=None, slow_form=False, hl_
 
 
 def plot_slice(kappas, coupling_parameters, Cpoisson_function_s, shell_points, infix, si, key, kslice):
-    limit_resolution = 200
+    limit_resolution = 400
 
     print('    '+key+' = '+str(kslice))
     (xi, xkey), (yi, ykey) = [ (i,k) for i,k in enumerate(kappas) if k != key ]
@@ -414,10 +424,10 @@ def make_multidimensional_limit_plots(results=None, hl_lhc_projection=False):
     kl_bounds  = (-51,49)
     kv_bounds  = (-3.7,3.7)
 
-    k2v_slices  = numpy.linspace(*k2v_bounds, int((k2v_bounds[1]-k2v_bounds[0])*2)+1)
+    k2v_slices  = numpy.linspace(*k2v_bounds, int((k2v_bounds[1]-k2v_bounds[0])*4)+1)
     #k2v_slices  = numpy.linspace(1,1,1)
     #kl_slices  = [-50, -40, -30, -20, -10, 0, 1, 10, 20, 30, 40, 50]
-    kl_slices  = numpy.linspace(*kl_bounds, 26)
+    kl_slices  = numpy.linspace(*kl_bounds, int((kl_bounds[1]-kl_bounds[0]))+1)
     #kl_slices  = numpy.linspace(1,1,1)
     kv_slices  = numpy.linspace(*kv_bounds, int((kv_bounds[1]-kv_bounds[0])*2)+1)
     #kv_slices  = numpy.linspace(1,1,1)
@@ -475,45 +485,6 @@ def make_multidimensional_limit_plots(results=None, hl_lhc_projection=False):
     return shell_points
     
 
-def make_full_3D_render(shell_points):
-    #numpy.savetxt('mesh_dump.dat', numpy.array(shell_points).transpose())
-    numpy.savetxt('mesh_dump.dat', numpy.array(shell_points))
-    #shell_points = [ [x,y,z] for x,y,z in zip(*shell_points) ]
-    shell_points.sort(key=lambda p: p[2])
-    shell_points = numpy.array(shell_points)
-
-    #import inspect
-    #import pymesh
-    #print('\n'.join([str(i) for i in inspect.getmembers(pymesh)]))
-    #tri_form = pymesh.triangle()
-    #tri_form.points = shell_points
-    #tri_form.run()
-    #mesh = tri_form.mesh
-    #mesh.save_mesh('limit_mesh.stl')
-
-
-
-    #from stl import mesh
-    #triangulation = None
-    #resolution = 5
-    #for zsplit in numpy.array_split(shell_points, 5):
-    #    vertices = zsplit
-    #    if triangulation is None:
-    #        triangulation = scipy.spatial.Delaunay(vertices, incremental=True)
-    #    else:
-    #        triangulation.add_points(vertices, restart=False)
-    #triangulation.close()
-
-    #vertices = triangulation.points
-    ##triangulation = scipy.spatial.Delaunay(vertices)
-    #faces = triangulation.convex_hull
-    #limit_mesh = mesh.Mesh(numpy.zeros(faces.shape[0], dtype=mesh.Mesh.dtype))
-    #for i, f in enumerate(faces):
-    #    for j in range(3):
-    #            limit_mesh.vectors[i][j] = vertices[f[j],:]
-    ##limit_mesh.save(f'limit_mesh_{si}.stl')
-    #limit_mesh.save(f'limit_mesh.stl')
-
 
 
 
@@ -564,23 +535,23 @@ def main():
 
     #make_signal_yield_plot()
 
-    #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
-    #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
+    make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
+    make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
 
-    #make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
-    #make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
+    make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
+    make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
 
     #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False)
     #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False)
 
-    shell_points = make_multidimensional_limit_plots(results=results)
-    pickle.dump(shell_points, open('.shell_points.p','wb'))
-    shell_points = pickle.load(open('.shell_points.p','rb'))
-    make_full_3D_render(shell_points)
+    #shell_points = make_multidimensional_limit_plots(results=results)
+    #pickle.dump(shell_points, open('.shell_points.p','wb'))
+    #numpy.savetxt('mesh_dump.dat', numpy.array(shell_points)) # Make readable to gnuplot
 
     #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False, hl_lhc_projection=True)
     #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False, hl_lhc_projection=True)
     #shell_points = make_multidimensional_limit_plots(results=results, hl_lhc_projection=True)
+    #numpy.savetxt('mesh_dump.dat', numpy.array(shell_points)) # Make readable to gnuplot
 
     #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(-1,1,1))
     #make_data_display_plots(results=results, var_key=var_key, var_edges=var_edges, couplings=(1,1,1))
