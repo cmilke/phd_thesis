@@ -420,9 +420,13 @@ def make_multidimensional_limit_plots(results=None, hl_lhc_projection=False):
     #kl_bounds  = (-50,50)
     #kv_bounds  = (-6,6)
 
-    k2v_bounds = (-2.5,14.5)
-    kl_bounds  = (-51,49)
-    kv_bounds  = (-3.7,3.7)
+    #k2v_bounds = (-2.5,14.5)
+    #kl_bounds  = (-51,49)
+    #kv_bounds  = (-3.7,3.7)
+
+    k2v_bounds = (-10,20)
+    kl_bounds  = (-50,50)
+    kv_bounds  = (-6,6)
 
     k2v_slices  = numpy.linspace(*k2v_bounds, int((k2v_bounds[1]-k2v_bounds[0])*4)+1)
     #k2v_slices  = numpy.linspace(1,1,1)
@@ -465,22 +469,11 @@ def make_multidimensional_limit_plots(results=None, hl_lhc_projection=False):
     kappas = list(coupling_parameters)
     print('Generating multi-dimensional pvalues...')
     shell_points = []
-    #process_list = []
-    #max_processes = 8
     for si, key in enumerate(kappas):
         sbounds, srange = coupling_parameters[key]
         for kslice in srange:
-            #if key != 'kl' or kslice != 1: continue
+            if key != 'kl': continue
             plot_slice(kappas, coupling_parameters, Cpoisson_function_s, shell_points, infix, si, key, kslice) 
-            #if len(process_list) >= max_processes:
-            #    for process in process_list: process.join()
-            #    process_list = []
-            #    
-            #args=(kappas, coupling_parameters, Cpoisson_function_s, shell_points, infix, si, key, kslice) 
-            #slice_process = multiprocessing.Process(target=plot_slice, args=args)
-            #process_list.append(slice_process)
-            #slice_process.start()
-    #for process in process_list: process.join()
 
     return shell_points
     
@@ -535,16 +528,16 @@ def main():
 
     #make_signal_yield_plot()
 
-    make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
-    make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
+    #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(1,1,1))
+    #make_sb_poisson_plots(results=results, prefix='total_yield', couplings=(3,1,1))
 
-    make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
-    make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
+    #make_lazy_mu_probability_distro(results=results, couplings=(1,1,1))
+    #make_lazy_mu_probability_distro(results=results, couplings=(3,1,1))
 
     #make_basic_1D_mu_plot(results=results, scan_coupling='k2v', slow_form=False)
     #make_basic_1D_mu_plot(results=results, scan_coupling='kl', slow_form=False)
 
-    #shell_points = make_multidimensional_limit_plots(results=results)
+    shell_points = make_multidimensional_limit_plots(results=results)
     #pickle.dump(shell_points, open('.shell_points.p','wb'))
     #numpy.savetxt('mesh_dump.dat', numpy.array(shell_points)) # Make readable to gnuplot
 
