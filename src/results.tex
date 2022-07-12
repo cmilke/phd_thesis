@@ -86,6 +86,13 @@
     In this chapter, I want to explain why statistics is required for this analysis,
         discuss the specific statistical techniques this analysis uses,
         and conclude with what those techniques reveal in light of the data presented.
+    Ultimately, the conclusions of this thesis will be derived by
+        taking the kinematic distributions of the signal and background models and 
+        using a log-likelihood profile fit to compare them to observed data (Section \ref{profile_fit}).
+    Profile fits are a rather complex construction however.
+    To gain a better understanding of what the results mean then,
+        I would like to start off with a much simpler statistical analysis
+        using basic Poisson statistics and pure event yields.
 
     % Introduce poisson statistics with single counting variable and only signal w/ toy example.
     % Discuss difference between coin toss and radioactivity.
@@ -94,7 +101,7 @@
     %     the experiment is given.
     Like most particle physics processes, the \vbfhhproc process results in a need to count outcomes,
         a fundamentally Poissonian situation.
-    The number $n$ of di-Higgs process that are observed in ATLAS can then be modeled with a Poisson distribution\cite{cranmer2015practical}:
+    The number $n$ of di-Higgs processes that are observed in ATLAS can then be modeled with a Poisson distribution\cite{cranmer2015practical}:
     \begin{equation}
         P(n|\nu) = \frac{ \nu^n e^{-\nu} }{n!}
         \,.
@@ -378,7 +385,7 @@
 % basically all the complicated stuff the limit framework is doing
 % Make the final goal to be establishing a p-value via the cumulative PDF distro,
 %   as was done for the simple coin toss example (to bring things full circle)
-\section{VBF HH 4b Limit-Setting Framework}
+\section{VBF HH 4b Limit-Setting Framework}\label{profile_fit}
 
     Although a wealth of information can be obtained from event yields alone,
         far more statistical power can be attained by making full use of
