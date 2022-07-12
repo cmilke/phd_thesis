@@ -41,7 +41,7 @@
 \FloatBarrier
 \section{Monte-Carlo Simulation} \label{sec:mcsim}
     
-    All of the remaining chapters of this thesis are in some way dependent on simulated data.
+    All of the remaining chapters of this thesis are in some way dependent on simulated event samples.
     Without a way to link pure physics equations to observable physical phenomena,
         there is no way to make meaningful decisions or predictions about collected data.
     Currently, Monte-Carlo simulation is the most effective method of making predictions
@@ -50,13 +50,13 @@
     There are three core software frameworks used for this analysis,
         each corresponding to the three phases of interaction described in the prior chapters.
     The Lagrangian formalism, Feynman diagrams, and cross-section calculations of Chapter \ref{chapter:theory}
-        are handled by a framework called MadGraph.
+        are handled by a framework called MadGraph\cite{madgraph}.
     Showering, decay chains, and radiative processes follow in the immediate aftermath of
         hard-scatter events such as those at the interaction points of the LHC (Section \ref{sec:lhc-interaction_region}).
-    These physical mechanisms are simulated by a program called Pythia8.
+    These physical mechanisms are simulated by a pair of programs, Pythia8\cite{pythia} and EvtGen\cite{EvtGen}.
     As hadronic showers and ionizing particles pass through ATLAS (Chapter \ref{chapter:atlas})
         they cause a cascade of electrical signals and scattering effects.
-    This highly complex set of interactions is modeled by the Geant4 framework.
+    This highly complex set of interactions is modeled by the Geant4 framework\cite{geant4}.
     Collectively, these three programs are designed to
         generate a faithful reproduction of how a collection of \vbfhhproc events would appear,
         were they to occur in data collected from ATLAS.
@@ -74,22 +74,22 @@
     For NLO calculations, additional counterterms must be supplied by hand
         so that matrix element computations appropriately converge during loop integrations. 
     With these features supplied, MadGraph generates code specific to the supplied model,
-        which in turn calculates and computes the matrix elements of the requested process\cite{madgraph}.
+        which in turn calculates and computes the matrix elements of the requested process.
     A large number of events are produced using Monte Carlo techniques,
         each involving a different configuration of four momenta for the associated particles.
     These events represent a different point in the phase-space of the process,
         and a weight is assigned to each corresponding to its probability as calculated from the matrix element computation.
     The final collection of events is then output for use by later stages of the simulation process.
 
-    \subsection{Pythia8}
+    \subsection{Pythia8 and EvtGen}
 
     The final particles produced by MadGraph are often short-lived and unstable,
         and so require further simulation of their evolution.
-    Pythia8 is the software responsible for this phase of the simulation. 
+    Pythia8 and EvtGen are the software frameworks responsible for this phase of the simulation. 
     By default, Pythia8 is entirely self-contained, and can generate physics processes entirely on its own.
     However, the processes available to it are limited,
         hence the need to first generate the bare interaction with MadGraph.
-    Pythia8 operates in three stages: process generation, partonic activity handling, and hadronization.
+    Pythia8 operates in three stages: process generation, partonic activity handling, and hadronization/decay.
     Process generation is the step which is taken over by MadGraph.
     The partonic stage addresses what happens to the parts of the proton \textit{not} involved in the immediate interaction (beam remnants),
         initial and final-state radiation of the final state particles, and inter-parton interactions.
@@ -98,8 +98,10 @@
         until a shower of stable hadronic matter remains.
     These steps are not fixed in Pythia's framework,
         and individual particles can transfer back and forth between these three stages
-        as necessary to reach the stable state of the event as would be observed through a detector
-        \cite{pythia}.
+        as necessary to reach the stable state of the event as would be observed through a detector.
+    Where Pythia8 falls short is in its simulation of longer lived hadrons,
+        mainly B and D hadrons.
+    Such hadrons are instead further simulated by EvtGen TODO.
     The emulation of the detector's response to these particles then constitutes the final step of event simulation,
         which is handled by Geant4.
 
@@ -126,19 +128,19 @@
         ranging across material scattering, radiation, decay, and so on.
     Particles are split, absorbed, and created as necessary,
         until all particles have either been absorbed by material
-        or exited the physical scope of the simulation (e.g.\ muons escaping from ATLAS) \cite{geant4}.
+        or exited the physical scope of the simulation (e.g.\ muons escaping from ATLAS).
 
     Geant4 additionally simulates the response of materials to these particle interactions,
         allowing energy and charge readouts to be simulated as they would be found within detector elements.
     The last step is to digitize these material responses so as to emulate the electrical signals of a real detector.
     All of the event response information, as well as an abundance of \textit{truth} information related to the simulated particles,
-        is exported to a data format identical in format to that produced by the ATLAS trigger system.
-    These simulated data can then be processed in the same manner as real data,
+        is exported to a file format identical in content to that produced by the ATLAS trigger system.
+    These simulated event samples can then be processed in the same manner as real data,
         allowing critical studies to be performed that in turn produce
         a far better understanding of the data's underlying physics.
 
-    On a more immediately relevant note, these data can be run through a variety of filtering algorithms,
-        in order to test how useful are these algorithms and their parameters.
+    On a more immediately relevant note, these simulated events can be run through a variety of filtering algorithms,
+        in order to test the utility of these algorithms and their parameters.
     These algorithms must be able to limit the throughput of events,
         without removing too many events of interest.
     Once a satisfactory level of performance is achieved these algorithms can be applied to the real ATLAS detector,
@@ -171,14 +173,17 @@
     
     Triggering is achieved by running events through two sequential algorithmic systems.
     All events first go through the hardware-based Level 1 Trigger (L1) before being run through the more sophisticated (and slower) software-based High Level Trigger (HLT).
-    Both of these systems involve a plethora of different measurements on various aspects of the events, such as total transverse energy, transverse momentum, jet multiplicity, and opening angles between jets.
+    Both of these systems involve a plethora of different measurements on various aspects of the events,
+        such as total transverse energy, transverse momentum, jet multiplicity, and opening angles between jets
+        (jets themselves are described in Section \ref{sec:jets}).
     All of these measurements are used, alone or in combination, to decide whether or not an event passes the trigger selection.
 
     Each of the various kinematic properties checked by the triggers have multiple threshold values that can determine a ``pass.''
     For example, a jet $p_T$ trigger can have thresholds at 30, 45, or 55 GeV, among others.
     A ``trigger chain'' is a combination of several different such kinematic conditions, each with their own thresholds.
     A bunch crossing is ultimately accepted and read out to disk for further analysis offline if it is able to pass all the conditions of a trigger chain.
-    There are hundreds of different trigger chains, each permitting different combinations of kinematics.
+    There are hundreds of different trigger chains, each permitting different combinations of kinematics,
+        and each used by a variety of analyses targeting different processes.
     An event is read out if it passes any one of these trigger chains, and is labeled in data with all the trigger chains it passes.
     The trigger chains used in ATLAS were largely decided upon before the beginning of the Run 2 data taking period\footnote{
             Some trigger chains were introduced later, as the trigger menu can evolve mid-run.
@@ -208,7 +213,6 @@
             described in section \ref{sec:muon-trigger_chamber}.
         Their purpose is to make trigger decisions primarily based on muon $p_T$ and track multiplicity\cite{trigger_run1}.
         In the calorimeter-based trigger, the selection algorithm first requires a reduction in data resolution.
-        The full granularity of the ATLAS calorimeters is too high to analyze in the 25 ns L1 has to process each bunch-crossing
         The full granularity of the ATLAS calorimeters is too high to analyze in the data collected so far by ATLAS\footnote{
             Though this is planned to change for the HL-LHC, which will have full granularity access at L1.
         }.
@@ -224,12 +228,14 @@
 
 
         The Cluster Processor Module (CPM) exclusively uses the Barrel Calorimeters to function
-            and is primarily meant for rapid identification of electrons/photons and taus/hadrons.
+            and is primarily meant for rapid identification of electrons/photons and taus/hadron jets.
         For either case, the CPM's first step is to check all possible $4 \times 4$ ``windows'' of trigger towers, identifying windows containing an isolated ``Region of Interest'' (RoI).
         Here, an RoI is defined as a $2 \times 2$ cluster of towers with an $E_T$ sum that is a relative maximum compared to surrounding towers.
         This $2 \times 2$ RoI is the center of the $4 \times 4$ window (see Fig. \ref{fig:trigger_towers}).
-        Windows are considered as passing the CPM trigger if the RoI satisfies an isolation requirement, meaning that the 12 towers surrounding that core fall \textit{below} a predefined $E_T$ ``isolation threshold'' value.
-        Electrons and photons are then separated from taus and hadrons by the fact that the latter group penetrates into the HCal barrel, while the former group stays highly contained to the ECal.
+        Windows are considered as passing the CPM trigger if the RoI satisfies an isolation requirement,
+            meaning that the 12 towers surrounding that core fall \textit{below} a predefined $E_T$ ``isolation threshold'' value.
+        Electrons and photons are then separated from tau and hadronic jets by the fact that the latter group penetrates into the HCal barrel,
+            while the former group stays highly contained to the ECal.
 
         Expanding out, the Jet/Energy Processing Module (JEM, or sometimes JEP) makes use of the calorimeter barrels and endcaps, as well as the FCAL, though it does not distinguish between the ECal and HCal.
         The JEM further reduces the granularity under consideration, with a basic unit of data collection being $2 \times 2$ collections of trigger towers called ``jet elements,'' resulting in a minimum resolution of $0.2 \times 0.2$ in $\Delta \eta \times \Delta \phi$.
@@ -248,10 +254,13 @@
         Located in the SCX1 building (Fig. \ref{fig:facilities}) at the surface of P1 (again to minimize latency),
             the HLT uses data from all detector elements to completely reconstruct the event as it occurred in ATLAS,
             and performs its selections based on this reconstructed event.
-        Different physics processes and particles, known as physics ``signatures,'' are reconstructed in different ways, and have different triggers based around them. 
-        The main signatures used in ATLAS are: minimum bias signatures, electron/photons (Egamma), muons, jets, taus, missing transverse energy (MET), b-jets (as in jets from bottom quarks), and B-physics (as in B-hadrons).
-        The process of reconstruction and the trigger algorithms applied to these reconstructed signatures are based on offline software algorithms which have been repurposed for online use.
-        These offline algorithms are quite technical in nature, and are discussed further in Chapter \ref{chapter:reconstruction}.
+        Different physics processes and particles, known as physics ``signatures,'' are reconstructed in different ways
+            and have different triggers based around them. 
+        The main signatures used in ATLAS are:
+            minimum bias signatures, electron/photons (Egamma), muons, jets, taus,
+            missing transverse energy (MET), b-jets (as in jets from bottom quarks), and B-physics (as in B-hadrons).
+        Reconstruction and selection within these signatures requires the use of highly technical algorithms
+            which are further described in Chapters \ref{chapter:reconstruction} and \ref{chapter:selection}.
         Once events have successfully passed both L1 and the HLT, they are finally distributed off-site for analysis by different physics groups.
 
         \begin{figure}[h]
@@ -270,12 +279,12 @@
             (see Fig. \ref{fig:data_delivered}).
         Due to an inefficiency in the vertex reconstruction present during 2016,
             only 125.9 \ifb of those data are actually used in my analysis.
-        Nonetheless, with a wealth of both simulated and true data at last available, 
+        Nonetheless, with a wealth of both simulated and true events at last available, 
             physics analysis can now begin.
-        On the one hand is a set raw electrical signals, with no indication of which signals correspond to what.
-        On the other is a collection of simulated data signals,
-            wherein each signal is tied through software back to its fundamental theoretical production mechanism.
-        By recognizing the key features present in the simulated data,
+        On the one hand is a set raw electrical signals transmitted from the ATLAS circuitry.
+        On the other is a collection of simulated signal events,
+            wherein each event is tied through software back to its fundamental theoretical production mechanism.
+        By recognizing the key features present in the simulated events,
             those same features can be identified in the true data.
         Data collection has now concluded, and it is time to begin the task of physics analysis,
             starting with reconstruction.

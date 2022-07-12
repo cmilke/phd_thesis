@@ -34,7 +34,7 @@
             p = \minimatrix{E \\ p_T \\ \theta \\ \phi}
             \end{equation}
             the track's helical shape can reveal all components except for the energy $E$,
-                which will eventually be determined from the calorimeters.
+                which may eventually be determined from the calorimeters/muon system.
             To understand how this is achieved, one must understand how a track helix is described mathematically.
             A helix can be defined using five parameters structured in a three-dimensional parametric equation\cite{thesis_giacinto}.
             There are several conventions for the form these parameters should take,
@@ -144,7 +144,7 @@
             The track seeds are assigned helix parameters by assuming they travel through a uniform magnetic field,
                 allowing rapid estimates of the tracks' momenta.
             These seeds are expanded into \textit{track candidates}
-                by including more space-points across additional detectors in the ID using a \textit{Kalman filter}.
+                by including more space-points across additional detectors in the ID using a \textit{Kalman filter}\cite{kalman}.
 
             %Ambiguity solving; NN clustering; Track fit
             The last step is then to choose a final set of best-quality trajectories.
@@ -199,7 +199,7 @@
 
 
     \FloatBarrier
-    \section{Jets}
+    \section{Jets}\label{sec:jets}
 
         \subsection{Cell Clustering}
 
@@ -250,8 +250,7 @@
 
         \subsection{Jet Definition}
             
-        Jets are a somewhat nebulous concept in particle physics.
-        They are used represent a range of physical phenomenon,
+        Jets are used to represent a range of physical phenomenon,
             from scattering within calorimeters to the process of hadronic showering.
         %Jets are an attempt to encapsulate the process of scattering within high-Z materials.
         %A high energy particle encountering the heavy-metal plates in the calorimeters will be deflected,
@@ -262,7 +261,9 @@
         %This cone has an associated vector corresponding to the direction the cone opens out at.
         %Due to conservation of momentum, the momentum vector of the original particle will be roughly equal to the jet vector,
         %    since the total momentum of the various scattered particles must sum back to the momentum of the initial particle.
-        The general goal is to have each jet correspond to one particle.
+        The general goal is to have each jet correspond to one particle/parton.
+        Doing so allows energy clusters and tracks to be connected to each other
+            and (ideally) reconstructed back to the final state particles produced in the interaction region.
         In practice however, particles frequently overlap in their energy deposition,
             making it challenging to distinguish where one particle should begin and another should end.
         Historically, a number of different jet algorithms have been used to describe particle showers.
@@ -303,7 +304,7 @@
             which first identifies tracks that can be associated with a jet.
         Particle Flow then attempts to match these associated tracks to individual topo-clusters.
         If such a match can be made, the energy of the topo-cluster is replaced with the reconstructed momentum of the matched track.
-        This is done because track momentum can be more reliably measured in ATLAS than cluster energy,
+        This is done because (at low $p_T$) track momentum can be more reliably measured in ATLAS than cluster energy,
             and with such relativistic particles their momentum is effectively equivalent to their energy.
         The resulting jet-track combination objects are known as \textit{PFlow Jets},
             which are then used for the rest of the reconstruction process\cite{pflow}.
@@ -316,7 +317,8 @@
             more simply known as b-jets.
         B-jets are important because, of all the particles the Higgs can decay to,
             its branching ratio to a $\bbar$ pair is highest (Table \ref{tab:higgsbranching}).
-        Distinguishing b-jets from other jet types,
+        Distinguishing b-jets from other jet types
+            (noteably, the light-jets produced from the VBF initial-scatter quarks),
             achieved through the process of \textit{flavor tagging},
             is therefore of paramount importance in this analysis.
         Flavor Tagging in ATLAS is performed in two stages;
@@ -500,7 +502,7 @@
             Deep neural networks, like DL1, are those with multiple hidden layers.
             The ``hyperparameters'' for DL1 are shown in Table \ref{tab:DL1_hyperparams}.
             DL1 is actually not the tagger used for this analysis, but is only the base for what is used, DL1r.
-            DL1r is a \textit{recurrent} variation of DL1, which grants the network access to the space-time sequential
+            DL1r\cite{dl1r} is a variation of DL1 which uses inputs from RNNIP, which grants the network access to the space-time sequential
                 ordering of the tracks comprising the jet in question.
             B-hadrons must necessarily decay and so produce secondary vertices.
             DL1r's ability to assess the ordering of tracks allows it to identify these secondary vertices and their origin,

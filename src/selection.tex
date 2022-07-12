@@ -118,78 +118,6 @@
             the VBF jet kinematics,
             and the angular clustering of the Higgs decay products.
 
-        \begin{figure}[tbh]
-            \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv-5p0}
-                \caption{}
-            \end{subfigure}
-            \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv1p0}
-                \caption{}
-            \end{subfigure}\\
-            \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv5p0}
-                \caption{}
-            \end{subfigure}
-            \caption{
-                Acceptance $\times$ Efficiency across the \kvv/\kl space for multiple values of \kv.
-                These figures (and those that follow) indicate what fraction of signal events are expected (based on MC studies)
-                    to both pass through ATLAS such that they are reconstructed (acceptance)
-                    and subsequently remain after the various steps of selection (efficiency).
-                Although the reconstruction and selection process is overall very punishing -- 
-                    leaving roughly only one in every thousand signal events --
-                    no particular variations of the signal model (i.e.\ no specific inputs of the $\kappa$ values)
-                    are dramatically favored over any others;
-                    all values visible across these plots lie within the same order of magnitude.
-            }
-            \label{fig:accXeff_kv}
-        \end{figure}
-
-        \begin{figure}[tbh]
-            \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl-15p0}
-                \caption{}
-            \end{subfigure}
-            \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl1p0}
-                \caption{}
-            \end{subfigure}\\
-            \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl21p0}
-                \caption{}
-            \end{subfigure}
-            \caption{
-                Acceptance $\times$ Efficiency across the \kvv/\kv space for multiple values of \kl.
-            }
-            \label{fig:accXeff_kl}
-        \end{figure}
-
-        \begin{figure}[tbh]
-            \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v-3p0}
-                \caption{}
-            \end{subfigure}
-            \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v0p0}
-                \caption{}
-            \end{subfigure}\\
-            \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v1p0}
-                \caption{}
-            \end{subfigure}
-            \begin{subfigure}{0.48\textwidth}
-                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v5p0}
-                \caption{}
-            \end{subfigure}
-            \caption{
-                Acceptance $\times$ Efficiency across the \kl/\kv space for multiple values of \kvv.
-            }
-            \label{fig:accXeff_kvv}
-        \end{figure}
-
-            
-
-
     \FloatBarrier
     \subsection{Jet Multiplicity and Categorization}
         
@@ -223,7 +151,7 @@
     \subsection{VBF Topology}
 
         For the VBF jets, the characteristic wide-opening angle and high invariant mass is exploited here.
-        The selected VBF pair must have $\deta > 3$ and $\mjj \geq 1 \textrm{GeV}$.
+        The selected VBF pair must have $\deta > 3$ and $\mjj \geq 1000 \textrm{GeV}$.
         As well, the combined vector-sum-$p_T$ of all six jets
             (the four Higgs products and the two VBF jets)
             must be less than 65 GeV:
@@ -236,7 +164,10 @@
             \,.
         \end{equation}
         The maximum sum-$p_T$ requirement follows from the fact that the initial incoming beamline particles have
-            zero transverse momentum, and so the output of their interaction should as well.
+            very low transverse momentum\footnote{
+                Initial state radiation can cause the VBF+4b system to have some tranverse momentum,
+                    hence the upper-bound on this cut.
+            }, and so the output of their interaction should as well.
         These specific values for the cuts are based on the significance values
             (defined as the ratio of the number of signal events to the square root of the number of background events)
             shown in Fig. \ref{fig:vbf_cuts}.
@@ -406,4 +337,79 @@
         The contribution of these remaining background events to the total signal yield
             must now be estimated.
         To do this, the analysis employs a data-driven approach.
+
+
+        \begin{figure}[tbh]
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv-5p0}
+                \caption{}
+            \end{subfigure}
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv1p0}
+                \caption{}
+            \end{subfigure}\\
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kv5p0}
+                \caption{}
+            \end{subfigure}
+            \caption{
+                Acceptance $\times$ Efficiency across the \kvv/\kl space for multiple values of \kv.
+                These figures (and those that follow) indicate what fraction of signal events are expected (based on MC studies)
+                    to both pass through ATLAS such that they are reconstructed (acceptance)
+                    and subsequently remain after the various steps of selection (efficiency).
+                Although the reconstruction and selection process is overall very punishing -- 
+                    leaving roughly only one in every thousand signal events --
+                    no particular variations of the signal model (i.e.\ no specific inputs of the $\kappa$ values)
+                    are dramatically favored over any others;
+                    all values visible across these plots lie within the same order of magnitude.
+                The differences that do exist are result from varying the kappa values, which in turn alters the kinematics of the \vbfhhproc events.
+                Different kinematic features can permit events to more easily pass reconstruction and selection.
+            }
+            \label{fig:accXeff_kv}
+        \end{figure}
+
+        \begin{figure}[tbh]
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl-15p0}
+                \caption{}
+            \end{subfigure}
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl1p0}
+                \caption{}
+            \end{subfigure}\\
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-kl21p0}
+                \caption{}
+            \end{subfigure}
+            \caption{
+                Acceptance $\times$ Efficiency across the \kvv/\kv space for multiple values of \kl.
+            }
+            \label{fig:accXeff_kl}
+        \end{figure}
+
+        \begin{figure}[tbh]
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v-3p0}
+                \caption{}
+            \end{subfigure}
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v0p0}
+                \caption{}
+            \end{subfigure}\\
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v1p0}
+                \caption{}
+            \end{subfigure}
+            \begin{subfigure}{0.48\textwidth}
+                \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{selection/VBF2D-vbf-MC-Signal-Region-all-4b-accXeff-k2v5p0}
+                \caption{}
+            \end{subfigure}
+            \caption{
+                Acceptance $\times$ Efficiency across the \kl/\kv space for multiple values of \kvv.
+            }
+            \label{fig:accXeff_kvv}
+        \end{figure}
+
+            
+
 

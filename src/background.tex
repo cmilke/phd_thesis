@@ -27,13 +27,7 @@
         \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{background/multijet_rates}
         \caption{
             Production cross-section as a function of jet number\cite{multijet_measurement}.
-            This measurement was made at a lower CoM energy of 7 TeV and used a slightly larger
-                \antikt $\Rparam$-parameter of 0.6.
-            However, it still serves to provide a rough estimate of what can be expected from the multijet
-                background in this analysis.
-            For comparison, the di-jet estimate provided here of $4\times10^6$ pb
-                is just over an order of magnitude greater than the analogous measurement of
-                $3\times10^5$ pb from Fig. \ref{fig:lhc_rates}.
+            This measurement was made at a CoM energy of 7 TeV and used an \antikt $\Rparam$-parameter of 0.6.
         }
         \label{fig:multijet_rates}
     \end{figure}
@@ -63,23 +57,24 @@
 \section{Neural Network Training and Uncertainty} \label{sec:nn_training}
 
     The reweighting function is derived using machine learning techniques (refer back to Section \ref{sec:ml_techniques}).
-    A neural network (NN) is trained via the Keras python library to identify how to reweight 2b data
+    A neural network (NN) is trained via the Keras python library\cite{keras} to identify how to reweight 2b data
         such that the cumulative kinematic distribution looks like that of 4b data.
     In order to improve stability in the reweighting function,
         an ensemble of 100 networks (referred to as the ``bootstrap networks'') is trained,
-        and the median of their calculations is used (called the ``Nominal Estimate'').
-    Each neural network instance $j$ produces a reweighting factor $w_{ij}$ and has a normalization factor $\alpha_j$ associated with it.
+        and the mean of their calculations is used (called the ``Nominal Estimate'').
+    Each neural network instance $j$ produces its own per-event reweighting factors $r_{ij}$
+        along with a normalization factor $\alpha_j$ associated with it.
     This normalization factor is calculated so the total yield of all 2b reweighted events matches that of the 4b yield in the same region. 
     So for $N$ total 2b events and $N'$ total 4b events, a normalization factor $\alpha_j$ is set such that:
         \begin{equation}
-            \sum_{i=1}^{N} \alpha_j w_{ij} = N'
+            \sum_{i=1}^{N} \alpha_j r_{ij} = N'
             \quad.
         \end{equation}
 
-    The nominal estimate $\tilde{w}$ constructed from the median of these networks will not necessarily satisfy this same relation,
+    The nominal estimate $\tilde{r}$ constructed from the mean of these networks will not necessarily satisfy this same relation,
         so it is given its own separate normalization $\tilde \alpha$:
         \begin{equation}
-            \sum_{i=1}^{N} \tilde \alpha \tilde w_i = N'
+            \sum_{i=1}^{N} \tilde \alpha \tilde r_i = N'
             \quad.
         \end{equation}
 
