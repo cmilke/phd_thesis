@@ -120,11 +120,6 @@
         \,.
     \end{split} \end{equation}
 
-    The $a_i$ matrix element expansion values have a dependence on \mhh, which is not trivially derivable as an analytic function.
-    Instead, for a given scale factor,
-        its cross-section for a given \mhh can be mathematically determined by solving a set of linear equations for the $a_i$ terms.
-    This is done using six different cross-section values (for the same \mhh) for six different scaling values.
-
     \newcommand{\crossterm}[1]{
         \xsec_{#1} &= \fkv{#1}^2 \fkl{#1}^2 a_1
             + \fkv{#1}^4 a_2
@@ -136,14 +131,28 @@
     %\newcommand{\combterm}[1]{ g_{#1} \frac{d\sigma_{#1}}{d \mhh} }
     \newcommand{\combterm}[1]{ g_{#1} \xsec_{#1} }
 
-    \begin{equation} \label{eq:allsixxsecs} \begin{split}
+    The $a_i$ matrix element expansion values have a dependence on \mhh, which is not trivially derivable as an analytic function.
+    Instead, for a given scale factor,
+        its cross-section for a given \mhh can be mathematically determined by solving a set of linear equations for the $a_i$ terms.
+    This is done using six different cross-section values (for the same \mhh) for six different scaling values.
+
+    \begin{equation} \label{eq:allsixxsecs} \begin{aligned}
         \crossterm{1} \\
         \crossterm{2} \\
         \crossterm{3} \\
         \crossterm{4} \\
         \crossterm{5} \\
         \crossterm{6} \,. \\
-    \end{split} \end{equation}
+    \end{aligned} \end{equation}
+    %\begin{eqnarray} \label{eq:allsixxsecs}
+    %    \crossterm{1} \nonumber \\
+    %    \crossterm{2} \nonumber \\
+    %    \crossterm{3} \nonumber \\
+    %    \crossterm{4} \nonumber \\
+    %    \crossterm{5} \nonumber \\
+    %    \crossterm{6} \nonumber \,. \\
+    %\end{eqnarray}
+
     This set of equations can be reformatted as a matrix equation
         by rewriting the differential cross-sections and $a_i$ terms as vectors,
     \begin{equation}
