@@ -29,14 +29,6 @@
     The final output of both of these operations is identically formatted data files,
         which can be further refined and directly compared for the purpose of statistical analysis.
         
-    %Having such a system in place is not by itself sufficient however,
-    %    without guidance as to how it and its output should be utilized.
-    %Throwing out bunch crossings without reason will remove events of interest as well as irrelevant events.
-    %In order to make informed decisions as to how filtering should be done,
-    %    data is not only collected from ATLAS, but is generated through Monte Carlo simulation processes.
-    %These simulated data samples provide insight into how different physics processes may present in ATLAS,
-    %    allowing for greater efficiency in what data is kept and what is removed.
-
 
 \FloatBarrier
 \section{Monte-Carlo Simulation} \label{sec:mcsim}
@@ -44,8 +36,8 @@
     All of the remaining chapters of this thesis are in some way dependent on simulated event samples.
     Without a way to link pure physics equations to observable physical phenomena,
         there is no way to make meaningful decisions or predictions about collected data.
-    Currently, Monte-Carlo simulation is the most effective method of making predictions
-        for how theoretical parameters should affect experimental observations in particle physics.
+    Currently, Monte-Carlo simulation\cite{montecarlo} is among the most effective method of making predictions
+        for how theoretical parameters should affect experimental observations in particle physics\cite{compphys}.
 
     There are three core software frameworks used for this analysis,
         each corresponding to the three phases of interaction described in the prior chapters.
@@ -101,7 +93,9 @@
         as necessary to reach the stable state of the event as would be observed through a detector.
     Where Pythia8 falls short is in its simulation of longer lived hadrons,
         mainly B and D hadrons.
-    Such hadrons are instead further simulated by EvtGen TODO.
+    Such hadrons are instead further simulated by EvtGen,
+        which uses decay amplitudes of processes to determine the kinematic distributions
+        of final state particles in an interaction.
     The emulation of the detector's response to these particles then constitutes the final step of event simulation,
         which is handled by Geant4.
 

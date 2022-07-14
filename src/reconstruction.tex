@@ -252,15 +252,6 @@
             
         Jets are used to represent a range of physical phenomenon,
             from scattering within calorimeters to the process of hadronic showering.
-        %Jets are an attempt to encapsulate the process of scattering within high-Z materials.
-        %A high energy particle encountering the heavy-metal plates in the calorimeters will be deflected,
-        %    while releasing other particles which travel in different directions.
-        %All these new particles will produce similar reactions, until the various particles posses too little energy to cause further scattering.
-        %The overall effect appears as a roughly cone-shaped shower of particles,
-        %    whose ``tip'' is located somewhere near the interaction vertex.
-        %This cone has an associated vector corresponding to the direction the cone opens out at.
-        %Due to conservation of momentum, the momentum vector of the original particle will be roughly equal to the jet vector,
-        %    since the total momentum of the various scattered particles must sum back to the momentum of the initial particle.
         The general goal is to have each jet correspond to one particle/parton.
         Doing so allows energy clusters and tracks to be connected to each other
             and (ideally) reconstructed back to the final state particles produced in the interaction region.
@@ -322,7 +313,7 @@
             achieved through the process of \textit{flavor tagging},
             is therefore of paramount importance in this analysis.
         Flavor Tagging in ATLAS is performed in two stages;
-            first with a set of simple low-level taggers,
+            first with a set of simple low-level taggers based on impact parameters and secondary vertexing,
             and then with a set of more sophisticated taggers which use the low-level tagger information as inputs.
 
 
@@ -330,7 +321,8 @@
         \subsection{Impact Parameter Taggers}
 
             The low-level b-tagging algorithms can be divided between impact parameter taggers and secondary vertexing algorithms.
-            IP2D and IP3D are the two and three-dimensional impact parameter-based taggers.
+            IP2D and IP3D are the basic two and three-dimensional impact parameter-based taggers, 
+                alongside RNNIP\cite{rnnip}, a recurrent neural network-based tagger (see Section \ref{sec:ml_techniques}).
             They take every track associated with a PFlow Jet
                 and then use a slightly modified version of the perigee parameters discussed above in order to tag it.
             Namely, the $d_0$ and $z_0$ parameters are given a positive or negative sign to help better emphasize key characteristics of b-jets\cite{thesis_giacinto}:
@@ -339,8 +331,10 @@
                 \textrm{sign}_{z0} &= \textrm{sign}((\eta_{\textrm{jet}} - \eta_{\textrm{track}}) \cdot z_{0,\textrm{track}})
                 \,.
             \end{split} \end{equation}
-            Physically, this sign convention is to distinguish tracks which are likely to have actually been part of the jet (with a positive sign)
-                from those likely originating from pile-up vertices (negative sign).
+            Physically, this sign convention is related to the point at which the axis of the track vector intersects
+                (in a 2D plane) with the axis of the jet momentum vector. 
+            Specifically, the sign corresponds to whether the \textit{vector to that intersection}
+                points along (positive sign) or against (negative sign) the jet axis vector.
             See Fig. \ref{fig:ip3d_sign} for a graphical illustration of this convention.
 
             \begin{figure}
@@ -367,7 +361,8 @@
                 \label{fig:ip3d_sign}
             \end{figure}
 
-            Values are assigned to \textit{each} track in a jet based on probability density functions (PDF) of the different jet types.
+            For IP2D and IP3D, values are assigned to \textit{each} track in a jet based on
+                probability density functions (PDF) of the different jet types.
             Specifically, a PDF is constructed of the impact parameter \textit{significance}, $d_0/\sigma_{d0}$,
                 where $\sigma_{d0}$ is the error of the measurement.
             The probability that a given track, $i$, would have some impact parameter significance value (based on the PDF)
@@ -413,20 +408,30 @@
                 \label{fig:ip3dsig}
             \end{figure}
 
+            The IPxD taggers effectively treat all tracks in a jet as independent of each,
+                combining their impact parameter information through a mere product of their LLR values.
+            RNNIP, a recurrent neural network, expands upon their functionality by correlating
+                the impact parameter significance values of the tracks.
+            This is done by running the tagger over individual tracks sequentially
+                and feeding the output of each iteration into the next as an additional input,
+                allowing arbitrary numbers of tracks to be related to each other within the same jet.
+
+            \input{tables/reconstruction/rnnip.tex}
+
 
         \FloatBarrier
-        %\subsection{Secondary Vertexing}
+        \subsection{Secondary Vertexing Algorithms}
 
-        %    Secondary Vertexing algorithms take advantage of the fact that b-hadrons are significantly longer lived than light-hadrons,
-        %        and thus their associated secondary vertices typically have a larger displacement from the primary vertex.
-        %    In ATLAS, there are two primary algorithms used to perform b-tagging with Secondary Vertexing.
-        %    Realistically, hadronic matter decays in multiple steps, producing a series of close vertices each emitting more particles.
-        %    The first of the ATLAS Secondary Vertex algorithms, JetFitter, seeks to reconstruct this full multi-vertex structure of the hadronic decay.
-        %    In contrast, SV1 (Secondary Vertex 1), works by making an approximation as to how hadronic decays behave.
-        %    SV1 takes a simpler view of the decay process, and reconstructs all the resulting tracks as products of a single secondary vertex.
-        %    For both algorithms, several fit parameters are produced from the vertexing,
-        %        which are then used both as discriminants themselves,
-        %        as well as utilized in the next step as inputs to the more advanced taggers\cite{btagging_optimisation}.
+            Secondary vertexing algorithms take advantage of the fact that b-hadrons are significantly longer lived than light-hadrons,
+                and thus their associated secondary vertices typically have a larger displacement from the primary vertex.
+            In ATLAS, there are two primary algorithms used to perform b-tagging with secondary vertexing.
+            Realistically, hadronic matter decays in multiple steps, producing a series of close vertices each emitting more particles.
+            The first of the ATLAS secondary vertex algorithms, JetFitter, seeks to reconstruct this full multi-vertex structure of the hadronic decay.
+            In contrast, SV1 (Secondary Vertex 1), works by making an approximation as to how hadronic decays behave.
+            SV1 takes a simpler view of the decay process, and reconstructs all the resulting tracks as products of a single secondary vertex.
+            For both algorithms, several fit parameters are produced from the vertexing,
+                which are then used both as discriminants themselves,
+                as well as utilized in the next step as inputs to the more advanced taggers\cite{btagging_optimisation}.
 
         \FloatBarrier
         \subsection{High Level Taggers and Machine Learning Techniques}\label{sec:ml_techniques}
@@ -501,13 +506,7 @@
 
             Deep neural networks, like DL1, are those with multiple hidden layers.
             The ``hyperparameters'' for DL1 are shown in Table \ref{tab:DL1_hyperparams}.
-            DL1 is actually not the tagger used for this analysis, but is only the base for what is used, DL1r.
-            DL1r\cite{dl1r} is a variation of DL1 which uses inputs from RNNIP, which grants the network access to the space-time sequential
-                ordering of the tracks comprising the jet in question.
-            B-hadrons must necessarily decay and so produce secondary vertices.
-            DL1r's ability to assess the ordering of tracks allows it to identify these secondary vertices and their origin,
-                permitting more robust identification of b-jets.
-
+            For this analysis a variation of DL1, called DL1r, is used which incorporates additional inputs from RNNIP.
         
             \begin{figure}[tbh] \center
                 \includegraphics[width=0.7\linewidth,height=\textheight,keepaspectratio]{tables/reconstruction/DL1_hyperparams}
