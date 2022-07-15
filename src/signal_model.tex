@@ -93,7 +93,6 @@
 
 
 
-\FloatBarrier
 \section{Signal Combination} \label{sec:signal_combination}
 
     As discussed in Section \ref{sec:feyn_rules},
@@ -136,22 +135,24 @@
         its cross-section for a given \mhh can be mathematically determined by solving a set of linear equations for the $a_i$ terms.
     This is done using six different cross-section values (for the same \mhh) for six different scaling values.
 
-    \begin{equation} \label{eq:allsixxsecs} \begin{aligned}
-        \crossterm{1} \\
-        \crossterm{2} \\
-        \crossterm{3} \\
-        \crossterm{4} \\
-        \crossterm{5} \\
-        \crossterm{6} \,. \\
-    \end{aligned} \end{equation}
-    %\begin{eqnarray} \label{eq:allsixxsecs}
-    %    \crossterm{1} \nonumber \\
-    %    \crossterm{2} \nonumber \\
-    %    \crossterm{3} \nonumber \\
-    %    \crossterm{4} \nonumber \\
-    %    \crossterm{5} \nonumber \\
-    %    \crossterm{6} \nonumber \,. \\
-    %\end{eqnarray}
+    %\begin{equation} \label{eq:allsixxsecs} \begin{aligned}
+    %\begin{equation} \crossterm{1} \nonumber \end{equation}
+    %\begin{equation} \crossterm{2} \nonumber \end{equation}
+    %\begin{equation} \crossterm{3} \nonumber \end{equation}
+    %\begin{equation} \crossterm{4} \nonumber \end{equation}
+    %\begin{equation} \crossterm{5} \nonumber \end{equation}
+    %\begin{equation} \label{eq.allsixxsecs} \crossterm{6} \,. \end{equation}
+    %\end{aligned} \end{equation}
+
+    \vspace{-0.5in}
+    \begin{eqnarray} \label{eq:allsixxsecs}
+        \crossterm{1} \nonumber \\
+        \crossterm{2} \nonumber \\
+        \crossterm{3} \nonumber \\
+        \crossterm{4} \nonumber \\
+        \crossterm{5} \nonumber \\
+        \crossterm{6} \nonumber \,. \\
+    \end{eqnarray}
 
     This set of equations can be reformatted as a matrix equation
         by rewriting the differential cross-sections and $a_i$ terms as vectors,
@@ -294,8 +295,8 @@
     \begin{figure}[tbh]
     	\centering
         \begin{subfigure}{0.32\textwidth}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/reco_mHH_cvv1p00cl0p00cv1p00}
-            \captionsetup{justification=centering} \caption{Validation against MC with $\kl=0$}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/reco_mHH_cvv1p00cl2p00cv1p00}
+            \captionsetup{justification=centering} \caption{Validation against MC with $\kl=2$}
         \end{subfigure}
         \begin{subfigure}{0.32\textwidth}
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/reco_mHH_cvv0p00cl1p00cv1p00}
@@ -358,7 +359,6 @@
     \end{figure}
 
 
-\FloatBarrier
 \section{Solidarity} \label{sec:solidarity}
     
     As a final note on the discussion of the signal sample combination technique,
@@ -500,7 +500,6 @@
         }
         \label{fig:solidarity_heatmaps}
     \end{figure}
-    \FloatBarrier
 
     The map of Solidarity (Fig. \ref{fig:solidarity_heatmaps}) shows a strong relationship with the prevalence of negative-weighted bins,
         despite the Solidarity heatmap being calculated without the use of any MC simulation samples (beyond MadGraph).
@@ -530,7 +529,6 @@
         }
         \label{fig:nWeight_solidarity_scatter}
     \end{figure}
-    \FloatBarrier
 
 
     Figure \ref{fig:nWeight_solidarity_scatter} was generated using all 1307 linearly independent bases of combining 6 of the 13 available MC samples.
@@ -565,7 +563,6 @@
         }
         \label{fig:solidarity_dump}
     \end{figure}
-    \FloatBarrier
 
     Aligning all of these histograms together as in Fig. \ref{fig:solidarity_dump}
         produces a clear method of distinguishing samples that 
@@ -597,7 +594,6 @@
         }
         \label{fig:solidarity_performance_map}
     \end{figure}
-    \FloatBarrier
 
     Using Fig. \ref{fig:solidarity_performance_map} as a guide,
         a number of points (mostly those corresponding to the highest aggregate performance values, $\approx 5.5$)
