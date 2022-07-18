@@ -1,9 +1,11 @@
 \chapter{Background Estimation} \label{chapter:background}
 
-\section{Background Sources and Techniques}
+\section{Data Driven Background Modelling}
 
     The basic event selection does not remove all non-signal events.
-    Indeed, based on the relative rates of QCD multijet events (Figs. \ref{fig:lhc_rates} and \ref{fig:multijet_rates}) and the SM \vbfhhproc process (1.18 fb, see Table \ref{tab:mcyields}),
+    Indeed, based on the relative rates of QCD multijet events
+        (Figs. \ref{fig:lhc_rates} and \ref{fig:multijet_rates})
+        and the SM \vbfhhproc process (1.18 fb, see Table \ref{tab:mcyields}),
         most of the events remaining in the data are very likely background.
     Since these background events cannot be effectively differentiated from the signal,
         a technique must be used to estimate how much of the observed data are coming from background.
@@ -42,9 +44,16 @@
         is that background events with only two b-tagged jets (2b data)
         will have kinematics very similar to the background events with 4 b-tagged (4b) jets.
     Thus, the kinematic distribution of the 2b signal region can be used as an estimate of the background in the 4b signal region.
-    Unfortunately, observation of the Control Regions shows that the kinematics of the 2b and 4b data do not match as well as hypothesized.
+    Unfortunately, observation of the Control Regions shows that some of the kinematics of the 2b and 4b data do not match completely.
     As such, the 2b signal data must undergo a ``reweighting'' process,
-        which adjusts the kinematic distribution to match that of 4b.
+        which adjusts the kinematic distribution to match that of 4b\footnote{
+            Note that many of the kinematic variables
+                (e.g. Figs \ref{fig:data_mhh_reweight} and \ref{fig:data_detahh_reweight})
+                actually do align very well between the 2b and 4b selection even before reweighting.
+            A large part of the motivation for the reweighting is to maintain consistency in the procedure between
+                the VBF and ggF production mechanisms.
+            In the ggF analysis\cite{hh4b_2021_int_note} the 2b and 4b regions are much more kinematically distinct.
+        }.
     This reweighting takes the form of a function $R$,
         which for each event $i$ takes a series of kinematic variables $x_i$ as an argument,
         and returns a reweighting value $r_i$ which scales that event's contribution to the kinematic distributions:
@@ -52,6 +61,7 @@
     Deriving this function, and determining the appropriate inputs for it,
         are the challenges addressed in the following sections.
 
+\pagebreak
 \section{Neural Network Training and Uncertainty} \label{sec:nn_training}
 
     The reweighting function is derived using machine learning techniques (refer back to Section \ref{sec:ml_techniques}).

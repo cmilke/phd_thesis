@@ -85,12 +85,15 @@
     Of course, making a prediction for the shape of the \mhh distribution as it would appear in ATLAS is easier said than done.
     Calculating the event yield alone is not too difficult to perform by hand,
         as this requires only the cross-section of the process.
-    Calculating the event yield \textit{as a function of an observable kinematic variable} is much more challenging,
+    Calculating the event yield as a function of an observable kinematic variable is much more difficult,
         requiring the differential cross-section $\dxsec{q_i}$.
-    To then further determine what the kinematic distribution looks like \textit{within ATLAS}, rather than in theory,
-        adds several additional layers of complexity to the problem.
-    In order to address these issues, I will need to turn to the power of Monte Carlo simulation.
-
+    Section \ref{sec:mcsim} describes the Monte-Carlo simulation procedure used for this purpose,
+        providing a model of how the kinematic distributions of the \vbfhhproc process would appear after passing through
+        the ATLAS detector and the event selection process.
+    The challenge addressed in this chapter then is with regard to the poorly defined range of the kappa coupling coefficients,
+        and the variety of signal hypotheses this range entails.
+    Modelling such a range accurately and efficiently necessitates revisiting the fundamental behaviour
+        of the \hhproc process, and constitutes the bulk of my contribution to the 4b analysis.
 
 
 \section{Signal Combination} \label{sec:signal_combination}
@@ -144,7 +147,6 @@
     %\begin{equation} \label{eq.allsixxsecs} \crossterm{6} \,. \end{equation}
     %\end{aligned} \end{equation}
 
-    \vspace{-0.5in}
     \begin{eqnarray} \label{eq:allsixxsecs}
         \crossterm{1} \nonumber \\
         \crossterm{2} \nonumber \\
@@ -361,7 +363,7 @@
 
 \section{Solidarity} \label{sec:solidarity}
     
-    As a final note on the discussion of the signal sample combination technique,
+    As an additional note on the discussion of the signal sample combination technique,
         I would like to address the reason that some combination bases work better than others.
     Originally, the 2021 MC production for the 4b analysis consisted of 12 samples (all but the bottom row of Table \ref{tab:mcyields}).
     However, inspection of these samples using the negative weight technique discussed above revealed very poor modeling performance.
@@ -602,6 +604,58 @@
         a full MC production run was generated with its scale factor values set to \kvv=1, \kl=-5, \kv=0.5.
     This set of MC samples combined with the collected data and background estimation,
         can then be used together to test the validity of different possible hypotheses.
+
+\FloatBarrier
+\section{Parton Showering Uncertainty}
+
+    Before moving onto the final results, I need to briefly address a small systematic uncertainty associated with the signal MC modelling,
+        stemming from the parton showering step of simulation discussed in Section \ref{sec:pythia}.
+    To account for differences in different simulation frameworks, an entirely different framework,
+        Herwig 7\cite{Bellm:2015jjp}. 
+    Herwig performs the same function as Pythia8, but using a different technical implementation.
+    The two are fairly consistent in the output kinematics they produce for the \vbfhhproc,
+        but there are slight differences (Fig. \ref{fig:pyth_herwig_mjj}).
+    A systematic uncertainty is associated with this difference through the following procedure.
+    First, a set of MC samples is produced through the same procedure as described in Section \ref{sec:mcsim},
+        but using Herwig instead of Pythia8.
+    Distributions of \mhh are formed for both of these post-selection MC samples,
+        and a bin-by-bin difference calculated in their yields.
+    This difference, normalized to the per-bin statistical error, then constitutes the systematic error.
+    Now equipped with a model for the background, a model for the signal
+        (for any variation of the $\kappa$-values),
+        and a suitable accounting of the uncertainties associated with each,
+        I can at last proceed to looking at the data and results of the analysis.
+
+    \begin{figure}[tbh] \centering
+        \includegraphics[page=64,width=\linewidth,height=0.4\textheight,keepaspectratio]{signal/V2_vbf-hh-4b_l1cvv1cv1}
+        \caption{
+            VBF jet invariant mass (in GeV) distribution as produced by Pythia8 and Herwig at \textit{truth-level}.
+            Pythia8 is displayed in red and Herwig in blue, with their (dominating) region of overlap shown in purple.
+            The differences in their behaviour are not dramatic, but are present
+                (hence the relatively small associated uncertainty).
+        }
+        \label{fig:pyth_herwig_mjj}
+    \end{figure}
+
+    \begin{figure}
+        \centering
+        \begin{subfigure}{0.48\textwidth} 
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/VBF_PS_dEta_1_20-1_kl1_k2v1}
+            \caption{$\eta < 1.5$ Category}
+        \end{subfigure}
+        \begin{subfigure}{0.48\textwidth}
+            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{signal/VBF_PS_dEta_2_20-1_kl1_k2v1}
+            \caption{$\eta \geq 1.5$ Category}
+        \end{subfigure}
+        \caption{
+            Systematic uncertainty of the parton showering step of the signal MC generation.
+            The ``Nominal'' Parton Showering (PS) MC sample is that derived from Pythia8,
+                while the ``Alternate'' (Alt.) sample corresponds to Herwig.
+        }
+        \label{fig:sig_syst}
+    \end{figure}
+
+    
 
 
 %\input{src/combination_deep_math.tex}

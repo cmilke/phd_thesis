@@ -3,69 +3,6 @@
 % Largely, this means I need to finally understand how pyhf actually works and what the hell the limit framework is doing.
 \chapter{Results} \label{chapter:results}
 
-%
-%
-%
-%    I'm not sure I actually have to explain Baye's theorem here...
-%    it doesn't appear to be obviously used, or if it is, we're implicitly using the "Uniform" Prior
-%    Ask Steve
-%
-%    L gives probability of seeing the data we have, based on the given model.
-%    We need the probability that the given model is the one responsible for the data we see.
-%    i.e. we have P(data|model), but we need P(model|data)
-%
-%    To do this, we need Baye's rule, which comes from the basic 'anding' of probabilities:
-%    P(a \& b) = P(a)*P(b|a) , or P(a \& b) = P(b)*P(a|b) . Thus
-%    P(a)*P(b|a) = P(b)*P(a|b) 
-%    P(b|a) = P(a|b) P(b) / P(a)
-%    So we need P(model|data) = P(data|model) * P(model) / P(data)
-%
-%    For our data we have to use the extended L, which accounts for poisson stats.
-%    Basic test is to test mu*S+B for what value of mu is compatible with data
-%
-%        
-%
-%
-%Statistics is a powerful tool in science,
-%    but one which can be very misleading if not used carefully.
-%%The oft-used quote comparing lies and statistics exists for a reason;
-%%    both can lead to incorrect scientific conclusions.
-%%But whereas a lie can be caught by a simple slip of the tongue,
-%%    it can take scientists years to discover a slight (intentional or not) mishandling of statistics.
-%Unfortunately, the use of statistical methods is not optional.
-
-%To begin, let me propose a much simpler experiment than the one described in this analysis.
-%I have a coin, which I suspect may be biased to one side.
-%How can I test this?
-%A fair coin has a 50/50 chance of landing on either side.
-%This means that, were I to flip the coin a large number of times,
-%    I would expect a roughly equal number of heads and tails.
-%Significant deviation from this ratio (e.g.\ 3 million heads to 1 million tails)
-%    would indicate an obvious bias in the coin.
-%The conclusion becomes far less obvious however, if the coin is flipped only a few times.
-%Even if every flip comes up as heads, no meaningful conclusion can be made if the coin was only flipped e.g.\ four times.
-%The crucial questions raised here, which statistical methods are able to address,
-%    are how much data is needed to make a decisive statement about a hypothesis,
-%    and what kind of statements can be made in lieu of that data.
-
-%The first step to testing a hypothesis,
-%    is to know precisely how \textit{likely} any particular outcome is based on that hypothesis.
-%The hypothesis for the coin flip is that the probability $p$ of any given flip being heads is 50\%.
-%For an experiment consisting of a number of flips $N$,
-%    the overall probability of seeing an amount of heads $n$ is given by the binomial distribution:
-%\begin{equation}
-%    P(n|p) = \tinymatrix{N\\n} p^n (1-p)^{N-n}
-%\end{equation}
-%Where $P(n|p)$ is read as ``the probability of seeing $n$ heads \textit{given} their probability $p$.''
-%With this, 
-%
-%basic binomial distribution (coin flip) allows obvious p-test. 
-%Using a concrete toy example with numbers,
-%Show a binomial PDF distro for N flips, and where on that distro the "data" lies
-%Show a C-PDF, and again where the data is,
-%    and explain that the "unlikeliness" can be used as a test metric, called a "p-value"
-%Show of whether or not theory is compatible with data.
-
 
 % NOTE: From here on, try to keep the p-value concept,
 %   as well as the PDF and C-PDF, as a central focus.
@@ -88,7 +25,7 @@
         and conclude with what those techniques reveal in light of the data presented.
     Ultimately, the conclusions of this thesis will be derived by
         taking the kinematic distributions of the signal and background models and 
-        using a log-likelihood profile fit to compare them to observed data (Section \ref{profile_fit}).
+        using a log-likelihood profile fit to compare them to observed data (Section \ref{sec:profile_fit}).
     Profile fits are a rather complex construction however.
     To gain a better understanding of what the results mean then,
         I would like to start off with a much simpler statistical analysis
@@ -384,7 +321,7 @@
 % basically all the complicated stuff the limit framework is doing
 % Make the final goal to be establishing a p-value via the cumulative PDF distro,
 %   as was done for the simple coin toss example (to bring things full circle)
-\section{VBF HH 4b Limit-Setting Framework}\label{profile_fit}
+\section{VBF HH 4b Limit-Setting Framework}\label{sec:profile_fit}
 
     Although a wealth of information can be obtained from event yields alone,
         far more statistical power can be attained by making full use of
@@ -486,23 +423,24 @@
     Uncertainties present in the background estimate add another layer of complexity to the likelihood function,
         because uncertain parameters must be fit as well as the parameter of interest.
     The expectation value is further adjusted to be $\nu_i(\mu, \Theta) = \mu S_i + \Theta B_i$,
-        where $\Theta$ is a product of four scaling values 
+        where $\Theta$ is a product of five scaling values 
     \begin{equation}
-        \Theta = \prod \limits_{a=1}^{4}  \theta^a
+        \Theta = \prod \limits_{a=1}^{5}  \theta^a
         \,.
     \end{equation}
     These scaling values, called ``nuisance parameters,''
         correspond to the four \mhh shape uncertainties $\sigma_i^a, a\in{1,2,3,4}$
-        which were described in Section \ref{sec:nn_training}.
+        which were described in Section \ref{sec:nn_training}
+        along with the systematic uncertainty associated with the hadronization simulation of the signal (Section \ref{pythia}).
     See Figs. \ref{fig:error_dump_sm}-\ref{fig:error_dump_kl10} for a visual comparison of the size of the statistical and systematic errors
         compared to the data and predicted signal and backgrounds.
     Here the background uncertainty is modeled as a Gaussian with expectation value $\theta^a B_i$ and standard deviation $\sigma_i^a$.
     Extending the likelihood function with the nuisance parameters produces
     \begin{equation} \begin{split}
         L(n,\mu,\Theta) &= \prod \limits_{i=1}^{N} P_{\textrm{poiss}}(n_i | \nu_i) 
-             \prod \limits_{a=1}^{4} P_{\textrm{gauss}}(n_i | \nu_i, \sigma_i^a) 
+             \prod \limits_{a=1}^{5} P_{\textrm{gauss}}(n_i | \nu_i, \sigma_i^a) 
         \\&= \prod \limits_{i=1}^{N} \frac{ (\mu S_i + \Theta B_i)^{n_i} e^{\mu S_i + \Theta B_i} }{n_i!} \times
-            \prod \limits_{a=1}^4 \frac{1}{\sigma_i^a \sqrt{2\pi}} e^{
+            \prod \limits_{a=1}^5 \frac{1}{\sigma_i^a \sqrt{2\pi}} e^{
                 -\frac{1}{2}\left(\frac{n_i- (\mu S_i + \Theta B_i)}{\sigma_i^a}\right)^2
             }
         \,.
@@ -514,7 +452,7 @@
     \begin{equation}
         L(n,\mu,\Theta) = \prod \limits_{j=1}^{2}
              \prod \limits_{i=1}^{N} P_{\textrm{poiss}}(n_{ij} | \nu_{ij}) 
-             \prod \limits_{a=1}^{4} P_{\textrm{gauss}}(n_{ij} | \nu_{ij}, \sigma_{i}^a) 
+             \prod \limits_{a=1}^{5} P_{\textrm{gauss}}(n_{ij} | \nu_{ij}, \sigma_{i}^a) 
         \,.
     \end{equation}
 
