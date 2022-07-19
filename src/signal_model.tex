@@ -606,19 +606,20 @@
         can then be used together to test the validity of different possible hypotheses.
 
 \FloatBarrier
-\section{Parton Showering Uncertainty}
+\section{Parton Showering Uncertainty}\label{sec:sig_syst}
 
     Before moving onto the final results, I need to briefly address a small systematic uncertainty associated with the signal MC modelling,
         stemming from the parton showering step of simulation discussed in Section \ref{sec:pythia}.
-    To account for differences in different simulation frameworks, an entirely different framework,
-        Herwig 7\cite{Bellm:2015jjp}. 
+    To account for the difficulty in accurately modelling parton showering, 
+        an alternate hadronization framework, Herwig 7\cite{Bellm:2015jjp},
+        is used and its output compared to Pythia8.
     Herwig performs the same function as Pythia8, but using a different technical implementation.
-    The two are fairly consistent in the output kinematics they produce for the \vbfhhproc,
+    The two are fairly consistent in the output kinematics they produce for the \vbfhhproc process,
         but there are slight differences (Fig. \ref{fig:pyth_herwig_mjj}).
     A systematic uncertainty is associated with this difference through the following procedure.
-    First, a set of MC samples is produced through the same procedure as described in Section \ref{sec:mcsim},
+    First, a set of MC samples is produced through the same mechanism described in Section \ref{sec:mcsim},
         but using Herwig instead of Pythia8.
-    Distributions of \mhh are formed for both of these post-selection MC samples,
+    Distributions of \mhh are formed for both of these post-selection MC samples (Fig. \ref{fig:sig_syst}),
         and a bin-by-bin difference calculated in their yields.
     This difference, normalized to the per-bin statistical error, then constitutes the systematic error.
     Now equipped with a model for the background, a model for the signal

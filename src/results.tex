@@ -321,6 +321,7 @@
 % basically all the complicated stuff the limit framework is doing
 % Make the final goal to be establishing a p-value via the cumulative PDF distro,
 %   as was done for the simple coin toss example (to bring things full circle)
+\FloatBarrier
 \section{VBF HH 4b Limit-Setting Framework}\label{sec:profile_fit}
 
     Although a wealth of information can be obtained from event yields alone,
@@ -419,40 +420,45 @@
     Note that unlike a PDF, the sum of all outcomes from the likelihood function will \textit{not} sum to unity,
         and so the likelihood function does not constitute a probability distribution function\cite{cousins2020likelihood}.
 
+    \newcommand{\btheta}{\boldsymbol{\theta}}
     % Discuss uncertainties and categories
     Uncertainties present in the background estimate add another layer of complexity to the likelihood function,
         because uncertain parameters must be fit as well as the parameter of interest.
-    The expectation value is further adjusted to be $\nu_i(\mu, \Theta) = \mu S_i + \Theta B_i$,
-        where $\Theta$ is a product of five scaling values 
+    There are five systematic uncertainties in this analysis: 
+        the four \mhh shape uncertainties described in Section \ref{sec:nn_training},
+        along with the systematic uncertainty of the signal from Section \ref{sec:sig_syst}.
+    These uncertainties are modelled as the standard deviation of Gaussian distributions centered on the signal and background yields.
+    Extending the likelihood function with these uncertainties means the
+        expectation value is further adjusted with a set of five scaling values,
+        $\btheta \equiv [\theta^0, \theta^1, \theta^2, \theta^3, \theta^4]$, to be
     \begin{equation}
-        \Theta = \prod \limits_{a=1}^{5}  \theta^a
+        \nu_i(\mu, \btheta) = \mu \theta^0 S_i + \Theta B_i \quad;\quad
+        \Theta = \prod \limits_{a=1}^{4}  \theta^a
         \,.
     \end{equation}
     These scaling values, called ``nuisance parameters,''
-        correspond to the four \mhh shape uncertainties $\sigma_i^a, a\in{1,2,3,4}$
-        which were described in Section \ref{sec:nn_training}
-        along with the systematic uncertainty associated with the hadronization simulation of the signal (Section \ref{pythia}).
-    See Figs. \ref{fig:error_dump_sm}-\ref{fig:error_dump_kl10} for a visual comparison of the size of the statistical and systematic errors
-        compared to the data and predicted signal and backgrounds.
-    Here the background uncertainty is modeled as a Gaussian with expectation value $\theta^a B_i$ and standard deviation $\sigma_i^a$.
-    Extending the likelihood function with the nuisance parameters produces
+        correspond to the signal systematic ($\theta^0$)
+        and four background shape systematics ($\theta^{a\in[1-4]}$).
+    Including the nuisance parameters, the likelihood function now appears as
     \begin{equation} \begin{split}
-        L(n,\mu,\Theta) &= \prod \limits_{i=1}^{N} P_{\textrm{poiss}}(n_i | \nu_i) 
-             \prod \limits_{a=1}^{5} P_{\textrm{gauss}}(n_i | \nu_i, \sigma_i^a) 
-        \\&= \prod \limits_{i=1}^{N} \frac{ (\mu S_i + \Theta B_i)^{n_i} e^{\mu S_i + \Theta B_i} }{n_i!} \times
-            \prod \limits_{a=1}^5 \frac{1}{\sigma_i^a \sqrt{2\pi}} e^{
-                -\frac{1}{2}\left(\frac{n_i- (\mu S_i + \Theta B_i)}{\sigma_i^a}\right)^2
+        L(n,\mu,\btheta) &= \prod \limits_{i=1}^{N} P_{\textrm{poiss}}(n_i | \nu_i) 
+             \prod \limits_{a=0}^{4} P_{\textrm{gauss}}(n_i | \nu_i, \sigma_i^a) 
+        \\&= \prod \limits_{i=1}^{N} \frac{ (\mu \theta^0 S_i + \Theta B_i)^{n_i} e^{\mu \theta^0 S_i + \Theta B_i} }{n_i!} \times
+            \prod \limits_{a=0}^4 \frac{1}{\sigma_i^a \sqrt{2\pi}} e^{
+                -\frac{1}{2}\left(\frac{n_i- (\mu \theta^0 S_i + \Theta B_i)}{\sigma_i^a}\right)^2
             }
         \,.
     \end{split} \end{equation}
+    See Figs. \ref{fig:error_dump_sm}-\ref{fig:error_dump_kl10} for a visual comparison of the size of the statistical and systematic errors
+        compared to the data and predicted signal and backgrounds.
 
     Finally, in order to increase sensitivity further, events are split into two different categories
         based on whether the \deta separation between the reconstructed Higgs Bosons is greater or less than 1.5 (see Fig \ref{fig:data_dump}).
-    The full likelihood function is then a product over the two categories
+    The full likelihood function is then a product over the two categorieas, $j$
     \begin{equation}
-        L(n,\mu,\Theta) = \prod \limits_{j=1}^{2}
+        L(n,\mu,\btheta) = \prod \limits_{j=1}^{2}
              \prod \limits_{i=1}^{N} P_{\textrm{poiss}}(n_{ij} | \nu_{ij}) 
-             \prod \limits_{a=1}^{5} P_{\textrm{gauss}}(n_{ij} | \nu_{ij}, \sigma_{i}^a) 
+             \prod \limits_{a=0}^{4} P_{\textrm{gauss}}(n_{ij} | \nu_{ij}, \sigma_{i}^a) 
         \,.
     \end{equation}
 
@@ -536,17 +542,17 @@
 
 
     % Discuss nuisance parameter fitting
-    There is only one parameter of interest ($\mu$), but there are now six total parameters of which $L$ is a function.
+    There is only one parameter of interest ($\mu$), but there are now six total unknown parameters of which $L$ is a function.
     To address this without over-fitting to the data, a maximized fit is performed across the nuisance parameters.
     Such a fit eliminates their presence from the likelihood function, but it should be noted that it does so at a cost.
     The nuisance parameter fit significantly extends the final cumulative PDF, reducing the overall confidence intervals.
     To perform this fit, the value of $\mu$ is fixed to the desired scale (for now $\mu=1$),
-        and then $L(n,\mu,\Theta)$ is maximized over the various values of the $\theta^a$.
-    The nuisance parameter values are then fixed to this maximal value $\hat{\hat\theta}^a$, such that
+        and then $L(n,\mu,\btheta)$ is maximized over the various values of the $\theta^a$.
+    The nuisance parameter values are then fixed to this maximal value $\hat{\hat\btheta}$, such that
     \begin{equation}
-        \prod \limits_{a=1}^{4} \frac{\partial}{\partial \theta^a} L(n,\mu,\Theta) |_{\Theta=\hat{\hat\Theta}} = 0
+        \prod \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a} L(n,\mu,\btheta) |_{\btheta=\hat{\hat\btheta}} = 0
     \end{equation}
-    resulting in a fitted $L = L(n,\mu,\hat{\hat\Theta})$.
+    resulting in a fitted $L = L(n,\mu,\hat{\hat\btheta})$.
         
     %lambda = L(mu, theta vary-opt) / L(mu-opt, theta-opt);
     As a final fitting step, the likelihood $L$ is normalized to a fully maximized value $\hat L$,
@@ -555,12 +561,13 @@
         $\hat L$ allows $\mu$ to also be a free parameter.
     It is then maximized with regard to both $\mu$ and the nuisance parameters such that
     \begin{equation}
-        \prod \limits_{a=1}^{4} \frac{\partial}{\partial \theta^a} \frac{\partial}{\partial \mu} L(n,\mu,\Theta) |_{\Theta=\hat \Theta} |_{\mu=\hat \mu} = 0
+        \prod \limits_{a=0}^{4} \frac{\partial}{\partial \theta^a}
+        \frac{\partial}{\partial \mu} L(n,\mu,\btheta) |_{\btheta=\hat \btheta} |_{\mu=\hat \mu} = 0
         \,.
     \end{equation}
     A test statistic $t$ can now be constructed with $\lambda$, as
     \begin{equation}
-        t = -2 \ln{\lambda} = -2 \ln{\frac{L(\mu, \hat {\hat \Theta})}{L(\hat \mu, \hat \Theta)}}
+        t = -2 \ln{\lambda} = -2 \ln{\frac{L(\mu, \hat {\hat \btheta})}{L(\hat \mu, \hat \btheta)}}
         \,.
     \end{equation}
     It is worth briefly reviewing what this formula and its pieces mean before moving onto the last step.
@@ -581,15 +588,15 @@
     At last, the desired test statistic \qtil can be derived, as a piece-wise variation on $t$\cite{asymptotic_formulae_for_likelihood}:
     \begin{equation}
         \qtil = \begin{cases}
-            -2 \ln{\frac{L(\mu, \hat {\hat \Theta})}{L(0, \hat \Theta(\mu=0))}} & \hat \mu < 0,\\
-            -2 \ln{\frac{L(\mu, \hat {\hat \Theta})}{L(\hat \mu, \hat \Theta)}} & 0 \leq \hat \mu \leq \mu,\\
+            -2 \ln{\frac{L(\mu, \hat {\hat \btheta})}{L(0, \hat \btheta(\mu=0))}} & \hat \mu < 0,\\
+            -2 \ln{\frac{L(\mu, \hat {\hat \btheta})}{L(\hat \mu, \hat \btheta)}} & 0 \leq \hat \mu \leq \mu,\\
             0 & \mu < \hat \mu 
         \end{cases}
         \,.
     \end{equation}
     The middle condition is simply $t$, with the top and bottom edge cases being the defining traits of \qtil.
     \qtil in particular is used for this analysis because of these piece-wise conditions,
-        which enforce the fact that $\mu$ should never be negative
+        which enforce the fact that $\mu$ in this analysis should never be negative
         (the signal cannot remove events from the background),
         and that this analysis is only interested in establishing a lower-bound
         (and so equates as maximally likely any models for which the $\mu$ being tested is less than the optimal $\hat\mu$).
@@ -608,7 +615,7 @@
     The result is a collection of \qtil values, which together comprise a distribution.
     A cumulative probability distribution can be constructed with this distribution,
         by simply taking the fraction of simulated observations which fall below some value of the observed \qtil.
-    For this analysis, the RooFit statistical framework is used to construct the test statistic and perform the
+    For this analysis, the RooFit statistical framework\cite{RooFit} is used to construct the test statistic and perform the
         Monte Carlo-based distribution calculation.
     Now that I finally have a robust mechanism for calculating the p-value of the di-Higgs signal hypothesis,
         the only step remaining is to use it.

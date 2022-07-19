@@ -307,7 +307,7 @@
         B-jets are important because, of all the particles the Higgs can decay to,
             its branching ratio to a $\bbar$ pair is highest (Table \ref{tab:higgsbranching}).
         Distinguishing b-jets from other jet types
-            (noteably, the light-jets produced from the VBF initial-scatter quarks),
+            (notably, the light-jets produced from the VBF initial-scatter quarks),
             achieved through the process of \textit{flavor tagging},
             is therefore of paramount importance in this analysis.
         Flavor Tagging in ATLAS is performed in two stages;
@@ -405,9 +405,9 @@
                 \label{fig:ip3dsig}
             \end{figure}
 
-            The IPxD taggers effectively treat all tracks in a jet as independent of each,
+            The IPxD taggers effectively treat all tracks in a jet as independent of each other,
                 combining their impact parameter information through a mere product of their LLR values.
-            RNNIP, a recurrent neural network, expands upon their functionality by correlating
+            RNNIP, a recurrent neural network (see Section \ref{sec:ml_techniques}), expands upon their functionality by correlating
                 the impact parameter significance values of the tracks.
             This is done by running the tagger over individual tracks sequentially
                 and feeding the output of each iteration into the next as an additional input,
@@ -419,11 +419,12 @@
         \FloatBarrier
         \subsection{Secondary Vertexing Algorithms}
 
+            Hadronic matter decays in multiple steps,
+                producing a series of decay vertices from which more particles (and in turn tracks) are emitted.
             Secondary vertexing algorithms take advantage of the fact that b-hadrons are significantly longer lived than light-hadrons,
                 and thus their associated secondary vertices typically have a larger displacement from the primary vertex.
-            In ATLAS, there are two primary algorithms used to perform b-tagging with secondary vertexing.
-            Realistically, hadronic matter decays in multiple steps, producing a series of close vertices each emitting more particles.
-            The first of the ATLAS secondary vertex algorithms, JetFitter, seeks to reconstruct this full multi-vertex structure of the hadronic decay.
+            In ATLAS, there are two primary algorithms that use secondary vertexing to perform b-tagging.
+            The first of the ATLAS secondary vertex algorithms, JetFitter, seeks to reconstruct the full multi-vertex structure of the hadronic decay.
             In contrast, SV1 (Secondary Vertex 1), works by making an approximation as to how hadronic decays behave.
             SV1 takes a simpler view of the decay process, and reconstructs all the resulting tracks as products of a single secondary vertex.
             For both algorithms, several fit parameters are produced from the vertexing,

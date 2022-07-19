@@ -1,18 +1,19 @@
+\resizebox{.4\textwidth}{!}{
 \begin{tikzpicture} \begin{feynman}
-    \vertex (c2v) {\tiny $C_{2V}$};
-    \vertex [above right=of c2v] (h1) {H};
-    \vertex [below right=of c2v] (h2) {H};
+    \vertex (c2v) {\kvv};
+    \vertex [above right=of c2v] (h1) {$h_1$};
+    \vertex [below right=of c2v] (h2) {$h_2$};
     \vertex [above left=of c2v] (vb1);
     \vertex [below left=of c2v] (vb2);
-    \vertex [left=of vb1] (q1) {q};
-    \vertex [left=of vb2] (q2) {q};
+    \vertex [left=of vb1] (q1) {$q_1$};
+    \vertex [left=of vb2] (q2) {$q_2$};
     \vertex [above right=of h1] (b1) {$b$};
     \vertex [below right=of h2] (bbar2) {$\bar b$};
     \vertex [below=of b1] (bbar1) {$\bar b$};
     \vertex [above=of bbar2] (b2) {$b$};
 
-    \vertex [above=of b1] (q3) {q};
-    \vertex [below=of bbar2] (q4) {q};
+    \vertex [above=of b1] (q3) {$q_3$};
+    \vertex [below=of bbar2] (q4) {$q_4$};
 
     \diagram* {
         (q1) -- (vb1) -- (q3),
@@ -23,3 +24,4 @@
         (b2) -- (h2) -- (bbar2),
     };
 \end{feynman} \end{tikzpicture}
+}
