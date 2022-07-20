@@ -15,11 +15,18 @@ for commit in gitlog.split('commit'):
     infolist = commitparse.groups()
     commitID = infolist[0].strip()
     date = datetime.datetime.strptime(infolist[1],'%c %z')
+    if date.year < 2021: continue
     numins = 0 if infolist[3] is None else int(infolist[3])
     numdel = 0 if infolist[5] is None else int(infolist[5])
+    # Exclude the commits involving non-narrative changes
+    # --- Initially loading the entire template in
     if commitID == '5fa901dbe1d4a47c83853ad91f95d296d0662fcd': continue
-    if commitID == 'b5d606c59faf07736f83d7af84c134775d15c50e' : continue
-    if commitID == 'b04717c92bbc9b300ae13a1b7c36bf7995c80865' : continue
+    # --- Added in a bunch of massibe bib files from the 4b int note
+    if commitID == 'b5d606c59faf07736f83d7af84c134775d15c50e': continue
+    # --- Added some giant atlas bib entry
+    if commitID == 'b04717c92bbc9b300ae13a1b7c36bf7995c80865': continue
+    # --- Trimmed that giant atlas bib entry
+    if commitID == '5f52d438380c8f3ac1e75015a2e5e27b08e151a5': continue
     datelist.append(date)
     insertions.append(numins)
     deletions.append(-numdel)
@@ -29,7 +36,7 @@ total = insertions + deletions
 total = total[::-1].cumsum()[::-1]
 
 from matplotlib import pyplot as plt
-numbins = 30
+numbins = 100
 fig, (ax1, ax2) = plt.subplots(2, sharex=True, gridspec_kw={'height_ratios':(2,1)})
 #ax1.plot(datelist, insertions, color='green', ds='steps', label='Insertions')
 #ax1.plot(datelist, deletions, color='red', ds='steps', label='Deletions')
