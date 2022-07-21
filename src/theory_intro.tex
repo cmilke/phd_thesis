@@ -7,7 +7,7 @@
     In this chapter, I want to explain what these properties are and how they can be further studied.
     Moreover, I want to justify why the Higgs is so important as to be worth studying in the first place.
     In order to explain the importance of the Higgs boson,
-        I will need to explain the structure of the Standard Model itself.
+        I will need to begin by explaining the structure of the Standard Model itself.
 
     The organization of the following sections will begin with a discussion of the purpose and layout of the Standard Model.
     Following this will be an introduction to the mathematical formalism the Standard Model is based around,
@@ -52,7 +52,8 @@
     Among the leptons, every generation contains a doublet of a charged particle (electron, muon, tauon)
         with EM charge of $\approx −1.6 \times 10^{-19}$ Coulombs,
         and an uncharged neutrino with no electric charge.
-    For quarks, each doublet consists of an up-type quark (up, charm, top) with EM charge -2/3 that of the electron,
+    For quarks, each doublet consists of an up-type quark (up, charm, top) with EM charge -2/3 that of the electron
+        (i.e. $+3.2 \times 10^{-19}$ C),
         and a down-type quark (down, strange, bottom) with 1/3 the charge of the electron.
     In addition to the fermions, there is also an entirely separate class of spin-1 particles, called gauge bosons,
         which play a fundamental role in the aforementioned interactions.
@@ -175,9 +176,9 @@
         and instead these properties are described as functions that extend the particle through 
         ``phase-space'' -- its range of possible positions and momenta.
     The precise form and scope of these functions varies depending on the application and context,
-        but in QFT particles are collectively described by a particle \textit{field}\cite{Peskin_book},
+        but in QFT particles are collectively described by a particle \textit{field}\cite{Peskin_book}
         which exists at all points in space-time;
-        individual particles are merely perturbations of the field.
+        individual particles are merely perturbations of this field.
     Mathematically, quantum fields are described in the form of linear operators $\varphi(x)$,
         which are functions of all four space-time coordinates.
     These fields operate on \textit{particle states} $\ket{\varphi}$,
@@ -410,10 +411,10 @@
 
     Given that there are many different kinds of fermions, the Lagrangian can be expanded to include all of them
     \begin{equation}
-        \Lag = \bar{e} (\gamma^\mu p_\mu - m) e
-        + \bar{\mu} (\gamma^\mu p_\mu - m) \mu
-        + \bar{\tau} (\gamma^\mu p_\mu - m) \tau
-        + \bar{u} (\gamma^\mu p_\mu - m) u
+        \Lag = \bar{e} (\gamma^\mu p_\mu - m_e) e
+        + \bar{\mu} (\gamma^\mu p_\mu - m_{\mu}) \mu
+        + \bar{\tau} (\gamma^\mu p_\mu - m_{\tau}) \tau
+        + \bar{u} (\gamma^\mu p_\mu - m_u) u
         + ...
     \end{equation}
     Although this equation qualifies as a valid description of the motion of fermions,
@@ -560,7 +561,7 @@
         SU(2)&: e^{i \alpha^a(x) \sigma^a / 2}, a=\{1,2,3\}
         \\SU(3)&: e^{i \xi^b(x) \mathscr{F}^b / 2}, b=\{1,2, ..., 8\}
     \end{split} \end{equation}
-    where $\sigma^a$ corresponds to the three, $2 \times 2$ Pauli Matrices
+    where $\sigma^a$ corresponds to the three $2 \times 2$ Pauli matrices
     \begin{equation}
         \sigma^1 = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \quad
         \sigma^2 = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix} \quad
@@ -572,7 +573,7 @@
     While $U(1)$ acted as a one-dimensional rotation of a single complex angle $\theta$,
         $SU(2)$ performs three orthogonal rotations $\alpha^a$ through a three-dimensional complex space,
         and $SU(3)$ performs rotations through an eight-dimensional complex space.
-    Because $SU(2)$ operates through the $2 \times 2$ Pauli Matrices, it must operate on the fermions in doublets
+    Because $SU(2)$ operates through the $2 \times 2$ Pauli matrices, it must operate on the fermions in doublets
         (recall Section \ref{sec:standard_model}):
     \begin{equation}
         \minimatrix{u_L \\ d_L} \to e^{i \alpha^a \sigma^a / 2} \minimatrix{u_L \\ d_L}

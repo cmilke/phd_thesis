@@ -36,7 +36,7 @@
     All of the remaining chapters of this thesis are in some way dependent on simulated event samples.
     Without a way to link pure physics equations to observable physical phenomena,
         there is no way to make meaningful decisions or predictions about collected data.
-    Currently, Monte-Carlo simulation\cite{montecarlo} is among the most effective method of making predictions
+    Currently, Monte-Carlo simulation\cite{montecarlo} is among the most effective methods of making predictions
         for how theoretical parameters should affect experimental observations in particle physics\cite{compphys}.
 
     There are three core software frameworks used for this analysis,
@@ -96,8 +96,8 @@
     Such hadrons are instead further simulated by EvtGen,
         which uses decay amplitudes of processes to determine the kinematic distributions
         of final state particles in an interaction.
-    The emulation of the detector's response to these particles then constitutes the final step of event simulation,
-        which is handled by Geant4.
+    After hadronization, the emulation of the detector's response to these particles/partons
+        then constitutes the final step of event simulation, which is handled by Geant4.
     
 
     \subsection{Geant4}
@@ -215,8 +215,8 @@
             each with a resolution of $0.1 \times 0.1$ in $\Delta \eta \times \Delta \phi$.
         The way towers are clustered and used varies between the three different L1 calorimeter trigger modules.
 
-        \begin{figure}[h]
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{trigger/trigger_towers}
+        \begin{figure}[h] \centering
+            \includegraphics[width=\linewidth,height=0.4\textheight,keepaspectratio]{trigger/trigger_towers}
             \caption{Structure of trigger towers and Regions of Interest \cite{L1_calo_run1}.}
             \label{fig:trigger_towers}
         \end{figure}
@@ -258,8 +258,8 @@
             which are further described in Chapters \ref{chapter:reconstruction} and \ref{chapter:selection}.
         Once events have successfully passed both L1 and the HLT, they are finally distributed off-site for analysis by different physics groups.
 
-        \begin{figure}[h]
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{trigger/data_delivered}
+        \begin{figure}[h] \centering
+            \includegraphics[width=\linewidth,height=0.4\textheight,keepaspectratio]{trigger/data_delivered}
             \caption{Amount of data collected, in terms of integrated luminosity,
                 through the Run2 data taking period\cite{data_quality}.
                 ``LHC Delivered'' refers to the amount of luminosity present during stable beams.

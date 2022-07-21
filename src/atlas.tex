@@ -83,8 +83,8 @@
     The Pixel Detector and SCT together are responsible for high resolution tracking of particle trajectories.
     Further from the IR, the TRT provides more particle tracking capability at lower resolution (but higher statistics), as well the ability to help distinguish electrons. 
 
-    \begin{figure}[h]
-        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{atlas/inner_detector_xsec}
+    \begin{figure}[h] \centering
+        \includegraphics[width=\linewidth,height=0.4\textheight,keepaspectratio]{atlas/inner_detector_xsec}
         \caption{Cutaway view of the Inner Detector sub-system \cite{atlas_tdr}.}
         \label{fig:inner_detector_xsec}
     \end{figure}
@@ -121,8 +121,8 @@
         A p-n junction can be produced by taking a single silicon wafer and n-type doping one half, while p-type doping the other.
         The junction where the separately doped halves meet will then see a transfer of excess valence electrons moving from the n-type side to fill the holes of the p-type side, as illustrated in Fig. \ref{fig:pn_junction}.
 
-        \begin{figure}
-            \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{atlas/pn_junction}
+        \begin{figure} \centering
+            \includegraphics[width=\linewidth,height=0.4\textheight,keepaspectratio]{atlas/pn_junction}
             \caption{Representation of a p-n junction, its depletion region,
                 and the electric field and potential across its surface \cite{Havránek:2317324}.}
             \label{fig:pn_junction}
@@ -215,8 +215,8 @@
         }, in order to maximize the number of particle interactions per unit distance.
     The active and inactive materials are arranged in alternating layers, so that the active material gets a snapshot of the way the particle is depositing energy across the entire length of the detector.\cite{energy_measurement}
 
-    \begin{figure}
-        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{atlas/cal_xsec}
+    \begin{figure} \centering
+        \includegraphics[width=\linewidth,height=0.4\textheight,keepaspectratio]{atlas/cal_xsec}
         \caption{Cutaway view of the Calorimetry sub-system \cite{atlas_tdr}.}
         \label{fig:cal_xsec}
     \end{figure}
@@ -228,8 +228,8 @@
     These detectors, as their name suggests, detect hadrons such as neutrons or pions.
     Not only are these particles heavier, but many of them are electrically neutral and can therefore only be stopped through repeated nuclear interactions \cite{energy_measurement}.
     Consequently, the HCal systems must be much thicker than the ECal systems (see Fig. \ref{fig:cal_rad_length}).
-    \begin{figure}
-        \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{atlas/cal_rad_length}
+    \begin{figure} \centering
+        \includegraphics[width=\linewidth,height=0.35\textheight,keepaspectratio]{atlas/cal_rad_length}
         \caption{
             Histogram of interaction lengths $\lambda$ as a function of $\eta$ for the different sub-detectors \cite{atlas_tdr}.
             Interaction lengths are defined as the mean-free path between collisions for a material,
@@ -245,6 +245,7 @@
     The FCal records, across different sections, the energy of both electromagnetic and hadronic particles.
     It is constructed very close to the beampipe, and serves to extend the calorimetric measurement coverage out to an $|\eta|$ of 4.9.
 
+    \pagebreak
     \subsection{Electromagnetic Calorimeters}
 
         Low mass electromagnetically interacting particles -- namely electrons/positrons and photons --
@@ -347,7 +348,9 @@
 
     \subsection{Trigger Chambers}\label{sec:muon-trigger_chamber}
 
-        The last set of sensors in the ATLAS detector, the Trigger Chambers of the Muon system act to augment the information obtained from the Precision Track Chambers, as well as provide additional rapid information for the trigger system.
+        The last set of sensors in the ATLAS detector are the Trigger Chambers of the Muon system.
+        These act to augment the information obtained from the Precision Track Chambers,
+            as well as provide additional rapid information for the trigger system.
         It provides coverage in the range $|\eta| < 2.4$, only slightly less than that of the Track Chambers.
         The barrel and end-cap use two different technologies:
             Resistive Plate Chambers (RPCs) in the barrel, and Thin Gap Chambers (TGCs) in the endcaps.
@@ -356,6 +359,8 @@
         RPCs follow the same principle of operation as drift tube chambers, but the anode and cathodes are both conductive plates that maintain an electric potential in the gaseous mixture between them.
         The TGCs are multi-wire drift tube chambers with very small gaps between the anode wires and the cathode strips;
             indeed, the anode-cathode gaps of 1.4 mm are smaller than the anode-anode gaps of 1.8 mm.
+        With the information provided by the RPCs and TGCs, the full set of instrumentation measurements is complete.
+        All that remains for ATLAS is to readout the electronic signals collected by the detector arrays, to be stored offsite for later analysis.
 
     \input{tables/atlas/muon_specs.tex}
 

@@ -140,7 +140,7 @@
                 are formed by assembling adjacent (see Fig. \ref{fig:track_fit}) combinations of three space-points.
             The number of seeds is limited by generally only allowing space-points to be part of a single track seed.
             Further purity is ensured by forming track seeds first only from the SCT, then only from the pixel detector,
-                and only after allowing mixed-detector seeds from the remaining space-points.
+                and only afterwards allowing mixed-detector seeds from the remaining space-points.
             The track seeds are assigned helix parameters by assuming they travel through a uniform magnetic field,
                 allowing rapid estimates of the tracks' momenta.
             These seeds are expanded into \textit{track candidates}
@@ -552,7 +552,7 @@
         For both the online (HLT) and offline (GRID) environments, event reconstruction is carried out by the same suite of software,
             called \textit{Athena}\cite{athena_git}.
         The main difference in how they operate is the time they can devote to calculations, especially in the context of tracking.
-        As seen is Section \ref{sec:reco_tracks}, track reconstruction is very computationally intensive.
+        As discussed in Section \ref{sec:reco_tracks}, track reconstruction is very computationally intensive.
         There are many steps, and the fitting itself is a lengthy process.
         Thus, the online environment runs a slimmed-down version of the track fitting.
         This allows the HLT to reconstruct tracks much faster, but at the expense of precision and accuracy.
@@ -591,7 +591,7 @@
             \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{reconstruction/mv2_on-off_performance}
             \caption{
                 Comparison of the performance of MV2c10 and low-level taggers VS offline performance\cite{Gupta:2271945}.
-                Note hat the online performance (with its lower quality tracks) is able to perform within $\approx 20\%$
+                Note that the online performance (with its lower quality tracks) is able to perform within $\approx 20\%$
                     of its offline conterpart, a remarkable improvement from the the state of MV2 earlier in Run 2.
             }
             \label{fig:mv2_performance}
